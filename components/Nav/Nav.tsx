@@ -1,12 +1,11 @@
 import Link from "next/link";
-import { AdminNav } from "./admin/_components/AdminNav";
+import { AdminNav } from "@/app/admin/_components/AdminNav";
 import clsx from "clsx";
-import NavLink from "@/components/Nav/NavLink";
+import NavLink from "./NavLink";
 
 export type RootNavProps = {
   children?: React.ReactNode;
 };
-
 export const RootNav = ({ children }: RootNavProps) => {
   return (
     <nav className="flex items-center md:justify-between flex-wrap md:flex-nowrap px-5 md:py-2 bg-slate-700">

@@ -19,7 +19,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <RootNav />
-        {children}
+        <main className="top-16 min-h-screen min-w-full left-2 right-2 items-center justify-between p-2 md:p-4">
+          {children}
+        </main>
       </body>
     </html>
   );
