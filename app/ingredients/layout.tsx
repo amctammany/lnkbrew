@@ -14,16 +14,13 @@ export default function IngredientLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <>
-      <SubNav title="Ingredients">
-        <NavLink variant="subnav" href="/ingredients/hops">
-          Hops
-        </NavLink>
-        <NavLink variant="subnav" href="/ingredients/fermentables">
-          Fermentables
-        </NavLink>
-      </SubNav>
-      <Body>{children}</Body>
-    </>
+    <SubNav body={children}>
+      <NavLink variant="subnav" href="/ingredients/hops">
+        Hops
+      </NavLink>
+      <NavLink variant="subnav" href="/ingredients/fermentables">
+        Fermentables
+      </NavLink>
+    </SubNav>
   );
 }

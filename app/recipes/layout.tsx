@@ -14,14 +14,10 @@ export default function RecipeLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <>
-      <SubNav title="Recipes">
-        <NavLink variant="subnav" href="/recipes/library">
-          Library
-        </NavLink>
-      </SubNav>
-
-      <Body>{children}</Body>
-    </>
+    <SubNav body={children}>
+      <NavLink variant="subnav" href="/recipes/library">
+        Library
+      </NavLink>
+    </SubNav>
   );
 }

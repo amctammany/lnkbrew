@@ -19,13 +19,10 @@ export default function AdminLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <>
-      <SubNav>
-        <NavLink variant="subnav" href="/admin/settings">
-          Settings
-        </NavLink>
-      </SubNav>
-      <Body>{children}</Body>
-    </>
+    <SubNav body={children}>
+      <NavLink variant="subnav" href="/admin/settings">
+        Settings
+      </NavLink>
+    </SubNav>
   );
 }
