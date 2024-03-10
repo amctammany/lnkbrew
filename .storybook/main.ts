@@ -3,17 +3,14 @@ import path from "path";
 
 const config: StorybookConfig = {
   stories: [
-    "../components/**/*.mdx",
+    //"../components/**/*.mdx",
     "../components/**/*.stories.@(js|jsx|mjs|ts|tsx)",
-    "../stories/**/*.mdx",
-    "../stories/**/*.stories.@(js|jsx|mjs|ts|tsx)",
   ],
   addons: [
     "@storybook/addon-links",
     "@storybook/addon-essentials",
-    "@storybook/addon-onboarding",
     "@storybook/addon-interactions",
-    "@tomfreudenberg/next-auth-mock/storybook",
+    //"@tomfreudenberg/next-auth-mock/storybook",
     //"storybook-addon-next-router",
   ],
   framework: {

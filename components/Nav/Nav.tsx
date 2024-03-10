@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { AdminNav } from "@/app/admin/_components/AdminNav";
+import Loading from "@/app/loading";
+import { Suspense } from "react";
 //import clsx from "clsx";
 //import NavLink from "./NavLink";
 
@@ -28,7 +30,9 @@ export const Nav = ({ children }: NavProps) => {
       <div className="flex flex-grow items-center flex-row font-medium p-2 md:p-0  md:space-x-8">
         {children}
       </div>
-      <AdminNav />
+      <Suspense fallback={<Loading />}>
+        <AdminNav />
+      </Suspense>
     </nav>
   );
 };
