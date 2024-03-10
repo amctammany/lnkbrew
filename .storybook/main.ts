@@ -13,10 +13,12 @@ const config: StorybookConfig = {
     "@storybook/addon-essentials",
     "@storybook/addon-onboarding",
     "@storybook/addon-interactions",
+    "@tomfreudenberg/next-auth-mock/storybook",
+    //"storybook-addon-next-router",
   ],
   framework: {
     name: "@storybook/nextjs",
-    options: {},
+    options: { builder: {} },
   },
   docs: {
     autodocs: true,
