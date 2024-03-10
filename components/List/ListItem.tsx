@@ -23,7 +23,7 @@ const listItemInnerStyles = cva(["flex px-2 py-1 items-center flex-grow"], {
   },
 });
 
-const listItemStyles = cva([" relative flex flex-row w-full"], {
+const listItemStyles = cva(["group relative flex flex-row w-full"], {
   variants: {
     variant: {
       default: ["group-hover:bg-primary-500/10"],
