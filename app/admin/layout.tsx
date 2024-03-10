@@ -23,6 +23,9 @@ export default function AdminLayout({
       <NavLink variant="subnav" href="/admin/settings">
         Settings
       </NavLink>
+      <NavLink variant="danger" href="/api/auth/signout">
+        Logout
+      </NavLink>
     </SubNav>
   );
 }

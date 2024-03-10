@@ -9,6 +9,7 @@ const navLinkStyles = cva(["block text-center font-bold "], {
     variant: {
       default: ["text-white hover:text-red-500"],
       subnav: ["text-blue-500 hover:text-blue-700 hover:underline"],
+      danger: ["text-red-400 hover:text-red-700 hover:underline"],
     },
     active: {
       active: ["text-yellow-500"],
