@@ -1,7 +1,7 @@
-//"use client";
+"use client";
 import clsx from "clsx";
 import Link from "next/link";
-//import { usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 export type NavLinkProps = {
   href: string;
@@ -9,9 +9,9 @@ export type NavLinkProps = {
   className?: string;
 };
 export const NavLink = ({ children, href, className }: NavLinkProps) => {
-  //const pathname = usePathname();
-  const active = href === "".slice(0, href.length);
-  //console.log({ pathname, active });
+  const pathname = usePathname();
+  const active = href === pathname.slice(0, href.length);
+  console.log({ pathname, active });
   const c = clsx(
     "block text-center py-2 px-4 font-bold -white hover:text-red-500 ",
     active ? "text-yellow-200 " : "text-white",
