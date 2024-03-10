@@ -28,3 +28,9 @@ export function Icon({ variant, size, className, children }: IconProps) {
   );
 }
 export default Icon;
+export const AddIcon = () => {
+  return <div>+</div>;
+};
+export const DeleteIcon = () => {
+  return <div>-</div>;
+};
