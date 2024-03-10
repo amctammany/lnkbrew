@@ -16,7 +16,7 @@ export async function AdminNav({}: AdminNavProps) {
     </div>
   ) : (
     <div className="">
-      <Link href="/api/auth/signin">Sign In</Link>
+      <NavLink href="/api/auth/signin">Sign In</NavLink>
     </div>
   );
   return (
