@@ -1,4 +1,5 @@
 import { auth } from "@/app/auth";
+import NavLink from "@/components/Nav/NavLink";
 import Link from "next/link";
 export type AdminNavProps = {};
 
@@ -6,9 +7,12 @@ export async function AdminNav({}: AdminNavProps) {
   const session = await auth();
   const body = session ? (
     <div>
-      <Link className="flex-none font-extrabold py-2 px-4 mr-4" href="/admin">
+      <NavLink
+        className="flex-none font-extrabold py-2 px-4 mr-4"
+        href="/admin"
+      >
         Admin
-      </Link>
+      </NavLink>
     </div>
   ) : (
     <div className="">

@@ -1,5 +1,4 @@
 import { User } from "@prisma/client";
-import React from "react";
 
 type AdminPageProps = { src?: User | null };
 export function AdminPage({ src }: AdminPageProps) {

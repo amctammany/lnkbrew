@@ -1,13 +1,13 @@
 import Link from "next/link";
 import { AdminNav } from "./admin/_components/AdminNav";
-import clsx from "clsx";
+//import clsx from "clsx";
 import NavLink from "@/components/Nav/NavLink";
 
 export type RootNavProps = {
-  children?: React.ReactNode;
+  //children?: React.ReactNode;
 };
 
-export const RootNav = ({ children }: RootNavProps) => {
+export const RootNav = ({}: RootNavProps) => {
   return (
     <nav className="flex items-center md:justify-between flex-wrap md:flex-nowrap px-5 md:py-2 bg-slate-700">
       <div className="flex items-center flex-grow mr-6 lg:mr-16">

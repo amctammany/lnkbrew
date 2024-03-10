@@ -1,6 +1,6 @@
 import { VariantProps, cva } from "class-variance-authority";
 import clsx from "clsx";
-import React, { ComponentProps } from "react";
+import { ComponentProps } from "react";
 export type IconProps = ComponentProps<"div"> & VariantProps<typeof iconStyles>;
 export const iconStyles = cva("", {
   variants: {
