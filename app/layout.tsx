@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { RootNav } from "./RootNav";
+import NavLink from "@/components/Nav/NavLink";
+import { Nav } from "@/components/Nav/Nav";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,8 +19,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <RootNav />
-        <main className="top-16 min-h-screen min-w-full left-2 right-2 items-center justify-between p-2 md:p-4">
+        <Nav>
+          <NavLink href="/recipes">Recipes</NavLink>
+          <NavLink href="/ingredients">Ingredients</NavLink>
+        </Nav>
+
+        <main className="min-h-screen min-w-full items-center justify-between p-0 ">
           {children}
         </main>
       </body>

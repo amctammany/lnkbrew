@@ -1,3 +1,6 @@
+import Body from "@/components/Nav/Body";
+import NavLink from "@/components/Nav/NavLink";
+import { SubNav } from "@/components/Nav/SubNav";
 import type { Metadata } from "next";
 //import { Inter } from "next/font/google";
 //import "./globals.css";
@@ -15,5 +18,14 @@ export default function AdminLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <div className="">{children}</div>;
+  return (
+    <>
+      <SubNav>
+        <NavLink variant="subnav" href="/admin/settings">
+          Settings
+        </NavLink>
+      </SubNav>
+      <Body>{children}</Body>
+    </>
+  );
 }

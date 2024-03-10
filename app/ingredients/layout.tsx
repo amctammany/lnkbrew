@@ -1,3 +1,6 @@
+import { Body } from "@/components/Nav/Body";
+import NavLink from "@/components/Nav/NavLink";
+import { SubNav } from "@/components/Nav/SubNav";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -11,10 +14,16 @@ export default function IngredientLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="">
-      <h3>Ingredients</h3>
-
-      {children}
-    </div>
+    <>
+      <SubNav title="Ingredients">
+        <NavLink variant="subnav" href="/ingredients/hops">
+          Hops
+        </NavLink>
+        <NavLink variant="subnav" href="/ingredients/fermentables">
+          Fermentables
+        </NavLink>
+      </SubNav>
+      <Body>{children}</Body>
+    </>
   );
 }
