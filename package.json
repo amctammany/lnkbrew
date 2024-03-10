@@ -10,6 +10,9 @@
     "lint": "next lint",
     "precommit": "pnpm lint && pnpm build",
     "storybook": "storybook dev -p 6006",
+    "postinstall": "prisma generate && prisma db push --accept-data-loss",
+    "db:generate": "prisma generate ",
+    "db:seed": "prisma db seed",
     "build-storybook": "storybook build",
     "prepare": "husky install"
   },
