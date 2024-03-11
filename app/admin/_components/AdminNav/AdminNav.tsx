@@ -1,4 +1,5 @@
 import { auth } from "@/app/auth";
+import { AppIcon } from "@/components/AppIcon";
 import NavLink from "@/components/Nav/NavLink";
 import Link from "next/link";
 export type AdminNavProps = {};

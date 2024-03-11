@@ -3,19 +3,19 @@ import path from "path";
 
 const config: StorybookConfig = {
   stories: [
-    //"../components/**/*.mdx",
+    //"../stories/**/*.mdx",
+    //"../stories/**/*.stories.@(js|jsx|mjs|ts|tsx)",
     "../components/**/*.stories.@(js|jsx|mjs|ts|tsx)",
   ],
   addons: [
     "@storybook/addon-links",
     "@storybook/addon-essentials",
+    "@storybook/addon-onboarding",
     "@storybook/addon-interactions",
-    //"@tomfreudenberg/next-auth-mock/storybook",
-    //"storybook-addon-next-router",
   ],
   framework: {
     name: "@storybook/nextjs",
-    options: { builder: {} },
+    options: {},
   },
   docs: {
     autodocs: true,
