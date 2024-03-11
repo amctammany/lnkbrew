@@ -6,6 +6,8 @@ import { ListItemText } from "./ListItemText";
 import { ListItemIcon } from "./ListItemIcon";
 import { TrashIcon } from "@heroicons/react/20/solid";
 import { ListItemButton } from "./ListItemButton";
+import { IconButton } from "../Button/IconButton";
+import { AddIcon } from "../Icon/AddIcon";
 
 const meta: Meta<typeof List> = {
   component: List,
@@ -14,7 +16,7 @@ export default meta;
 const TestListItem = ({ children }: any) => {
   return (
     <ListItem
-      secondaryAction={
+      actions={
         <ListItemButton>
           <TrashIcon className="h-6 w-6 text-red-500 " />
         </ListItemButton>
@@ -47,5 +49,30 @@ export const Warning: Story = {
   args: {
     variant: "warning",
     children: listBody,
+  },
+};
+
+export const Actions: Story = {
+  args: {
+    children: (
+      <>
+        <ListItem
+          actions={[
+            <IconButton key="tt" iconType="DeleteIcon" />,
+            <IconButton key="t1" iconType="StarIcon" />,
+            <IconButton key="t2" iconType="SaveIcon" />,
+          ]}
+        >
+          <ListItemIcon className="w-14">
+            <AddIcon size="large" />
+          </ListItemIcon>
+          <ListItemText
+            variant="warning"
+            primary="primary"
+            secondary="second"
+          />
+        </ListItem>
+      </>
+    ),
   },
 };

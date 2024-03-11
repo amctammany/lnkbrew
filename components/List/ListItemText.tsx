@@ -2,10 +2,11 @@ import { VariantProps, cva } from "class-variance-authority";
 import clsx from "clsx";
 import { ComponentProps } from "react";
 
-const listItemTextStyles = cva(["grid px-2 pr-12"], {
+const listItemTextStyles = cva(["grid m-auto py-1 px-0 pr-02 flex-grow"], {
   variants: {
     variant: {
       default: [""],
+      warning: ["bg-warning-500"],
     },
   },
   defaultVariants: {

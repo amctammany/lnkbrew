@@ -2,16 +2,17 @@ import { VariantProps, cva } from "class-variance-authority";
 import clsx from "clsx";
 import Link from "next/link";
 import { ComponentProps } from "react";
+import { ListItemActions } from "./ListItemActions";
 
 export type ListItemProps = VariantProps<typeof listItemStyles> &
   ComponentProps<"div"> & {
     children?: React.ReactNode;
     href?: string;
-    secondaryAction?: any;
-    menuItems?: any[];
+    //secondaryAction?: any;
+    actions?: React.ReactNode | React.ReactNode[];
     scroll?: boolean;
   };
-const listItemInnerStyles = cva(["flex px-2 py-1 items-center flex-grow"], {
+const listItemInnerStyles = cva(["flex px-2 py-0 items-center flex-grow"], {
   variants: {
     variant: {
       default: ["group-hove:bg-primary-500/10"],
@@ -36,22 +37,11 @@ const listItemStyles = cva(["group relative flex flex-row w-full"], {
     variant: "default",
   },
 });
-const listItemSecondaryStyles = cva(["flex-shink-0 m-auto px-2"], {
-  variants: {
-    variant: {
-      default: ["group-hovr:bg-primary-500/10"],
-      warning: ["group-hoer:bg-warning-500/10"],
-    },
-  },
-  defaultVariants: {
-    variant: "default",
-  },
-});
 
 export const ListItem = ({
   href,
   scroll,
-  secondaryAction,
+  actions,
   onClick,
   children,
   variant,
@@ -74,13 +64,9 @@ export const ListItem = ({
   );
 
   return (
-    <div className="group">
-      <li className={listItemStyles({ variant })}>
-        {child}
-        <div className={listItemSecondaryStyles({ variant })}>
-          {secondaryAction}
-        </div>
-      </li>
-    </div>
+    <li className={listItemStyles({ variant })}>
+      {child}
+      <ListItemActions>{actions}</ListItemActions>
+    </li>
   );
 };

@@ -19,7 +19,9 @@ export const IconButton = ({
   const body = (
     <div className="flex px-1 text-sm -mx-2">
       <AppIcon type={iconType} variant={iconVariant} />
-      <span className="block m-auto pl-1 uppercase">{children}</span>
+      {children && (
+        <span className="block m-auto pl-1 uppercase">{children}</span>
+      )}
     </div>
   );
   return <Button {...props}>{body}</Button>;
