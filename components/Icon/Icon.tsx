@@ -1,12 +1,15 @@
+import { XMarkIcon } from "@heroicons/react/24/outline";
 import { VariantProps, cva } from "class-variance-authority";
 import clsx from "clsx";
 import { ComponentProps } from "react";
-export type IconProps = ComponentProps<"div"> & VariantProps<typeof iconStyles>;
+export type IconProps = ComponentProps<"div"> &
+  VariantProps<typeof iconStyles> & { Svg?: typeof XMarkIcon };
 export const iconStyles = cva("", {
   variants: {
     variant: {
       default: [""],
       white: ["text-white"],
+      warning: ["text-warning-200"],
     },
     size: {
       default: ["w-6 h-6 p-0"],
@@ -20,17 +23,13 @@ export const iconStyles = cva("", {
     size: "default",
   },
 });
-export function Icon({ variant, size, className, children }: IconProps) {
-  return (
+export function Icon({ variant, size, className, children, Svg }: IconProps) {
+  return Svg ? (
+    <Svg className={clsx(iconStyles({ variant, size }), className)} />
+  ) : (
     <div className={clsx(iconStyles({ variant, size }), className)}>
       {children}
     </div>
   );
 }
 export default Icon;
-export const AddIcon = () => {
-  return <div>+</div>;
-};
-export const DeleteIcon = () => {
-  return <div>-</div>;
-};
