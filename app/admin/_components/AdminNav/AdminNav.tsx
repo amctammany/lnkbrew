@@ -12,6 +12,7 @@ export async function AdminNav({}: AdminNavProps) {
         className="flex-none font-extrabold py-2 px-4 mr-4"
         href="/admin"
       >
+        <AppIcon type="StarIcon" variant="warning" />
         Admin
       </NavLink>
     </div>
