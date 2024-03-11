@@ -24,19 +24,22 @@ const listItemInnerStyles = cva(["flex px-2 py-0 items-center flex-grow"], {
   },
 });
 
-const listItemStyles = cva(["group relative flex flex-row w-full"], {
-  variants: {
-    variant: {
-      default: ["group-hover:bg-primary-500/10"],
-      warning: ["group-hover:bg-warning-500/10"],
-      //default: [""],
-      //warning: [""],
+const listItemStyles = cva(
+  ["group relative justify-start box-border flex flex-row w-full"],
+  {
+    variants: {
+      variant: {
+        default: ["group-hover:bg-primary-500/10"],
+        warning: ["group-hover:bg-warning-500/10"],
+        //default: [""],
+        //warning: [""],
+      },
     },
-  },
-  defaultVariants: {
-    variant: "default",
-  },
-});
+    defaultVariants: {
+      variant: "default",
+    },
+  }
+);
 
 export const ListItem = ({
   href,

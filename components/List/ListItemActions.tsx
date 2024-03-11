@@ -2,7 +2,7 @@ import { VariantProps, cva } from "class-variance-authority";
 import clsx from "clsx";
 import { ComponentProps } from "react";
 const ListItemActionsStyles = cva(
-  ["flex-shrink-0 m-auto p-0 grid grid-flow-col "],
+  ["flex-none m-auto p-0 grid grid-flow-col "],
   {
     variants: {
       variant: {
