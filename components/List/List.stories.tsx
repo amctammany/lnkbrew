@@ -8,6 +8,7 @@ import { TrashIcon } from "@heroicons/react/20/solid";
 import { ListItemButton } from "./ListItemButton";
 import { IconButton } from "../Button/IconButton";
 import { AddIcon } from "../Icon/AddIcon";
+import { ListItemActions } from "./ListItemActions";
 
 const meta: Meta<typeof List> = {
   component: List,
@@ -15,11 +16,14 @@ const meta: Meta<typeof List> = {
 export default meta;
 const TestListItem = ({ children }: any) => {
   return (
-    <ListItem actions={<IconButton iconType="AddIcon" />}>
+    <ListItem>
       <ListItemIcon className="w-14">
         <span className="text-lg">X</span>
       </ListItemIcon>
       <ListItemText primary={children} secondary="second" />
+      <ListItemActions>
+        <IconButton iconType="AddIcon" />
+      </ListItemActions>
     </ListItem>
   );
 };
@@ -46,17 +50,18 @@ export const Warning: Story = {
   },
 };
 
+const handleClick: (
+  msg: string
+) => React.MouseEventHandler<HTMLButtonElement> = (msg) => (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+  console.log(msg);
+};
 export const Actions: Story = {
   args: {
     children: (
       <>
-        <ListItem
-          actions={[
-            <IconButton key="tt" iconType="DeleteIcon" />,
-            <IconButton key="t1" iconType="StarIcon" />,
-            <IconButton key="t2" iconType="SaveIcon" />,
-          ]}
-        >
+        <ListItem onClick={() => console.log("click")}>
           <ListItemIcon className="w-14">
             <AddIcon size="large" />
           </ListItemIcon>
@@ -65,6 +70,23 @@ export const Actions: Story = {
             primary="primary"
             secondary="second"
           />
+          <ListItemActions>
+            <IconButton
+              key="tt"
+              iconType="DeleteIcon"
+              onClick={handleClick("click1")}
+            />
+            <IconButton
+              key="t1"
+              iconType="StarIcon"
+              onClick={handleClick("click2")}
+            />
+            <IconButton
+              key="t2"
+              iconType="SaveIcon"
+              onClick={handleClick("click3")}
+            />
+          </ListItemActions>
         </ListItem>
       </>
     ),

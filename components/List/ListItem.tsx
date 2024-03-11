@@ -9,7 +9,7 @@ export type ListItemProps = VariantProps<typeof listItemStyles> &
     children?: React.ReactNode;
     href?: string;
     //secondaryAction?: any;
-    actions?: React.ReactNode | React.ReactNode[];
+    //actions?: React.ReactNode | React.ReactNode[];
     scroll?: boolean;
   };
 const listItemInnerStyles = cva(["flex px-2 py-0 items-center flex-grow"], {
@@ -44,7 +44,7 @@ const listItemStyles = cva(
 export const ListItem = ({
   href,
   scroll,
-  actions,
+  //actions,
   onClick,
   children,
   variant,
@@ -66,10 +66,5 @@ export const ListItem = ({
     </div>
   );
 
-  return (
-    <li className={listItemStyles({ variant })}>
-      {child}
-      <ListItemActions>{actions}</ListItemActions>
-    </li>
-  );
+  return <li className={listItemStyles({ variant })}>{child}</li>;
 };

@@ -6,7 +6,7 @@ const ListItemActionsStyles = cva(
   {
     variants: {
       variant: {
-        default: ["bg-success-300"],
+        default: ["bg-inherit"],
         warning: ["bg-warning-500"],
       },
     },
@@ -28,8 +28,17 @@ export const ListItemActions = ({
   if (Array.isArray(children)) {
     console.log("menu", children);
   }
+  const handleClick: React.MouseEventHandler<HTMLDivElement> = (e) => {
+    console.log("click inside actions");
+    //e.preventDefault();
+    e.stopPropagation();
+    return false;
+  };
   return (
-    <div className={clsx(ListItemActionsStyles({ variant }), className)}>
+    <div
+      className={clsx(ListItemActionsStyles({ variant }), className)}
+      onClick={handleClick}
+    >
       {children}
     </div>
   );
