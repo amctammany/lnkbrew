@@ -15,13 +15,7 @@ const meta: Meta<typeof List> = {
 export default meta;
 const TestListItem = ({ children }: any) => {
   return (
-    <ListItem
-      actions={
-        <ListItemButton>
-          <TrashIcon className="h-6 w-6 text-red-500 " />
-        </ListItemButton>
-      }
-    >
+    <ListItem actions={<IconButton iconType="AddIcon" />}>
       <ListItemIcon className="w-14">
         <span className="text-lg">X</span>
       </ListItemIcon>

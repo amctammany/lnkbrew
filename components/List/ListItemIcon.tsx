@@ -7,7 +7,7 @@ const listItemIconStyles = cva(
   {
     variants: {
       variant: {
-        default: [],
+        default: ["h-full"],
         icon: ["rounded-full w-12 h-12 p-1 border-2 border-black"], // "w-12", "h-12", "p-1.5"],
       },
       color: {
