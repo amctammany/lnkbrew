@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { Icon } from "./Icon";
-import { AddIcon, DeleteIcon } from "../Icon";
 import { XMarkIcon, XCircleIcon } from "@heroicons/react/24/solid";
 
 const meta: Meta<typeof Icon> = {

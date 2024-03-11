@@ -1,5 +1,5 @@
-import { VariantProps, cva } from "class-variance-authority";
-import { ComponentProps } from "react";
+import { type VariantProps, cva } from "class-variance-authority";
+import { type ComponentProps } from "react";
 
 export type ListProps = VariantProps<typeof listStyles> &
   ComponentProps<"ul"> & {

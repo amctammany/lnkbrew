@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { IconButton } from "./IconButton";
-import { AddIcon, DeleteIcon } from "../Icon";
+import { AddIcon } from "../Icon/AddIcon";
+import { DeleteIcon } from "../Icon/DeleteIcon";
 
 const meta: Meta<typeof IconButton> = {
   component: IconButton,

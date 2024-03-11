@@ -1,5 +1,5 @@
 import Link, { LinkProps } from "next/link";
-import { Icon, IconProps } from "../Icon";
+import { Icon, IconProps } from "../Icon/Icon";
 import { Button, ButtonProps } from "./Button";
 
 export type IconButtonProps = ButtonProps & {

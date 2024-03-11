@@ -9,7 +9,7 @@ export const iconStyles = cva("", {
     variant: {
       default: [""],
       white: ["text-white"],
-      warning: ["text-warning-200"],
+      warning: ["text-warning-500"],
     },
     size: {
       default: ["w-6 h-6 p-0"],

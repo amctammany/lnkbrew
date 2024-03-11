@@ -1,5 +1,5 @@
 import Link, { LinkProps } from "next/link";
-import { cva, VariantProps } from "class-variance-authority";
+import { cva, type VariantProps } from "class-variance-authority";
 import { ComponentProps } from "react";
 import { twMerge } from "tailwind-merge";
 import { URL } from "url";
