@@ -1,6 +1,7 @@
 import { VariantProps, cva } from "class-variance-authority";
 import clsx from "clsx";
 import { ComponentProps } from "react";
+import { ListItemActionsMenu } from "./ListItemActionsMenu";
 const ListItemActionsStyles = cva(
   ["flex-none m-auto p-0 grid grid-flow-col "],
   {
@@ -26,7 +27,8 @@ export const ListItemActions = ({
   className,
 }: ListItemActionsProps) => {
   if (Array.isArray(children)) {
-    console.log("menu", children);
+    console.log("menu", children.length);
+    return <ListItemActionsMenu>{children}</ListItemActionsMenu>;
   }
   const handleClick: React.MouseEventHandler<HTMLDivElement> = (e) => {
     console.log("click inside actions");
