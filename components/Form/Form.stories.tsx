@@ -58,8 +58,8 @@ const onSubmit: FormEventHandler<any> = (e) => {
 export const Basic: Story = {
   args: {
     //name: "name",
-    action,
-    //onSubmit,
+    //action,
+    onSubmit,
     children: (
       <>
         <TextField name="name" variant="error" value="name" />

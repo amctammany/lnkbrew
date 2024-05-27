@@ -1,5 +1,5 @@
-"use client";
-import { User } from "@prisma/client";
+//"use client";
+//import { User } from "@prisma/client";
 import {
   UserGravityPreference,
   UserMassPreference,

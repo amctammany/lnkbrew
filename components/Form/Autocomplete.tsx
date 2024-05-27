@@ -8,12 +8,12 @@ import {
   useMemo,
   useState,
 } from "react";
-import { TextField } from "./TextField";
+//import { TextField } from "./TextField";
 import { Label } from "./Label";
 import { type VariantProps, cva } from "class-variance-authority";
 import clsx from "clsx";
 import { type SchemaFieldError } from "@/lib/validateSchema";
-import { XMarkIcon } from "@heroicons/react/20/solid";
+//import { XMarkIcon } from "@heroicons/react/20/solid";
 import { CloseIcon } from "../Icon/CloseIcon";
 export type Option<T = string, ID = number> = [T, ID];
 export type AutocompleteProps = VariantProps<typeof autocompleteStyles> &
