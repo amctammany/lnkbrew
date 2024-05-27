@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { AmountField } from "./AmountField";
 import { UserMassPreference } from "@prisma/client";
 const meta: Meta<typeof AmountField> = {
+  title: "Form/AmountField",
   component: AmountField,
   decorators: [
     (Story) => (
