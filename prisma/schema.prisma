@@ -40,6 +40,14 @@ model Session {
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
 model User {
   id              String           @id @default(cuid())
   name            String?
@@ -113,10 +121,62 @@ enum UserGravityPreference {
   P
 }
 
-model VerificationToken {
-  identifier String
-  token      String   @unique
-  expires    DateTime
+enum HopUsage {
+  aroma
+  bittering
+  dual
+}
 
-  @@unique([identifier, token])
+model Hop {
+  id                Int       @id @default(autoincrement())
+  name              String
+  slug              String    @unique
+  description       String?
+  characteristics   String?
+  country           String?
+  usage             HopUsage?
+  alpha             Float?
+  alphaLow          Float?
+  alphaHigh         Float?
+  beta              Float?
+  betaLow           Float?
+  betaHigh          Float?
+  caryophyllene     Float?
+  caryophylleneLow  Float?
+  caryophylleneHigh Float?
+  cohumulone        Float?
+  cohumuloneLow     Float?
+  cohumuloneHigh    Float?
+  farnesene         Float?
+  farneseneLow      Float?
+  farneseneHigh     Float?
+  humulene          Float?
+  humuleneLow       Float?
+  humuleneHigh      Float?
+  myrcene           Float?
+  myrceneLow        Float?
+  myrceneHigh       Float?
+  totalOil          Float?
+  totalOilLow       Float?
+  totalOilHigh      Float?
+  geraniol          Float?
+  geraniolLow       Float?
+  geraniolHigh      Float?
+  other             Float?
+  otherLow          Float?
+  otherHigh         Float?
+  linalool          Float?
+  linaloolLow       Float?
+  linaloolHigh      Float?
+
+  bPinene           Float?
+  bPineneLow        Float?
+  bPineneHigh       Float?
+  purpose           String?
+  flavor            String?
+  notes             String?
+  substitutesString String[]
+  styles            String[]
+  //  HopIngredient     HopIngredient[]
+  //  HopSensoryPanel   HopSensoryPanel[]
 }
