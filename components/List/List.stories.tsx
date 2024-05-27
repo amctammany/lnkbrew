@@ -61,7 +61,7 @@ export const Actions: Story = {
   args: {
     children: (
       <>
-        <ListItem>
+        <ListItem border="black">
           <ListItemIcon className="w-14">
             <AddIcon size="large" />
           </ListItemIcon>
@@ -70,7 +70,7 @@ export const Actions: Story = {
             primary="primary"
             secondary="second"
           />
-          <ListItemActions>
+          <ListItemActions variant="warning">
             <IconButton
               key="tt"
               iconType="DeleteIcon"

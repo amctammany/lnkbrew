@@ -44,7 +44,7 @@ const listItemActionsStyles = cva(
   }
 );
 
-const listItemActionsMenuStyles = cva(["group flex flex-row"], {
+const listItemActionsMenuStyles = cva(["group flex flex-row "], {
   variants: {
     variant: {
       default: ["bg-inherit"],

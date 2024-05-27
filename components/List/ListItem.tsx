@@ -12,7 +12,7 @@ export type ListItemProps = VariantProps<typeof listItemStyles> &
     //actions?: React.ReactNode | React.ReactNode[];
     scroll?: boolean;
   };
-const listItemInnerStyles = cva(["flex px-2 py-0 items-center flex-grow"], {
+const listItemInnerStyles = cva(["flex px-0 py-0 items-center flex-grow"], {
   variants: {
     variant: {
       default: ["group-hove:bg-primary-500/10"],
@@ -25,7 +25,7 @@ const listItemInnerStyles = cva(["flex px-2 py-0 items-center flex-grow"], {
 });
 
 const listItemStyles = cva(
-  ["group relative justify-start box-border flex flex-row w-full"],
+  ["group relative box-border justify-start flex flex-row w-full"],
   {
     variants: {
       variant: {
@@ -34,9 +34,15 @@ const listItemStyles = cva(
         //default: [""],
         //warning: [""],
       },
+      border: {
+        none: [""],
+        black: ["border-2 border-spacing-2 border-black"],
+        red: ["border-2 border-spacing-2 border-red"],
+      },
     },
     defaultVariants: {
       variant: "default",
+      border: "black",
     },
   }
 );
@@ -48,6 +54,7 @@ export const ListItem = ({
   onClick,
   children,
   variant,
+  border,
   className,
 }: ListItemProps) => {
   const cn = clsx(listItemInnerStyles({ variant }), className);
@@ -66,5 +73,5 @@ export const ListItem = ({
     </div>
   );
 
-  return <li className={listItemStyles({ variant })}>{child}</li>;
+  return <li className={listItemStyles({ variant, border })}>{child}</li>;
 };
