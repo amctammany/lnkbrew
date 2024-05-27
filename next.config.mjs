@@ -2,7 +2,6 @@ import analyze from "@next/bundle-analyzer";
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
-    /**
     turbo: {
       resolveExtensions: [
         ".mdx",
@@ -14,7 +13,6 @@ const nextConfig = {
         ".json",
       ],
     },
-    */
   },
 };
 
