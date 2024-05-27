@@ -1,3 +1,4 @@
+import { ClientSection } from "@/components/Section";
 import { Hop } from "@prisma/client";
 import Link from "next/link";
 
@@ -9,6 +10,7 @@ export function HopDisplay({ hop }: HopDisplayProps) {
     <div>
       HopDisplay {hop?.name}
       <Link href={`/ingredients/hops/${hop?.slug}/edit`}>Edit</Link>
+      <ClientSection title="Overview">Name: {hop?.name}</ClientSection>
     </div>
   );
 }

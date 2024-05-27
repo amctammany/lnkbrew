@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from "react";
 import { Section, SectionProps } from "./Section";
 import Button from "../Button/Button";
@@ -20,7 +21,6 @@ export function ClientSection({
       collapsed={open ? "default" : "collapsed"}
       {...props}
     >
-      <div>client section</div>
       {children}
     </Section>
   );
