@@ -53,15 +53,15 @@ export const Warning: Story = {
 const handleClick: (
   msg: string
 ) => React.MouseEventHandler<HTMLButtonElement> = (msg) => (e) => {
-  e.preventDefault();
-  e.stopPropagation();
+  //e.preventDefault();
+  //e.stopPropagation();
   console.log(msg);
 };
 export const Actions: Story = {
   args: {
     children: (
       <>
-        <ListItem onClick={() => console.log("click")}>
+        <ListItem>
           <ListItemIcon className="w-14">
             <AddIcon size="large" />
           </ListItemIcon>

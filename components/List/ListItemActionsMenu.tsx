@@ -1,46 +1,50 @@
 import { cva, type VariantProps } from "class-variance-authority";
-import { ComponentProps, useState } from "react";
+import { ComponentProps } from "react";
 import { IconButton } from "../Button/IconButton";
+import clsx from "clsx";
 
-const listItemActionMenuButtonStyles = cva([""], {
-  variants: {
-    variant: {
-      default: ["bg-inherit"],
-      warning: ["bg-warning-500"],
+const listItemActionMenuButtonStyles = cva(
+  ["group-focus-within:bg-green-400 bg-blue-400"],
+  {
+    variants: {
+      variant: {
+        default: ["bg-blue-200"],
+        warning: ["bg-warning-500"],
+      },
+      //open: {
+      //open: ["bg-red-200"],
+      //closed: ["bg-blue-400"],
+      //},
     },
-    open: {
-      open: ["bg-red-200"],
-      closed: ["bg-blue-400"],
-    },
-  },
 
-  defaultVariants: {
-    variant: "default",
-    open: "closed",
-  },
-});
+    defaultVariants: {
+      variant: "default",
+      //open: "closed",
+    },
+  }
+);
 
 const listItemActionsStyles = cva(
-  ["flex transition ease-linear duration-200"],
+  ["transition ease-linear duration-200 hidden group-focus-within:flex "],
   {
     variants: {
       //variant: {
       //default: ["bg-inherit"],
       //warning: ["bg-warning-500"],
       //},
-      open: {
-        open: ["block"],
-        closed: ["hidden"],
-      },
+      //open: {
+      //open: ["block"],
+      //closed: ["hidden"],
+      //},
     },
     defaultVariants: {
       //variant: "default",
-      open: "closed",
+      //open: "closed",
     },
   }
 );
 
-const listItemActionsMenuStyles = cva(["flex flex-row"], {
+const listItemActionsMenuStyles = cva(["group flex flex-row"], {
   variants: {
     variant: {
       default: ["bg-inherit"],
@@ -65,24 +69,21 @@ export const ListItemActionsMenu = ({
   variant,
   className,
 }: ListItemActionMenuProps) => {
-  const [open, setOpen] = useState(false);
-
   const handleToggle: React.MouseEventHandler<HTMLButtonElement> = (e) => {
-    setOpen((o) => !o);
+    if (document.activeElement === e.currentTarget) {
+      e.currentTarget.blur();
+      e.preventDefault();
+      e.stopPropagation();
+      return false;
+    }
   };
   return (
-    <div className={listItemActionsMenuStyles({ variant })}>
-      <div
-        className={listItemActionsStyles({ open: open ? "open" : "closed" })}
-      >
-        {children}
-      </div>
+    <div className={clsx(listItemActionsMenuStyles({ variant }), className)}>
+      <div className={listItemActionsStyles({})}>{children}</div>
       <IconButton
-        className={listItemActionMenuButtonStyles({
-          open: open ? "open" : "closed",
-        })}
+        className={listItemActionMenuButtonStyles({})}
         iconType="StarIcon"
-        onClick={handleToggle}
+        onMouseDown={handleToggle}
       />
     </div>
   );
