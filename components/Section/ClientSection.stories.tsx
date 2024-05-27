@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { ClientSection } from "./ClientSection";
 //import { Toolbar } from "../Toolbar/Toolbar";
 import Button from "../Button/Button";
+import { Toolbar } from "../Toolbar";
 
 const meta: Meta<typeof ClientSection> = {
   title: "Section/ClientSection",
@@ -36,9 +37,11 @@ export const Footer: Story = {
     variant: "warning",
     children: clientSectionBody,
     footer: (
-      <div>
-        <Button>X</Button>
-      </div>
+      <Toolbar variant="default" size="small">
+        <Button size="toolbar" variant="toolbar">
+          X
+        </Button>
+      </Toolbar>
     ),
   },
 };

@@ -96,7 +96,7 @@ const sectionBody = cva([""], {
     size: "default",
   },
 });
-const sectionFooter = cva([""], {
+const sectionFooter = cva(["m-0 p-0"], {
   variants: {
     variant: {
       primary: [],
