@@ -4,36 +4,37 @@ import { IconProps } from "../Icon/Icon";
 import { ButtonProps } from "./Button";
 import { IconNames } from "../Icon";
 import { useState } from "react";
-import { IconButton } from "./IconButton";
+import { IconButton, IconButtonProps } from "./IconButton";
 
 export type ToggleButtonProps = ButtonProps & {
-  //Icon: typeof Icon;
-  iconVariant?: IconProps["variant"];
-  iconType: IconNames;
-  activeIconType: IconNames;
-  defaultIconType: IconNames;
-  active: boolean;
+  activeIconVariant?: IconProps["variant"];
+  activeVariant?: ButtonProps["variant"];
+  activeIconType?: IconNames;
+  defaultIconType?: IconNames;
+  onToggle?: React.MouseEventHandler<HTMLButtonElement>;
+  active?: boolean;
 };
 export const ToggleButton = ({
-  //Icon,
-  iconVariant,
-  iconType,
   children,
   active: _active,
-  activeIconType,
-  defaultIconType,
+  activeVariant,
+  onToggle,
   ...props
 }: ToggleButtonProps) => {
   const [active, setActive] = useState(_active);
   const handleToggle: React.MouseEventHandler<HTMLButtonElement> = (e) => {
     setActive((a) => !a);
-    if (props.onClick) props.onClick(e);
+    if (onToggle) onToggle(e);
   };
+  const activeIconType = props.activeIconType ?? "CloseIcon";
+  const defaultIconType = props.defaultIconType ?? "AddIcon";
+
   return (
     <IconButton
       {...props}
-      iconType={(active ? activeIconType : defaultIconType) ?? iconType}
-      variant={active ? "warning" : "default"}
+      iconType={!active ? activeIconType : defaultIconType}
+      iconVariant={active ? props.activeIconVariant : null}
+      variant={active ? activeVariant : props.variant}
       onClick={handleToggle}
     >
       {children}

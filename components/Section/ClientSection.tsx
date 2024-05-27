@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { Section, SectionProps } from "./Section";
 import Button from "../Button/Button";
+import { ToggleButton } from "../Button/ToggleButton";
 export type ClientSectionProps = SectionProps & {
   children?: React.ReactNode;
   closed?: boolean;
@@ -17,7 +18,13 @@ export function ClientSection({
   return (
     <Section
       header={header}
-      actions={<Button onClick={handleToggle}>X</Button>}
+      actions={
+        <ToggleButton
+          activeIconVariant="warning"
+          activeVariant="success"
+          onToggle={handleToggle}
+        />
+      }
       collapsed={open ? "default" : "collapsed"}
       {...props}
     >
