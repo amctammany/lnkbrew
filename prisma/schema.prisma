@@ -41,13 +41,76 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime?
-  image         String?
-  accounts      Account[]
-  sessions      Session[]
+  id              String           @id @default(cuid())
+  name            String?
+  email           String?          @unique
+  emailVerified   DateTime?
+  image           String?
+  accounts        Account[]
+  sessions        Session[]
+  UserPreferences UserPreferences?
+}
+
+model UserPreferences {
+  userId               String                    @id @unique @default(cuid())
+  user                 User                      @relation(fields: [userId], references: [id])
+  volumeUnit           UserVolumePreference      @default(gal)
+  hopMassUnit          UserMassPreference        @default(Oz)
+  fermentableMassUnit  UserMassPreference        @default(LbOz)
+  gravityUnit          UserGravityPreference     @default(SG)
+  temperatureUnit      UserTemperaturePreference @default(F)
+  //  defaultEquipment     EquipmentProfile?         @relation(fields: [equipmentProfileId], references: [id])
+  //  defaultMashProfile   MashProfile?              @relation(fields: [mashProfileId], references: [id])
+  //  defaultSourceWater   WaterProfile?             @relation("SourceWater", fields: [sourceWaterProfileId], references: [id])
+  // defaultTargetWater   WaterProfile?             @relation("TargetWater", fields: [targetWaterProfileId], references: [id])
+  equipmentProfileId   Int?
+  sourceWaterProfileId Int?
+  targetWaterProfileId Int?
+  mashProfileId        Int?
+}
+
+enum MassUnit {
+  Oz
+  Lb
+  g
+  Kg
+}
+
+enum TimeUnit {
+  min
+  hr
+  day
+}
+
+enum HopIngredientUsage {
+  Boil
+  Whirlpool
+  DryHop
+  Mash
+}
+
+enum UserVolumePreference {
+  gal
+  L
+  bbl
+}
+
+enum UserMassPreference {
+  LbOz
+  Lb
+  Oz
+  Kg
+  g
+}
+
+enum UserTemperaturePreference {
+  F
+  C
+}
+
+enum UserGravityPreference {
+  SG
+  P
 }
 
 model VerificationToken {
