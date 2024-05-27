@@ -9,6 +9,8 @@ import { RedoIcon } from "./RedoIcon";
 import { SaveIcon } from "./SaveIcon";
 import { UndoIcon } from "./UndoIcon";
 import { EditIcon } from "./EditIcon";
+import { MinimizeIcon } from "./MinimizeIcon";
+import { MaximizeIcon } from "./MaximizeIcon";
 
 export const Icons = {
   AddIcon,
@@ -22,6 +24,8 @@ export const Icons = {
   SaveIcon,
   UndoIcon,
   EditIcon,
+  MinimizeIcon,
+  MaximizeIcon,
 };
 export type IconNames = keyof typeof Icons;
 export default Icons;

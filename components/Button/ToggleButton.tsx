@@ -26,13 +26,13 @@ export const ToggleButton = ({
     setActive((a) => !a);
     if (onToggle) onToggle(e);
   };
-  const activeIconType = props.activeIconType ?? "CloseIcon";
-  const defaultIconType = props.defaultIconType ?? "AddIcon";
+  const activeIconType = props.activeIconType ?? "MinimizeIcon";
+  const defaultIconType = props.defaultIconType ?? "MaximizeIcon";
 
   return (
     <IconButton
       {...props}
-      iconType={!active ? activeIconType : defaultIconType}
+      iconType={active ? activeIconType : defaultIconType}
       iconVariant={active ? props.activeIconVariant : null}
       variant={active ? activeVariant : props.variant}
       onClick={handleToggle}
