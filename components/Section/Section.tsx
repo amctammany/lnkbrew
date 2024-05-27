@@ -9,6 +9,11 @@ const section = cva(["min-w-full bg-white "], {
       warning: [""],
       alert: [""],
     },
+    collapsed: {
+      default: [],
+      collapsed: [""],
+    },
+
     size: {
       small: ["te"],
       default: [""],
@@ -16,6 +21,7 @@ const section = cva(["min-w-full bg-white "], {
   },
   defaultVariants: {
     variant: "primary",
+    collapsed: "default",
     size: "default",
   },
 });
@@ -27,12 +33,18 @@ const sectionHeader = cva(["flex items-center "], {
       warning: ["bg-warning-200"],
       alert: ["bg-red-500"],
     },
+    collapsed: {
+      default: [],
+      collapsed: [""],
+    },
+
     size: {
       small: ["te"],
       default: ["min-w-full"],
     },
   },
   defaultVariants: {
+    collapsed: "default",
     variant: "primary",
     size: "default",
   },
@@ -45,12 +57,18 @@ const sectionTitle = cva("h4", {
       warning: ["text-black"],
       alert: ["text-white"],
     },
+    collapsed: {
+      default: [],
+      collapsed: [""],
+    },
+
     size: {
       small: ["flex-grow", "m-0", "py-1", "px-2", "text-sm"],
       default: ["flex-grow", "m-0", "py-1", "px-4", "text-lg", "font-bold"],
     },
   },
   defaultVariants: {
+    collapsed: "default",
     variant: "primary",
     size: "default",
   },
@@ -63,6 +81,10 @@ const sectionBody = cva([""], {
       warning: [""],
       alert: [],
     },
+    collapsed: {
+      default: [],
+      collapsed: ["hidden m-4"],
+    },
     size: {
       small: ["p-0", "shadow-sm", "text-sm"],
       default: ["flex-grow", "p-2", "shadow-lg", "text-lg"],
@@ -70,6 +92,7 @@ const sectionBody = cva([""], {
   },
   defaultVariants: {
     variant: "primary",
+    collapsed: "default",
     size: "default",
   },
 });
@@ -81,6 +104,11 @@ const sectionFooter = cva([""], {
       warning: [""],
       alert: [],
     },
+    collapsed: {
+      default: [],
+      collapsed: ["hidden"],
+    },
+
     size: {
       small: [],
       default: [],
@@ -93,6 +121,7 @@ const sectionFooter = cva([""], {
   defaultVariants: {
     variant: "primary",
     size: "default",
+    collapsed: "default",
     display: "default",
   },
 });
@@ -111,6 +140,7 @@ export const Section = ({
   icon,
   actions,
   children,
+  collapsed,
   footer,
   size,
   variant,
@@ -118,17 +148,22 @@ export const Section = ({
   title: _title,
 }: SectionProps) => {
   return (
-    <div className={clsx(section({ size, variant }), className)}>
-      <div className={sectionHeader({ size, variant })}>
+    <div className={clsx(section({ size, variant, collapsed }), className)}>
+      <div className={sectionHeader({ size, variant, collapsed })}>
         <div className="flex-shrink">{icon}</div>
-        <h4 className={sectionTitle({ size, variant })}>{_title || title}</h4>
+        <h4 className={sectionTitle({ size, variant, collapsed })}>
+          {_title || title}
+        </h4>
         <div className="grid">{actions}</div>
       </div>
 
-      <div className={sectionBody({ size, variant })}>{children}</div>
+      <div className={sectionBody({ size, variant, collapsed })}>
+        {children}
+      </div>
       <div
         className={sectionFooter({
           size,
+          collapsed,
           variant,
           display: footer ? "footer" : "default",
         })}

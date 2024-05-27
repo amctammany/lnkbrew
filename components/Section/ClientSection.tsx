@@ -1,11 +1,25 @@
-import React from "react";
-import { Section } from "./Section";
-export type ClientSectionProps = {
+import React, { useState } from "react";
+import { Section, SectionProps } from "./Section";
+import Button from "../Button/Button";
+export type ClientSectionProps = SectionProps & {
   children?: React.ReactNode;
+  closed?: boolean;
 };
-export function ClientSection({ children }: ClientSectionProps) {
+export function ClientSection({
+  children,
+  closed,
+  header,
+  ...props
+}: ClientSectionProps) {
+  const [open, setOpen] = useState(closed ?? true);
+  const handleToggle = () => setOpen((o) => !o);
   return (
-    <Section>
+    <Section
+      header={header}
+      actions={<Button onClick={handleToggle}>X</Button>}
+      collapsed={open ? "default" : "collapsed"}
+      {...props}
+    >
       <div>client section</div>
       {children}
     </Section>
