@@ -4,16 +4,16 @@ import NavLink from "@/components/Nav/NavLink";
 import Link from "next/link";
 export type AdminNavProps = {};
 
+const Text: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  return <div className="font-extrabold ">{children}</div>;
+};
 export async function AdminNav({}: AdminNavProps) {
   const session = await auth();
   const body = session ? (
     <div>
-      <NavLink
-        className="flex-none font-extrabold py-2 px-4 mr-4"
-        href="/admin"
-      >
+      <NavLink className="flex font-extrabold py-2 px-4 mr-4" href="/admin">
         <AppIcon type="StarIcon" variant="warning" />
-        Admin
+        <Text>Admin</Text>
       </NavLink>
     </div>
   ) : (
