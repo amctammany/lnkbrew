@@ -36,8 +36,12 @@ const listItemStyles = cva(
       },
       border: {
         none: [""],
-        black: ["border-2 border-spacing-2 border-black"],
-        red: ["border-2 border-spacing-2 border-red"],
+        black: [
+          "border-2 border-spacing-2 [&:not(:last-of-type)]:border-b-0 border-black",
+        ],
+        red: [
+          "border-2 border-spacing-2 [&:not(:last-of-type)]:border-b-0 border-red",
+        ],
       },
     },
     defaultVariants: {
