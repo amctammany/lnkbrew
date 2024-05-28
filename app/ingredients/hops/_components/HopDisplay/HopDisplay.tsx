@@ -1,16 +1,18 @@
 import { ClientSection } from "@/components/Section";
 import { Hop } from "@prisma/client";
 import Link from "next/link";
+import OverviewSection from "./OverviewSection";
 
 export type HopDisplayProps = {
   hop: Hop | null;
 };
 export function HopDisplay({ hop }: HopDisplayProps) {
+  console.log(hop);
   return (
     <div>
       HopDisplay {hop?.name}
       <Link href={`/ingredients/hops/${hop?.slug}/edit`}>Edit</Link>
-      <ClientSection title="Overview">Name: {hop?.name}</ClientSection>
+      <OverviewSection hop={hop} />
     </div>
   );
 }
