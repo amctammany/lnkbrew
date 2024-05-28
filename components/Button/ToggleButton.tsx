@@ -7,6 +7,7 @@ import { useState } from "react";
 import { IconButton, IconButtonProps } from "./IconButton";
 
 export type ToggleButtonProps = ButtonProps & {
+  defaultIconVariant?: IconProps["variant"];
   activeIconVariant?: IconProps["variant"];
   activeVariant?: ButtonProps["variant"];
   activeIconType?: IconNames;
@@ -28,12 +29,14 @@ export const ToggleButton = ({
   };
   const activeIconType = props.activeIconType ?? "MinimizeIcon";
   const defaultIconType = props.defaultIconType ?? "MaximizeIcon";
+  const activeIconVariant = props.activeIconVariant ?? "default";
+  const defaultIconVariant = props.defaultIconVariant ?? "default";
 
   return (
     <IconButton
       {...props}
       iconType={active ? activeIconType : defaultIconType}
-      iconVariant={active ? props.activeIconVariant : null}
+      iconVariant={active ? activeIconVariant : defaultIconVariant}
       variant={active ? activeVariant : props.variant}
       onClick={handleToggle}
     >

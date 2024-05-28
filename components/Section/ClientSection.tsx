@@ -20,9 +20,10 @@ export function ClientSection({
     <Section
       header={header}
       actions={
-        <IconButton
-          iconType={open ? "MinimizeIcon" : "MaximizeIcon"}
-          onClick={handleToggle}
+        <ToggleButton
+          //activeIconVariant="warning"
+          //activeVariant="success"
+          onToggle={handleToggle}
         />
       }
       collapsed={open ? "default" : "collapsed"}
@@ -36,10 +37,9 @@ export function ClientSection({
 export default ClientSection;
 /**
  *{
-        <ToggleButton
-          //activeIconVariant="warning"
-          //activeVariant="success"
-          onToggle={handleToggle}
+        <IconButton
+          iconType={open ? "MinimizeIcon" : "MaximizeIcon"}
+          onClick={handleToggle}
         />
       }
  */
