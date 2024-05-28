@@ -8,7 +8,7 @@ import {
   //HopSensoryPanel,
 } from "@prisma/client";
 import slugify from "slugify";
-import hops from "../../lnk-brewing/data/hops.json";
+import hops from "../data/hops.json";
 //import hopSuppliers from "../data/hopsuppliers.json";
 //import yakima from "../data/yakima.json";
 //import yeasts from "../data/yeasts.json";
