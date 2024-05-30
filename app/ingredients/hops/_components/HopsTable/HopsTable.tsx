@@ -20,6 +20,55 @@ export const HopsTable = ({ hops }: HopsTableProps) => {
 };
 */
 "use client";
+import {
+  RankingInfo,
+  rankItem,
+  compareItems,
+} from "@tanstack/match-sorter-utils";
+import { FilterFn, SortingFn, sortingFns } from "@tanstack/react-table";
+
+declare module "@tanstack/react-table" {
+  //add fuzzy filter to the filterFns
+  interface FilterFns {
+    fuzzy: FilterFn<unknown>;
+  }
+  interface FilterMeta {
+    itemRank: RankingInfo;
+  }
+}
+
+// Define a custom fuzzy filter function that will apply ranking info to rows (using match-sorter utils)
+const fuzzyFilter: FilterFn<any> = (row, columnId, value, addMeta) => {
+  // Rank the item
+  const itemRank = rankItem(row.getValue(columnId), value);
+
+  // Store the itemRank info
+  addMeta({
+    itemRank,
+  });
+
+  // Return if the item should be filtered in/out
+  return itemRank.passed;
+};
+
+// Define a custom fuzzy sort function that will sort by rank if the row has ranking information
+const fuzzySort: SortingFn<any> = (rowA, rowB, columnId) => {
+  let dir = 0;
+
+  // Only sort by rank if the column has ranking information
+  if (rowA.columnFiltersMeta[columnId]) {
+    dir = compareItems(
+      rowA.columnFiltersMeta[columnId]?.itemRank!,
+      rowB.columnFiltersMeta[columnId]?.itemRank!
+    );
+  }
+
+  // Provide an alphanumeric fallback for when the item ranks are equal
+  return dir === 0 ? sortingFns.alphanumeric(rowA, rowB, columnId) : dir;
+};
+
+//
+//
 //import { ClientTable } from "@/components/ClientTable";
 import { TextField } from "@/components/Form";
 import { Table, MemoTable } from "@/components/Table";
@@ -93,6 +142,7 @@ export const HopsTable = ({
   variant,
 }: HopsTableProps) => {
   const [query, setQuery] = useState("");
+
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     setQuery(e.target.value);
   };
@@ -123,15 +173,21 @@ export const HopsTable = ({
     []
   );
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+  const [globalFilter, setGlobalFilter] = useState("");
 
   const table = useReactTable({
     data: hops,
     columns,
-    filterFns: {},
+    filterFns: {
+      fuzzy: fuzzyFilter, //define as a filter function that can be used in column definitions
+    },
     state: {
       columnFilters,
+      globalFilter,
     },
     onColumnFiltersChange: setColumnFilters,
+    onGlobalFilterChange: setGlobalFilter,
+    globalFilterFn: "fuzzy",
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(), //client side filtering
     getSortedRowModel: getSortedRowModel(),
@@ -142,6 +198,13 @@ export const HopsTable = ({
   });
   return (
     <div>
+      <TextField
+        name="query"
+        value={globalFilter ?? ""}
+        onChange={({ target: { value } }) => setGlobalFilter(String(value))}
+        className="p-2 font-lg shadow border border-block"
+        placeholder="Search all columns..."
+      />
       <table className={tableStyles({ variant })}>
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
