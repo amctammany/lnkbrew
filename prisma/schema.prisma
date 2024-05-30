@@ -198,3 +198,42 @@ model Fermentable {
   stability    String?
   //  FermentableIngredient FermentableIngredient[]
 }
+
+enum YeastForm {
+  Liquid
+  Dry
+}
+
+enum YeastFlocculation {
+  VeryHigh
+  High
+  Medium
+  Low
+  VeryLow
+}
+
+enum YeastType {
+  Ale
+  Lager
+  Wheat
+  Wine
+}
+
+model Yeast {
+  //id           Int                @id @default(autoincrement())
+  id           String             @id @unique @default(cuid())
+  name         String
+  slug         String             @unique
+  usage        String?
+  description  String?
+  notes        String?
+  manufacturer String?
+  type         YeastType?
+  form         YeastForm?
+  tempLow      Float?
+  tempHigh     Float?
+  flocculation YeastFlocculation?
+  tolerance    Float?
+  attenuation  Float?
+  //  YeastIngredient YeastIngredient[]
+}

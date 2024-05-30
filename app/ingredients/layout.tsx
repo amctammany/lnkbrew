@@ -21,6 +21,9 @@ export default function IngredientLayout({
       <NavLink variant="subnav" href="/ingredients/fermentables">
         Fermentables
       </NavLink>
+      <NavLink variant="subnav" href="/ingredients/yeasts">
+        Yeasts
+      </NavLink>
     </SubNav>
   );
 }

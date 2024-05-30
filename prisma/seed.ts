@@ -1,6 +1,9 @@
 import {
   //PrismaClient,
   HopUsage,
+  YeastFlocculation,
+  YeastForm,
+  YeastType,
   //StyleCategory,
   //YeastForm,
   //YeastType,
@@ -11,7 +14,7 @@ import slugify from "slugify";
 import hops from "../data/hops.json";
 //import hopSuppliers from "../data/hopsuppliers.json";
 //import yakima from "../data/yakima.json";
-//import yeasts from "../data/yeasts.json";
+import yeasts from "../data/yeasts.json";
 import grains from "../data/grains.json";
 //import styles from "../data/styles.json";
 import { prisma } from "../lib/client";
@@ -22,6 +25,7 @@ async function main() {
   await prisma.user.deleteMany();
   await prisma.hop.deleteMany();
   await prisma.fermentable.deleteMany();
+  await prisma.yeast.deleteMany();
   /**
   await prisma.style.deleteMany();
   await prisma.equipmentProfile.deleteMany();
@@ -34,7 +38,6 @@ async function main() {
   await prisma.fermentableIngredient.deleteMany();
   await prisma.yeastIngredient.deleteMany();
   await prisma.hopSensoryPanel.deleteMany();
-  await prisma.yeast.deleteMany();
   await prisma.recipe.deleteMany();
   */
   //await prisma.user.deleteMany();
@@ -151,6 +154,21 @@ async function main() {
       boilTime: 60,
     },
   });
+  await prisma.otherIngredient.createMany({
+    data: [
+      {
+        name: "Baking Soda (NaHCO3)",
+        slug: slugify("Baking Soda (NaHCO3)", { lower: true }),
+        type: "agent",
+      },
+      {
+        name: "Gypsum (CaSO4)",
+        slug: slugify("Gypsum (CaSO4)", { lower: true }),
+        type: "agent",
+      },
+    ],
+  });
+  */
 
   await prisma.yeast.createMany({
     data: yeasts.map(
@@ -170,21 +188,7 @@ async function main() {
       })
     ),
   });
-  await prisma.otherIngredient.createMany({
-    data: [
-      {
-        name: "Baking Soda (NaHCO3)",
-        slug: slugify("Baking Soda (NaHCO3)", { lower: true }),
-        type: "agent",
-      },
-      {
-        name: "Gypsum (CaSO4)",
-        slug: slugify("Gypsum (CaSO4)", { lower: true }),
-        type: "agent",
-      },
-    ],
-  });
-  */
+
   await prisma.hop.createMany({
     data: hops.map(({ aromas, usage, flavorMap, ...hop }: any) => ({
       flavor: aromas,
