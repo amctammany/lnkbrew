@@ -24,7 +24,7 @@ export default function RootLayout({
           <NavLink href="/ingredients">Ingredients</NavLink>
         </Nav>
 
-        <main className="min-h-screen min-w-full items-center justify-between p-0 ">
+        <main className="min-w-full items-center justify-between p-0 ">
           {children}
         </main>
       </body>

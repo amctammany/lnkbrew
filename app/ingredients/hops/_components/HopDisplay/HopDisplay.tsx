@@ -4,6 +4,7 @@ import Link from "next/link";
 import OverviewSection from "./OverviewSection";
 import { Toolbar } from "@/components/Toolbar";
 import { IconButton } from "@/components/Button/IconButton";
+import { IconButtonLink } from "@/components/Button";
 
 export type HopDisplayProps = {
   hop: Hop | null;
@@ -13,7 +14,12 @@ export function HopDisplay({ hop }: HopDisplayProps) {
   return (
     <div>
       <Toolbar variant="topbar" title={hop?.name}>
-        <IconButton iconType="EditIcon">Edit</IconButton>
+        <IconButtonLink
+          href={`/ingredients/hops/${hop?.slug}/edit`}
+          iconType="EditIcon"
+        >
+          Edit
+        </IconButtonLink>
       </Toolbar>
       <div className="p-4">
         <OverviewSection hop={hop} />
