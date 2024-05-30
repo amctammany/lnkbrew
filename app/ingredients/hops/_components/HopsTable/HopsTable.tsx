@@ -21,8 +21,7 @@ export const HopsTable = ({ hops }: HopsTableProps) => {
 */
 "use client";
 import { ClientTable } from "@/components/ClientTable";
-import { Direction, Table } from "@/components/Table";
-import { DataColumnProps } from "@/components/Table/DataColumn";
+import { Direction, DataColumnProps } from "@/components/Table/types";
 import { Hop, HopUsage } from "@prisma/client";
 
 export type HopsTableProps = {

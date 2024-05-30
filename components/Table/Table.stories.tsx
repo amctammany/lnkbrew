@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { Table } from "./Table";
-import { DataColumnProps } from "./DataColumn";
+import { DataColumnProps } from "./types";
 
 const meta: Meta<typeof Table<D>> = {
   component: Table,

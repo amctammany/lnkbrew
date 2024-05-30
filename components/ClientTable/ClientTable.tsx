@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { Direction, Table, TableProps } from "../Table";
+import { Table, TableProps } from "../Table";
 import { ClientHeaderProps, ClientHeader } from "./ClientHeader";
 import { ClientRow } from "./ClientRow";
 import { RowProps, TableRowProps } from "../Table/TableRow";
@@ -11,6 +11,7 @@ import { IconButton } from "../Button/IconButton";
 //import { Searchbar } from "../Searchbar";
 import { ClientTableSearch } from "./ClientTableSearch";
 import { Select, SelectProps, TextField, TextFieldProps } from "../Form";
+import { Direction } from "../Table/types";
 type AdvancedSearchProps = {
   open: boolean;
 };

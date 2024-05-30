@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { DataColumnProps } from "./DataColumn";
+import { DataColumnProps } from "./types";
 import { VariantProps, cva } from "class-variance-authority";
 import { ComponentProps } from "react";
 

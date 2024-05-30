@@ -1,5 +1,5 @@
 import { Dispatch, useCallback } from "react";
-import { Direction } from "../Table/Table";
+import { Direction } from "../Table/types";
 
 export type ClientHeaderProps = {
   name: string;

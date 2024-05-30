@@ -3,8 +3,7 @@ import { RowProps, TableRow, makeTableRow } from "./TableRow";
 import { HeaderProps, TableHeader, TableHeaderProps } from "./TableHeader";
 import { VariantProps, cva } from "class-variance-authority";
 import clsx from "clsx";
-import { DataColumnProps } from "./DataColumn";
-export type Direction = "ASC" | "DESC";
+import { DataColumnProps, Direction } from "./types";
 export type TableProps<T extends Record<string, any>> = VariantProps<
   typeof tableStyles
 > &

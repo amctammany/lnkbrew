@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { ClientTable } from "./ClientTable";
-import { DataColumnProps } from "../Table/DataColumn";
+import { DataColumnProps } from "../Table/types";
 
 const meta: Meta<typeof ClientTable<D>> = {
   component: ClientTable,
