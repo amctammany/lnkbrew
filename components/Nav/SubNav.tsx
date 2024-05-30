@@ -18,7 +18,6 @@ export const SubNav = ({ body, children }: SubNavProps) => {
           <Suspense fallback={<Loading />}>{children}</Suspense>
         </div>
       </nav>
-      <ClientBreadcrumbs />
 
       <Body>{body}</Body>
     </>

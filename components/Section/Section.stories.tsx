@@ -37,7 +37,7 @@ export const Footer: Story = {
     variant: "warning",
     children: sectionBody,
     footer: (
-      <Toolbar variant="default" size="small">
+      <Toolbar variant="default">
         <Button size="toolbar" variant="toolbar">
           X
         </Button>

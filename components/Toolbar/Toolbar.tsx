@@ -6,28 +6,44 @@ export type ToolbarProps = VariantProps<typeof toolbarStyles> &
   ComponentProps<"div"> & {
     children?: React.ReactNode | React.ReactNode[];
   };
-const toolbarStyles = cva("flex min-w-full flex-row-reverse", {
+const toolbarTitleStyles = cva("flex-grow my-auto", {
   variants: {
     variant: {
-      default: ["bg-default-100"],
-      warning: ["bg-warning-100"],
-    },
-    size: {
-      default: ["py-1 px-2"],
-      small: ["p-0"],
+      default: ["text-black"],
+      warning: ["text-warning-100"],
+      topbar: ["font-bold text-2xl"],
     },
   },
   defaultVariants: {
     variant: "default",
-    size: "default",
   },
 });
-export const Toolbar = ({ children, variant, className }: ToolbarProps) => {
+const toolbarStyles = cva("flex", {
+  variants: {
+    variant: {
+      default: ["bg-default-100 py-1 px-4"],
+      warning: ["bg-warning-100"],
+      topbar: ["bg-info-200 py-2 px-8 "],
+    },
+  },
+  defaultVariants: {
+    variant: "default",
+  },
+});
+export const Toolbar = ({
+  title,
+  children,
+  variant,
+  className,
+}: ToolbarProps) => {
   return (
     <div className={clsx(toolbarStyles({ variant }), className)}>
-      {Array.isArray(children)
-        ? Children.map(children!, (c) => c)!.reverse()
-        : children}
+      <div className={toolbarTitleStyles({ variant })}>{title}</div>
+      <div className="flex flex-row-reverse">
+        {Array.isArray(children)
+          ? Children.map(children!, (c) => c)!.reverse()
+          : children}
+      </div>
     </div>
   );
 };
