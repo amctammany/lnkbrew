@@ -9,9 +9,25 @@ type BreadcrumbLinkProps = {
   href: string;
   text: string;
 };
-const Divider = () => <span className="px-4">/</span>;
+const dividerStyles = cva("px-4", {
+  variants: {
+    variant: {
+      default: "",
+      hidden: "hidden",
+    },
+  },
+  defaultVariants: {
+    variant: "default",
+  },
+});
+type DividerProps = VariantProps<typeof dividerStyles> & { hidden?: boolean };
+const Divider = ({ hidden }: DividerProps) => (
+  <span className={dividerStyles({ variant: hidden ? "hidden" : "default" })}>
+    /
+  </span>
+);
 const BreadcrumbLink = ({ href, text }: BreadcrumbLinkProps) => (
-  <Link className="font-bold  " href={href}>
+  <Link className="font-bold  capitalize" href={href}>
     {text}
   </Link>
 );
@@ -57,6 +73,8 @@ export const Breadcrumbs = ({ link, className, variant }: BreadcrumbsProps) => {
     );
   return (
     <div className={clsx(className, breadcrumbsStyles({ variant }))}>
+      <div className="font-extrabold">LNK</div>
+      <Divider hidden={breadcrumbs.length < 2} />
       {breadcrumbs}
     </div>
   );
