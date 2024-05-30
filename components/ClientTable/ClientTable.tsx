@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Table, TableProps } from "../Table";
 import { ClientHeaderProps, ClientHeader } from "./ClientHeader";
 import { ClientRow } from "./ClientRow";
@@ -43,19 +43,23 @@ export function ClientTable<T extends Record<string, any>>({
   filters: _filters,
   ...props
 }: ClientTableProps<T>) {
-  const filters = Object.entries(_filters || {}).reduce((acc, [f, v]) => {
-    if (v === "string")
-      acc[f] = (props: TextFieldProps) => <TextField {...props} />;
-    if (typeof v === "object" && v.enum)
-      acc[f] = ({ name, ...props }: SelectProps) => (
-        <Select
-          name={name}
-          options={{ "": "", ...(v.enum as any) }}
-          {...props}
-        />
-      );
-    return acc;
-  }, {} as any);
+  const filters = useMemo(
+    () =>
+      Object.entries(_filters || {}).reduce((acc, [f, v]) => {
+        if (v === "string")
+          acc[f] = (props: TextFieldProps) => <TextField {...props} />;
+        if (typeof v === "object" && v.enum)
+          acc[f] = ({ name, ...props }: SelectProps) => (
+            <Select
+              name={name}
+              options={{ "": "", ...(v.enum as any) }}
+              {...props}
+            />
+          );
+        return acc;
+      }, {} as any),
+    [_filters]
+  );
   const [query, setQuery] = useState(
     Object.entries(_filters || {}).reduce((acc, [n, f]) => {
       if (f === "string") acc[n] = "";
