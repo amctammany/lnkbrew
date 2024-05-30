@@ -74,7 +74,7 @@ export const Breadcrumbs = ({ link, className, variant }: BreadcrumbsProps) => {
   return (
     <div className={clsx(className, breadcrumbsStyles({ variant }))}>
       <div className="font-extrabold">LNK</div>
-      <Divider hidden={breadcrumbs.length < 2} />
+      <Divider hidden={breadcrumbs.length < 1} />
       {breadcrumbs}
     </div>
   );
