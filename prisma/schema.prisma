@@ -128,7 +128,8 @@ enum HopUsage {
 }
 
 model Hop {
-  id                Int       @id @default(autoincrement())
+  //id                Int       @id @default(autoincrement())
+  id                String    @id @unique @default(cuid())
   name              String
   slug              String    @unique
   description       String?
@@ -179,4 +180,21 @@ model Hop {
   styles            String[]
   //  HopIngredient     HopIngredient[]
   //  HopSensoryPanel   HopSensoryPanel[]
+}
+
+model Fermentable {
+  //id                    Int                     @id @default(autoincrement())
+  id           String  @id @unique @default(cuid())
+  name         String
+  slug         String  @unique
+  description  String?
+  notes        String?
+  manufacturer String?
+  country      String?
+  power        Int?
+  maxUsage     Float?
+  color        Float?
+  potential    Float?
+  stability    String?
+  //  FermentableIngredient FermentableIngredient[]
 }

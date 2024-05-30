@@ -6,7 +6,7 @@ import { z } from "zod";
 import { zfd } from "zod-form-data";
 
 const schema = zfd.formData({
-  id: zfd.numeric(),
+  id: zfd.text(),
   name: zfd.text(),
   description: zfd.text(z.string().optional()),
   country: zfd.text(z.string().optional()),

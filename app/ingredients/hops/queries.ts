@@ -24,7 +24,7 @@ export const getHopOptions = async () => {
       acc[hop.id] = hop.name;
       return acc;
     },
-    {} as Record<number, string>
+    {} as Record<string, string>
   );
   return options;
 };

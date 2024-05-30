@@ -12,7 +12,7 @@ import hops from "../data/hops.json";
 //import hopSuppliers from "../data/hopsuppliers.json";
 //import yakima from "../data/yakima.json";
 //import yeasts from "../data/yeasts.json";
-//import grains from "../data/grains.json";
+import grains from "../data/grains.json";
 //import styles from "../data/styles.json";
 import { prisma } from "../lib/client";
 async function main() {
@@ -21,6 +21,7 @@ async function main() {
   await prisma.userPreferences.deleteMany();
   await prisma.user.deleteMany();
   await prisma.hop.deleteMany();
+  await prisma.fermentable.deleteMany();
   /**
   await prisma.style.deleteMany();
   await prisma.equipmentProfile.deleteMany();
@@ -34,7 +35,6 @@ async function main() {
   await prisma.yeastIngredient.deleteMany();
   await prisma.hopSensoryPanel.deleteMany();
   await prisma.yeast.deleteMany();
-  await prisma.fermentable.deleteMany();
   await prisma.recipe.deleteMany();
   */
   //await prisma.user.deleteMany();
@@ -194,6 +194,13 @@ async function main() {
       usage: HopUsage[usage?.toLowerCase() as HopUsage] || HopUsage.dual,
     })),
   });
+  await prisma.fermentable.createMany({
+    data: grains.map((grain) => ({
+      ...grain,
+      slug: slugify(grain.name, { lower: true }),
+    })),
+  });
+
   /**
   const data = await Promise.allSettled(
     yakima.map(async ({ flavorMap, aromas, ...hop }) => {
@@ -234,12 +241,6 @@ async function main() {
     data: hopSuppliers.map((sup) => ({
       ...sup,
       slug: slugify(sup.name, { lower: true }),
-    })),
-  });
-  await prisma.fermentable.createMany({
-    data: grains.map((grain) => ({
-      ...grain,
-      slug: slugify(grain.name, { lower: true }),
     })),
   });
   await prisma.style.createMany({
