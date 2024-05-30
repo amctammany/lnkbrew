@@ -2,6 +2,7 @@
 import { Suspense } from "react";
 import Body from "./Body";
 import Loading from "@/app/loading";
+import ClientBreadcrumbs from "../Breadcrumbs/ClientBreadcrumbs";
 //import clsx from "clsx";
 //import NavLink from "./NavLink";
 
@@ -17,6 +18,8 @@ export const SubNav = ({ body, children }: SubNavProps) => {
           <Suspense fallback={<Loading />}>{children}</Suspense>
         </div>
       </nav>
+      <ClientBreadcrumbs />
+
       <Body>{body}</Body>
     </>
   );

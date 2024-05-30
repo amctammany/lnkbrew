@@ -35,7 +35,7 @@ export type BreadcrumbsProps = VariantProps<typeof breadcrumbsStyles> &
   ComponentProps<"div"> & {
     link?: string;
   };
-const breadcrumbsStyles = cva(["flex"], {
+const breadcrumbsStyles = cva(["flex mx-8"], {
   variants: {
     variant: {
       default: [""],
