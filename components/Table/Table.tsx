@@ -1,9 +1,10 @@
-import React, { ComponentProps } from "react";
+import React, { ComponentProps, memo } from "react";
 import { RowProps, TableRow, makeTableRow } from "./TableRow";
 import { HeaderProps, TableHeader, TableHeaderProps } from "./TableHeader";
 import { VariantProps, cva } from "class-variance-authority";
 import clsx from "clsx";
 import { DataColumnProps, Direction } from "./types";
+import { genericMemo } from "@/lib/utils";
 export type TableProps<T extends Record<string, any>> = VariantProps<
   typeof tableStyles
 > &
@@ -62,6 +63,7 @@ export function Table<T extends Record<string, any>>({
         (a, b) => (a[sort] < b[sort] ? -1 : 1) * (direction === "ASC" ? -1 : 1)
       )
     : f;
+  console.log("table render");
   return (
     <div className="max-w-full overflow-auto">
       <table className={clsx(tableStyles({ variant }), className)} {...props}>
@@ -94,3 +96,8 @@ export function Table<T extends Record<string, any>>({
     </div>
   );
 }
+
+export const MemoTable = genericMemo(Table, (oldProps, newProps) => {
+  console.log({ oldProps, newProps, eq: oldProps.src === newProps.src });
+  return oldProps.src === newProps.src;
+});

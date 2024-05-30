@@ -20,10 +20,12 @@ export const HopsTable = ({ hops }: HopsTableProps) => {
 };
 */
 "use client";
-import { ClientTable } from "@/components/ClientTable";
+//import { ClientTable } from "@/components/ClientTable";
+import { TextField } from "@/components/Form";
+import { Table, MemoTable } from "@/components/Table";
 import { Direction, DataColumnProps } from "@/components/Table/types";
 import { Hop, HopUsage } from "@prisma/client";
-import { memo } from "react";
+import { memo, useState } from "react";
 
 export type HopsTableProps = {
   hops: Hop[];
@@ -39,7 +41,25 @@ const columns: DataColumnProps<Hop>[] = [
 ];
 
 const HopFilters = { name: "string", usage: { enum: HopUsage } } as any;
-export const HopsTable = ({ hops, sort, direction }: HopsTableProps) => (
+export const HopsTable = ({ hops, sort, direction }: HopsTableProps) => {
+  const [query, setQuery] = useState("");
+  const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+    setQuery(e.target.value);
+  };
+  return (
+    <div>
+      <div>
+        <TextField name="query" value={query} onChange={handleChange} />
+      </div>
+      <MemoTable
+        src={hops}
+        columns={columns}
+        sort={sort}
+        direction={direction}
+      />
+    </div>
+  );
+}; /**
   <ClientTable
     src={hops}
     filters={HopFilters}
@@ -50,7 +70,4 @@ export const HopsTable = ({ hops, sort, direction }: HopsTableProps) => (
     }}
   />
 );
-export const MemoHopsTable = memo(HopsTable, function (oldProps, newProps) {
-  console.log({ oldProps, newProps });
-  return true;
-});
+*/
