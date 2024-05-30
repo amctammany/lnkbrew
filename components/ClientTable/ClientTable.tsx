@@ -87,7 +87,6 @@ export function ClientTable<T extends Record<string, any>>({
   //const { value } = e.currentTarget;
   //setQuery(value);
   //};
-  console.log(props);
   return (
     <div className="">
       <div className="">
