@@ -1,3 +1,4 @@
+"use client";
 import { forwardRef, useState } from "react";
 import { AmountFieldProps, amountFieldStyles } from "./AmountField";
 import clsx from "clsx";
