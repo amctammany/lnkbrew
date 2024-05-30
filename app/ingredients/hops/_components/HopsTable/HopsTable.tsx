@@ -52,6 +52,7 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { VariantProps, cva } from "class-variance-authority";
+import { AppIcon } from "@/components/AppIcon";
 const tableStyles = cva(
   ["w-full table table-auto border border-collapse border-slate-400"],
   {
@@ -146,13 +147,42 @@ export const HopsTable = ({
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
-                <th key={header.id} className={tableHeaderStyles({ variant })}>
-                  {header.isPlaceholder
-                    ? null
-                    : flexRender(
-                        header.column.columnDef.header,
-                        header.getContext()
-                      )}
+                <th
+                  key={header.id}
+                  className={tableHeaderStyles({
+                    variant,
+                    active: header.column
+                      .getIsSorted()
+                      .valueOf()
+                      .toString()
+                      .toUpperCase() as Direction,
+                  })}
+                >
+                  <>
+                    <div
+                      className="flex"
+                      onClick={header.column.getToggleSortingHandler()}
+                    >
+                      <b className="flex-grow">
+                        {header.isPlaceholder
+                          ? null
+                          : flexRender(
+                              header.column.columnDef.header,
+                              header.getContext()
+                            )}
+                      </b>
+                      <span className="flex-shrink w-6">
+                        <AppIcon
+                          type={
+                            {
+                              asc: "UpIcon",
+                              desc: "DownIcon",
+                            }[header.column.getIsSorted() as string] as any
+                          }
+                        />
+                      </span>
+                    </div>
+                  </>
                 </th>
               ))}
             </tr>
