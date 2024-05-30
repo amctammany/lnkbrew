@@ -1,4 +1,5 @@
 import { HopEditor } from "../../_components/HopEditor";
+import { updateHop } from "../../actions";
 import { getHop } from "../../queries";
 type HopEditorPageProps = {
   params: {
@@ -16,5 +17,5 @@ export default async function HopEditorPage({
   params: { slug },
 }: HopEditorPageProps) {
   const hop = await getHop(slug);
-  return <HopEditor hop={hop} />;
+  return <HopEditor hop={hop} action={updateHop} />;
 }
