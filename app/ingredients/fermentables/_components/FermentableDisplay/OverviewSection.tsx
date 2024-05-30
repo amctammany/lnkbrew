@@ -12,8 +12,11 @@ export function OverviewSection({ fermentable }: OverviewSectionProps) {
           [
             "name",
             "country",
-            "characteristics",
-            "usage",
+            "notes",
+            "color",
+            "potential",
+            "manufacturer",
+            "maxUsage",
           ] as (keyof Fermentable)[]
         ).map((field) => (
           <div key={field} className="grid grid-cols-3 p-2 border-b-4">

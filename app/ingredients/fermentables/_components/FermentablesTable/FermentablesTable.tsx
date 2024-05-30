@@ -1,24 +1,3 @@
-/**
-import { Fermentable } from "@prisma/client";
-import Link from "next/link";
-export type FermentablesTableProps = {
-  fermentables: Fermentable[];
-};
-export const FermentablesTable = ({ fermentables }: FermentablesTableProps) => {
-  //console.log(fermentables);
-  return (
-    <div>
-      FermentablesTable
-      {fermentables.map((fermentable) => (
-        <div key={fermentable.id}>
-          {fermentable.name}
-          <Link href={`/ingredients/fermentables/${fermentable.slug}`}>Display</Link>
-        </div>
-      ))}
-    </div>
-  );
-};
-*/
 "use client";
 import { ClientTable } from "@/components/ClientTable";
 import { Direction, DataColumnProps } from "@/components/Table/types";
