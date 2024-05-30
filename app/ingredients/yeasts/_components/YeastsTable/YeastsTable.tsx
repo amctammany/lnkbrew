@@ -26,9 +26,9 @@ export const YeastsTable = ({ yeasts, sort, direction }: YeastsTableProps) => (
     src={yeasts}
     filters={{
       name: "string",
-      type: { "": "", ...YeastType },
-      flocculation: { "": "", ...YeastFlocculation },
-      form: { "": "", ...YeastForm } as any,
+      type: { enum: YeastType },
+      flocculation: { enum: YeastFlocculation },
+      form: { enum: YeastForm },
     }}
     columns={columns}
     sort={sort}

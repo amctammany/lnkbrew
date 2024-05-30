@@ -23,6 +23,7 @@ export const HopsTable = ({ hops }: HopsTableProps) => {
 import { ClientTable } from "@/components/ClientTable";
 import { Direction, DataColumnProps } from "@/components/Table/types";
 import { Hop, HopUsage } from "@prisma/client";
+import { memo } from "react";
 
 export type HopsTableProps = {
   hops: Hop[];
@@ -37,10 +38,11 @@ const columns: DataColumnProps<Hop>[] = [
   { name: "beta" },
 ];
 
+const HopFilters = { name: "string", usage: { enum: HopUsage } } as any;
 export const HopsTable = ({ hops, sort, direction }: HopsTableProps) => (
   <ClientTable
     src={hops}
-    filters={{ name: "string", usage: { "": "", ...HopUsage } as any }}
+    filters={HopFilters}
     columns={columns}
     selectActions={{
       Compare: "/ingredients/hops/compare",
@@ -48,3 +50,7 @@ export const HopsTable = ({ hops, sort, direction }: HopsTableProps) => (
     }}
   />
 );
+export const MemoHopsTable = memo(HopsTable, function (oldProps, newProps) {
+  console.log({ oldProps, newProps });
+  return true;
+});

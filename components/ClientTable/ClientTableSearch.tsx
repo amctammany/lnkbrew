@@ -20,6 +20,7 @@ export function ClientTableSearch<Q extends Record<string, any>>({
 }: ClientTableSearchProps<Q>) {
   const [searchOpen, setSearchOpen] = useState(false);
   const handleToggle: React.MouseEventHandler<HTMLButtonElement> = (e) => {
+    if (searchOpen) setQuery?.({} as Q);
     setSearchOpen((o) => !o);
   };
   const handleQuery: React.ChangeEventHandler<HTMLInputElement> = (e) => {

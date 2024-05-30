@@ -22,10 +22,13 @@ function AdvancedSearch({ open }: AdvancedSearchProps) {
     <div></div>
   );
 }
+type EnumFilter<Q extends Record<string, any> = Record<string, any>> = {
+  enum: Q;
+};
 export type ClientTableProps<T extends Record<string, any>> = TableProps<T> & {
   selectActions?: Record<string, string>;
   filters?: Partial<
-    Record<keyof T, "string" | "number" | Record<string, string>>
+    Record<keyof T, "string" | "number" | EnumFilter | Record<string, string>>
   >;
 };
 
@@ -43,9 +46,13 @@ export function ClientTable<T extends Record<string, any>>({
   const filters = Object.entries(_filters || {}).reduce((acc, [f, v]) => {
     if (v === "string")
       acc[f] = (props: TextFieldProps) => <TextField {...props} />;
-    if (typeof v === "object")
+    if (typeof v === "object" && v.enum)
       acc[f] = ({ name, ...props }: SelectProps) => (
-        <Select name={name} options={v as any} {...props} />
+        <Select
+          name={name}
+          options={{ "": "", ...(v.enum as any) }}
+          {...props}
+        />
       );
     return acc;
   }, {} as any);
@@ -53,10 +60,14 @@ export function ClientTable<T extends Record<string, any>>({
     Object.entries(_filters || {}).reduce((acc, [n, f]) => {
       if (f === "string") acc[n] = "";
       if (Array.isArray(f)) acc[n] = f[0];
-      if (typeof f === "object") acc[n] = Object.entries(f || {})[0][0];
+      if (typeof f === "object" && f.enum) {
+        acc[n] = Object.entries(f.enum || {})[0][0];
+        //console.log(f);
+      }
       return acc;
     }, {} as any)
   );
+  console.log(query);
   const [sort, setSort] = useState("name");
   const [selected, setSelected] = useState<number[]>([]);
   const [direction, setDirection] = useState<Direction>("DESC");
