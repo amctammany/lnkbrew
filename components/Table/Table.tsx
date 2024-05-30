@@ -1,14 +1,16 @@
 import React, { ComponentProps, memo } from "react";
-import { RowProps, TableRow, makeTableRow } from "./TableRow";
+import { TableRow } from "./TableRow";
 import { HeaderProps, TableHeader, TableHeaderProps } from "./TableHeader";
 import { VariantProps, cva } from "class-variance-authority";
 import clsx from "clsx";
-import { DataColumnProps, Direction } from "./types";
-import { genericMemo } from "@/lib/utils";
+import { Direction } from "./types";
+//import { genericMemo } from "@/lib/utils";
+import { Table as ReactTable, flexRender } from "@tanstack/react-table";
+import TableCell from "./TableCell";
 export type TableProps<T extends Record<string, any>> = VariantProps<
   typeof tableStyles
 > &
-  ComponentProps<"table"> & {
+  ComponentProps<"table"> & { table: ReactTable<T> }; /**{
     sort?: string;
     direction?: Direction; //string; //"ASC" | "DESC";
     query?: Record<keyof T, T[keyof T]>;
@@ -17,7 +19,8 @@ export type TableProps<T extends Record<string, any>> = VariantProps<
     Header?: React.FC<HeaderProps>;
     Row?: React.FC<RowProps>;
   };
-const tableStyles = cva(
+*/
+export const tableStyles = cva(
   ["w-full table table-auto border border-collapse border-slate-400"],
   {
     variants: {
@@ -36,68 +39,60 @@ const tableStyles = cva(
 );
 
 export function Table<T extends Record<string, any>>({
-  src,
-  columns,
-  query,
-  sort,
-  direction,
+  table,
   variant,
-  Header,
-  Row: _Row,
   className,
   ...props
 }: TableProps<T>) {
-  const Row = makeTableRow(columns, _Row);
-  const f = Object.keys(query || {}).reduce(
-    (acc, field) =>
-      acc.filter(
-        (s) =>
-          s[field]?.toLowerCase().indexOf(query?.[field]?.toLowerCase()) >= 0
-      ),
-    //acc[field as keyof T] = query[field];
-    //return acc;
-    src
-  );
-  const filtered = sort
-    ? f.sort(
-        (a, b) => (a[sort] < b[sort] ? -1 : 1) * (direction === "ASC" ? -1 : 1)
-      )
-    : f;
-  console.log("table render");
   return (
-    <div className="max-w-full overflow-auto">
-      <table className={clsx(tableStyles({ variant }), className)} {...props}>
-        <thead>
-          <tr>
-            {columns.map(({ name, label }) => (
+    <table className={clsx(className, tableStyles({ variant }))}>
+      <thead>
+        {table.getHeaderGroups().map((headerGroup) => (
+          <tr key={headerGroup.id}>
+            {headerGroup.headers.map((header) => (
               <TableHeader
-                Header={Header}
-                key={name.toString()}
+                header={header}
+                key={header.id}
                 variant={variant}
-                name={name.toString()}
-                label={label}
                 active={
-                  (sort === name
-                    ? direction === "DESC"
-                      ? "DESC"
-                      : "ASC"
-                    : undefined) as Direction
+                  header.column
+                    .getIsSorted()
+                    .valueOf()
+                    .toString()
+                    .toUpperCase() as Direction
                 }
               />
             ))}
           </tr>
-        </thead>
-        <tbody>
-          {filtered.map((row) => (
-            <Row variant={variant} key={row.id} _id={row.id} data={row} />
-          ))}
-        </tbody>
-      </table>
-    </div>
+        ))}
+      </thead>
+      <tbody>
+        {table.getRowModel().rows.map((row) => (
+          <TableRow key={row.id}>
+            {row.getVisibleCells().map((cell) => (
+              <TableCell className="border border-slate-400" key={cell.id}>
+                {flexRender(cell.column.columnDef.cell, cell.getContext())}
+              </TableCell>
+            ))}
+          </TableRow>
+        ))}
+      </tbody>
+      <tfoot>
+        {table.getFooterGroups().map((footerGroup) => (
+          <TableRow key={footerGroup.id}>
+            {footerGroup.headers.map((header) => (
+              <th key={header.id}>
+                {header.isPlaceholder
+                  ? null
+                  : flexRender(
+                      header.column.columnDef.footer,
+                      header.getContext()
+                    )}
+              </th>
+            ))}
+          </TableRow>
+        ))}
+      </tfoot>
+    </table>
   );
 }
-
-export const MemoTable = genericMemo(Table, (oldProps, newProps) => {
-  console.log({ oldProps, newProps, eq: oldProps.src === newProps.src });
-  return oldProps.src === newProps.src;
-});

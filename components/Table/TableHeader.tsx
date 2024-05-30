@@ -8,55 +8,27 @@ import {
   rankItem,
   compareItems,
 } from "@tanstack/match-sorter-utils";
-import { FilterFn, SortingFn, sortingFns } from "@tanstack/react-table";
-
-declare module "@tanstack/react-table" {
-  //add fuzzy filter to the filterFns
-  interface FilterFns {
-    fuzzy: FilterFn<unknown>;
-  }
-  interface FilterMeta {
-    itemRank: RankingInfo;
-  }
-}
-
-// Define a custom fuzzy filter function that will apply ranking info to rows (using match-sorter utils)
-const fuzzyFilter: FilterFn<any> = (row, columnId, value, addMeta) => {
-  // Rank the item
-  const itemRank = rankItem(row.getValue(columnId), value);
-
-  // Store the itemRank info
-  addMeta({
-    itemRank,
-  });
-
-  // Return if the item should be filtered in/out
-  return itemRank.passed;
-};
-
-// Define a custom fuzzy sort function that will sort by rank if the row has ranking information
-const fuzzySort: SortingFn<any> = (rowA, rowB, columnId) => {
-  let dir = 0;
-
-  // Only sort by rank if the column has ranking information
-  if (rowA.columnFiltersMeta[columnId]) {
-    dir = compareItems(
-      rowA.columnFiltersMeta[columnId]?.itemRank!,
-      rowB.columnFiltersMeta[columnId]?.itemRank!
-    );
-  }
-
-  // Provide an alphanumeric fallback for when the item ranks are equal
-  return dir === 0 ? sortingFns.alphanumeric(rowA, rowB, columnId) : dir;
-};
+import {
+  FilterFn,
+  Header,
+  SortingFn,
+  flexRender,
+  sortingFns,
+} from "@tanstack/react-table";
+import { AppIcon } from "../AppIcon";
 
 type Active = "ASC" | "DESC";
-export type TableHeaderProps = VariantProps<typeof tableHeaderStyles> &
+export type TableHeaderProps<
+  H extends Header<S, T> = Header<any, any>,
+  S = unknown,
+  T = unknown,
+> = VariantProps<typeof tableHeaderStyles> &
   ComponentProps<"th"> & {
-    name: string;
+    name?: string;
     label?: string;
     active?: Active;
     Header?: React.FC<HeaderProps>;
+    header: H;
   };
 const tableHeaderStyles = cva(["uppercase border border-slate-500"], {
   variants: {
@@ -72,8 +44,8 @@ const tableHeaderStyles = cva(["uppercase border border-slate-500"], {
     variant: "default",
   },
 });
-export type HeaderProps = {
-  name: string;
+export type HeaderProps = VariantProps<typeof tableHeaderStyles> & {
+  name?: string;
   active?: Active;
   children?: React.ReactNode;
 };
@@ -87,28 +59,35 @@ function DefaultHeader({ name, active, children }: HeaderProps) {
   );
 }
 export const TableHeader = ({
-  name,
-  label,
+  //name,
+  //label,
   active,
+  header,
+  variant,
   Header: _Header,
   className,
+  //children,
 }: TableHeaderProps) => {
-  const Header = _Header ?? DefaultHeader;
+  //const Header = _Header ?? DefaultHeader;
   return (
-    <th className={clsx(tableHeaderStyles({ active }), className)}>
-      <Header {...{ name, active }}>
-        <div className="flex">
-          <b className="flex-grow">{label || name}</b>
-          <span className="flex-shrink w-6">
-            {active &&
-              (active === "ASC" ? (
-                <ArrowUpIcon className="h-6 w-6" />
-              ) : (
-                <ArrowDownIcon className="h-6 w-6" />
-              ))}
-          </span>
-        </div>
-      </Header>
+    <th className={clsx(tableHeaderStyles({ active, variant }), className)}>
+      <div className="flex" onClick={header.column.getToggleSortingHandler()}>
+        <b className="flex-grow">
+          {header?.isPlaceholder
+            ? null
+            : flexRender(header.column.columnDef.header, header.getContext())}
+        </b>
+        <span className="flex-shrink w-6">
+          <AppIcon
+            type={
+              {
+                asc: "UpIcon",
+                desc: "DownIcon",
+              }[header.column.getIsSorted() as string] as any
+            }
+          />
+        </span>
+      </div>
     </th>
   );
 };

@@ -2,6 +2,15 @@ import type { Meta, StoryObj } from "@storybook/react";
 
 import { Table } from "./Table";
 import { DataColumnProps } from "./types";
+import {
+  ColumnDef,
+  getCoreRowModel,
+  getFilteredRowModel,
+  getSortedRowModel,
+  useReactTable,
+} from "@tanstack/react-table";
+import { useMemo } from "react";
+import { fuzzyFilter } from "@/lib/fuzzyFilter";
 
 const meta: Meta<typeof Table<D>> = {
   component: Table,
@@ -9,22 +18,41 @@ const meta: Meta<typeof Table<D>> = {
 export default meta;
 type D = { name: string; description: string };
 
-const data: D[] = [
-  { name: "first", description: "foobar" },
-  { name: "second", description: "why" },
-  { name: "third", description: "bar" },
-];
-const columns: DataColumnProps<D>[] = [
-  { name: "name", href: (src: D) => `/sub/${src.name}` },
-  { name: "description" },
-];
-
 type Story = StoryObj<typeof Table<D>>;
 
 export const Basic: Story = {
-  args: {
-    columns,
-    src: data,
-    //children: "Basic",
+  render: () => {
+    const columns = useMemo<ColumnDef<D, any>[]>(
+      () => [
+        {
+          id: "name",
+          accessorKey: "name",
+          cell: (info) => info.getValue(),
+        },
+        {
+          accessorKey: "description",
+          cell: (info) => info.getValue(),
+        },
+      ],
+      []
+    );
+    const data: D[] = [
+      { name: "alex", description: "desc" },
+      { name: "lex", description: "desc" },
+      { name: "ex", description: "desc" },
+    ];
+    const table = useReactTable({
+      data,
+      columns,
+      filterFns: {
+        fuzzy: fuzzyFilter, //define as a filter function that can be used in column definitions
+      },
+
+      getCoreRowModel: getCoreRowModel(),
+      getFilteredRowModel: getFilteredRowModel(), //client side filtering
+      getSortedRowModel: getSortedRowModel(),
+    });
+
+    return <Table table={table} />;
   },
 };
