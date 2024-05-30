@@ -1,3 +1,4 @@
+import { Prop } from "@/components/Prop";
 import { ClientSection } from "@/components/Section";
 import { Fermentable } from "@prisma/client";
 
@@ -8,22 +9,16 @@ export function OverviewSection({ fermentable }: OverviewSectionProps) {
   return (
     <ClientSection title="Overview">
       <div className="">
-        {(
-          [
-            "name",
-            "country",
-            "notes",
-            "color",
-            "potential",
-            "manufacturer",
-            "maxUsage",
-          ] as (keyof Fermentable)[]
-        ).map((field) => (
-          <div key={field} className="grid grid-cols-3 p-2 border-b-4">
-            <div className="uppercase">{field}</div>
-            <div className="col-span-2">{fermentable?.[field]}</div>
-          </div>
-        ))}
+        <Prop label="Name">{fermentable?.name}</Prop>
+        <Prop label="Country">{fermentable?.country}</Prop>
+        <Prop label="Notes">{fermentable?.notes}</Prop>
+        <Prop label="Color" unit="°L">
+          {fermentable?.color}
+        </Prop>
+        <Prop label="Potential">{fermentable?.potential}</Prop>
+        <Prop label="Max Usage" unit="%">
+          {fermentable?.maxUsage}
+        </Prop>
       </div>
     </ClientSection>
   );
