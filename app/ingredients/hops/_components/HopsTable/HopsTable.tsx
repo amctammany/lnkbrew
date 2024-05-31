@@ -1,5 +1,5 @@
 "use client";
-import { Select, TextField } from "@/components/Form";
+import { NumberField, Select, TextField } from "@/components/Form";
 import { Table, tableStyles } from "@/components/Table";
 import { Direction, DataColumnProps } from "@/components/Table/types";
 import { Hop, HopUsage } from "@prisma/client";
@@ -52,10 +52,12 @@ export const HopsTable = ({
       {
         accessorKey: "alpha",
         cell: (info) => info.getValue(),
+        filterFn: "inNumberRange",
       },
       {
         accessorKey: "beta",
         cell: (info) => info.getValue(),
+        filterFn: "inNumberRange",
       },
     ],
     []
@@ -112,6 +114,36 @@ export const HopsTable = ({
         className="p-2 font-lg shadow border border-block"
         options={HopUsageWithBlank}
       />
+      <div>
+        <NumberField
+          name="minAlpha"
+          value={
+            (
+              table.getColumn("alpha")?.getFilterValue() as [number, number]
+            )?.[0] ?? ""
+          }
+          onChange={({ target: { value } }) =>
+            table
+              .getColumn("alpha")
+              ?.setFilterValue((old: [number, number]) => [value, old?.[1]])
+          }
+          className="p-2 font-lg shadow border border-block"
+        />
+        <NumberField
+          name="maxAlpha"
+          value={
+            (
+              table.getColumn("alpha")?.getFilterValue() as [number, number]
+            )?.[1] ?? ""
+          }
+          onChange={({ target: { value } }) =>
+            table
+              .getColumn("alpha")
+              ?.setFilterValue((old: [number, number]) => [old?.[0], value])
+          }
+          className="p-2 font-lg shadow border border-block"
+        />
+      </div>
 
       <Table variant={variant} table={table}></Table>
     </div>

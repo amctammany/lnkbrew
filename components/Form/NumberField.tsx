@@ -76,6 +76,7 @@ export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(
           onBlur={onBlur}
           value={value}
           ref={ref}
+          onWheel={(e) => e.currentTarget.blur()}
         />
       </Label>
     );
