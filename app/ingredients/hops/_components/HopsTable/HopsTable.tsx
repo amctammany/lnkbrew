@@ -23,11 +23,12 @@ export const HopsTable = ({ hops }: HopsTableProps) => {
 //
 //
 //import { ClientTable } from "@/components/ClientTable";
-import { TextField } from "@/components/Form";
+import { Select, TextField } from "@/components/Form";
 import { Table, tableStyles } from "@/components/Table";
 import { Direction, DataColumnProps } from "@/components/Table/types";
 import { Hop, HopUsage } from "@prisma/client";
 import { memo, useMemo, useState } from "react";
+const HopUsageWithBlank = { "": "", ...HopUsage };
 
 export type HopsTableProps = VariantProps<typeof tableStyles> & {
   hops: Hop[];
@@ -107,7 +108,6 @@ export const HopsTable = ({
     debugHeaders: true,
     debugColumns: false,
   });
-  const nameColumn = table.getColumn("name");
   return (
     <div>
       <TextField
@@ -120,10 +120,21 @@ export const HopsTable = ({
 
       <TextField
         name="name"
-        value={nameColumn?.getFilterValue()}
-        onChange={({ target: { value } }) => nameColumn?.setFilterValue(value)}
+        value={table.getColumn("name")?.getFilterValue()}
+        onChange={({ target: { value } }) =>
+          table.getColumn("name")?.setFilterValue(value)
+        }
         className="p-2 font-lg shadow border border-block"
         placeholder="Search name column"
+      />
+      <Select
+        name="usage"
+        value={table.getColumn("usage")?.getFilterValue()}
+        onChange={({ target: { value } }) =>
+          table.getColumn("usage")?.setFilterValue(value)
+        }
+        className="p-2 font-lg shadow border border-block"
+        options={HopUsageWithBlank}
       />
 
       <Table variant={variant} table={table}></Table>
