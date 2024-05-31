@@ -10,16 +10,7 @@ import TableCell from "./TableCell";
 export type TableProps<T extends Record<string, any>> = VariantProps<
   typeof tableStyles
 > &
-  ComponentProps<"table"> & { table: ReactTable<T> }; /**{
-    sort?: string;
-    direction?: Direction; //string; //"ASC" | "DESC";
-    query?: Record<keyof T, T[keyof T]>;
-    src: T[];
-    columns: DataColumnProps<T>[];
-    Header?: React.FC<HeaderProps>;
-    Row?: React.FC<RowProps>;
-  };
-*/
+  ComponentProps<"table"> & { table: ReactTable<T> };
 export const tableStyles = cva(
   ["w-full table table-auto border border-collapse border-slate-400"],
   {

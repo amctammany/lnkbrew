@@ -1,28 +1,4 @@
-/**
-import { Hop } from "@prisma/client";
-import Link from "next/link";
-export type HopsTableProps = {
-  hops: Hop[];
-};
-export const HopsTable = ({ hops }: HopsTableProps) => {
-  //console.log(hops);
-  return (
-    <div>
-      HopsTable
-      {hops.map((hop) => (
-        <div key={hop.id}>
-          {hop.name}
-          <Link href={`/ingredients/hops/${hop.slug}`}>Display</Link>
-        </div>
-      ))}
-    </div>
-  );
-};
-*/
 "use client";
-//
-//
-//import { ClientTable } from "@/components/ClientTable";
 import { Select, TextField } from "@/components/Form";
 import { Table, tableStyles } from "@/components/Table";
 import { Direction, DataColumnProps } from "@/components/Table/types";
@@ -140,30 +116,4 @@ export const HopsTable = ({
       <Table variant={variant} table={table}></Table>
     </div>
   );
-  /**
-  return (
-    <div>
-      <div>
-        <TextField name="query" value={query} onChange={handleChange} />
-      </div>
-      <MemoTable
-        src={hops}
-        columns={columns}
-        sort={sort}
-        direction={direction}
-      />
-    </div>
-  );
-  */
-}; /**
-  <ClientTable
-    src={hops}
-    filters={HopFilters}
-    columns={columns}
-    selectActions={{
-      Compare: "/ingredients/hops/compare",
-      Combine: "/ingredients/hops/combine",
-    }}
-  />
-);
-*/
+};
