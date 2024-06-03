@@ -52,6 +52,7 @@ model User {
   id              String           @id @default(cuid())
   name            String?
   email           String?          @unique
+  username        String?          @unique
   emailVerified   DateTime?
   image           String?
   accounts        Account[]
@@ -67,10 +68,10 @@ model UserPreferences {
   fermentableMassUnit  UserMassPreference        @default(LbOz)
   gravityUnit          UserGravityPreference     @default(SG)
   temperatureUnit      UserTemperaturePreference @default(F)
-  //  defaultEquipment     EquipmentProfile?         @relation(fields: [equipmentProfileId], references: [id])
+  defaultEquipment     EquipmentProfile?         @relation(fields: [equipmentProfileId], references: [id])
   //  defaultMashProfile   MashProfile?              @relation(fields: [mashProfileId], references: [id])
-  //  defaultSourceWater   WaterProfile?             @relation("SourceWater", fields: [sourceWaterProfileId], references: [id])
-  // defaultTargetWater   WaterProfile?             @relation("TargetWater", fields: [targetWaterProfileId], references: [id])
+  defaultSourceWater   WaterProfile?             @relation("SourceWater", fields: [sourceWaterProfileId], references: [id])
+  defaultTargetWater   WaterProfile?             @relation("TargetWater", fields: [targetWaterProfileId], references: [id])
   equipmentProfileId   Int?
   sourceWaterProfileId Int?
   targetWaterProfileId Int?
@@ -280,25 +281,25 @@ model Style {
 }
 
 model WaterProfile {
-  id          Int     @id @default(autoincrement())
-  name        String
-  slug        String  @unique
-  calcium     Int
-  magnesium   Int
-  sodium      Int
-  chloride    Int
-  sulfate     Int
-  bicarbonate Int
-  description String?
+  id             Int               @id @default(autoincrement())
+  name           String
+  slug           String            @unique
+  calcium        Int
+  magnesium      Int
+  sodium         Int
+  chloride       Int
+  sulfate        Int
+  bicarbonate    Int
+  description    String?
   //  Recipe         Recipe[]
-  //  DefaultSources UserPreferences[] @relation("SourceWater")
-  //  TargetSources  UserPreferences[] @relation("TargetWater")
+  DefaultSources UserPreferences[] @relation("SourceWater")
+  TargetSources  UserPreferences[] @relation("TargetWater")
 }
 
 model EquipmentProfile {
-  id              Int     @id @default(autoincrement())
+  id              Int               @id @default(autoincrement())
   name            String
-  slug            String  @unique
+  slug            String            @unique
   description     String?
   batchVolume     Float?
   boilVolume      Float?
@@ -307,11 +308,11 @@ model EquipmentProfile {
   brewEfficiency  Float?
   mashEfficiency  Float?
   boilOffRate     Float?
-  trubLoss        Float?  @default(0)
-  mashLoss        Float?  @default(0)
-  fermenterLoss   Float?  @default(0)
-  grainAbsorption Float?  @default(0.5)
-  waterGrainRatio Float?  @default(1.5)
+  trubLoss        Float?            @default(0)
+  mashLoss        Float?            @default(0)
+  fermenterLoss   Float?            @default(0)
+  grainAbsorption Float?            @default(0.5)
+  waterGrainRatio Float?            @default(1.5)
   //  Recipe          Recipe[]
-  //  UserPreferences UserPreferences[]
+  UserPreferences UserPreferences[]
 }

@@ -30,6 +30,17 @@ async function main() {
   await prisma.style.deleteMany();
   await prisma.waterProfile.deleteMany();
   await prisma.equipmentProfile.deleteMany();
+
+  await prisma.user.deleteMany();
+  const admin = await prisma.user.upsert({
+    where: { email: "admin@lnkbrewing.com" },
+    update: {},
+    create: {
+      email: "admin@lnkbrewing.com",
+      name: "Alex",
+      username: "admin",
+    },
+  });
   await prisma.style.createMany({
     data: styles.map(({ category, ...style }) => ({
       ...style,
