@@ -48,7 +48,7 @@ function ClientTable<T extends Record<string, any>>({
             onChange={({ target: { value } }) =>
               table.setGlobalFilter(String(value))
             }
-            className="p-2 font-lg shadow border border-block"
+            className="p-0 font-lg shadow border-block"
             placeholder="Search all columns..."
           />
         }

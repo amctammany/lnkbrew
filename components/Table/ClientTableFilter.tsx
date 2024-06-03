@@ -34,15 +34,17 @@ export function ClientTableFilter<T extends Record<string, any>>({
     TableFilterType,
     React.FC<{
       className?: string;
-      table: Table<T>;
       name: keyof T extends string ? string : never;
       options?: Record<string, string>;
       children?: any;
+      type: TableFilterType;
+      table: Table<T>;
     }>
   > = {
     text: TextFilter,
     select: SelectFilter,
   };
+  children;
 
   const Comp = filterComps[filter.type];
   return (
