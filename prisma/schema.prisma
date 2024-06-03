@@ -49,15 +49,18 @@ model VerificationToken {
 }
 
 model User {
-  id              String           @id @default(cuid())
-  name            String?
-  email           String?          @unique
-  username        String?          @unique
-  emailVerified   DateTime?
-  image           String?
-  accounts        Account[]
-  sessions        Session[]
-  UserPreferences UserPreferences?
+  id               String             @id @default(cuid())
+  name             String?
+  email            String?            @unique
+  username         String?            @unique
+  emailVerified    DateTime?
+  image            String?
+  accounts         Account[]
+  sessions         Session[]
+  UserPreferences  UserPreferences?
+  Style            Style[]
+  WaterProfile     WaterProfile[]
+  EquipmentProfile EquipmentProfile[]
 }
 
 model UserPreferences {
@@ -246,7 +249,10 @@ enum StyleCategory {
 }
 
 model Style {
-  id            Int           @id @default(autoincrement())
+  id     Int     @id @default(autoincrement())
+  userId String?
+  owner  User?   @relation(fields: [userId], references: [id])
+
   name          String
   slug          String        @unique
   //recipes       Recipe[]
@@ -282,6 +288,8 @@ model Style {
 
 model WaterProfile {
   id             Int               @id @default(autoincrement())
+  userId         String?
+  owner          User?             @relation(fields: [userId], references: [id])
   name           String
   slug           String            @unique
   calcium        Int
@@ -298,6 +306,8 @@ model WaterProfile {
 
 model EquipmentProfile {
   id              Int               @id @default(autoincrement())
+  userId          String?
+  owner           User?             @relation(fields: [userId], references: [id])
   name            String
   slug            String            @unique
   description     String?
