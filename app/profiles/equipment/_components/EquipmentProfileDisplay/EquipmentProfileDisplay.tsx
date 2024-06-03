@@ -1,5 +1,6 @@
 import { IconButtonLink } from "@/components/Button";
 import { Prop } from "@/components/Prop";
+import { Section } from "@/components/Section";
 import { Toolbar } from "@/components/Toolbar";
 import { EquipmentProfile } from "@prisma/client";
 import React from "react";
@@ -21,15 +22,17 @@ export const EquipmentProfileDisplay = ({
   profile,
 }: EquipmentProfileDisplayProps) => {
   return (
-    <div>
-      <Toolbar variant="topbar" title={profile?.name}>
+    <Section
+      header={profile?.name}
+      actions={
         <IconButtonLink
           href={`/profiles/equipment/${profile?.slug}/edit`}
           iconType="EditIcon"
         >
           Edit
         </IconButtonLink>
-      </Toolbar>
+      }
+    >
       <div className="p-4">
         <Prop label="Name">{profile?.name}</Prop>
         <Prop label="Description">{profile?.description}</Prop>
@@ -59,7 +62,7 @@ export const EquipmentProfileDisplay = ({
           {profile?.brewEfficiency}
         </Prop>
       </div>
-    </div>
+    </Section>
   );
 };
 

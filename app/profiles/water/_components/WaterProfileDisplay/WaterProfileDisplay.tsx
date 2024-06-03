@@ -1,5 +1,7 @@
 import { IconButtonLink } from "@/components/Button";
+import { WaterProfileIcon } from "@/components/Icon/WaterProfileIcon";
 import { Prop } from "@/components/Prop";
+import { Section } from "@/components/Section";
 import { Toolbar } from "@/components/Toolbar";
 import { WaterProfile } from "@prisma/client";
 import React from "react";
@@ -9,15 +11,18 @@ export type WaterProfileDisplayProps = {
 };
 export const WaterProfileDisplay = ({ profile }: WaterProfileDisplayProps) => {
   return (
-    <div>
-      <Toolbar variant="topbar" title={profile?.name}>
+    <Section
+      header={profile?.name}
+      icon={<WaterProfileIcon />}
+      actions={
         <IconButtonLink
           href={`/profiles/water/${profile?.slug}/edit`}
           iconType="EditIcon"
         >
           Edit
         </IconButtonLink>
-      </Toolbar>
+      }
+    >
       <div className="p-4">
         <Prop label="Name">{profile?.name}</Prop>
         <Prop label="Description">{profile?.description}</Prop>
@@ -40,7 +45,7 @@ export const WaterProfileDisplay = ({ profile }: WaterProfileDisplayProps) => {
           {profile?.bicarbonate}
         </Prop>
       </div>
-    </div>
+    </Section>
   );
 };
 
