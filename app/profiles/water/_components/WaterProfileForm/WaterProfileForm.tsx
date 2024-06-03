@@ -29,7 +29,7 @@ export const WaterProfileForm = ({ profile }: WaterProfileFormProps) => {
 
   return (
     <Form action={onSubmit}>
-      <Toolbar variant="topbar" title={profile?.name}>
+      <Toolbar variant="topbar" title={profile?.name ?? "New Water Profile"}>
         <IconButton type="submit" iconType="EditIcon">
           Save
         </IconButton>
@@ -38,7 +38,11 @@ export const WaterProfileForm = ({ profile }: WaterProfileFormProps) => {
       <div className="grid gap-2 md:gap-4 grid-cols-3 md:grid-cols-6">
         <input type="hidden" {...register("id")} />
         <div className="col-span-3 md:col-span-6">
-          <TextField {...register("name")} label="Name" />
+          <TextField
+            {...register("name")}
+            label="Name"
+            placeholder="New Water Profile"
+          />
         </div>
         <div className="col-span-3 md:col-span-6">
           <TextField {...register("description")} label="Description" />
