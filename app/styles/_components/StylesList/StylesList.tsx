@@ -1,5 +1,4 @@
 import { List } from "@/components/List/List";
-import { Section } from "@/components/Section/Section";
 import { Style } from "@prisma/client";
 import { StyleListItem } from "./StyleListItem";
 
@@ -9,12 +8,10 @@ export type StylesListProps = {
 
 export const StylesList = ({ styles }: StylesListProps) => {
   return (
-    <Section title="Styles">
-      <List>
-        {styles.map((style) => (
-          <StyleListItem key={style.id} style={style} />
-        ))}
-      </List>
-    </Section>
+    <List className="m-4">
+      {styles.map((style) => (
+        <StyleListItem key={style.id} style={style} />
+      ))}
+    </List>
   );
 };

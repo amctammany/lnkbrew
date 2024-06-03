@@ -15,7 +15,7 @@ export type ListItemProps = VariantProps<typeof listItemStyles> &
 const listItemInnerStyles = cva(["flex px-0 py-0 items-center flex-grow"], {
   variants: {
     variant: {
-      default: ["group-hove:bg-primary-500/10"],
+      default: ["hover:bg-primary-500/10"],
       warning: ["group-hovr:bg-warning-500/10"],
     },
   },
@@ -29,7 +29,7 @@ const listItemStyles = cva(
   {
     variants: {
       variant: {
-        default: ["group-hover:bg-primary-500/10"],
+        default: ["hover:bg-primary-500/10"],
         warning: ["group-hover:bg-warning-500/10"],
         //default: [""],
         //warning: [""],

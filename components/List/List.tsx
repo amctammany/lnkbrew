@@ -1,4 +1,5 @@
 import { type VariantProps, cva } from "class-variance-authority";
+import clsx from "clsx";
 import { type ComponentProps } from "react";
 
 export type ListProps = VariantProps<typeof listStyles> &
@@ -28,9 +29,9 @@ const listContainerStyles = cva(["w-full"], {
     variant: "default",
   },
 });
-export const List = ({ children, variant }: ListProps) => {
+export const List = ({ children, variant, className }: ListProps) => {
   return (
-    <div className={listContainerStyles({ variant })}>
+    <div className={clsx(listContainerStyles({ variant }), className)}>
       <ul className={listStyles({ variant })}>{children}</ul>
     </div>
   );
