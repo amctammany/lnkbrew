@@ -2,9 +2,25 @@
 import { VariantProps, cva } from "class-variance-authority";
 import clsx from "clsx";
 import { IconButton } from "../Button";
+import { useState } from "react";
 //import Link from "next/link";
 //import { usePathname } from "next/navigation";
 
+const containerStyles = cva([], {
+  variants: {
+    variant: {
+      default: [],
+    },
+    open: {
+      open: ["block"],
+      closed: ["hidden"],
+    },
+  },
+  defaultVariants: {
+    variant: "default",
+    open: "closed",
+  },
+});
 const navCollapseStyles = cva(["sm:hidden group flex text-center font-bold "], {
   variants: {
     variant: {
@@ -14,9 +30,14 @@ const navCollapseStyles = cva(["sm:hidden group flex text-center font-bold "], {
       small: ["p-0"],
       default: ["py-2 px-4"],
     },
+    open: {
+      open: [],
+      closed: [],
+    },
   },
   defaultVariants: {
     variant: "default",
+    open: "closed",
     size: "default",
   },
 });
@@ -30,28 +51,31 @@ export const NavCollapse = ({
   className,
   size,
 }: NavCollapseProps) => {
+  const [open, setOpen] = useState(false);
   //const pathname = usePathname();
   //const active = href === pathname.slice(0, href.length) ? "active" : variant;
   const handleToggle: React.MouseEventHandler<HTMLButtonElement> = (e) => {
-    if (document.activeElement === e.currentTarget) {
-      e.currentTarget.blur();
-      e.preventDefault();
-      e.stopPropagation();
-      return false;
-    }
+    setOpen((o) => !o);
   };
 
-  const c = clsx(navCollapseStyles({ size, variant }), className);
+  const c = clsx(
+    navCollapseStyles({ size, variant, open: open ? "open" : "closed" }),
+    className
+  );
   return (
     <div className={c}>
+      <div
+        className={containerStyles({ variant, open: open ? "open" : "closed" })}
+        onClick={handleToggle as any}
+      >
+        {children}
+      </div>
       <IconButton
         className="group-focus-within:bg-blue-400"
         iconType="MinimizeIcon"
-        onMouseDown={handleToggle}
-        onTouchStart={handleToggle as any}
+        onClick={handleToggle}
+        //onTouchStart={handleToggle as any}
       />
-
-      <div className="hidden group-focus-within:block">{children}</div>
     </div>
   );
 };

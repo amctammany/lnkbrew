@@ -8,7 +8,7 @@ export type StylesListProps = {
 
 export const StylesList = ({ styles }: StylesListProps) => {
   return (
-    <List className="m-4">
+    <List className="p-4">
       {styles.map((style) => (
         <StyleListItem key={style.id} style={style} />
       ))}

@@ -26,7 +26,7 @@ export default function RootLayout({
           <NavLink href="/profiles">Profiles</NavLink>
         </Nav>
 
-        <main className="min-w-full items-center justify-between p-0 ">
+        <main className="in-w-full items-center justify-between p-0 ">
           {children}
         </main>
       </body>
