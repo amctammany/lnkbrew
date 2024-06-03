@@ -278,3 +278,19 @@ model Style {
   abvHigh       Float?
   abvFlex       Boolean       @default(false)
 }
+
+model WaterProfile {
+  id          Int     @id @default(autoincrement())
+  name        String
+  slug        String  @unique
+  calcium     Int
+  magnesium   Int
+  sodium      Int
+  chloride    Int
+  sulfate     Int
+  bicarbonate Int
+  description String?
+  //  Recipe         Recipe[]
+  //  DefaultSources UserPreferences[] @relation("SourceWater")
+  //  TargetSources  UserPreferences[] @relation("TargetWater")
+}

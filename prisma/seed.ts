@@ -28,6 +28,7 @@ async function main() {
   await prisma.fermentable.deleteMany();
   await prisma.yeast.deleteMany();
   await prisma.style.deleteMany();
+  await prisma.waterProfile.deleteMany();
   await prisma.style.createMany({
     data: styles.map(({ category, ...style }) => ({
       ...style,
@@ -35,11 +36,50 @@ async function main() {
       category: StyleCategory[category.toLowerCase() as StyleCategory],
     })),
   });
+  await prisma.waterProfile.create({
+    data: {
+      name: "RO",
+      slug: slugify("RO", { lower: true }),
+      description: "Reverse Osmosis",
+      calcium: 1,
+      magnesium: 0,
+      sulfate: 1,
+      chloride: 4,
+      bicarbonate: 16,
+      sodium: 8,
+    },
+  });
+  await prisma.waterProfile.create({
+    data: {
+      name: "Juicy Bits",
+      slug: slugify("Juicy Bits", { lower: true }),
+      description: "Juicy!",
+      calcium: 140,
+      magnesium: 0,
+      sulfate: 90,
+      chloride: 175,
+      bicarbonate: 0,
+      sodium: 0,
+    },
+  });
+
+  await prisma.waterProfile.create({
+    data: {
+      name: "Good",
+      slug: slugify("Good", { lower: true }),
+      description: "good",
+      calcium: 10,
+      magnesium: 20,
+      sulfate: 50,
+      chloride: 100,
+      bicarbonate: 6,
+      sodium: 15,
+    },
+  });
 
   /**
   await prisma.equipmentProfile.deleteMany();
   await prisma.mashProfile.deleteMany();
-  await prisma.waterProfile.deleteMany();
   await prisma.hopIngredient.deleteMany();
 
   await prisma.recipeOtherIngredient.deleteMany();

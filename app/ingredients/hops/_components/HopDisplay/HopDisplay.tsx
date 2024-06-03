@@ -10,7 +10,6 @@ export type HopDisplayProps = {
   hop: Hop | null;
 };
 export function HopDisplay({ hop }: HopDisplayProps) {
-  console.log(hop);
   return (
     <div>
       <Toolbar variant="topbar" title={hop?.name}>
