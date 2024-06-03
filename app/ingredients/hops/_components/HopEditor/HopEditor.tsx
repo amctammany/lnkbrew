@@ -1,8 +1,14 @@
 "use client";
 import { IconButton } from "@/components/Button/IconButton";
-import { AmountField, Form, TextArea, TextField } from "@/components/Form";
+import {
+  AmountField,
+  Form,
+  Select,
+  TextArea,
+  TextField,
+} from "@/components/Form";
 import { Toolbar } from "@/components/Toolbar";
-import { Hop } from "@prisma/client";
+import { Hop, HopUsage } from "@prisma/client";
 import { useForm } from "react-hook-form";
 
 export type HopEditorProps = {
@@ -22,6 +28,10 @@ export function HopEditor({ hop, action }: HopEditorProps) {
       <div className="p-4">
         <input type="hidden" {...register("id")} />
         <TextField label="Name" {...register("name")} />
+        <TextField label="Country" {...register("country")} />
+        <Select {...register("usage")} options={HopUsage} />
+        <TextArea label="flavor" {...register("flavor")} />
+
         <TextArea
           rows={3}
           label="Characteristics"
@@ -32,15 +42,67 @@ export function HopEditor({ hop, action }: HopEditorProps) {
         <div className="grid gap-4 grid-cols-2 md:grid-cols-4">
           <AmountField
             step={0.01}
+            min={0}
+            max={35}
             amountType="%"
             label="Alpha Acids"
-            {...register("alpha")}
+            {...register("alpha", { valueAsNumber: true })}
           />
           <AmountField
             step={0.01}
+            min={0}
+            max={35}
             amountType="%"
             label="Beta Acids"
-            {...register("beta")}
+            {...register("beta", { valueAsNumber: true })}
+          />
+          <AmountField
+            step={0.01}
+            min={0}
+            max={25}
+            amountType="%"
+            label="Cohumulone"
+            {...register("cohumulone", { valueAsNumber: true })}
+          />
+          <AmountField
+            step={0.01}
+            min={0}
+            max={75}
+            amountType="%"
+            label="Caryophyllene"
+            {...register("caryophyllene", { valueAsNumber: true })}
+          />
+          <AmountField
+            step={0.01}
+            min={0}
+            max={35}
+            amountType="%"
+            label="Farnesene"
+            {...register("farnesene", { valueAsNumber: true })}
+          />
+          <AmountField
+            step={0.01}
+            min={0}
+            max={35}
+            amountType="%"
+            label="Humulene"
+            {...register("humulene", { valueAsNumber: true })}
+          />
+          <AmountField
+            step={0.01}
+            min={0}
+            max={85}
+            amountType="%"
+            label="Myrcene"
+            {...register("myrcene", { valueAsNumber: true })}
+          />
+          <AmountField
+            step={0.01}
+            min={0}
+            max={15}
+            amountType="%"
+            label="Total Oils"
+            {...register("totalOil", { valueAsNumber: true })}
           />
         </div>
       </div>
