@@ -26,13 +26,19 @@
     "clsx": "^2.1.0",
     "next": "14.2.3",
     "next-auth": "5.0.0-beta.15",
-    "react": "^18",
-    "react-dom": "^18",
+    "react": "19.0.0-rc-6d3110b4d9-20240531",
+    "react-dom": "19.0.0-rc-6d3110b4d9-20240531",
     "react-hook-form": "^7.51.5",
     "slugify": "^1.6.6",
     "tailwind-merge": "^2.2.1",
     "zod": "^3.23.8",
-    "zod-form-data": "^2.0.2"
+    "zod-form-data": "^2.0.2",
+    "@types/react": "npm:types-react@rc",
+    "@types/react-dom": "npm:types-react-dom@rc"
+  },
+  "overrides": {
+    "@types/react": "npm:types-react@rc",
+    "@types/react-dom": "npm:types-react-dom@rc"
   },
   "devDependencies": {
     "@next/bundle-analyzer": "^14.2.3",
