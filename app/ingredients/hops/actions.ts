@@ -4,9 +4,10 @@ import { prisma } from "@/lib/client";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import { zfd } from "zod-form-data";
+import slugify from "slugify";
 
 const schema = zfd.formData({
-  id: zfd.text(),
+  id: zfd.text(z.string().optional()),
   name: zfd.text(),
   description: zfd.text(z.string().optional()),
   country: zfd.text(z.string().optional()),
@@ -24,6 +25,16 @@ const schema = zfd.formData({
   notes: zfd.text(z.string().optional()),
 });
 
+export const createHop = async (formData: FormData) => {
+  const data = schema.parse(formData);
+  const res = await prisma.hop.create({
+    data: {
+      ...data,
+      slug: slugify(data.name, { lower: true }),
+    },
+  });
+  redirect(`/ingredients/hops/${res.slug}`);
+};
 export const updateHop = async (formData: FormData) => {
   const data = schema.parse(formData);
   const res = await prisma.hop.update({

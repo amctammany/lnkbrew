@@ -1,16 +1,16 @@
 "use client";
 import React, { useState } from "react";
 import { Section, SectionProps } from "./Section";
-import Button from "../Button/Button";
 import { ToggleButton } from "../Button/ToggleButton";
-import { IconButton } from "../Button/IconButton";
 export type ClientSectionProps = SectionProps & {
   children?: React.ReactNode;
+  toggleLabel?: string | React.ReactNode;
   closed?: boolean;
 };
 export function ClientSection({
   children,
-  closed = true,
+  closed = false,
+  toggleLabel = "Toggle",
   header,
   ...props
 }: ClientSectionProps) {
@@ -21,10 +21,13 @@ export function ClientSection({
       header={header}
       actions={
         <ToggleButton
+          direction="default"
           //activeIconVariant="warning"
           //activeVariant="success"
           onToggle={handleToggle}
-        />
+        >
+          {toggleLabel}
+        </ToggleButton>
       }
       collapsed={open ? "default" : "collapsed"}
       {...props}

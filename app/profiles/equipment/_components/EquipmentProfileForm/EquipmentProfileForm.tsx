@@ -32,7 +32,7 @@ export const EquipmentProfileForm = ({
 
   return (
     <Form action={onSubmit}>
-      <Toolbar variant="topbar" title={profile?.name}>
+      <Toolbar variant="topbar" title={profile?.name ?? "New EquipmentProfile"}>
         <IconButton type="submit" iconType="EditIcon">
           Save
         </IconButton>

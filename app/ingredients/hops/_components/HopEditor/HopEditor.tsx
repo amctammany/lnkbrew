@@ -22,7 +22,7 @@ export function HopEditor({ hop, action }: HopEditorProps) {
 
   return (
     <Form action={action}>
-      <Toolbar variant="topbar" title={"Editing: " + hop?.name}>
+      <Toolbar variant="topbar" title={hop?.name ?? "New Hop"}>
         <IconButton iconType="SaveIcon">Save</IconButton>
       </Toolbar>
       <div className="p-4">

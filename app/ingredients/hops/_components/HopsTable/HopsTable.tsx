@@ -35,6 +35,8 @@ import { VariantProps, cva } from "class-variance-authority";
 import { fuzzyFilter } from "@/lib/fuzzyFilter";
 import Link from "next/link";
 import ClientTable from "@/components/Table/ClientTable";
+import { Toolbar } from "@/components/Toolbar";
+import { ButtonLink } from "@/components/Button";
 export const HopsTable = ({
   hops,
   sort,
@@ -110,7 +112,20 @@ export const HopsTable = ({
     debugColumns: false,
   });
 
-  return <ClientTable table={table} variant={variant} filters={filters} />;
+  return (
+    <div>
+      <Toolbar variant="topbar" title="Hops" className="flex">
+        <ButtonLink href="/ingredients/hops/new">New</ButtonLink>
+      </Toolbar>
+      <ClientTable
+        className="my-2"
+        table={table}
+        variant={variant}
+        filters={filters}
+      />
+      ;
+    </div>
+  );
 };
 /**(
     <div>

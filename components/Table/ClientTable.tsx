@@ -40,7 +40,7 @@ function ClientTable<T extends Record<string, any>>({
     <div className={clsx(clientTableStyles({ variant }), className)}>
       <ClientSection
         className="lg:px-16"
-        closed={false}
+        closed={true}
         header={
           <TextField
             name="query"

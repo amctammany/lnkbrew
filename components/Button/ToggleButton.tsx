@@ -6,7 +6,10 @@ import { IconNames } from "../Icon";
 import { useState } from "react";
 import { IconButton, IconButtonProps } from "./IconButton";
 
-export type ToggleButtonProps = ButtonProps & {
+export type ToggleButtonProps = Omit<
+  IconButtonProps,
+  "iconType" | "iconVariant"
+> & {
   defaultIconVariant?: IconProps["variant"];
   activeIconVariant?: IconProps["variant"];
   activeVariant?: ButtonProps["variant"];

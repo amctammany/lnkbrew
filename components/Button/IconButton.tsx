@@ -3,21 +3,35 @@ import { Icon, IconProps } from "../Icon/Icon";
 import { Button, ButtonProps } from "./Button";
 import { IconNames } from "../Icon";
 import { AppIcon } from "../AppIcon";
+import { VariantProps, cva } from "class-variance-authority";
 
-export type IconButtonProps = ButtonProps & {
-  //Icon: typeof Icon;
-  iconVariant?: IconProps["variant"];
-  iconType: IconNames;
-};
+const iconButtonStyles = cva(["flex px-1 text-sm -mx-2"], {
+  variants: {
+    direction: {
+      default: [],
+      reverse: ["flex-row-reverse"],
+    },
+  },
+  defaultVariants: {
+    direction: "default",
+  },
+});
+export type IconButtonProps = ButtonProps &
+  VariantProps<typeof iconButtonStyles> & {
+    //Icon: typeof Icon;
+    iconVariant?: IconProps["variant"];
+    iconType: IconNames;
+  };
 export const IconButton = ({
   //Icon,
   iconVariant,
   iconType,
+  direction,
   children,
   ...props
 }: IconButtonProps) => {
   const body = (
-    <div className="flex px-1 text-sm -mx-2">
+    <div className={iconButtonStyles({ direction })}>
       <AppIcon type={iconType} variant={iconVariant} />
       {children && (
         <span className="block m-auto pl-1 uppercase">{children}</span>
