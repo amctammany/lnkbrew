@@ -7,12 +7,13 @@ import { usePathname } from "next/navigation";
 const navLinkStyles = cva(["block text-center font-bold "], {
   variants: {
     variant: {
-      default: ["text-white hover:text-red-500"],
+      active: ["text-red-200 underline hover:text-red-500 "],
+      default: ["text-white hover:text-red-500 "],
       subnav: ["text-black hover:text-white hover:underline"],
       danger: ["text-red-400 hover:text-red-700 hover:underline"],
     },
     active: {
-      active: ["text-red-600 underline"],
+      active: ["underline "],
       default: [""],
     },
     size: {
@@ -39,8 +40,8 @@ export const NavLink = ({
   size,
 }: NavLinkProps) => {
   const pathname = usePathname();
-  const active = href === pathname.slice(0, href.length) ? "active" : "default";
-  const c = clsx(navLinkStyles({ active, size, variant }), className);
+  const active = href === pathname.slice(0, href.length) ? "active" : variant;
+  const c = clsx(navLinkStyles({ size, variant: active }), className);
   return (
     <Link href={href} className={c}>
       {children}
