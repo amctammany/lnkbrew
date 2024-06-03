@@ -1,4 +1,6 @@
 "use client";
+import { Select } from "@/components/Form/Select";
+import { TextField } from "@/components/Form/TextField";
 //import { ClientTable } from "@/components/ClientTable";
 import { Table, tableStyles } from "@/components/Table";
 //import { Section } from "@/components/Section";
@@ -23,6 +25,9 @@ import {
 import { VariantProps } from "class-variance-authority";
 import Link from "next/link";
 import { useMemo, useState } from "react";
+const YeastTypeWithBlank = { "": "", ...YeastType };
+const YeastFormWithBlank = { "": "", ...YeastForm };
+const YeastFlocculationWithBlank = { "": "", ...YeastFlocculation };
 const columns: DataColumnProps<Yeast>[] = [
   { name: "name", href: (src: Yeast) => `/ingredients/yeasts/${src.slug}` },
   { name: "manufacturer" },
@@ -51,13 +56,13 @@ export const YeastsTable = ({
       {
         id: "name",
         accessorKey: "name",
-        accessorFn: (row) => [row.name, row.slug],
-        cell: (info) => (
+        //accessorFn: (row) => [row.name, row.slug],
+        cell: ({ cell, row }) => (
           <Link
             className="underline visited:text-violet-300"
-            href={`/ingredients/yeasts/${info.getValue()[1]}`}
+            href={`/ingredients/yeasts/${row.original.slug}`}
           >
-            {info.getValue()[0]}
+            {cell.getValue()}
           </Link>
         ),
       },
@@ -108,6 +113,43 @@ export const YeastsTable = ({
 
   return (
     <div>
+      {globalFilter}
+      <TextField
+        name="query"
+        value={globalFilter ?? ""}
+        onChange={({ target: { value } }) => setGlobalFilter(String(value))}
+        className="p-2 font-lg shadow border border-block"
+        placeholder="Search all columns..."
+      />
+      <Select
+        name="type"
+        value={table.getColumn("type")?.getFilterValue()}
+        onChange={({ target: { value } }) =>
+          table.getColumn("type")?.setFilterValue(value)
+        }
+        className="p-2 font-lg shadow border border-block"
+        options={YeastTypeWithBlank}
+      />
+      <Select
+        name="form"
+        value={table.getColumn("form")?.getFilterValue()}
+        onChange={({ target: { value } }) =>
+          table.getColumn("form")?.setFilterValue(value)
+        }
+        className="p-2 font-lg shadow border border-block"
+        options={YeastFormWithBlank}
+      />
+
+      <Select
+        name="flocculation"
+        value={table.getColumn("flocculation")?.getFilterValue()}
+        onChange={({ target: { value } }) =>
+          table.getColumn("flocculation")?.setFilterValue(value)
+        }
+        className="p-2 font-lg shadow border border-block"
+        options={YeastFlocculationWithBlank}
+      />
+
       <Table variant={variant} table={table}></Table>
     </div>
   );

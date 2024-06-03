@@ -23,6 +23,7 @@ import {
   getSortedRowModel,
   useReactTable,
   createColumnHelper,
+  FilterFn,
 } from "@tanstack/react-table";
 import { VariantProps, cva } from "class-variance-authority";
 //import { AppIcon } from "@/components/AppIcon";
@@ -40,13 +41,15 @@ export const HopsTable = ({
       {
         id: "name",
         accessorKey: "name",
-        accessorFn: (row) => [row.name, row.slug],
-        cell: (info) => (
+        //accessorFn: (row) => [row.name, row.slug],
+        //enableGlobalFilter: false,
+        filterFn: "includesString",
+        cell: ({ cell, row }) => (
           <Link
             className="underline visited:text-violet-300"
-            href={`/ingredients/hops/${info.getValue()[1]}`}
+            href={`/ingredients/hops/${row.original.slug}`}
           >
-            {info.getValue()[0]}
+            {cell.getValue()}
           </Link>
         ),
       },

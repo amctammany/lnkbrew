@@ -1,8 +1,9 @@
 "use client";
+import { Select, TextField } from "@/components/Form";
 import { Table } from "@/components/Table";
 import { Direction } from "@/components/Table/types";
 import { fuzzyFilter } from "@/lib/fuzzyFilter";
-import { Fermentable, Hop } from "@prisma/client";
+import { Fermentable } from "@prisma/client";
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -13,6 +14,7 @@ import {
 } from "@tanstack/react-table";
 import Link from "next/link";
 import { useMemo, useState } from "react";
+const FermentableUsageWithBlank = { "": "" }; //{ "": "", ...FermentableUsage };
 
 export type FermentablesTableProps = {
   fermentables: Fermentable[];
@@ -29,16 +31,17 @@ export const FermentablesTable = ({
       {
         id: "name",
         accessorKey: "name",
-        accessorFn: (row) => [row.name, row.slug],
-        cell: (info) => (
+        filterFn: "includesString",
+        cell: ({ cell, row }) => (
           <Link
             className="underline visited:text-violet-300"
-            href={`/ingredients/fermentables/${info.getValue()[1]}`}
+            href={`/ingredients/fermentables/${row.original.slug}`}
           >
-            {info.getValue()[0]}
+            {cell.getValue()}
           </Link>
         ),
       },
+
       {
         accessorKey: "country",
         cell: (info) => info.getValue(),
@@ -85,15 +88,34 @@ export const FermentablesTable = ({
   });
 
   return (
-    <Table
-      table={table}
-      //src={fermentables}
-      //filters={{ name: "string" }}
-      //columns={columns}
-      //selectActions={{
-      //Compare: "/ingredients/fermentables/compare",
-      //Combine: "/ingredients/fermentables/combine",
-      //}}
-    />
+    <div>
+      <TextField
+        name="query"
+        value={globalFilter ?? ""}
+        onChange={({ target: { value } }) => setGlobalFilter(String(value))}
+        className="p-2 font-lg shadow border border-block"
+        placeholder="Search all columns..."
+      />
+      <Select
+        name="usage"
+        value={table.getColumn("usage")?.getFilterValue()}
+        onChange={({ target: { value } }) =>
+          table.getColumn("usage")?.setFilterValue(value)
+        }
+        className="p-2 font-lg shadow border border-block"
+        options={FermentableUsageWithBlank}
+      />
+
+      <Table
+        table={table}
+        //src={fermentables}
+        //filters={{ name: "string" }}
+        //columns={columns}
+        //selectActions={{
+        //Compare: "/ingredients/fermentables/compare",
+        //Combine: "/ingredients/fermentables/combine",
+        //}}
+      />
+    </div>
   );
 };
