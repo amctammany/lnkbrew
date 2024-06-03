@@ -14,6 +14,7 @@ import { Submit } from "@/components/Form/Submit";
 
 import React, { FC } from "react";
 import { useForm } from "react-hook-form";
+import { RangeSlider } from "@/components/Form/RangeSlider";
 
 type AdminSettingsProps = { src?: UserPreferences | null; action: any };
 const equipmentProfiles = ["equ1", "eq2"];
@@ -22,7 +23,7 @@ export function AdminSettings({ src, action }: AdminSettingsProps) {
     register,
     formState: { errors },
     setError,
-  } = useForm<UserPreferences>({
+  } = useForm<UserPreferences & { range: [number, number] }>({
     defaultValues: src || {},
   });
   const onSubmit = async (data: FormData) => {
@@ -41,6 +42,7 @@ export function AdminSettings({ src, action }: AdminSettingsProps) {
       <h4>Admin Settings</h4>
       <Form action={onSubmit}>
         <input type="hidden" {...register("userId")} />
+        <RangeSlider {...register("range")} min={0} max={100} />
         <Select
           {...register("volumeUnit")}
           error={errors.volumeUnit}
