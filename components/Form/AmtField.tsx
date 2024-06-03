@@ -10,7 +10,6 @@ export type AmountTypeProps = ComponentProps<"select"> & {
 };
 export const AmountType = forwardRef<HTMLSelectElement, AmountTypeProps>(
   function AmountType({ type, options, ...props }: AmountTypeProps, ref) {
-    console.log(props, type, options);
     return options?.length! > 0 ? (
       <select ref={ref} {...props} onSelect={props.onChange}>
         {options?.map(([k, v]) => (
