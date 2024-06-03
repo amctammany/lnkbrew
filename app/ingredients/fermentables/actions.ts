@@ -26,7 +26,7 @@ export const createFermentable = async (formData: FormData) => {
       slug: slugify(data.name, { lower: true }),
     },
   });
-  redirect(`/ingredients/hops/${res.slug}`);
+  redirect(`/ingredients/fermentables/${res.slug}`);
 };
 
 export const updateFermentable = async (formData: FormData) => {

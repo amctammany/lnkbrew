@@ -29,7 +29,7 @@ export const createYeast = async (formData: FormData) => {
       slug: slugify(data.name, { lower: true }),
     },
   });
-  redirect(`/ingredients/hops/${res.slug}`);
+  redirect(`/ingredients/yeasts/${res.slug}`);
 };
 
 export const updateYeast = async (formData: FormData) => {

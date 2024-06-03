@@ -1,5 +1,5 @@
 "use client";
-import { Button, ButtonLink } from "@/components/Button";
+import { Button, ButtonLink, IconButtonLink } from "@/components/Button";
 import { Select } from "@/components/Form/Select";
 import { TextField } from "@/components/Form/TextField";
 import { ClientSection, Section } from "@/components/Section";
@@ -126,7 +126,11 @@ export const YeastsTable = ({
   return (
     <Section
       title="Yeasts"
-      actions={<ButtonLink href="/ingredients/yeasts/new">New</ButtonLink>}
+      actions={
+        <IconButtonLink iconType="AddIcon" href="/ingredients/yeasts/new">
+          New
+        </IconButtonLink>
+      }
     >
       <ClientTable table={table} filters={filters} />
     </Section>
