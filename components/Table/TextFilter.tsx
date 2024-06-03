@@ -42,7 +42,7 @@ export function TextFilter<T extends Record<string, any>>({
       name={name}
       value={table.getColumn(name)?.getFilterValue() ?? ""}
       onChange={handleChange}
-      className="p-2 font-lg shadow border border-block"
+      className="p-2 font-lg "
       placeholder="Search name column"
     />
   );
