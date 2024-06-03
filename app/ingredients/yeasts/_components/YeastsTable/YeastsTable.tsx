@@ -119,7 +119,6 @@ export const YeastsTable = ({
     },
     [table]
   );
-  console.log(table.getColumn("type")?.getFilterValue());
   return (
     <div>
       <ClientSection

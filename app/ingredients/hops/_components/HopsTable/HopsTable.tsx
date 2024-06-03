@@ -30,6 +30,8 @@ import { VariantProps, cva } from "class-variance-authority";
 //import { TableHeader } from "@/components/Table/TableHeader";
 import { fuzzyFilter } from "@/lib/fuzzyFilter";
 import Link from "next/link";
+import { ClientSection, Section } from "@/components/Section";
+import { Button } from "@/components/Button";
 export const HopsTable = ({
   hops,
   sort,
@@ -99,64 +101,102 @@ export const HopsTable = ({
     debugHeaders: true,
     debugColumns: false,
   });
+
+  const handleReset = useMemo(
+    () => () => {
+      table.resetGlobalFilter();
+      table.resetColumnFilters();
+    },
+    [table]
+  );
+
   return (
     <div>
-      <TextField
-        name="query"
-        value={globalFilter ?? ""}
-        onChange={({ target: { value } }) => setGlobalFilter(String(value))}
-        className="p-2 font-lg shadow border border-block"
-        placeholder="Search all columns..."
-      />
-
-      <TextField
-        name="name"
-        value={table.getColumn("name")?.getFilterValue()}
-        onChange={({ target: { value } }) =>
-          table.getColumn("name")?.setFilterValue(value)
+      <ClientSection
+        header={
+          <TextField
+            name="query"
+            value={globalFilter ?? ""}
+            onChange={({ target: { value } }) => setGlobalFilter(String(value))}
+            className="p-2 font-lg shadow border border-block"
+            placeholder="Search all columns..."
+          />
         }
-        className="p-2 font-lg shadow border border-block"
-        placeholder="Search name column"
-      />
-      <Select
-        name="usage"
-        value={table.getColumn("usage")?.getFilterValue()}
-        onChange={({ target: { value } }) =>
-          table.getColumn("usage")?.setFilterValue(value)
-        }
-        className="p-2 font-lg shadow border border-block"
-        options={HopUsageWithBlank}
-      />
-      <div>
-        <NumberField
-          name="minAlpha"
-          value={
-            (
-              table.getColumn("alpha")?.getFilterValue() as [number, number]
-            )?.[0] ?? ""
+      >
+        <Section
+          header="Filters"
+          size="small"
+          variant="warning"
+          actions={
+            <>
+              <Button onClick={handleReset}>Clear</Button>
+            </>
           }
-          onChange={({ target: { value } }) =>
-            table
-              .getColumn("alpha")
-              ?.setFilterValue((old: [number, number]) => [value, old?.[1]])
-          }
-          className="p-2 font-lg shadow border border-block"
-        />
-        <NumberField
-          name="maxAlpha"
-          value={
-            (
-              table.getColumn("alpha")?.getFilterValue() as [number, number]
-            )?.[1] ?? ""
-          }
-          onChange={({ target: { value } }) =>
-            table
-              .getColumn("alpha")
-              ?.setFilterValue((old: [number, number]) => [old?.[0], value])
-          }
-          className="p-2 font-lg shadow border border-block"
-        />
-      </div>
+        >
+          <div className="grid grid-flow-col gap-2">
+            <TextField
+              name="name"
+              value={table.getColumn("name")?.getFilterValue()}
+              onChange={({ target: { value } }) =>
+                table.getColumn("name")?.setFilterValue(value)
+              }
+              className="p-2 font-lg shadow border border-block"
+              placeholder="Search name column"
+            />
+            <Select
+              name="usage"
+              value={table.getColumn("usage")?.getFilterValue()}
+              onChange={({ target: { value } }) =>
+                table.getColumn("usage")?.setFilterValue(value)
+              }
+              className="p-2 font-lg shadow border border-block"
+              options={HopUsageWithBlank}
+            />
+            <div>
+              <NumberField
+                name="minAlpha"
+                value={
+                  (
+                    table.getColumn("alpha")?.getFilterValue() as [
+                      number,
+                      number,
+                    ]
+                  )?.[0] ?? ""
+                }
+                onChange={({ target: { value } }) =>
+                  table
+                    .getColumn("alpha")
+                    ?.setFilterValue((old: [number, number]) => [
+                      value,
+                      old?.[1],
+                    ])
+                }
+                className="p-2 font-lg shadow border border-block"
+              />
+              <NumberField
+                name="maxAlpha"
+                value={
+                  (
+                    table.getColumn("alpha")?.getFilterValue() as [
+                      number,
+                      number,
+                    ]
+                  )?.[1] ?? ""
+                }
+                onChange={({ target: { value } }) =>
+                  table
+                    .getColumn("alpha")
+                    ?.setFilterValue((old: [number, number]) => [
+                      old?.[0],
+                      value,
+                    ])
+                }
+                className="p-2 font-lg shadow border border-block"
+              />
+            </div>
+          </div>
+        </Section>
+      </ClientSection>
 
       <div className="overflow-x-scroll">
         <Table variant={variant} table={table}></Table>

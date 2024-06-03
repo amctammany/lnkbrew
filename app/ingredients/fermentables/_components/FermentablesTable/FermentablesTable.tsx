@@ -1,5 +1,7 @@
 "use client";
+import { Button } from "@/components/Button";
 import { Select, TextField } from "@/components/Form";
+import { ClientSection, Section } from "@/components/Section";
 import { Table } from "@/components/Table";
 import { Direction } from "@/components/Table/types";
 import { fuzzyFilter } from "@/lib/fuzzyFilter";
@@ -87,25 +89,52 @@ export const FermentablesTable = ({
     debugColumns: false,
   });
 
+  const handleReset = useMemo(
+    () => () => {
+      table.resetGlobalFilter();
+      table.resetColumnFilters();
+    },
+    [table]
+  );
+
   return (
     <div className="">
-      <TextField
-        name="query"
-        value={globalFilter ?? ""}
-        onChange={({ target: { value } }) => setGlobalFilter(String(value))}
-        className="p-2 font-lg shadow border border-block"
-        placeholder="Search all columns..."
-      />
-      <Select
-        name="usage"
-        value={table.getColumn("usage")?.getFilterValue()}
-        onChange={({ target: { value } }) =>
-          table.getColumn("usage")?.setFilterValue(value)
+      <ClientSection
+        className="lg:px-16"
+        closed={false}
+        header={
+          <TextField
+            name="query"
+            value={globalFilter ?? ""}
+            onChange={({ target: { value } }) => setGlobalFilter(String(value))}
+            className="p-2 font-lg shadow border border-block"
+            placeholder="Search all columns..."
+          />
         }
-        className="p-2 font-lg shadow border border-block"
-        options={FermentableUsageWithBlank}
-      />
-
+      >
+        <Section
+          header="Filters"
+          size="small"
+          variant="warning"
+          actions={
+            <>
+              <Button onClick={handleReset}>Clear</Button>
+            </>
+          }
+        >
+          <div className="grid grid-flow-col gap-2">
+            <Select
+              name="usage"
+              value={table.getColumn("usage")?.getFilterValue()}
+              onChange={({ target: { value } }) =>
+                table.getColumn("usage")?.setFilterValue(value)
+              }
+              className="p-2 font-lg shadow border border-block"
+              options={FermentableUsageWithBlank}
+            />
+          </div>
+        </Section>
+      </ClientSection>
       <div className="overflow-x-scroll w-full">
         <Table
           table={table}
