@@ -1,10 +1,6 @@
 "use client";
-import { Button } from "@/components/Button";
-import { Select, TextField } from "@/components/Form";
-import { ClientSection, Section } from "@/components/Section";
-import { Table } from "@/components/Table";
 import ClientTable from "@/components/Table/ClientTable";
-import { Direction } from "@/components/Table/types";
+import { Direction, TableFilter } from "@/components/Table/types";
 import { fuzzyFilter } from "@/lib/fuzzyFilter";
 import { Fermentable } from "@prisma/client";
 import {
@@ -65,8 +61,6 @@ export const FermentablesTable = ({
     ],
     []
   );
-  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-  const [globalFilter, setGlobalFilter] = useState("");
 
   const table = useReactTable({
     data: fermentables,
@@ -74,12 +68,6 @@ export const FermentablesTable = ({
     filterFns: {
       fuzzy: fuzzyFilter, //define as a filter function that can be used in column definitions
     },
-    state: {
-      columnFilters,
-      globalFilter,
-    },
-    onColumnFiltersChange: setColumnFilters,
-    onGlobalFilterChange: setGlobalFilter,
     globalFilterFn: "fuzzy",
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(), //client side filtering
@@ -89,8 +77,12 @@ export const FermentablesTable = ({
     debugHeaders: true,
     debugColumns: false,
   });
+  const filters = useMemo<TableFilter<Fermentable>[]>(
+    () => [{ type: "text", name: "name" }],
+    []
+  );
 
-  return <ClientTable table={table} />;
+  return <ClientTable table={table} filters={filters} />;
   /**
   return (
     <div className="">

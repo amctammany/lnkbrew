@@ -5,9 +5,14 @@ import { TextField } from "@/components/Form/TextField";
 import { ClientSection, Section } from "@/components/Section";
 //import { ClientTable } from "@/components/ClientTable";
 import { Table, tableStyles } from "@/components/Table";
+import ClientTable from "@/components/Table/ClientTable";
 //import { Section } from "@/components/Section";
 //import { Table } from "@/components/Table";
-import { DataColumnProps, Direction } from "@/components/Table/types";
+import {
+  DataColumnProps,
+  Direction,
+  TableFilter,
+} from "@/components/Table/types";
 import { fuzzyFilter } from "@/lib/fuzzyFilter";
 import {
   Hop,
@@ -88,20 +93,12 @@ export const YeastsTable = ({
     ],
     []
   );
-  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-  const [globalFilter, setGlobalFilter] = useState("");
   const table = useReactTable({
     data: yeasts,
     columns,
     filterFns: {
       fuzzy: fuzzyFilter, //define as a filter function that can be used in column definitions
     },
-    state: {
-      columnFilters,
-      globalFilter,
-    },
-    onColumnFiltersChange: setColumnFilters,
-    onGlobalFilterChange: setGlobalFilter,
     globalFilterFn: "fuzzy",
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(), //client side filtering
@@ -111,14 +108,22 @@ export const YeastsTable = ({
     debugHeaders: true,
     debugColumns: false,
   });
-
-  const handleReset = useMemo(
-    () => () => {
-      table.resetGlobalFilter();
-      table.resetColumnFilters();
-    },
-    [table]
+  const filters = useMemo<TableFilter<Yeast>[]>(
+    () => [
+      { type: "text", name: "name" },
+      { type: "select", name: "form", options: YeastFormWithBlank },
+      {
+        type: "select",
+        name: "flocculation",
+        options: YeastFlocculationWithBlank,
+      },
+      { type: "select", name: "type", options: YeastTypeWithBlank },
+    ],
+    []
   );
+
+  return <ClientTable table={table} filters={filters} />;
+  /**
   return (
     <div>
       <ClientSection
@@ -182,5 +187,6 @@ export const YeastsTable = ({
         <Table variant={variant} table={table}></Table>
       </div>
     </div>
-  );
+  )
+  */
 };

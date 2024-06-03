@@ -34,8 +34,6 @@ import { VariantProps, cva } from "class-variance-authority";
 //import { TableHeader } from "@/components/Table/TableHeader";
 import { fuzzyFilter } from "@/lib/fuzzyFilter";
 import Link from "next/link";
-import { ClientSection, Section } from "@/components/Section";
-import { Button } from "@/components/Button";
 import ClientTable from "@/components/Table/ClientTable";
 export const HopsTable = ({
   hops,
@@ -82,8 +80,6 @@ export const HopsTable = ({
     ],
     []
   );
-  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-  const [globalFilter, setGlobalFilter] = useState("");
 
   const filters = useMemo<TableFilter<Hop>[]>(
     () => [
@@ -98,12 +94,12 @@ export const HopsTable = ({
     filterFns: {
       fuzzy: fuzzyFilter, //define as a filter function that can be used in column definitions
     },
-    state: {
-      columnFilters,
-      globalFilter,
-    },
-    onColumnFiltersChange: setColumnFilters,
-    onGlobalFilterChange: setGlobalFilter,
+    //state: {
+    //columnFilters,
+    //globalFilter,
+    //},
+    //onColumnFiltersChange: setColumnFilters,
+    //onGlobalFilterChange: setGlobalFilter,
     globalFilterFn: "fuzzy",
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(), //client side filtering
@@ -113,14 +109,6 @@ export const HopsTable = ({
     debugHeaders: true,
     debugColumns: false,
   });
-
-  const handleReset = useMemo(
-    () => () => {
-      table.resetGlobalFilter();
-      table.resetColumnFilters();
-    },
-    [table]
-  );
 
   return <ClientTable table={table} variant={variant} filters={filters} />;
 };
