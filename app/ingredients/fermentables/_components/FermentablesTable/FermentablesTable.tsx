@@ -90,14 +90,6 @@ export const FermentablesTable = ({
     debugColumns: false,
   });
 
-  const handleReset = useMemo(
-    () => () => {
-      table.resetGlobalFilter();
-      table.resetColumnFilters();
-    },
-    [table]
-  );
-
   return <ClientTable table={table} />;
   /**
   return (

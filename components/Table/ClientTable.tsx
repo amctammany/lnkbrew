@@ -5,6 +5,8 @@ import clsx from "clsx";
 import { ClientSection, Section } from "../Section";
 import { Select, TextField } from "../Form";
 import { Button } from "../Button";
+import ClientTableFilter from "./ClientTableFilter";
+import { TableFilter } from "./types";
 
 const clientTableStyles = cva("", {
   variants: {
@@ -19,10 +21,11 @@ const clientTableStyles = cva("", {
 export type ClientTableProps<T extends Record<string, any>> = VariantProps<
   typeof clientTableStyles
 > &
-  TableProps<T> & {};
+  TableProps<T> & { filters?: TableFilter<T>[] };
 function ClientTable<T extends Record<string, any>>({
   table,
   variant,
+  filters,
   className,
 }: ClientTableProps<T>) {
   const handleReset = useMemo(
@@ -60,7 +63,15 @@ function ClientTable<T extends Record<string, any>>({
             </>
           }
         >
-          <div className="grid grid-flow-col gap-2"></div>
+          <div className="grid grid-flow-col gap-2">
+            {filters?.map((filter) => (
+              <ClientTableFilter
+                key={filter.name.toString()}
+                table={table}
+                filter={filter}
+              />
+            ))}
+          </div>
         </Section>
       </ClientSection>
 
@@ -68,9 +79,5 @@ function ClientTable<T extends Record<string, any>>({
     </div>
   );
 }
-
-ClientTable.defaultProps = {};
-
-ClientTable.propTypes = {};
 
 export default ClientTable;

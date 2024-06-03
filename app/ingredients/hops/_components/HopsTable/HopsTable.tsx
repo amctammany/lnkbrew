@@ -1,7 +1,11 @@
 "use client";
 import { NumberField, Select, TextField } from "@/components/Form";
 import { Table, tableStyles } from "@/components/Table";
-import { Direction, DataColumnProps } from "@/components/Table/types";
+import {
+  Direction,
+  DataColumnProps,
+  TableFilter,
+} from "@/components/Table/types";
 import { Hop, HopUsage } from "@prisma/client";
 import { memo, useMemo, useState } from "react";
 const HopUsageWithBlank = { "": "", ...HopUsage };
@@ -32,6 +36,7 @@ import { fuzzyFilter } from "@/lib/fuzzyFilter";
 import Link from "next/link";
 import { ClientSection, Section } from "@/components/Section";
 import { Button } from "@/components/Button";
+import ClientTable from "@/components/Table/ClientTable";
 export const HopsTable = ({
   hops,
   sort,
@@ -80,6 +85,13 @@ export const HopsTable = ({
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [globalFilter, setGlobalFilter] = useState("");
 
+  const filters = useMemo<TableFilter<Hop>[]>(
+    () => [
+      { type: "text", name: "name" },
+      { type: "select", name: "usage", options: HopUsageWithBlank },
+    ],
+    []
+  );
   const table = useReactTable({
     data: hops,
     columns,
@@ -110,7 +122,9 @@ export const HopsTable = ({
     [table]
   );
 
-  return (
+  return <ClientTable table={table} variant={variant} filters={filters} />;
+};
+/**(
     <div>
       <ClientSection
         header={
@@ -204,5 +218,5 @@ export const HopsTable = ({
         <Table variant={variant} table={table}></Table>
       </div>
     </div>
-  );
-};
+  )
+  */
