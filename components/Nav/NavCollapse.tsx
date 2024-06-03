@@ -2,7 +2,8 @@
 import { VariantProps, cva } from "class-variance-authority";
 import clsx from "clsx";
 import { IconButton } from "../Button";
-import { useState } from "react";
+import { useCallback, useMemo, useState } from "react";
+import { useClickAway } from "@/lib/useClickAway";
 //import Link from "next/link";
 //import { usePathname } from "next/navigation";
 
@@ -52,9 +53,13 @@ export const NavCollapse = ({
   size,
 }: NavCollapseProps) => {
   const [open, setOpen] = useState(false);
+  console.log({ open });
+  const handler = useCallback(() => setOpen(false), [setOpen]);
+  const ref = useClickAway<HTMLDivElement>(handler);
   //const pathname = usePathname();
   //const active = href === pathname.slice(0, href.length) ? "active" : variant;
   const handleToggle: React.MouseEventHandler<HTMLButtonElement> = (e) => {
+    console.log("handle toggle", open);
     setOpen((o) => !o);
   };
 
@@ -65,15 +70,16 @@ export const NavCollapse = ({
   return (
     <div className={c}>
       <div
+        ref={ref}
         className={containerStyles({ variant, open: open ? "open" : "closed" })}
-        onClick={handleToggle as any}
+        //onClick={handleToggle as any}
       >
         {children}
       </div>
       <div className="flex items-start">
         <IconButton
           className="group-focus-within:bg-blue-400"
-          iconType="MinimizeIcon"
+          iconType={open ? "MinimizeIcon" : "MaximizeIcon"}
           onClick={handleToggle}
           //onTouchStart={handleToggle as any}
         />
