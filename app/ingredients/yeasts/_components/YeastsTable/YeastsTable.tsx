@@ -124,13 +124,12 @@ export const YeastsTable = ({
   );
 
   return (
-    <div>
-      <Toolbar variant="topbar" title="Yeasts" className="flex">
-        <ButtonLink href="/ingredients/yeasts/new">New</ButtonLink>
-      </Toolbar>
-
+    <Section
+      title="Yeasts"
+      actions={<ButtonLink href="/ingredients/yeasts/new">New</ButtonLink>}
+    >
       <ClientTable table={table} filters={filters} />
-    </div>
+    </Section>
   );
   /**
   return (

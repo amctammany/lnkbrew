@@ -37,6 +37,7 @@ import Link from "next/link";
 import ClientTable from "@/components/Table/ClientTable";
 import { Toolbar } from "@/components/Toolbar";
 import { ButtonLink } from "@/components/Button";
+import { Section } from "@/components/Section";
 export const HopsTable = ({
   hops,
   sort,
@@ -113,18 +114,17 @@ export const HopsTable = ({
   });
 
   return (
-    <div>
-      <Toolbar variant="topbar" title="Hops" className="flex">
-        <ButtonLink href="/ingredients/hops/new">New</ButtonLink>
-      </Toolbar>
+    <Section
+      header="Hops"
+      actions={<ButtonLink href="/ingredients/hops/new">New</ButtonLink>}
+    >
       <ClientTable
-        className="my-2"
+        //className="my-2"
         table={table}
         variant={variant}
         filters={filters}
       />
-      ;
-    </div>
+    </Section>
   );
 };
 /**(

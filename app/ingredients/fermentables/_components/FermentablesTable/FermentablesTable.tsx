@@ -1,4 +1,6 @@
 "use client";
+import { ButtonLink } from "@/components/Button";
+import { Section } from "@/components/Section";
 import ClientTable from "@/components/Table/ClientTable";
 import { Direction, TableFilter } from "@/components/Table/types";
 import { fuzzyFilter } from "@/lib/fuzzyFilter";
@@ -82,7 +84,20 @@ export const FermentablesTable = ({
     []
   );
 
-  return <ClientTable table={table} filters={filters} />;
+  return (
+    <Section
+      header="Fermentables"
+      actions={
+        <ButtonLink href="/ingredients/fermentables/new">New</ButtonLink>
+      }
+    >
+      <ClientTable
+        //className="my-2"
+        table={table}
+        filters={filters}
+      />
+    </Section>
+  ); // <ClientTable table={table} filters={filters} />;
   /**
   return (
     <div className="">

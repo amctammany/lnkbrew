@@ -1,9 +1,6 @@
-import { ClientSection } from "@/components/Section";
+import { ClientSection, Section } from "@/components/Section";
 import { Hop } from "@prisma/client";
-import Link from "next/link";
 import OverviewSection from "./OverviewSection";
-import { Toolbar } from "@/components/Toolbar";
-import { IconButton } from "@/components/Button/IconButton";
 import { IconButtonLink } from "@/components/Button";
 
 export type HopDisplayProps = {
@@ -11,19 +8,21 @@ export type HopDisplayProps = {
 };
 export function HopDisplay({ hop }: HopDisplayProps) {
   return (
-    <div>
-      <Toolbar variant="topbar" title={hop?.name}>
+    <Section
+      title={hop?.name}
+      actions={
         <IconButtonLink
           href={`/ingredients/hops/${hop?.slug}/edit`}
           iconType="EditIcon"
         >
           Edit
         </IconButtonLink>
-      </Toolbar>
+      }
+    >
       <div className="p-4">
         <OverviewSection hop={hop} />
       </div>
-    </div>
+    </Section>
   );
 }
 

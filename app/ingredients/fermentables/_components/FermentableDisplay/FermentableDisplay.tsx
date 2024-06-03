@@ -1,4 +1,4 @@
-import { ClientSection } from "@/components/Section";
+import { ClientSection, Section } from "@/components/Section";
 import { Fermentable } from "@prisma/client";
 import Link from "next/link";
 import OverviewSection from "./OverviewSection";
@@ -10,21 +10,22 @@ export type FermentableDisplayProps = {
   fermentable: Fermentable | null;
 };
 export function FermentableDisplay({ fermentable }: FermentableDisplayProps) {
-  console.log(fermentable);
   return (
-    <div>
-      <Toolbar variant="topbar" title={fermentable?.name}>
+    <Section
+      title={fermentable?.name}
+      actions={
         <IconButtonLink
           href={`/ingredients/fermentables/${fermentable?.slug}/edit`}
           iconType="EditIcon"
         >
           Edit
         </IconButtonLink>
-      </Toolbar>
+      }
+    >
       <div className="p-4">
         <OverviewSection fermentable={fermentable} />
       </div>
-    </div>
+    </Section>
   );
 }
 
