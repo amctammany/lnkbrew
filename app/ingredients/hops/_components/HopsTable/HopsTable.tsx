@@ -22,11 +22,13 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
+  createColumnHelper,
 } from "@tanstack/react-table";
 import { VariantProps, cva } from "class-variance-authority";
 //import { AppIcon } from "@/components/AppIcon";
 //import { TableHeader } from "@/components/Table/TableHeader";
 import { fuzzyFilter } from "@/lib/fuzzyFilter";
+import Link from "next/link";
 export const HopsTable = ({
   hops,
   sort,
@@ -38,7 +40,15 @@ export const HopsTable = ({
       {
         id: "name",
         accessorKey: "name",
-        cell: (info) => info.getValue(),
+        accessorFn: (row) => [row.name, row.slug],
+        cell: (info) => (
+          <Link
+            className="underline visited:text-violet-300"
+            href={`/ingredients/hops/${info.getValue()[1]}`}
+          >
+            {info.getValue()[0]}
+          </Link>
+        ),
       },
       {
         accessorKey: "country",

@@ -61,7 +61,7 @@ export function Table<T extends Record<string, any>>({
         {table.getRowModel().rows.map((row) => (
           <TableRow key={row.id}>
             {row.getVisibleCells().map((cell) => (
-              <TableCell className="border border-slate-400" key={cell.id}>
+              <TableCell className="border border-slate-400 px-2" key={cell.id}>
                 {flexRender(cell.column.columnDef.cell, cell.getContext())}
               </TableCell>
             ))}

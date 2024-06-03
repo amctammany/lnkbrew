@@ -11,6 +11,7 @@ import {
   getFilteredRowModel,
   getSortedRowModel,
 } from "@tanstack/react-table";
+import Link from "next/link";
 import { useMemo, useState } from "react";
 
 export type FermentablesTableProps = {
@@ -26,8 +27,17 @@ export const FermentablesTable = ({
   const columns = useMemo<ColumnDef<Fermentable, any>[]>(
     () => [
       {
+        id: "name",
         accessorKey: "name",
-        cell: (info) => info.getValue(),
+        accessorFn: (row) => [row.name, row.slug],
+        cell: (info) => (
+          <Link
+            className="underline visited:text-violet-300"
+            href={`/ingredients/fermentables/${info.getValue()[1]}`}
+          >
+            {info.getValue()[0]}
+          </Link>
+        ),
       },
       {
         accessorKey: "country",

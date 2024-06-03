@@ -21,6 +21,7 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { VariantProps } from "class-variance-authority";
+import Link from "next/link";
 import { useMemo, useState } from "react";
 const columns: DataColumnProps<Yeast>[] = [
   { name: "name", href: (src: Yeast) => `/ingredients/yeasts/${src.slug}` },
@@ -50,7 +51,15 @@ export const YeastsTable = ({
       {
         id: "name",
         accessorKey: "name",
-        cell: (info) => info.getValue(),
+        accessorFn: (row) => [row.name, row.slug],
+        cell: (info) => (
+          <Link
+            className="underline visited:text-violet-300"
+            href={`/ingredients/yeasts/${info.getValue()[1]}`}
+          >
+            {info.getValue()[0]}
+          </Link>
+        ),
       },
       {
         accessorKey: "type",
