@@ -48,6 +48,7 @@ export const NavCollapse = ({
         className="group-focus-within:bg-blue-400"
         iconType="MinimizeIcon"
         onMouseDown={handleToggle}
+        onTouchStart={handleToggle as any}
       />
 
       <div className="hidden group-focus-within:block">{children}</div>
