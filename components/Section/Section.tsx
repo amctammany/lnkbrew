@@ -87,7 +87,7 @@ const sectionBody = cva([""], {
     },
     size: {
       small: ["p-0", "shadow-sm", "text-sm"],
-      default: ["flex-grow", "p-2", "shadow-lg", "text-lg"],
+      default: ["flex-grow", "p-0", "shadow-lg", "text-lg"],
     },
   },
   defaultVariants: {
@@ -128,7 +128,7 @@ const sectionFooter = cva(["m-0 p-0"], {
 
 export type SectionProps = VariantProps<typeof section> &
   ComponentProps<"div"> & {
-    header?: string;
+    header?: string | React.ReactNode;
     icon?: any;
     actions?: React.ReactNode | React.ReactNode[];
     children?: React.ReactNode | React.ReactNode[];

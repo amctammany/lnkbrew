@@ -1,6 +1,8 @@
 "use client";
+import { Button } from "@/components/Button";
 import { Select } from "@/components/Form/Select";
 import { TextField } from "@/components/Form/TextField";
+import { ClientSection, Section } from "@/components/Section";
 //import { ClientTable } from "@/components/ClientTable";
 import { Table, tableStyles } from "@/components/Table";
 //import { Section } from "@/components/Section";
@@ -88,7 +90,6 @@ export const YeastsTable = ({
   );
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [globalFilter, setGlobalFilter] = useState("");
-
   const table = useReactTable({
     data: yeasts,
     columns,
@@ -111,44 +112,72 @@ export const YeastsTable = ({
     debugColumns: false,
   });
 
+  const handleReset = useMemo(
+    () => () => {
+      table.resetGlobalFilter();
+      table.resetColumnFilters();
+    },
+    [table]
+  );
+  console.log(table.getColumn("type")?.getFilterValue());
   return (
     <div>
-      {globalFilter}
-      <TextField
-        name="query"
-        value={globalFilter ?? ""}
-        onChange={({ target: { value } }) => setGlobalFilter(String(value))}
-        className="p-2 font-lg shadow border border-block"
-        placeholder="Search all columns..."
-      />
-      <Select
-        name="type"
-        value={table.getColumn("type")?.getFilterValue()}
-        onChange={({ target: { value } }) =>
-          table.getColumn("type")?.setFilterValue(value)
+      <ClientSection
+        className="lg:px-16"
+        closed={false}
+        header={
+          <TextField
+            name="query"
+            value={globalFilter ?? ""}
+            onChange={({ target: { value } }) => setGlobalFilter(String(value))}
+            className="p-2 font-lg border border-block"
+            placeholder="Search all columns..."
+          />
         }
-        className="p-2 font-lg shadow border border-block"
-        options={YeastTypeWithBlank}
-      />
-      <Select
-        name="form"
-        value={table.getColumn("form")?.getFilterValue()}
-        onChange={({ target: { value } }) =>
-          table.getColumn("form")?.setFilterValue(value)
-        }
-        className="p-2 font-lg shadow border border-block"
-        options={YeastFormWithBlank}
-      />
+      >
+        <Section
+          header="Filters"
+          size="small"
+          variant="warning"
+          actions={
+            <>
+              <Button onClick={handleReset}>Clear</Button>
+            </>
+          }
+        >
+          <div className="grid grid-flow-col gap-2">
+            <Select
+              name="type"
+              value={table.getColumn("type")?.getFilterValue() ?? ""}
+              onChange={({ target: { value } }) => {
+                console.log("change type");
+                table.getColumn("type")?.setFilterValue(value);
+              }}
+              className="p-2 font-lg shadow border border-block"
+              options={YeastTypeWithBlank}
+            />
+            <Select
+              name="form"
+              value={table.getColumn("form")?.getFilterValue() ?? ""}
+              onChange={({ target: { value } }) =>
+                table.getColumn("form")?.setFilterValue(value)
+              }
+              className="p-2 font-lg shadow border border-block"
+              options={YeastFormWithBlank}
+            />
 
-      <Select
-        name="flocculation"
-        value={table.getColumn("flocculation")?.getFilterValue()}
-        onChange={({ target: { value } }) =>
-          table.getColumn("flocculation")?.setFilterValue(value)
-        }
-        className="p-2 font-lg shadow border border-block"
-        options={YeastFlocculationWithBlank}
-      />
+            <Select
+              name="flocculation"
+              value={table.getColumn("flocculation")?.getFilterValue() ?? ""}
+              onChange={({ target: { value } }) =>
+                table.getColumn("flocculation")?.setFilterValue(value)
+              }
+              className="p-2 font-lg shadow border border-block"
+              options={YeastFlocculationWithBlank}
+            />
+          </div>
+        </Section>
+      </ClientSection>
 
       <div className="overflow-x-scroll">
         <Table variant={variant} table={table}></Table>

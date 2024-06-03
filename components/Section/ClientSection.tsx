@@ -10,11 +10,11 @@ export type ClientSectionProps = SectionProps & {
 };
 export function ClientSection({
   children,
-  closed,
+  closed = true,
   header,
   ...props
 }: ClientSectionProps) {
-  const [open, setOpen] = useState(closed ?? true);
+  const [open, setOpen] = useState(!closed);
   const handleToggle = () => setOpen((o) => !o);
   return (
     <Section
