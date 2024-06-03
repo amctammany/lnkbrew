@@ -19,9 +19,6 @@ export function OverviewSection({ style }: OverviewSectionProps) {
       <Prop label="Ingredients">{style?.ingredients}</Prop>
       <Prop label="History">{style?.history}</Prop>
       <Prop label="Examples">{style?.examples}</Prop>
-      <Prop label="IBU Range" unit="">
-        {style?.ibuLow} - {style?.ibuHigh}
-      </Prop>
     </ClientSection>
   );
 }

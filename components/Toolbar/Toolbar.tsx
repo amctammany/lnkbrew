@@ -23,7 +23,7 @@ const toolbarStyles = cva("flex", {
     variant: {
       default: ["bg-default-100 py-1 px-4"],
       warning: ["bg-warning-100"],
-      topbar: ["bg-info-200 py-2 px-8 "],
+      topbar: ["bg-info-300 py-2 px-8 "],
     },
   },
   defaultVariants: {
