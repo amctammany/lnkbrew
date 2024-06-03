@@ -22,14 +22,14 @@ export type SelectFilterProps<T extends Record<string, any>> = VariantProps<
     //TableFilter<T> & {
     table: Table<T>;
     name: keyof T extends string ? string : never;
-    options: Record<string, string>;
+    options?: Record<string, string>;
     //children?: React.ReactNode;
     //filter: TableFilter<T>;
   };
 export function SelectFilter<T extends Record<string, any>>({
   table,
   name,
-  options,
+  options = {},
   variant,
   className,
   children,
@@ -41,7 +41,7 @@ export function SelectFilter<T extends Record<string, any>>({
       onChange={({ target: { name, value } }) =>
         table.getColumn(name)?.setFilterValue(value)
       }
-      className="p-2 font-lg shadow border border-block"
+      className="p-2 font-lg border-block"
       options={options}
       //placeholder="Search name column"
     />

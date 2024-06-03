@@ -9,6 +9,6 @@ export type Direction = "ASC" | "DESC";
 export type TableFilterType = "text" | "select";
 export type TableFilter<T extends Record<string, any>> = {
   type: TableFilterType;
-  name: keyof T;
+  name: keyof T extends string ? string : never;
   options?: Record<string, string>;
 };

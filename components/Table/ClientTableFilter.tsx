@@ -23,10 +23,6 @@ export type ClientTableFilterProps<T extends Record<string, any>> =
       filter: TableFilter<T>;
       table: Table<T>;
     };
-const filterComps: Record<TableFilterType, any> = {
-  text: TextFilter,
-  select: SelectFilter,
-};
 export function ClientTableFilter<T extends Record<string, any>>({
   filter,
   table,
@@ -34,12 +30,29 @@ export function ClientTableFilter<T extends Record<string, any>>({
   className,
   children,
 }: ClientTableFilterProps<T>) {
+  const filterComps: Record<
+    TableFilterType,
+    React.FC<{
+      className?: string;
+      table: Table<T>;
+      name: keyof T extends string ? string : never;
+      options?: Record<string, string>;
+      children?: any;
+    }>
+  > = {
+    text: TextFilter,
+    select: SelectFilter,
+  };
+
   const Comp = filterComps[filter.type];
   return (
-    <div className={clsx(className, clientTableFilterStyles({ variant }))}>
-      <Comp table={table} {...filter} />
+    <Comp
+      table={table}
+      {...filter}
+      className={clsx(className, clientTableFilterStyles({ variant }))}
+    >
       {children}
-    </div>
+    </Comp>
   );
 }
 
