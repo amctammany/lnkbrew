@@ -29,6 +29,7 @@ async function main() {
   await prisma.yeast.deleteMany();
   await prisma.style.deleteMany();
   await prisma.waterProfile.deleteMany();
+  await prisma.equipmentProfile.deleteMany();
   await prisma.style.createMany({
     data: styles.map(({ category, ...style }) => ({
       ...style,
@@ -76,9 +77,43 @@ async function main() {
       sodium: 15,
     },
   });
+  await prisma.equipmentProfile.create({
+    data: {
+      name: "Anvil 10.5",
+      slug: slugify("Anvil 10.5", { lower: true }),
+      description: "Anvil Foundry 10.5",
+      boilOffRate: 0.45,
+      trubLoss: 0.35,
+      mashLoss: 0,
+      fermenterLoss: 0.5,
+      batchVolume: 3.4,
+      preboilVolume: 4.5,
+      boilVolume: 4.5,
+      mashEfficiency: 0.68,
+      brewEfficiency: 0.5,
+      boilTime: 60,
+    },
+  });
+
+  await prisma.equipmentProfile.create({
+    data: {
+      name: "Anvil 6.5",
+      slug: slugify("Anvil 6.5", { lower: true }),
+      description: "Anvil Foundry",
+      boilOffRate: 0.45,
+      trubLoss: 0.35,
+      mashLoss: 0,
+      fermenterLoss: 0.5,
+      batchVolume: 2.4,
+      preboilVolume: 2.5,
+      boilVolume: 2.5,
+      mashEfficiency: 0.68,
+      brewEfficiency: 0.5,
+      boilTime: 60,
+    },
+  });
 
   /**
-  await prisma.equipmentProfile.deleteMany();
   await prisma.mashProfile.deleteMany();
   await prisma.hopIngredient.deleteMany();
 
@@ -133,23 +168,6 @@ async function main() {
   //},
   //});
   /**
-  await prisma.equipmentProfile.create({
-    data: {
-      name: "Anvil 6.5",
-      slug: slugify("Anvil 6.5", { lower: true }),
-      description: "Anvil Foundry",
-      boilOffRate: 0.45,
-      trubLoss: 0.35,
-      mashLoss: 0,
-      fermenterLoss: 0.5,
-      batchVolume: 3.4,
-      preboilVolume: 4.5,
-      boilVolume: 4.5,
-      mashEfficiency: 0.68,
-      brewEfficiency: 0.5,
-      boilTime: 60,
-    },
-  });
   await prisma.waterProfile.create({
     data: {
       name: "Good",

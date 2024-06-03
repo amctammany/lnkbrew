@@ -294,3 +294,24 @@ model WaterProfile {
   //  DefaultSources UserPreferences[] @relation("SourceWater")
   //  TargetSources  UserPreferences[] @relation("TargetWater")
 }
+
+model EquipmentProfile {
+  id              Int     @id @default(autoincrement())
+  name            String
+  slug            String  @unique
+  description     String?
+  batchVolume     Float?
+  boilVolume      Float?
+  preboilVolume   Float?
+  boilTime        Float?
+  brewEfficiency  Float?
+  mashEfficiency  Float?
+  boilOffRate     Float?
+  trubLoss        Float?  @default(0)
+  mashLoss        Float?  @default(0)
+  fermenterLoss   Float?  @default(0)
+  grainAbsorption Float?  @default(0.5)
+  waterGrainRatio Float?  @default(1.5)
+  //  Recipe          Recipe[]
+  //  UserPreferences UserPreferences[]
+}
