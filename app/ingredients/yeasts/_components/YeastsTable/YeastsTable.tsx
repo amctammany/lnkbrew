@@ -150,7 +150,9 @@ export const YeastsTable = ({
         options={YeastFlocculationWithBlank}
       />
 
-      <Table variant={variant} table={table}></Table>
+      <div className="overflow-x-scroll">
+        <Table variant={variant} table={table}></Table>
+      </div>
     </div>
   );
 };

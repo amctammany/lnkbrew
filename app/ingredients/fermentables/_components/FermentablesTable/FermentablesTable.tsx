@@ -88,7 +88,7 @@ export const FermentablesTable = ({
   });
 
   return (
-    <div>
+    <div className="">
       <TextField
         name="query"
         value={globalFilter ?? ""}
@@ -106,16 +106,18 @@ export const FermentablesTable = ({
         options={FermentableUsageWithBlank}
       />
 
-      <Table
-        table={table}
-        //src={fermentables}
-        //filters={{ name: "string" }}
-        //columns={columns}
-        //selectActions={{
-        //Compare: "/ingredients/fermentables/compare",
-        //Combine: "/ingredients/fermentables/combine",
-        //}}
-      />
+      <div className="overflow-x-scroll w-full">
+        <Table
+          table={table}
+          //src={fermentables}
+          //filters={{ name: "string" }}
+          //columns={columns}
+          //selectActions={{
+          //Compare: "/ingredients/fermentables/compare",
+          //Combine: "/ingredients/fermentables/combine",
+          //}}
+        />
+      </div>
     </div>
   );
 };
