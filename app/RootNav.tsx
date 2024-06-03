@@ -29,6 +29,7 @@ export const RootNav = ({}: RootNavProps) => {
       <div className="flex flex-grow items-center flex-row font-medium p-2 md:p-0  md:space-x-8">
         <NavLink href="/recipes">Recipes</NavLink>
         <NavLink href="/ingredients">Ingredients</NavLink>
+        <NavLink href="/styles">Styles</NavLink>
       </div>
       <AdminNav />
     </nav>

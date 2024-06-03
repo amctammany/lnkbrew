@@ -1,6 +1,7 @@
 import {
   //PrismaClient,
   HopUsage,
+  StyleCategory,
   YeastFlocculation,
   YeastForm,
   YeastType,
@@ -16,7 +17,7 @@ import hops from "../data/hops.json";
 //import yakima from "../data/yakima.json";
 import yeasts from "../data/yeasts.json";
 import grains from "../data/grains.json";
-//import styles from "../data/styles.json";
+import styles from "../data/styles.json";
 import { prisma } from "../lib/client";
 async function main() {
   await prisma.account.deleteMany();
@@ -26,8 +27,16 @@ async function main() {
   await prisma.hop.deleteMany();
   await prisma.fermentable.deleteMany();
   await prisma.yeast.deleteMany();
-  /**
   await prisma.style.deleteMany();
+  await prisma.style.createMany({
+    data: styles.map(({ category, ...style }) => ({
+      ...style,
+      subcategoryId: parseInt(style.subcategoryId, 10),
+      category: StyleCategory[category.toLowerCase() as StyleCategory],
+    })),
+  });
+
+  /**
   await prisma.equipmentProfile.deleteMany();
   await prisma.mashProfile.deleteMany();
   await prisma.waterProfile.deleteMany();

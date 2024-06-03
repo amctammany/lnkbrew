@@ -22,6 +22,7 @@ export default function RootLayout({
         <Nav>
           <NavLink href="/recipes">Recipes</NavLink>
           <NavLink href="/ingredients">Ingredients</NavLink>
+          <NavLink href="/styles">Styles</NavLink>
         </Nav>
 
         <main className="min-w-full items-center justify-between p-0 ">
