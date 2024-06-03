@@ -6,7 +6,7 @@ import { useState } from "react";
 //import Link from "next/link";
 //import { usePathname } from "next/navigation";
 
-const containerStyles = cva([], {
+const containerStyles = cva([""], {
   variants: {
     variant: {
       default: [],
@@ -24,14 +24,14 @@ const containerStyles = cva([], {
 const navCollapseStyles = cva(["sm:hidden group flex text-center font-bold "], {
   variants: {
     variant: {
-      default: ["text-white hover:text-red-500 "],
+      default: ["bg-slate-600 text-slate-900 hover:text-red-500 "],
     },
     size: {
       small: ["p-0"],
-      default: ["py-2 px-4"],
+      default: ["py-2 px-1"],
     },
     open: {
-      open: [],
+      open: [""],
       closed: [],
     },
   },
@@ -70,12 +70,14 @@ export const NavCollapse = ({
       >
         {children}
       </div>
-      <IconButton
-        className="group-focus-within:bg-blue-400"
-        iconType="MinimizeIcon"
-        onClick={handleToggle}
-        //onTouchStart={handleToggle as any}
-      />
+      <div className="flex items-start">
+        <IconButton
+          className="group-focus-within:bg-blue-400"
+          iconType="MinimizeIcon"
+          onClick={handleToggle}
+          //onTouchStart={handleToggle as any}
+        />
+      </div>
     </div>
   );
 };

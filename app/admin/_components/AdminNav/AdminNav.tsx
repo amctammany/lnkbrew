@@ -21,6 +21,8 @@ export async function AdminNav({}: AdminNavProps) {
       <NavLink href="/api/auth/signin">Sign In</NavLink>
     </div>
   );
+  return <>{body}</>;
+  /**
   return (
     <div className="flex flex-shrink items-center flex-row font-medium p-2 md:p-0  md:space-x-8">
       <div className="md:hidden ">{body}</div>
@@ -32,6 +34,7 @@ export async function AdminNav({}: AdminNavProps) {
       </div>
     </div>
   );
+   */
 }
 
 export default AdminNav;
