@@ -28,7 +28,7 @@ export function YeastEditor({ action, yeast }: YeastEditorProps) {
 
   return (
     <Form action={action}>
-      <Toolbar variant="topbar" title={"Editing: " + yeast?.name}>
+      <Toolbar variant="topbar" title={yeast?.name ?? "New Yeast"}>
         <IconButton iconType="SaveIcon" type="submit">
           Save
         </IconButton>

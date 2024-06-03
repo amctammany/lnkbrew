@@ -1,5 +1,5 @@
 "use client";
-import { Button } from "@/components/Button";
+import { Button, ButtonLink } from "@/components/Button";
 import { Select } from "@/components/Form/Select";
 import { TextField } from "@/components/Form/TextField";
 import { ClientSection, Section } from "@/components/Section";
@@ -13,6 +13,7 @@ import {
   Direction,
   TableFilter,
 } from "@/components/Table/types";
+import { Toolbar } from "@/components/Toolbar";
 import { fuzzyFilter } from "@/lib/fuzzyFilter";
 import {
   Hop,
@@ -122,7 +123,15 @@ export const YeastsTable = ({
     []
   );
 
-  return <ClientTable table={table} filters={filters} />;
+  return (
+    <div>
+      <Toolbar variant="topbar" title="Yeasts" className="flex">
+        <ButtonLink href="/ingredients/yeasts/new">New</ButtonLink>
+      </Toolbar>
+
+      <ClientTable table={table} filters={filters} />
+    </div>
+  );
   /**
   return (
     <div>

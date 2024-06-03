@@ -8,7 +8,7 @@ import { Button } from "../Button";
 import ClientTableFilter from "./ClientTableFilter";
 import { TableFilter } from "./types";
 
-const clientTableStyles = cva("", {
+const clientTableStyles = cva("px-20 py-8", {
   variants: {
     variant: {
       default: [],
@@ -39,7 +39,7 @@ function ClientTable<T extends Record<string, any>>({
   return (
     <div className={clsx(clientTableStyles({ variant }), className)}>
       <ClientSection
-        className="lg:px-16"
+        className=""
         closed={true}
         header={
           <TextField
@@ -48,7 +48,7 @@ function ClientTable<T extends Record<string, any>>({
             onChange={({ target: { value } }) =>
               table.setGlobalFilter(String(value))
             }
-            className="p-0 font-lg shadow border-block"
+            className="p-0 font-lg border-block"
             placeholder="Search all columns..."
           />
         }

@@ -4,9 +4,10 @@ import { prisma } from "@/lib/client";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import { zfd } from "zod-form-data";
+import slugify from "slugify";
 
 const schema = zfd.formData({
-  id: zfd.text(),
+  id: zfd.text(z.string().optional()),
   name: zfd.text(),
   description: zfd.text(z.string().optional()),
   manufacturer: zfd.text(z.string().optional()),
@@ -19,6 +20,17 @@ const schema = zfd.formData({
   usage: zfd.text(z.string().optional()),
   notes: zfd.text(z.string().optional()),
 });
+
+export const createYeast = async (formData: FormData) => {
+  const data = schema.parse(formData);
+  const res = await prisma.yeast.create({
+    data: {
+      ...data,
+      slug: slugify(data.name, { lower: true }),
+    },
+  });
+  redirect(`/ingredients/hops/${res.slug}`);
+};
 
 export const updateYeast = async (formData: FormData) => {
   const data = schema.parse(formData);
