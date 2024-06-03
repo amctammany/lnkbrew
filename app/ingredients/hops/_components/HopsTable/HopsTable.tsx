@@ -116,8 +116,10 @@ export const HopsTable = ({
         header={
           <TextField
             name="query"
-            value={globalFilter ?? ""}
-            onChange={({ target: { value } }) => setGlobalFilter(String(value))}
+            value={table.getState().globalFilter ?? ""}
+            onChange={({ target: { value } }) =>
+              table.setGlobalFilter(String(value))
+            }
             className="p-2 font-lg shadow border border-block"
             placeholder="Search all columns..."
           />

@@ -3,6 +3,7 @@ import { Button } from "@/components/Button";
 import { Select, TextField } from "@/components/Form";
 import { ClientSection, Section } from "@/components/Section";
 import { Table } from "@/components/Table";
+import ClientTable from "@/components/Table/ClientTable";
 import { Direction } from "@/components/Table/types";
 import { fuzzyFilter } from "@/lib/fuzzyFilter";
 import { Fermentable } from "@prisma/client";
@@ -97,6 +98,8 @@ export const FermentablesTable = ({
     [table]
   );
 
+  return <ClientTable table={table} />;
+  /**
   return (
     <div className="">
       <ClientSection
@@ -149,4 +152,5 @@ export const FermentablesTable = ({
       </div>
     </div>
   );
+   */
 };
