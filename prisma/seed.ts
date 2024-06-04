@@ -61,7 +61,7 @@ async function main() {
       sodium: 8,
     },
   });
-  await prisma.waterProfile.create({
+  const jb = await prisma.waterProfile.create({
     data: {
       name: "Juicy Bits",
       slug: slugify("Juicy Bits", { lower: true }),
@@ -72,6 +72,20 @@ async function main() {
       chloride: 175,
       bicarbonate: 0,
       sodium: 0,
+      forks: {
+        create: {
+          //forks: [],
+          name: "amctammany Juicy Bits",
+          slug: slugify("amctammamy Juicy Bits", { lower: true }),
+          description: "Juicy!",
+          calcium: 150,
+          magnesium: 0,
+          sulfate: 92,
+          chloride: 165,
+          bicarbonate: 0,
+          sodium: 0,
+        },
+      },
     },
   });
 
@@ -103,6 +117,23 @@ async function main() {
       mashEfficiency: 0.68,
       brewEfficiency: 0.5,
       boilTime: 60,
+      forks: {
+        create: {
+          name: "Anvil 10.5 240V",
+          slug: slugify("Anvil 10.5 240V", { lower: true }),
+          description: "Anvil Foundry 10.5 at 240 V",
+          boilOffRate: 0.55,
+          trubLoss: 0.35,
+          mashLoss: 0,
+          fermenterLoss: 0.5,
+          batchVolume: 6.4,
+          preboilVolume: 4.5,
+          boilVolume: 4.5,
+          mashEfficiency: 0.72,
+          brewEfficiency: 0.62,
+          boilTime: 60,
+        },
+      },
     },
   });
 

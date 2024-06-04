@@ -303,14 +303,20 @@ model WaterProfile {
   //  Recipe         Recipe[]
   DefaultSources UserPreferences[] @relation("SourceWater")
   TargetSources  UserPreferences[] @relation("TargetWater")
+  forkedFrom     Int?              @unique
+  origin         WaterProfile?     @relation("origin", fields: [forkedFrom], references: [id])
+  forks          WaterProfile[]    @relation("origin")
 }
 
 model EquipmentProfile {
-  id              Int               @id @default(autoincrement())
+  id              Int                @id @default(autoincrement())
   userId          String?
-  owner           User?             @relation(fields: [userId], references: [id])
+  owner           User?              @relation(fields: [userId], references: [id])
+  forkedFrom      Int?               @unique
+  origin          EquipmentProfile?  @relation("origin", fields: [forkedFrom], references: [id])
+  forks           EquipmentProfile[] @relation("origin")
   name            String
-  slug            String            @unique
+  slug            String             @unique
   description     String?
   batchVolume     Float?
   boilVolume      Float?
@@ -319,11 +325,11 @@ model EquipmentProfile {
   brewEfficiency  Float?
   mashEfficiency  Float?
   boilOffRate     Float?
-  trubLoss        Float?            @default(0)
-  mashLoss        Float?            @default(0)
-  fermenterLoss   Float?            @default(0)
-  grainAbsorption Float?            @default(0.5)
-  waterGrainRatio Float?            @default(1.5)
+  trubLoss        Float?             @default(0)
+  mashLoss        Float?             @default(0)
+  fermenterLoss   Float?             @default(0)
+  grainAbsorption Float?             @default(0.5)
+  waterGrainRatio Float?             @default(1.5)
   //  Recipe          Recipe[]
   UserPreferences UserPreferences[]
 }
