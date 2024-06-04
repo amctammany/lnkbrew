@@ -1,6 +1,6 @@
 import { prisma } from "@/lib/client";
+import { ExtendedEquipmentProfile } from "@/types/Profile";
 import { cache } from "react";
-import { ExtendedEquipmentProfile } from "./_components/EquipmentProfileDisplay";
 
 export const getEquipmentProfile = cache(async (slug: string) => {
   const profile = await prisma.equipmentProfile.findFirst({

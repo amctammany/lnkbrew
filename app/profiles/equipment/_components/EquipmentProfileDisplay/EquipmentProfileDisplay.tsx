@@ -2,6 +2,7 @@ import { IconButtonLink } from "@/components/Button";
 import { Prop } from "@/components/Prop";
 import { Section } from "@/components/Section";
 import { Toolbar } from "@/components/Toolbar";
+import { ExtendedEquipmentProfile } from "@/types/Profile";
 import { EquipmentProfile, User } from "@prisma/client";
 import React from "react";
 const numberFieldNames: [keyof EquipmentProfile, string][] = [
@@ -15,7 +16,6 @@ const numberFieldNames: [keyof EquipmentProfile, string][] = [
   ["brewEfficiency", "%"],
 ];
 
-export type ExtendedEquipmentProfile = EquipmentProfile & { owner?: User };
 export type EquipmentProfileDisplayProps = {
   profile?: ExtendedEquipmentProfile;
 };
