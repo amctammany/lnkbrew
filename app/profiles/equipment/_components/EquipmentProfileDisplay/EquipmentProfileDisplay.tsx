@@ -2,7 +2,7 @@ import { IconButtonLink } from "@/components/Button";
 import { Prop } from "@/components/Prop";
 import { Section } from "@/components/Section";
 import { Toolbar } from "@/components/Toolbar";
-import { EquipmentProfile } from "@prisma/client";
+import { EquipmentProfile, User } from "@prisma/client";
 import React from "react";
 const numberFieldNames: [keyof EquipmentProfile, string][] = [
   ["batchVolume", "gal"],
@@ -15,8 +15,9 @@ const numberFieldNames: [keyof EquipmentProfile, string][] = [
   ["brewEfficiency", "%"],
 ];
 
+export type ExtendedEquipmentProfile = EquipmentProfile & { owner?: User };
 export type EquipmentProfileDisplayProps = {
-  profile?: EquipmentProfile | null;
+  profile?: ExtendedEquipmentProfile;
 };
 export const EquipmentProfileDisplay = ({
   profile,
@@ -35,6 +36,7 @@ export const EquipmentProfileDisplay = ({
     >
       <div className="p-4">
         <Prop label="Name">{profile?.name}</Prop>
+        <Prop label="Owner">{profile?.owner?.name}</Prop>
         <Prop label="Description">{profile?.description}</Prop>
         <Prop label="Batch Volume" unit="gal">
           {profile?.batchVolume}
