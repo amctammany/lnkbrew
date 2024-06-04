@@ -2,6 +2,7 @@ import { ComponentProps, forwardRef } from "react";
 import { Label } from "./Label";
 import { cva } from "class-variance-authority";
 import {
+  TimeUnit,
   //TimeUnit,
   UserMassPreference,
   UserVolumePreference,
@@ -26,7 +27,7 @@ export function getAmount(value: number | undefined, type: UserMassPreference) {
 export type AmountFieldProps = {
   amountType?:
     | UserMassPreference
-    //| TimeUnit
+    | TimeUnit
     //| YeastAmountType
     | UserVolumePreference
     | "%"

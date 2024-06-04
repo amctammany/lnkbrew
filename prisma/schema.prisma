@@ -66,6 +66,7 @@ model User {
 model UserPreferences {
   userId               String                    @id @unique @default(cuid())
   user                 User                      @relation(fields: [userId], references: [id])
+  timeUnit             TimeUnit                  @default(min)
   volumeUnit           UserVolumePreference      @default(gal)
   hopMassUnit          UserMassPreference        @default(Oz)
   fermentableMassUnit  UserMassPreference        @default(LbOz)

@@ -5,12 +5,13 @@ import {
   createEquipmentProfile,
   updateEquipmentProfile,
 } from "@/app/profiles/equipment/actions";
+import { Prisma, TimeUnit } from "@prisma/client";
 //import { Section } from "@/components/Section";
 import { Toolbar } from "@/components/Toolbar";
 import { AmountField } from "@/components/Form/AmountField";
 import { Ca2, Cl, HCO3, MgSo4, Na, SO4 } from "@/components/Elements";
 import { IconButton } from "@/components/Button/IconButton";
-import { EquipmentProfile } from "@prisma/client";
+import { EquipmentProfile, UserVolumePreference } from "@prisma/client";
 import { Section } from "@/components/Section";
 import { EquipmentProfileIcon } from "@/components/Icon/EquipmentProfileIcon";
 type EquipmentProfileInput = any;
@@ -63,13 +64,13 @@ export const EquipmentProfileForm = ({
             <AmountField
               {...register("batchVolume")}
               label="Batch Volume"
-              //amountType={UserVolumePreference.gal}
+              amountType={UserVolumePreference.gal}
               step={0.01}
             />
             <AmountField
               {...register("boilTime")}
               label="Boil Time"
-              //amountType={TimeUnit.min}
+              amountType={TimeUnit.min}
               step={1}
             />
             <AmountField
