@@ -61,6 +61,7 @@ model User {
   Style            Style[]
   WaterProfile     WaterProfile[]
   EquipmentProfile EquipmentProfile[]
+  MashProfile      MashProfile[]
 }
 
 model UserPreferences {
@@ -80,6 +81,7 @@ model UserPreferences {
   sourceWaterProfileId Int?
   targetWaterProfileId Int?
   mashProfileId        Int?
+  MashProfile          MashProfile?              @relation(fields: [mashProfileId], references: [id])
 }
 
 enum MassUnit {
@@ -332,4 +334,38 @@ model EquipmentProfile {
   waterGrainRatio Float?             @default(1.5)
   //  Recipe          Recipe[]
   UserPreferences UserPreferences[]
+}
+
+model MashProfile {
+  id          Int           @id @default(autoincrement())
+  name        String
+  slug        String        @unique
+  description String?
+  steps       MashStep[]
+  userId      String?
+  owner       User?         @relation(fields: [userId], references: [id])
+  forkedFrom  Int?
+  origin      MashProfile?  @relation("origin", fields: [forkedFrom], references: [id])
+  forks       MashProfile[] @relation("origin")
+
+  //  Recipe          Recipe[]
+  UserPreferences UserPreferences[]
+}
+
+enum MashStepType {
+  temperature
+  infusion
+  decoction
+}
+
+model MashStep {
+  id          Int          @id @default(autoincrement())
+  type        MashStepType @default(temperature)
+  name        String?
+  temperature Int
+  time        Int
+  rampTime    Int          @default(0)
+
+  MashProfile   MashProfile? @relation(fields: [mashProfileId], references: [id])
+  mashProfileId Int?
 }
