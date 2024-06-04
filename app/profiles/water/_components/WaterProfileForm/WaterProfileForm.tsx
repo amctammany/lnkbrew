@@ -11,7 +11,6 @@ import { AmountField } from "@/components/Form/AmountField";
 import { Ca2, Cl, HCO3, MgSo4, Na, SO4 } from "@/components/Elements";
 import { IconButton } from "@/components/Button/IconButton";
 import { Section } from "@/components/Section";
-import { WaterProfileIcon } from "@/components/Icon/WaterProfileIcon";
 type WaterProfileInput = any;
 
 export type WaterProfileFormProps = {
@@ -32,7 +31,7 @@ export const WaterProfileForm = ({ profile }: WaterProfileFormProps) => {
   return (
     <Form action={onSubmit}>
       <Section
-        icon={<WaterProfileIcon />}
+        icon="WaterProfileIcon"
         header={profile?.name ?? "New Water Profile"}
         actions={
           <IconButton type="submit" iconType="SaveIcon">

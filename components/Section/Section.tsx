@@ -1,6 +1,8 @@
 import { VariantProps, cva } from "class-variance-authority";
 import clsx from "clsx";
 import { ComponentProps } from "react";
+import { IconNames } from "../Icon";
+import { AppIcon } from "../AppIcon";
 
 const section = cva(["min-w-full bg-white "], {
   variants: {
@@ -129,7 +131,7 @@ const sectionFooter = cva(["m-0 p-0"], {
 export type SectionProps = VariantProps<typeof section> &
   ComponentProps<"div"> & {
     header?: string | React.ReactNode;
-    icon?: any;
+    icon?: IconNames | React.ReactNode;
     actions?: React.ReactNode | React.ReactNode[];
     children?: React.ReactNode | React.ReactNode[];
     footer?: React.ReactNode | React.ReactNode[];
@@ -150,7 +152,13 @@ export const Section = ({
   return (
     <div className={clsx(section({ size, variant, collapsed }), className)}>
       <div className={sectionHeader({ size, variant, collapsed })}>
-        <div className="flex-shrink">{icon}</div>
+        <div className="flex-shrink">
+          {typeof icon === "string" ? (
+            <AppIcon type={(icon as IconNames) ?? "UpIcon"} />
+          ) : (
+            icon
+          )}
+        </div>
         <h4 className={sectionTitle({ size, variant, collapsed })}>
           {_title || title}
         </h4>

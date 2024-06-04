@@ -13,7 +13,7 @@ export const WaterProfileDisplay = ({ profile }: WaterProfileDisplayProps) => {
   return (
     <Section
       header={profile?.name}
-      icon={<WaterProfileIcon />}
+      icon="WaterProfileIcon"
       actions={
         <IconButtonLink
           href={`/profiles/water/${profile?.slug}/edit`}

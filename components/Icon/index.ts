@@ -11,10 +11,14 @@ import { UndoIcon } from "./UndoIcon";
 import { EditIcon } from "./EditIcon";
 import { MinimizeIcon } from "./MinimizeIcon";
 import { MaximizeIcon } from "./MaximizeIcon";
+import { EquipmentProfileIcon } from "./EquipmentProfileIcon";
+import { WaterProfileIcon } from "./WaterProfileIcon";
 
 export const Icons = {
   AddIcon,
   UpIcon,
+  EquipmentProfileIcon,
+  WaterProfileIcon,
   DownIcon,
   CloseIcon,
   DeleteIcon,
