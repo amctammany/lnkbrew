@@ -1,0 +1,36 @@
+import { auth } from "@/app/auth";
+import { MashProfileForm } from "../../_components/MashProfileForm";
+import { getMashProfile } from "../../queries";
+import { redirect } from "next/navigation";
+import Unauthorized from "@/app/admin/_components/Unauthorized";
+import { ExtendedMashProfile } from "@/types/Profile";
+type MashProfileForkPageProps = {
+  params: {
+    slug: string;
+  };
+};
+
+export async function generateMetadata({ params }: MashProfileForkPageProps) {
+  return Promise.resolve({
+    title: `LNK MashProfile: ${params.slug}`,
+  });
+}
+
+export default async function MashProfileForkPage({
+  params: { slug },
+}: MashProfileForkPageProps) {
+  const session = await auth();
+  if (!session)
+    return redirect(`/admin/login?returnUrl=/profiles/mash/${slug}/fork`);
+
+  const { id, name, ...mashProfile } = await getMashProfile(slug);
+  //if (mashProfile?.owner?.id !== session?.user?.id)
+  //return <Unauthorized returnUrl={`/profiles/mash/${slug}`} />;
+  const forkedProfile: Omit<ExtendedMashProfile, "id"> = {
+    ...mashProfile,
+    name: `${session?.user?.name}-${name}`,
+    userId: session?.user?.id!,
+    forkedFrom: id,
+  };
+  return <MashProfileForm profile={forkedProfile} />;
+}

@@ -1,12 +1,13 @@
 import { EquipmentProfileIcon } from "@/components/Icon/EquipmentProfileIcon";
 import Icon from "@/components/Icon/Icon";
+import { MashProfileIcon } from "@/components/Icon/MashProfileIcon";
 import { WaterProfileIcon } from "@/components/Icon/WaterProfileIcon";
 import { Section } from "@/components/Section";
 import Link from "next/link";
 
 const links: [string, string, typeof Icon][] = [
   ["Equipment", "/profiles/equipment", EquipmentProfileIcon],
-  //["Mash", "/profiles/mash", MashProfileIcon],
+  ["Mash", "/profiles/mash", MashProfileIcon],
   ["Water", "/profiles/water", WaterProfileIcon],
 ];
 export default function ProfilesIndex() {
