@@ -12,6 +12,7 @@ export const AuthOptions: NextAuthConfig = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
     }),
   ],
+  callbacks: {},
   //session: { strategy: "jwt" },
   //callbacks: {
   //async session({ session, token, user }) {
@@ -33,5 +34,7 @@ export const AuthOptions: NextAuthConfig = {
 };
 export const {
   handlers: { GET, POST },
+  signIn,
+  signOut,
   auth,
 } = NextAuth(AuthOptions);
