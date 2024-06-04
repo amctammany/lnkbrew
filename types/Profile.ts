@@ -1,4 +1,4 @@
-import { EquipmentProfile, User, WaterProfile, Prisma } from "@prisma/client";
-export type BaseUser = Pick<User, "name" | "email" | "id" | "username"> | null;
+import { EquipmentProfile, WaterProfile } from "@prisma/client";
+import { BaseUser } from "./User";
 export type ExtendedEquipmentProfile = EquipmentProfile & { owner?: BaseUser };
 export type ExtendedWaterProfile = WaterProfile & { owner?: BaseUser };
