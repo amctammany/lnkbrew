@@ -1,14 +1,18 @@
+import { auth } from "@/app/auth";
 import { WaterProfileForm } from "@/app/profiles/water/_components/WaterProfileForm";
 import { WaterProfile } from "@prisma/client";
-type WaterProfileDisplayProps = {};
+import { redirect } from "next/navigation";
+type WaterProfileCreatorProps = {};
 
-export function generateMetadata({}: WaterProfileDisplayProps) {
+export function generateMetadata({}: WaterProfileCreatorProps) {
   return {
     title: `LNK WaterProfile: New`,
   };
 }
 
-export default async function WaterProfileDisplay({}: WaterProfileDisplayProps) {
-  const waterProfile = {} as WaterProfile;
+export default async function WaterProfileCreator({}: WaterProfileCreatorProps) {
+  const session = await auth();
+  if (!session) return redirect("/admin/login?returnUrl=/profiles/water/new");
+  const waterProfile = { userId: session?.user?.id } as WaterProfile;
   return <WaterProfileForm profile={waterProfile} />;
 }

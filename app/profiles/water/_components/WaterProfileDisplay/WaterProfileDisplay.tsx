@@ -1,5 +1,4 @@
 import { IconButtonLink } from "@/components/Button";
-import { WaterProfileIcon } from "@/components/Icon/WaterProfileIcon";
 import { Prop } from "@/components/Prop";
 import { Section } from "@/components/Section";
 import { Toolbar } from "@/components/Toolbar";

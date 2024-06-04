@@ -1,11 +1,12 @@
 import { prisma } from "@/lib/client";
+import { ExtendedWaterProfile } from "@/types/Profile";
 import { cache } from "react";
 
 export const getWaterProfile = cache(async (slug: string) => {
   const profile = await prisma.waterProfile.findFirst({
     where: { slug: { equals: slug } },
   });
-  return profile;
+  return profile as ExtendedWaterProfile;
 });
 
 export const getWaterProfiles = cache(async () => {
