@@ -8,6 +8,7 @@ const equipmentSchema = zfd.formData({
   id: zfd.numeric(z.number().optional()),
   name: zfd.text(),
   userId: zfd.text(z.string().optional()),
+  forkedFrom: zfd.numeric(z.number().optional()),
   description: zfd.text(z.string().optional()),
   boilTime: zfd.numeric(z.number().min(0).optional()),
   batchVolume: zfd.numeric(z.number().min(0).optional()),

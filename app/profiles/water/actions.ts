@@ -8,6 +8,9 @@ import { zfd } from "zod-form-data";
 const waterSchema = zfd.formData({
   id: zfd.numeric(z.number().optional()),
   name: zfd.text(),
+  userId: zfd.text(z.string().optional()),
+  forkedFrom: zfd.numeric(z.number().optional()),
+
   description: zfd.text(z.string().optional()),
   calcium: zfd.numeric(z.number().min(0).default(0)),
   magnesium: zfd.numeric(z.number().min(0).default(0)),

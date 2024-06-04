@@ -54,6 +54,7 @@ export const EquipmentProfileForm = ({
         <div className="grid gap-2 md:gap-4 grid-cols-3 md:grid-cols-6">
           <input type="hidden" {...register("id")} />
           <input type="hidden" {...register("userId")} />
+          <input type="hidden" {...register("forkedFrom")} />
           <div className="col-span-3 md:col-span-6">
             <TextField {...register("name")} label="Name" />
           </div>

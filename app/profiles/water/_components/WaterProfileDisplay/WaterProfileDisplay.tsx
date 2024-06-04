@@ -14,12 +14,21 @@ export const WaterProfileDisplay = ({ profile }: WaterProfileDisplayProps) => {
       header={profile?.name}
       icon="WaterProfileIcon"
       actions={
-        <IconButtonLink
-          href={`/profiles/water/${profile?.slug}/edit`}
-          iconType="EditIcon"
-        >
-          Edit
-        </IconButtonLink>
+        <>
+          <IconButtonLink
+            href={`/profiles/water/${profile?.slug}/fork`}
+            iconType="EditIcon"
+          >
+            Fork
+          </IconButtonLink>
+
+          <IconButtonLink
+            href={`/profiles/water/${profile?.slug}/edit`}
+            iconType="EditIcon"
+          >
+            Edit
+          </IconButtonLink>
+        </>
       }
     >
       <div className="p-4">

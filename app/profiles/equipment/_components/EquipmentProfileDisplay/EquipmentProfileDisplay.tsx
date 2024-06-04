@@ -26,12 +26,21 @@ export const EquipmentProfileDisplay = ({
     <Section
       header={profile?.name}
       actions={
-        <IconButtonLink
-          href={`/profiles/equipment/${profile?.slug}/edit`}
-          iconType="EditIcon"
-        >
-          Edit
-        </IconButtonLink>
+        <>
+          <IconButtonLink
+            href={`/profiles/equipment/${profile?.slug}/fork`}
+            iconType="StarIcon"
+          >
+            Fork
+          </IconButtonLink>
+
+          <IconButtonLink
+            href={`/profiles/equipment/${profile?.slug}/edit`}
+            iconType="EditIcon"
+          >
+            Edit
+          </IconButtonLink>
+        </>
       }
     >
       <div className="p-4">

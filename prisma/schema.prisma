@@ -303,7 +303,7 @@ model WaterProfile {
   //  Recipe         Recipe[]
   DefaultSources UserPreferences[] @relation("SourceWater")
   TargetSources  UserPreferences[] @relation("TargetWater")
-  forkedFrom     Int?              @unique
+  forkedFrom     Int?
   origin         WaterProfile?     @relation("origin", fields: [forkedFrom], references: [id])
   forks          WaterProfile[]    @relation("origin")
 }
@@ -312,7 +312,7 @@ model EquipmentProfile {
   id              Int                @id @default(autoincrement())
   userId          String?
   owner           User?              @relation(fields: [userId], references: [id])
-  forkedFrom      Int?               @unique
+  forkedFrom      Int?
   origin          EquipmentProfile?  @relation("origin", fields: [forkedFrom], references: [id])
   forks           EquipmentProfile[] @relation("origin")
   name            String
