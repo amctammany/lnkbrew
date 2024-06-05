@@ -5,6 +5,7 @@ import { cache } from "react";
 export const getMashProfile = cache(async (slug: string) => {
   const profile = await prisma.mashProfile.findFirst({
     where: { slug: { equals: slug } },
+    include: { steps: true },
   });
   return profile as ExtendedMashProfile;
 });

@@ -1,12 +1,15 @@
 import { IconButtonLink } from "@/components/Button";
+import { List } from "@/components/List/List";
 import { Prop } from "@/components/Prop";
 import { Section } from "@/components/Section";
 import { Toolbar } from "@/components/Toolbar";
 import { MashProfile } from "@prisma/client";
 import React from "react";
+import { MashStepListItem } from "./MashStepListItem";
+import { type ExtendedMashProfile } from "@/types/Profile";
 
 export type MashProfileDisplayProps = {
-  profile?: MashProfile | null;
+  profile?: ExtendedMashProfile | null;
 };
 export const MashProfileDisplay = ({ profile }: MashProfileDisplayProps) => {
   return (
@@ -35,6 +38,13 @@ export const MashProfileDisplay = ({ profile }: MashProfileDisplayProps) => {
         <Prop label="Name">{profile?.name}</Prop>
         <Prop label="Description">{profile?.description}</Prop>
       </div>
+      <Section>
+        <List>
+          {(profile?.steps || []).map((step, index) => (
+            <MashStepListItem key={step.id} step={step} index={index} />
+          ))}
+        </List>
+      </Section>
     </Section>
   );
 };
