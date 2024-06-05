@@ -3,6 +3,7 @@ import { MashProfileForm } from "../../_components/MashProfileForm";
 import { getMashProfile } from "../../queries";
 import Unauthorized from "@/app/admin/_components/Unauthorized";
 import { auth } from "@/app/auth";
+import { MashProfileInput } from "@/types/Profile";
 type MashProfileEditorPageProps = {
   params: {
     slug: string;
@@ -26,5 +27,5 @@ export default async function MashProfileEditorPage({
   if (mashProfile?.owner?.id !== session?.user?.id)
     return <Unauthorized returnUrl={`/profiles/mash/${slug}`} />;
 
-  return <MashProfileForm profile={mashProfile} />;
+  return <MashProfileForm profile={mashProfile as MashProfileInput} />;
 }

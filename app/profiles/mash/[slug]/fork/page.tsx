@@ -3,7 +3,7 @@ import { MashProfileForm } from "../../_components/MashProfileForm";
 import { getMashProfile } from "../../queries";
 import { redirect } from "next/navigation";
 import Unauthorized from "@/app/admin/_components/Unauthorized";
-import { ExtendedMashProfile } from "@/types/Profile";
+import { ExtendedMashProfile, MashProfileInput } from "@/types/Profile";
 type MashProfileForkPageProps = {
   params: {
     slug: string;
@@ -26,11 +26,12 @@ export default async function MashProfileForkPage({
   const { id, name, ...mashProfile } = await getMashProfile(slug);
   //if (mashProfile?.owner?.id !== session?.user?.id)
   //return <Unauthorized returnUrl={`/profiles/mash/${slug}`} />;
-  const forkedProfile: Omit<ExtendedMashProfile, "id"> = {
+  const forkedProfile: MashProfileInput = {
+    id: undefined,
     ...mashProfile,
     name: `${session?.user?.name}-${name}`,
     userId: session?.user?.id!,
-    forkedFrom: id,
+    forkedFrom: id ?? null,
   };
   return <MashProfileForm profile={forkedProfile} />;
 }
