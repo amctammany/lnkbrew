@@ -4,6 +4,7 @@ import { getMashProfile } from "../../queries";
 import { redirect } from "next/navigation";
 import Unauthorized from "@/app/admin/_components/Unauthorized";
 import { ExtendedMashProfile, MashProfileInput } from "@/types/Profile";
+import { createMashProfile } from "../../actions";
 type MashProfileForkPageProps = {
   params: {
     slug: string;

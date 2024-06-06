@@ -7,6 +7,8 @@ import { zfd } from "zod-form-data";
 
 const mashSchema = zfd.formData({
   id: zfd.numeric(z.number().optional()),
+  forkedFrom: zfd.numeric(z.number().optional()),
+  userId: zfd.text(z.string().optional()),
   name: zfd.text(),
   description: zfd.text(z.string().optional()),
   steps: z.array(
@@ -19,34 +21,46 @@ const mashSchema = zfd.formData({
   ),
 });
 export const createMashProfile = async (formData: FormData) => {
-  const { steps, ...data } = mashSchema.parse(formData);
+  const { id, forkedFrom, steps, userId, ...data } = mashSchema.parse(formData);
   const res = await prisma.mashProfile.create({
     data: {
       ...data,
+      origin: {
+        connect: { id: forkedFrom ?? undefined },
+      },
       slug: slugify(data.name, { lower: true }),
       steps: {
         createMany: { data: steps },
       },
+      owner: {
+        connect: { id: userId ?? "" },
+      },
     },
-    include: { steps: true },
+    include: { steps: true, owner: true, origin: true },
   });
   redirect(`/profiles/mash/${res.slug}`);
 };
 export const updateMashProfile = async (formData: FormData) => {
-  const { steps, ...data } = mashSchema.parse(formData);
+  const { steps, id, forkedFrom, userId, ...data } = mashSchema.parse(formData);
   const res = await prisma.mashProfile.update({
-    where: { id: data.id },
+    where: { id: id },
     data: {
       ...data,
       slug: slugify(data.name, { lower: true }),
       steps: {
         deleteMany: {
-          mashProfileId: data.id,
+          mashProfileId: id,
         },
         createMany: { data: steps },
       },
+      owner: {
+        connect: { id: userId },
+      },
+      origin: {
+        connect: { id: forkedFrom },
+      },
     },
-    include: { steps: true },
+    include: { steps: true, owner: true, origin: true },
   });
   redirect(`/profiles/mash/${res.slug}`);
 };
