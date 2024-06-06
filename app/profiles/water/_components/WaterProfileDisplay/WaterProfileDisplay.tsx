@@ -1,4 +1,5 @@
 import { IconButtonLink } from "@/components/Button";
+import { EditIcon } from "@/components/Icon/EditIcon";
 import { Prop } from "@/components/Prop";
 import { Section } from "@/components/Section";
 import { Toolbar } from "@/components/Toolbar";
@@ -17,14 +18,14 @@ export const WaterProfileDisplay = ({ profile }: WaterProfileDisplayProps) => {
         <>
           <IconButtonLink
             href={`/profiles/water/${profile?.slug}/fork`}
-            iconType="EditIcon"
+            Icon={EditIcon}
           >
             Fork
           </IconButtonLink>
 
           <IconButtonLink
             href={`/profiles/water/${profile?.slug}/edit`}
-            iconType="EditIcon"
+            Icon={EditIcon}
           >
             Edit
           </IconButtonLink>

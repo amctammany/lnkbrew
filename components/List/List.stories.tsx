@@ -9,6 +9,9 @@ import { ListItemButton } from "./ListItemButton";
 import { IconButton } from "../Button/IconButton";
 import { AddIcon } from "../Icon/AddIcon";
 import { ListItemActions } from "./ListItemActions";
+import { SaveIcon } from "../Icon/SaveIcon";
+import { DeleteIcon } from "../Icon/DeleteIcon";
+import { StarIcon } from "../Icon/StarIcon";
 
 const meta: Meta<typeof List> = {
   component: List,
@@ -22,7 +25,7 @@ const TestListItem = ({ children }: any) => {
       </ListItemIcon>
       <ListItemText primary={children} secondary="second" />
       <ListItemActions>
-        <IconButton iconType="AddIcon" />
+        <IconButton Icon={AddIcon} />
       </ListItemActions>
     </ListItem>
   );
@@ -73,17 +76,17 @@ export const Actions: Story = {
           <ListItemActions variant="warning">
             <IconButton
               key="tt"
-              iconType="DeleteIcon"
+              Icon={DeleteIcon}
               onClick={handleClick("click1")}
             />
             <IconButton
               key="t1"
-              iconType="StarIcon"
+              Icon={StarIcon}
               onClick={handleClick("click2")}
             />
             <IconButton
               key="t2"
-              iconType="SaveIcon"
+              Icon={SaveIcon}
               onClick={handleClick("click3")}
             />
           </ListItemActions>

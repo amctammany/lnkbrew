@@ -5,6 +5,7 @@ import OverviewSection from "./OverviewSection";
 import { Toolbar } from "@/components/Toolbar";
 import { IconButton } from "@/components/Button/IconButton";
 import { IconButtonLink } from "@/components/Button";
+import { EditIcon } from "@/components/Icon/EditIcon";
 
 export type FermentableDisplayProps = {
   fermentable: Fermentable | null;
@@ -16,7 +17,7 @@ export function FermentableDisplay({ fermentable }: FermentableDisplayProps) {
       actions={
         <IconButtonLink
           href={`/ingredients/fermentables/${fermentable?.slug}/edit`}
-          iconType="EditIcon"
+          Icon={EditIcon}
         >
           Edit
         </IconButtonLink>

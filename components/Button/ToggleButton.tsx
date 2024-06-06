@@ -1,20 +1,22 @@
 "use client";
 //import Link, { LinkProps } from "next/link";
-import { IconProps } from "../Icon/Icon";
+import { Icon, IconProps } from "../Icon/Icon";
 import { ButtonProps } from "./Button";
-import { IconNames } from "../Icon";
+//import { IconNames } from "../Icon";
 import { useState } from "react";
 import { IconButton, IconButtonProps } from "./IconButton";
+import { MinimizeIcon } from "../Icon/MinimizeIcon";
+import { MaximizeIcon } from "../Icon/MaximizeIcon";
 
 export type ToggleButtonProps = Omit<
   IconButtonProps,
-  "iconType" | "iconVariant"
+  "Icon" | "iconVariant"
 > & {
   defaultIconVariant?: IconProps["variant"];
   activeIconVariant?: IconProps["variant"];
   activeVariant?: ButtonProps["variant"];
-  activeIconType?: IconNames;
-  defaultIconType?: IconNames;
+  activeIcon?: typeof Icon;
+  defaultIcon?: typeof Icon;
   onToggle?: React.MouseEventHandler<HTMLButtonElement>;
   active?: boolean;
 };
@@ -30,15 +32,15 @@ export const ToggleButton = ({
     setActive((a) => !a);
     if (onToggle) onToggle(e);
   };
-  const activeIconType = props.activeIconType ?? "MinimizeIcon";
-  const defaultIconType = props.defaultIconType ?? "MaximizeIcon";
+  const activeIcon = props.activeIcon ?? MinimizeIcon;
+  const defaultIcon = props.defaultIcon ?? MaximizeIcon;
   const activeIconVariant = props.activeIconVariant ?? "default";
   const defaultIconVariant = props.defaultIconVariant ?? "default";
 
   return (
     <IconButton
       {...props}
-      iconType={active ? activeIconType : defaultIconType}
+      Icon={active ? activeIcon : defaultIcon}
       iconVariant={active ? activeIconVariant : defaultIconVariant}
       variant={active ? activeVariant : props.variant}
       onClick={handleToggle}

@@ -1,7 +1,8 @@
 import { auth } from "@/app/auth";
-import { AppIcon } from "@/components/AppIcon";
+//import { AppIcon } from "@/components/AppIcon";
+import { StarIcon } from "@/components/Icon/StarIcon";
 import NavLink from "@/components/Nav/NavLink";
-import Link from "next/link";
+//import Link from "next/link";
 export type AdminNavProps = {};
 
 const Text: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -12,7 +13,7 @@ export async function AdminNav({}: AdminNavProps) {
   const body = session ? (
     <div>
       <NavLink className="flex font-extrabold py-2 px-4 mr-4" href="/admin">
-        <AppIcon type="StarIcon" variant="warning" />
+        <StarIcon variant="warning" />
         <Text>Admin</Text>
       </NavLink>
     </div>

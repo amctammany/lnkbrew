@@ -2,6 +2,7 @@
 import { Button, ButtonLink, IconButtonLink } from "@/components/Button";
 import { Select } from "@/components/Form/Select";
 import { TextField } from "@/components/Form/TextField";
+import { AddIcon } from "@/components/Icon/AddIcon";
 import { ClientSection, Section } from "@/components/Section";
 //import { ClientTable } from "@/components/ClientTable";
 import { Table, tableStyles } from "@/components/Table";
@@ -127,7 +128,7 @@ export const YeastsTable = ({
     <Section
       title="Yeasts"
       actions={
-        <IconButtonLink iconType="AddIcon" href="/ingredients/yeasts/new">
+        <IconButtonLink Icon={AddIcon} href="/ingredients/yeasts/new">
           New
         </IconButtonLink>
       }

@@ -2,6 +2,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { ComponentProps } from "react";
 import { IconButton } from "../Button/IconButton";
 import clsx from "clsx";
+import { StarIcon } from "../Icon/StarIcon";
 
 const listItemActionMenuButtonStyles = cva(
   ["group-focus-within:bg-green-400 bg-blue-400"],
@@ -82,7 +83,7 @@ export const ListItemActionsMenu = ({
       <div className={listItemActionsStyles({})}>{children}</div>
       <IconButton
         className={listItemActionMenuButtonStyles({})}
-        iconType="StarIcon"
+        Icon={StarIcon}
         onMouseDown={handleToggle}
       />
     </div>

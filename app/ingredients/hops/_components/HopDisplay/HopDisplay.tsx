@@ -2,6 +2,7 @@ import { ClientSection, Section } from "@/components/Section";
 import { Hop } from "@prisma/client";
 import OverviewSection from "./OverviewSection";
 import { IconButtonLink } from "@/components/Button";
+import { EditIcon } from "@/components/Icon/EditIcon";
 
 export type HopDisplayProps = {
   hop: Hop | null;
@@ -13,7 +14,7 @@ export function HopDisplay({ hop }: HopDisplayProps) {
       actions={
         <IconButtonLink
           href={`/ingredients/hops/${hop?.slug}/edit`}
-          iconType="EditIcon"
+          Icon={EditIcon}
         >
           Edit
         </IconButtonLink>

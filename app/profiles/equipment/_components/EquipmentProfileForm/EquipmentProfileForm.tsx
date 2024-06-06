@@ -14,6 +14,7 @@ import { IconButton } from "@/components/Button/IconButton";
 import { EquipmentProfile, UserVolumePreference } from "@prisma/client";
 import { Section } from "@/components/Section";
 import { EquipmentProfileIcon } from "@/components/Icon/EquipmentProfileIcon";
+import { SaveIcon } from "@/components/Icon/SaveIcon";
 type EquipmentProfileInput = any;
 
 export type EquipmentProfileFormProps = {
@@ -46,7 +47,7 @@ export const EquipmentProfileForm = ({
         icon="EquipmentProfileIcon"
         header={profile?.name ?? "New EquipmentProfile"}
         actions={
-          <IconButton type="submit" iconType="SaveIcon">
+          <IconButton type="submit" Icon={SaveIcon}>
             Save
           </IconButton>
         }
@@ -114,7 +115,7 @@ export const EquipmentProfileForm = ({
           </div>
         </div>
         <Toolbar>
-          <IconButton iconType="SaveIcon" type="submit">
+          <IconButton Icon={SaveIcon} type="submit">
             Save
           </IconButton>
         </Toolbar>

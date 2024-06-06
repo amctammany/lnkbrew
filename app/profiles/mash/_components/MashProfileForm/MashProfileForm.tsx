@@ -19,6 +19,9 @@ import { Section } from "@/components/Section";
 import { MashProfile, MashStepType, MashStep } from "@prisma/client";
 import { Button } from "@/components/Button";
 import { ExtendedMashProfile, MashProfileInput } from "@/types/Profile";
+import { SaveIcon } from "@/components/Icon/SaveIcon";
+import { AddIcon } from "@/components/Icon/AddIcon";
+import { DeleteIcon } from "@/components/Icon/DeleteIcon";
 //import { ExtendedMashProfile } from "@/types/Profile";
 
 export type MashProfileFormProps = {
@@ -83,7 +86,7 @@ export const MashProfileForm = ({ profile }: MashProfileFormProps) => {
         icon="MashProfileIcon"
         header={profile?.name ?? "New Mash Profile"}
         actions={
-          <IconButton type="submit" iconType="SaveIcon">
+          <IconButton type="submit" Icon={SaveIcon}>
             Save
           </IconButton>
         }
@@ -106,7 +109,7 @@ export const MashProfileForm = ({ profile }: MashProfileFormProps) => {
           </div>
           <Section
             title="Steps"
-            actions={<IconButton iconType="AddIcon" onClick={addStep} />}
+            actions={<IconButton Icon={AddIcon} onClick={addStep} />}
           >
             {(controlledFields || []).map((field, index) => (
               <div
@@ -178,7 +181,7 @@ export const MashProfileForm = ({ profile }: MashProfileFormProps) => {
                     down
                   </Button>
                   <IconButton
-                    iconType="DeleteIcon"
+                    Icon={DeleteIcon}
                     data-index={index}
                     onClick={handleRemove}
                   />
@@ -188,7 +191,7 @@ export const MashProfileForm = ({ profile }: MashProfileFormProps) => {
           </Section>
         </div>
         <Toolbar>
-          <IconButton iconType="SaveIcon" type="submit">
+          <IconButton Icon={SaveIcon} type="submit">
             Save
           </IconButton>
         </Toolbar>

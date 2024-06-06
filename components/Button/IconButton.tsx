@@ -1,8 +1,7 @@
 import Link, { LinkProps } from "next/link";
-import { Icon, IconProps } from "../Icon/Icon";
+import { Icon as IconClass, IconProps } from "../Icon/Icon";
 import { Button, ButtonProps } from "./Button";
 import { IconNames } from "../Icon";
-import { AppIcon } from "../AppIcon";
 import { VariantProps, cva } from "class-variance-authority";
 
 const iconButtonStyles = cva(["flex px-1 text-sm -mx-2"], {
@@ -18,21 +17,21 @@ const iconButtonStyles = cva(["flex px-1 text-sm -mx-2"], {
 });
 export type IconButtonProps = ButtonProps &
   VariantProps<typeof iconButtonStyles> & {
-    //Icon: typeof Icon;
+    Icon: typeof IconClass;
     iconVariant?: IconProps["variant"];
-    iconType: IconNames;
+    //iconType: IconNames;
   };
 export const IconButton = ({
-  //Icon,
+  Icon,
   iconVariant,
-  iconType,
+  //iconType,
   direction,
   children,
   ...props
 }: IconButtonProps) => {
   const body = (
     <div className={iconButtonStyles({ direction })}>
-      <AppIcon type={iconType} variant={iconVariant} />
+      <Icon variant={iconVariant} />
       {children && (
         <span className="block m-auto pl-1 uppercase">{children}</span>
       )}

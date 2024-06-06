@@ -4,6 +4,8 @@ import clsx from "clsx";
 import { IconButton } from "../Button";
 import { useCallback, useMemo, useState } from "react";
 import { useClickAway } from "@/lib/useClickAway";
+import { MaximizeIcon } from "../Icon/MaximizeIcon";
+import { MinimizeIcon } from "../Icon/MinimizeIcon";
 //import Link from "next/link";
 //import { usePathname } from "next/navigation";
 
@@ -77,7 +79,7 @@ export const NavCollapse = ({
       <div className="flex items-start">
         <IconButton
           className="group-focus-within:bg-blue-400"
-          iconType={open ? "MinimizeIcon" : "MaximizeIcon"}
+          Icon={open ? MinimizeIcon : MaximizeIcon}
           onClick={handleToggle}
           //onTouchStart={handleToggle as any}
         />

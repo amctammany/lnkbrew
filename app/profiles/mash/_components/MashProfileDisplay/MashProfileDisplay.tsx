@@ -7,6 +7,7 @@ import { MashProfile } from "@prisma/client";
 import React from "react";
 import { MashStepListItem } from "./MashStepListItem";
 import { type ExtendedMashProfile } from "@/types/Profile";
+import { EditIcon } from "@/components/Icon/EditIcon";
 
 export type MashProfileDisplayProps = {
   profile?: ExtendedMashProfile | null;
@@ -20,14 +21,14 @@ export const MashProfileDisplay = ({ profile }: MashProfileDisplayProps) => {
         <>
           <IconButtonLink
             href={`/profiles/mash/${profile?.slug}/fork`}
-            iconType="EditIcon"
+            Icon={EditIcon}
           >
             Fork
           </IconButtonLink>
 
           <IconButtonLink
             href={`/profiles/mash/${profile?.slug}/edit`}
-            iconType="EditIcon"
+            Icon={EditIcon}
           >
             Edit
           </IconButtonLink>

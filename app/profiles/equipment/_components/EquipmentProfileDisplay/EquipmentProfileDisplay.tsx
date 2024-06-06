@@ -1,4 +1,6 @@
 import { IconButtonLink } from "@/components/Button";
+import { EditIcon } from "@/components/Icon/EditIcon";
+import { StarIcon } from "@/components/Icon/StarIcon";
 import { Prop } from "@/components/Prop";
 import { Section } from "@/components/Section";
 import { Toolbar } from "@/components/Toolbar";
@@ -29,14 +31,14 @@ export const EquipmentProfileDisplay = ({
         <>
           <IconButtonLink
             href={`/profiles/equipment/${profile?.slug}/fork`}
-            iconType="StarIcon"
+            Icon={StarIcon}
           >
             Fork
           </IconButtonLink>
 
           <IconButtonLink
             href={`/profiles/equipment/${profile?.slug}/edit`}
-            iconType="EditIcon"
+            Icon={EditIcon}
           >
             Edit
           </IconButtonLink>

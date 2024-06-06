@@ -7,6 +7,7 @@ import {
   TextArea,
   TextField,
 } from "@/components/Form";
+import { SaveIcon } from "@/components/Icon/SaveIcon";
 import { Section } from "@/components/Section";
 import { Toolbar } from "@/components/Toolbar";
 import { Hop, HopUsage } from "@prisma/client";
@@ -25,7 +26,7 @@ export function HopEditor({ hop, action }: HopEditorProps) {
     <Form action={action}>
       <Section
         title={hop?.name ?? "New Hop"}
-        actions={<IconButton iconType="SaveIcon">Save</IconButton>}
+        actions={<IconButton Icon={SaveIcon}>Save</IconButton>}
       >
         <div className="p-4">
           <input type="hidden" {...register("id")} />

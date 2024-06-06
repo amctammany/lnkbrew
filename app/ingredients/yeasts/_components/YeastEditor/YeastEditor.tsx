@@ -8,6 +8,7 @@ import {
   TextArea,
   TextField,
 } from "@/components/Form";
+import { SaveIcon } from "@/components/Icon/SaveIcon";
 import { Section } from "@/components/Section";
 import { Toolbar } from "@/components/Toolbar";
 import {
@@ -32,7 +33,7 @@ export function YeastEditor({ action, yeast }: YeastEditorProps) {
       <Section
         title={yeast?.name ?? "New Yeast"}
         actions={
-          <IconButton iconType="SaveIcon" type="submit">
+          <IconButton Icon={SaveIcon} type="submit">
             Save
           </IconButton>
         }

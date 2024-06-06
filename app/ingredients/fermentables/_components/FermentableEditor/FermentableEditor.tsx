@@ -1,6 +1,7 @@
 "use client";
 import { IconButton } from "@/components/Button/IconButton";
 import { AmountField, Form, TextArea, TextField } from "@/components/Form";
+import { SaveIcon } from "@/components/Icon/SaveIcon";
 import { Section } from "@/components/Section";
 import { Toolbar } from "@/components/Toolbar";
 import { Fermentable } from "@prisma/client";
@@ -23,7 +24,7 @@ export function FermentableEditor({
       <Section
         title={fermentable?.name ?? "New Fermentable"}
         actions={
-          <IconButton iconType="SaveIcon" type="submit">
+          <IconButton Icon={SaveIcon} type="submit">
             Save
           </IconButton>
         }
