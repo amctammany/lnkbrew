@@ -2,7 +2,8 @@ import { VariantProps, cva } from "class-variance-authority";
 import clsx from "clsx";
 import { ComponentProps } from "react";
 import { IconNames } from "../Icon";
-import { AppIcon } from "../AppIcon";
+//import { AppIcon} from "../AppIcon";
+import { Icon as IconClass } from "../Icon/Icon";
 
 const section = cva(["min-w-full bg-white "], {
   variants: {
@@ -132,6 +133,7 @@ export type SectionProps = VariantProps<typeof section> &
   ComponentProps<"div"> & {
     header?: string | React.ReactNode;
     icon?: IconNames | React.ReactNode;
+    Icon?: typeof IconClass;
     actions?: React.ReactNode | React.ReactNode[];
     children?: React.ReactNode | React.ReactNode[];
     footer?: React.ReactNode | React.ReactNode[];
@@ -139,7 +141,7 @@ export type SectionProps = VariantProps<typeof section> &
 
 export const Section = ({
   header: title,
-  icon,
+  Icon,
   actions,
   children,
   collapsed,
@@ -152,17 +154,11 @@ export const Section = ({
   return (
     <div className={clsx(section({ size, variant, collapsed }), className)}>
       <div className={sectionHeader({ size, variant, collapsed })}>
-        <div className="flex-shrink">
-          {typeof icon === "string" ? (
-            <AppIcon type={(icon as IconNames) ?? "UpIcon"} />
-          ) : (
-            icon
-          )}
-        </div>
+        <div className="flex-shrink">{!!Icon ? <Icon /> : <></>}</div>
         <h4 className={sectionTitle({ size, variant, collapsed })}>
           {_title || title}
         </h4>
-        <div className="grid">{actions}</div>
+        <div className="flex">{actions}</div>
       </div>
 
       <div className={sectionBody({ size, variant, collapsed })}>

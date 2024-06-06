@@ -8,6 +8,7 @@ import React from "react";
 import { MashStepListItem } from "./MashStepListItem";
 import { type ExtendedMashProfile } from "@/types/Profile";
 import { EditIcon } from "@/components/Icon/EditIcon";
+import { MashProfileIcon } from "@/components/Icon/MashProfileIcon";
 
 export type MashProfileDisplayProps = {
   profile?: ExtendedMashProfile | null;
@@ -16,7 +17,7 @@ export const MashProfileDisplay = ({ profile }: MashProfileDisplayProps) => {
   return (
     <Section
       header={profile?.name}
-      icon="MashProfileIcon"
+      Icon={MashProfileIcon}
       actions={
         <>
           <IconButtonLink

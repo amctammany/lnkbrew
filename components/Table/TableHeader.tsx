@@ -15,7 +15,9 @@ import {
   flexRender,
   sortingFns,
 } from "@tanstack/react-table";
-import { AppIcon } from "../AppIcon";
+import { Icon as IconClass } from "../Icon/Icon";
+import { DownIcon } from "../Icon/DownIcon";
+import { UpIcon } from "../Icon/UpIcon";
 
 type Active = "ASC" | "DESC";
 export type TableHeaderProps<
@@ -69,6 +71,11 @@ export const TableHeader = ({
   //children,
 }: TableHeaderProps) => {
   //const Header = _Header ?? DefaultHeader;
+  const Icon =
+    ({
+      asc: UpIcon,
+      desc: DownIcon,
+    }[header.column.getIsSorted() as string] as typeof IconClass) ?? IconClass;
   return (
     <th className={clsx(tableHeaderStyles({ active, variant }), className)}>
       <div className="flex" onClick={header.column.getToggleSortingHandler()}>
@@ -78,14 +85,7 @@ export const TableHeader = ({
             : flexRender(header.column.columnDef.header, header.getContext())}
         </b>
         <span className="flex-shrink w-6">
-          <AppIcon
-            type={
-              {
-                asc: "UpIcon",
-                desc: "DownIcon",
-              }[header.column.getIsSorted() as string] as any
-            }
-          />
+          <Icon />
         </span>
       </div>
     </th>
