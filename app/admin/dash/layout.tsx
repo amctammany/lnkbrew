@@ -20,7 +20,7 @@ export default function AdminLayout({
 }>) {
   return (
     <SubNav body={children}>
-      <NavLink variant="subnav" href="/admin/settings">
+      <NavLink variant="subnav" href="/admin/dash/settings">
         Settings
       </NavLink>
       <NavLink variant="danger" href="/api/auth/signout">

@@ -2,7 +2,7 @@ import { auth } from "@/app/auth";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/client";
 import { AdminSettings } from "./AdminSettings";
-import { updateUserPreferences } from "../actions";
+import { updateUserPreferences } from "../../actions";
 //const AdminModal = dynamic(
 //() => import("./AdminModal").then((s) => s.AdminModal),
 //{ ssr: false }
