@@ -70,7 +70,7 @@ export const NavCollapse = ({
       <div
         //ref={ref}
         className={containerStyles({ variant, open: open ? "open" : "closed" })}
-        //onClick={handleToggle as any}
+        onClick={handleToggle as any}
       >
         {children}
       </div>
