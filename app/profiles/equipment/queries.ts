@@ -5,7 +5,7 @@ import { cache } from "react";
 export const getEquipmentProfile = cache(async (slug: string) => {
   const profile = await prisma.equipmentProfile.findFirst({
     where: { slug: { equals: slug } },
-    include: { owner: true },
+    include: { owner: true, origin: true },
     //include: { users: true },
   });
   return profile as ExtendedEquipmentProfile;

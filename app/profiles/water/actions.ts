@@ -20,22 +20,42 @@ const waterSchema = zfd.formData({
   bicarbonate: zfd.numeric(z.number().min(0).default(0)),
 });
 export const createWaterProfile = async (formData: FormData) => {
-  const data = waterSchema.parse(formData);
+  const { id, userId, forkedFrom, ...data } = waterSchema.parse(formData);
   const res = await prisma.waterProfile.create({
     data: {
       ...data,
       slug: slugify(data.name, { lower: true }),
+      owner: {
+        connect: { id: userId ?? undefined },
+      },
+      origin: {
+        connect: { id: forkedFrom ?? undefined },
+      },
+    },
+    include: {
+      origin: true,
+      owner: true,
     },
   });
   redirect(`/profiles/water/${res.slug}`);
 };
 export const updateWaterProfile = async (formData: FormData) => {
-  const data = waterSchema.parse(formData);
+  const { id, userId, forkedFrom, ...data } = waterSchema.parse(formData);
   const res = await prisma.waterProfile.update({
-    where: { id: data.id },
+    where: { id },
     data: {
       ...data,
       slug: slugify(data.name, { lower: true }),
+      owner: {
+        connect: { id: userId ?? undefined },
+      },
+      origin: {
+        connect: { id: forkedFrom ?? undefined },
+      },
+    },
+    include: {
+      origin: true,
+      owner: true,
     },
   });
   redirect(`/profiles/water/${res.slug}`);

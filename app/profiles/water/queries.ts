@@ -5,6 +5,10 @@ import { cache } from "react";
 export const getWaterProfile = cache(async (slug: string) => {
   const profile = await prisma.waterProfile.findFirst({
     where: { slug: { equals: slug } },
+    include: {
+      owner: true,
+      origin: true,
+    },
   });
   return profile as ExtendedWaterProfile;
 });

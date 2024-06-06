@@ -21,22 +21,42 @@ const equipmentSchema = zfd.formData({
 });
 
 export const createEquipmentProfile = async (formData: FormData) => {
-  const data = equipmentSchema.parse(formData);
+  const { id, forkedFrom, userId, ...data } = equipmentSchema.parse(formData);
   const res = await prisma.equipmentProfile.create({
     data: {
       ...data,
       slug: slugify(data.name, { lower: true }),
+      origin: {
+        connect: { id: forkedFrom ?? undefined },
+      },
+      owner: {
+        connect: { id: userId ?? "" },
+      },
+    },
+    include: {
+      origin: true,
+      owner: true,
     },
   });
   redirect(`/profiles/equipment/${res.slug}`);
 };
 export const updateEquipmentProfile = async (formData: FormData) => {
-  const data = equipmentSchema.parse(formData);
+  const { id, forkedFrom, userId, ...data } = equipmentSchema.parse(formData);
   const res = await prisma.equipmentProfile.update({
-    where: { id: data.id },
+    where: { id },
     data: {
       ...data,
       slug: slugify(data.name, { lower: true }),
+      origin: {
+        connect: { id: forkedFrom ?? undefined },
+      },
+      owner: {
+        connect: { id: userId ?? "" },
+      },
+    },
+    include: {
+      origin: true,
+      owner: true,
     },
   });
   redirect(`/profiles/equipment/${res.slug}`);
