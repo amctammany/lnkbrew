@@ -11,6 +11,7 @@ import {
 import {
   FilterFn,
   Header,
+  SortDirection,
   SortingFn,
   flexRender,
   sortingFns,
@@ -60,6 +61,11 @@ function DefaultHeader({ name, active, children }: HeaderProps) {
     </Link>
   );
 }
+const directionIcons: Record<SortDirection | "default", typeof IconClass> = {
+  asc: UpIcon,
+  desc: DownIcon,
+  default: IconClass,
+};
 export const TableHeader = ({
   //name,
   //label,
@@ -71,11 +77,7 @@ export const TableHeader = ({
   //children,
 }: TableHeaderProps) => {
   //const Header = _Header ?? DefaultHeader;
-  const Icon =
-    ({
-      asc: UpIcon,
-      desc: DownIcon,
-    }[header.column.getIsSorted() as string] as typeof IconClass) ?? IconClass;
+  const Icon = directionIcons[header.column.getIsSorted() || "default"];
   return (
     <th className={clsx(tableHeaderStyles({ active, variant }), className)}>
       <div className="flex" onClick={header.column.getToggleSortingHandler()}>
