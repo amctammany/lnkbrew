@@ -24,7 +24,7 @@ export default async function MashProfileEditorPage({
     return redirect(`/admin/login?returnUrl=/profiles/mash/${slug}/edit`);
 
   const mashProfile = await getMashProfile(slug);
-  if (mashProfile?.owner?.id !== session?.user?.id)
+  if (mashProfile?.userId !== session?.user?.id)
     return <Unauthorized returnUrl={`/profiles/mash/${slug}`} />;
 
   return <MashProfileForm profile={mashProfile as MashProfileInput} />;

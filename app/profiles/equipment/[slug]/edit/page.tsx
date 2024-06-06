@@ -25,7 +25,7 @@ export default async function EquipmentProfileEditorPage({
     return redirect(`/admin/login?returnUrl=/profiles/equipment/${slug}/edit`);
 
   const equipmentProfile = await getEquipmentProfile(slug);
-  if (equipmentProfile?.owner?.id !== session?.user?.id)
+  if (equipmentProfile?.userId !== session?.user?.id)
     return <Unauthorized returnUrl={`/profiles/equipment/${slug}`} />;
   return <EquipmentProfileForm profile={equipmentProfile} />;
 }

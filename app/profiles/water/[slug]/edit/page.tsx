@@ -25,7 +25,7 @@ export default async function WaterProfileEditorPage({
     return redirect(`/admin/login?returnUrl=/profiles/water/${slug}/edit`);
 
   const waterProfile = await getWaterProfile(slug);
-  if (waterProfile?.owner?.id !== session?.user?.id)
+  if (waterProfile?.userId !== session?.user?.id)
     return <Unauthorized returnUrl={`/profiles/water/${slug}`} />;
 
   return <WaterProfileForm profile={waterProfile} />;
