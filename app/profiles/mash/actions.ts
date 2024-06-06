@@ -11,14 +11,17 @@ const mashSchema = zfd.formData({
   userId: zfd.text(z.string().optional()),
   name: zfd.text(),
   description: zfd.text(z.string().optional()),
-  steps: z.array(
-    z.object({
-      name: zfd.text(z.string().optional()),
-      temperature: zfd.numeric(z.number().min(0).max(212)),
-      time: zfd.numeric(z.number().min(0)),
-      rampTime: zfd.numeric(z.number().min(0).default(0)),
-    })
-  ),
+  steps: z
+    .array(
+      z.object({
+        name: zfd.text(z.string().optional()),
+        temperature: zfd.numeric(z.number().min(0).max(212)),
+        time: zfd.numeric(z.number().min(0)),
+        rampTime: zfd.numeric(z.number().min(0).default(0)),
+      })
+    )
+    .optional()
+    .default([]),
 });
 export const createMashProfile = async (formData: FormData) => {
   const { id, forkedFrom, steps, userId, ...data } = mashSchema.parse(formData);
@@ -51,7 +54,7 @@ export const updateMashProfile = async (formData: FormData) => {
         deleteMany: {
           mashProfileId: id,
         },
-        createMany: { data: steps },
+        createMany: { data: steps ?? [] },
       },
       owner: {
         connect: { id: userId },
