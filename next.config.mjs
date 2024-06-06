@@ -2,6 +2,8 @@ import analyze from "@next/bundle-analyzer";
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
+    reactCompiler: true,
+    ppr: "incremental",
     turbo: {
       resolveExtensions: [
         ".mdx",
