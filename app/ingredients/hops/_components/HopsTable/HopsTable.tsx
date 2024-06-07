@@ -120,7 +120,9 @@ export const HopsTable = ({
     >
       <ClientTable
         //className="my-2"
-        table={table}
+        //table={table}
+        data={hops}
+        columns={columns}
         variant={variant}
         filters={filters}
       />

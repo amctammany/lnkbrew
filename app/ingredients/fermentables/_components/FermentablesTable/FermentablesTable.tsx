@@ -93,7 +93,9 @@ export const FermentablesTable = ({
     >
       <ClientTable
         //className="my-2"
-        table={table}
+        //table={table}
+        data={fermentables}
+        columns={columns}
         filters={filters}
       />
     </Section>

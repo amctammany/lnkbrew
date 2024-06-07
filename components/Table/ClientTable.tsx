@@ -1,5 +1,5 @@
 import { VariantProps, cva } from "class-variance-authority";
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { Table, TableProps } from "./Table";
 import clsx from "clsx";
 import { ClientSection, Section } from "../Section";
@@ -7,6 +7,15 @@ import { Select, TextField } from "../Form";
 import { Button } from "../Button";
 import ClientTableFilter from "./ClientTableFilter";
 import { TableFilter } from "./types";
+import {
+  ColumnDef,
+  ColumnFilter,
+  getCoreRowModel,
+  getFilteredRowModel,
+  getSortedRowModel,
+  useReactTable,
+} from "@tanstack/react-table";
+import { fuzzyFilter } from "@/lib/fuzzyFilter";
 
 const clientTableStyles = cva("px-20 py-8", {
   variants: {
@@ -20,14 +29,44 @@ const clientTableStyles = cva("px-20 py-8", {
 });
 export type ClientTableProps<T extends Record<string, any>> = VariantProps<
   typeof clientTableStyles
-> &
-  TableProps<T> & { filters?: TableFilter<T>[] };
+> & {
+  data: T[];
+  columns: ColumnDef<T>[];
+  filters?: TableFilter<T>[];
+  className?: string;
+};
 function ClientTable<T extends Record<string, any>>({
-  table,
+  //table,
+  data,
+  columns,
   variant,
   filters,
   className,
 }: ClientTableProps<T>) {
+  const [globalFilter, setGlobalFilter] = useState("");
+  const [columnFilters, setColumnFilters] = useState<ColumnFilter[]>([]);
+  const table = useReactTable({
+    data,
+    columns,
+    filterFns: {
+      fuzzy: fuzzyFilter, //define as a filter function that can be used in column definitions
+    },
+    state: {
+      columnFilters,
+      globalFilter,
+    },
+    onColumnFiltersChange: setColumnFilters,
+    onGlobalFilterChange: setGlobalFilter,
+    globalFilterFn: "fuzzy",
+    getCoreRowModel: getCoreRowModel(),
+    getFilteredRowModel: getFilteredRowModel(), //client side filtering
+    getSortedRowModel: getSortedRowModel(),
+    //getPaginationRowModel: getPaginationRowModel(),
+    debugTable: true,
+    debugHeaders: true,
+    debugColumns: false,
+  });
+
   const handleReset = useMemo(
     () => () => {
       table.resetGlobalFilter();
@@ -44,10 +83,8 @@ function ClientTable<T extends Record<string, any>>({
         header={
           <TextField
             name="query"
-            value={table.getState().globalFilter ?? ""}
-            onChange={({ target: { value } }) =>
-              table.setGlobalFilter(String(value))
-            }
+            value={globalFilter ?? ""}
+            onChange={({ target: { value } }) => setGlobalFilter(String(value))}
             className="p-0 font-lg border-block"
             placeholder="Search all columns..."
           />

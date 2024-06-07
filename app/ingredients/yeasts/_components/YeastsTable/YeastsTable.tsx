@@ -133,7 +133,7 @@ export const YeastsTable = ({
         </IconButtonLink>
       }
     >
-      <ClientTable table={table} filters={filters} />
+      <ClientTable data={yeasts} columns={columns} filters={filters} />
     </Section>
   );
   /**
