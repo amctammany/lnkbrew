@@ -65,7 +65,6 @@ export const MashProfileForm = ({ profile }: MashProfileFormProps) => {
   const handleSwap = (e: React.MouseEvent<HTMLButtonElement>) => {
     const index = parseInt(e.currentTarget.dataset.index!);
     const direction = parseInt(e.currentTarget.dataset.direction!);
-    console.log({ index, direction });
     //move(0, 1);
     swap(index, index + direction);
     e.preventDefault();

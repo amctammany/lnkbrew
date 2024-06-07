@@ -58,7 +58,6 @@ const handleClick: (
 ) => React.MouseEventHandler<HTMLButtonElement> = (msg) => (e) => {
   //e.preventDefault();
   //e.stopPropagation();
-  console.log(msg);
 };
 export const Actions: Story = {
   args: {

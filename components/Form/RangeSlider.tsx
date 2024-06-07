@@ -47,7 +47,7 @@ export const RangeSlider = forwardRef<HTMLInputElement, RangeSliderProps>(
       }
     }, [value]);
     const handleChange = (value: RangeValue) => {
-      console.log(value);
+      //console.log(value);
       setValue(value);
       //onChange({ target: { name, value } });
     };
@@ -67,7 +67,7 @@ export const RangeSlider = forwardRef<HTMLInputElement, RangeSliderProps>(
       // it must not be less than the current min value!
       const newMaxVal = Math.max(value, minValue + (step ?? 1));
       if (!value) setMaxValue(newMaxVal);
-      console.log({ onChange, value, newMaxVal });
+      //console.log({ onChange, value, newMaxVal });
       handleChange({ min: minValue, max: newMaxVal });
     };
 

@@ -43,14 +43,12 @@ const schema = zfd.formData({
 
 const action = async (formData: FormData) => {
   const data = schema.parse(formData);
-  console.log(data);
+
   const res = await Promise.resolve(data);
-  console.log(res);
   return res;
 };
 const onSubmit: FormEventHandler<any> = (e) => {
   //const res = await Promise.resolve(data);
-  console.log(e);
   e.preventDefault();
   return false;
 };

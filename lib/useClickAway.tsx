@@ -9,12 +9,12 @@ export function useClickAway<E extends HTMLElement>(callback: () => void) {
         callback();
       }
     };
-    console.log("init clickaway");
+    //console.log("init clickaway");
 
     document.addEventListener("click", handleClick);
 
     return () => {
-      console.log("remove clickaway");
+      //console.log("remove clickaway");
       document.removeEventListener("click", handleClick);
     };
   }, [ref, callback]);
