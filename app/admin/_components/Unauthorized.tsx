@@ -6,7 +6,7 @@ export type UnauthorizedProps = { returnUrl?: string };
 export const Unauthorized = ({ returnUrl }: UnauthorizedProps) => {
   const router = useRouter();
   return (
-    <div>
+    <div className="m-5 p-5  border border-black">
       You are not authorized to access this resource.
       <Button onClick={() => router.push(returnUrl ?? "/")}>Go Back</Button>
     </div>

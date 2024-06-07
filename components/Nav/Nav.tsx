@@ -12,9 +12,9 @@ export type NavProps = {
 };
 export const Nav = ({ children }: NavProps) => {
   return (
-    <nav className="flex items-center md:justify-between flex-wrap md:flex-nowrap sm:px-2 lg:px-5 md:py-2 bg-slate-700">
-      <div className="flex items-start flex-grow md:mr-6 lg:mr-16">
-        <div className="flex-grow  m-2 py-2 px-1">
+    <nav className="flex items-center md:justify-between flex-wrap md:flex-nowrap px-5 md:py-2 bg-slate-700">
+      <div className="flex-none items-start ">
+        <div className="flex-none  m-2 py-2 px-1">
           <Link
             href="/"
             className="flex-grow md:hidden text-slate-200 font-extrabold text-2xl py-2 px-4 mr-4"
