@@ -62,22 +62,18 @@ export const ListItem = ({
   className,
 }: ListItemProps) => {
   const cn = clsx(listItemInnerStyles({ variant }), className);
-  const child = (
-    //href ? (
+  const child = href ? (
     <Link
       //{...props}
-      href={href || ""}
+      href={href}
       scroll={scroll ?? false}
       className={cn}
     >
       {children}
     </Link>
+  ) : (
+    <div className={cn}>{children}</div>
   );
-  //) : (
-  //<div onClick={onClick} className={cn}>
-  //{children}
-  //</div>
-  //);
 
   return <li className={listItemStyles({ variant, border })}>{child}</li>;
 };
