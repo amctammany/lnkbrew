@@ -26,7 +26,7 @@ export const ListItemActions = ({
   className,
 }: ListItemActionsProps) => {
   /*if (Array.isArray(children)) {*/
-    /*console.log("menu", children.length);*/
+  /*console.log("menu", children.length);*/
   /*}*/
   const handleClick: React.MouseEventHandler<HTMLDivElement> = (e) => {
     /*console.log("click inside actions");*/
