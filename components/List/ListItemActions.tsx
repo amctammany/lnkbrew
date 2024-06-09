@@ -29,7 +29,7 @@ export const ListItemActions = ({
     /*console.log("menu", children.length);*/
   /*}*/
   const handleClick: React.MouseEventHandler<HTMLDivElement> = (e) => {
-    console.log("click inside actions");
+    /*console.log("click inside actions");*/
     //e.preventDefault();
     e.stopPropagation();
     return false;
