@@ -1,11 +1,11 @@
 import { Metadata } from "next";
 import { getMashProfiles } from "@/app/profiles/mash/queries";
-import { MashProfileList } from "./_components/MashProfileList/MashProfileList";
+import { MashProfileSearch } from "./_components/MashProfileSearch";
 export const metadata: Metadata = {
   title: "LNK Profiles",
 };
 
 export default async function MashProfilesIndex() {
   const profiles = await getMashProfiles();
-  return <MashProfileList profiles={profiles} />;
+  return <MashProfileSearch profiles={profiles} />;
 }
