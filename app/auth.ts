@@ -12,25 +12,31 @@ export const AuthOptions: NextAuthConfig = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
     }),
   ],
-  callbacks: {},
-  //session: { strategy: "jwt" },
-  //callbacks: {
-  //async session({ session, token, user }) {
-  ////session.preferences = ((token.user || {}) as any).UserPreferences as any;
-  //session.user = token.user as any;
-  //return session;
-  //},
-  //async jwt({ token, user, account, profile }) {
-  //const currentUser = await prisma.user.findFirst({
-  //where: {
-  //email: token.email,
-  //},
-  ////include: { UserPreferences: true },
-  //});
-  //token.user = currentUser;
-  //return token;
-  //},
-  //},
+  //callbacks: {},
+  session: { strategy: "jwt" },
+  callbacks: {
+    async session({ session, token, user }) {
+      //session.preferences = ((token.user || {}) as any).UserPreferences as any;
+
+      session.user = token.user as any;
+      return session;
+    },
+    async jwt({ token, user, account, profile }) {
+      const currentUser = await prisma.user.findFirst({
+        where: {
+          id: token.id as string,
+        },
+        include: { UserPreferences: true },
+      });
+      //console.log(currentUser);
+      //console.log({ token, user, account, profile });
+      if (currentUser) {
+        console.log(currentUser);
+        token.user = currentUser;
+      }
+      return token;
+    },
+  },
 };
 export const {
   handlers: { GET, POST },
