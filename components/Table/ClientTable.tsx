@@ -17,7 +17,7 @@ import {
 } from "@tanstack/react-table";
 import { fuzzyFilter } from "@/lib/fuzzyFilter";
 
-const clientTableStyles = cva("px-20 py-8", {
+const clientTableStyles = cva("px-6 py-8", {
   variants: {
     variant: {
       default: [],
