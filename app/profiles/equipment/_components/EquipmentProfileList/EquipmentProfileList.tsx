@@ -1,16 +1,19 @@
-import { ButtonLink } from "@/components/Button";
+import { ButtonLink, IconButtonLink } from "@/components/Button";
 import { List } from "@/components/List/List";
 import { Section } from "@/components/Section";
 import { EquipmentProfile } from "@prisma/client";
 import { EquipmentProfileListItem } from "./EquipmentProfileListItem";
+import { AddIcon } from "@/components/Icon/AddIcon";
 export type EquipmentProfileListProps = {
   profiles?: EquipmentProfile[];
 };
 const EquipmentProfilesActions = () => {
   return (
-    <div>
-      <ButtonLink href="/profiles/equipment/new">New</ButtonLink>
-    </div>
+    <>
+      <IconButtonLink Icon={AddIcon} href="/profiles/equipment/new">
+        New
+      </IconButtonLink>
+    </>
   );
 };
 
