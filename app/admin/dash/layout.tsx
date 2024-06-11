@@ -20,6 +20,12 @@ export default function AdminLayout({
 }>) {
   return (
     <SubNav body={children}>
+      <NavLink variant="subnav" href="/admin/dash/home">
+        Dashboard
+      </NavLink>
+      <NavLink variant="subnav" href="/admin/dash/profile">
+        Profile
+      </NavLink>
       <NavLink variant="subnav" href="/admin/dash/settings">
         Settings
       </NavLink>
