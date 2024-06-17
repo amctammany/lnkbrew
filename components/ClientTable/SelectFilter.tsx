@@ -1,9 +1,10 @@
 import { VariantProps, cva } from "class-variance-authority";
 import clsx from "clsx";
-import React, { ComponentProps, useState } from "react";
+import React, { ChangeEventHandler, ComponentProps, useState } from "react";
 //import { TableFilter, TableFilterType } from "./types";
 import { Table } from "@tanstack/react-table";
 import { Select } from "../Form";
+import { debounce } from "@/lib/utils";
 
 const selectFilterStyles = cva("", {
   variants: {
@@ -34,13 +35,25 @@ export function SelectFilter<T extends Record<string, any>>({
   className,
   children,
 }: SelectFilterProps<T>) {
+  const debouncedFn = debounce(
+    (n, v) => table.getColumn(n)?.setFilterValue(v),
+    100
+  );
+  const [filterValue, setFilterValue] = useState(
+    table.getColumn(name)?.getFilterValue()
+  );
+  const handleChange: ChangeEventHandler<HTMLSelectElement> = ({
+    target: { name, value },
+  }) => {
+    setFilterValue(value);
+    debouncedFn(name, value);
+  };
+
   return (
     <Select
       name={name}
-      value={table.getColumn(name)?.getFilterValue() ?? ""}
-      onChange={({ target: { name, value } }) =>
-        table.getColumn(name)?.setFilterValue(value)
-      }
+      value={filterValue}
+      onChange={handleChange}
       className={clsx("p-2 font-lg border-block", className)}
       options={options}
       //placeholder="Search name column"

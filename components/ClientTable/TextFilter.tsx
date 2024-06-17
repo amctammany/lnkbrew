@@ -4,6 +4,7 @@ import React, { ChangeEventHandler, ComponentProps, useState } from "react";
 //import { TableFilter, TableFilterType } from "../Table/types";
 import { Table } from "@tanstack/react-table";
 import { TextField } from "../Form";
+import { debounce } from "@/lib/utils";
 
 const textFilterStyles = cva("", {
   variants: {
@@ -32,15 +33,23 @@ export function TextFilter<T extends Record<string, any>>({
   className,
   children,
 }: TextFilterProps<T>) {
+  const debouncedFn = debounce(
+    (n, v) => table.getColumn(n)?.setFilterValue(v),
+    100
+  );
+  const [filterValue, setFilterValue] = useState(
+    table.getColumn(name)?.getFilterValue()
+  );
   const handleChange: ChangeEventHandler<HTMLInputElement> = ({
     target: { name, value },
   }) => {
-    table.getColumn(name)?.setFilterValue(value);
+    setFilterValue(value);
+    debouncedFn(name, value);
   };
   return (
     <TextField
       name={name}
-      value={table.getColumn(name)?.getFilterValue() ?? ""}
+      value={filterValue}
       onChange={handleChange}
       className="p-2 font-lg "
       placeholder="Search name column"
