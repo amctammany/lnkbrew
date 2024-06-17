@@ -1,7 +1,7 @@
 import { VariantProps, cva } from "class-variance-authority";
 import clsx from "clsx";
 import React, { ComponentProps, useState } from "react";
-import { TableFilter, TableFilterType } from "./types";
+//import { TableFilter, TableFilterType } from "./types";
 import { Table } from "@tanstack/react-table";
 import { Select } from "../Form";
 
@@ -41,7 +41,7 @@ export function SelectFilter<T extends Record<string, any>>({
       onChange={({ target: { name, value } }) =>
         table.getColumn(name)?.setFilterValue(value)
       }
-      className="p-2 font-lg border-block"
+      className={clsx("p-2 font-lg border-block", className)}
       options={options}
       //placeholder="Search name column"
     />

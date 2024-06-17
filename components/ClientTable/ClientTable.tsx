@@ -1,12 +1,12 @@
 import { VariantProps, cva } from "class-variance-authority";
 import React, { useMemo, useState } from "react";
-import { Table, TableProps } from "./Table";
+import { Table, TableProps } from "../Table";
 import clsx from "clsx";
 import { ClientSection, Section } from "../Section";
 import { Select, TextField } from "../Form";
 import { Button } from "../Button";
 import ClientTableFilter from "./ClientTableFilter";
-import { TableFilter } from "./types";
+import { TableFilter } from "../Table/types";
 import {
   ColumnDef,
   ColumnFilter,
@@ -14,8 +14,10 @@ import {
   getFilteredRowModel,
   getSortedRowModel,
   useReactTable,
+  Table as TableType,
 } from "@tanstack/react-table";
 import { fuzzyFilter } from "@/lib/fuzzyFilter";
+import { FilterBar } from "./FilterBar";
 
 const clientTableStyles = cva("px-6 py-8", {
   variants: {
@@ -35,7 +37,7 @@ export type ClientTableProps<T extends Record<string, any>> = VariantProps<
   filters?: TableFilter<T>[];
   className?: string;
 };
-function ClientTable<T extends Record<string, any>>({
+export function ClientTable<T extends Record<string, any>>({
   //table,
   data,
   columns,
@@ -91,7 +93,7 @@ function ClientTable<T extends Record<string, any>>({
         }
       >
         <Section
-          header="Filters"
+          header={<FilterBar table={table} />}
           size="small"
           variant="warning"
           actions={

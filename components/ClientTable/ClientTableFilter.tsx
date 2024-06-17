@@ -1,7 +1,7 @@
 import { VariantProps, cva } from "class-variance-authority";
 import clsx from "clsx";
 import React, { ComponentProps, useState } from "react";
-import { TableFilter, TableFilterType } from "./types";
+import { TableFilter, TableFilterType } from "../Table/types";
 import TextFilter from "./TextFilter";
 import SelectFilter from "./SelectFilter";
 import { Table } from "@tanstack/react-table";

@@ -1,7 +1,7 @@
 "use client";
 import { ButtonLink } from "@/components/Button";
 import { Section } from "@/components/Section";
-import ClientTable from "@/components/Table/ClientTable";
+import { ClientTable } from "@/components/ClientTable";
 import { Direction, TableFilter } from "@/components/Table/types";
 import { fuzzyFilter } from "@/lib/fuzzyFilter";
 import { Fermentable } from "@prisma/client";

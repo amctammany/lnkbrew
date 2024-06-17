@@ -6,7 +6,7 @@ import { AddIcon } from "@/components/Icon/AddIcon";
 import { ClientSection, Section } from "@/components/Section";
 //import { ClientTable } from "@/components/ClientTable";
 import { Table, tableStyles } from "@/components/Table";
-import ClientTable from "@/components/Table/ClientTable";
+import { ClientTable } from "@/components/ClientTable";
 //import { Section } from "@/components/Section";
 //import { Table } from "@/components/Table";
 import {

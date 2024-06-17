@@ -34,7 +34,7 @@ import { VariantProps, cva } from "class-variance-authority";
 //import { TableHeader } from "@/components/Table/TableHeader";
 import { fuzzyFilter } from "@/lib/fuzzyFilter";
 import Link from "next/link";
-import ClientTable from "@/components/Table/ClientTable";
+import { ClientTable } from "@/components/ClientTable";
 import { Toolbar } from "@/components/Toolbar";
 import { ButtonLink } from "@/components/Button";
 import { Section } from "@/components/Section";
