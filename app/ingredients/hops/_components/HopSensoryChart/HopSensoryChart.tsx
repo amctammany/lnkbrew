@@ -28,14 +28,14 @@ export function HopSensoryChart({ size = 620, data }: HopSensoryChartProps) {
   const radiusIncrement = midPt / 6;
   const radianIncrement = (Math.PI * 2) / Object.keys(flavorNames).length;
   return (
-    <div className="text-center">
+    <div className="text-center grid items-center">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width={size}
         height={size}
         stroke="red"
         fill={"black"}
-        className="bi bi-google"
+        className="bi bi-google m-auto"
         viewBox="-15 -15 650 650"
       >
         {Array.from({ length: 6 }).map((_, i) => (
@@ -51,18 +51,36 @@ export function HopSensoryChart({ size = 620, data }: HopSensoryChartProps) {
         ))}
         {Object.entries(flavorNames).map(([flavor, label], i) => (
           <text
-            key={flavor}
+            key={`label-${flavor}`}
             width="200"
-            height="auto"
+            height="20"
             textAnchor="middle"
-            x={295 * Math.sin(i * radianIncrement) + midPt + 5}
-            y={285 * Math.cos(i * radianIncrement) + midPt}
+            x={295 * Math.sin(i * radianIncrement) + midPt + 0}
+            y={size - (295 * Math.cos(i * radianIncrement) + midPt)}
           >
             {label}
           </text>
         ))}
+        {Object.entries(flavorNames).map(([flavor, label], i) => (
+          <line
+            key={`line-${flavor}`}
+            width="200"
+            height="20"
+            textAnchor="middle"
+            x1={
+              (310 - radiusIncrement) * Math.sin(i * radianIncrement) +
+              midPt +
+              0
+            }
+            y1={
+              size -
+              ((310 - radiusIncrement) * Math.cos(i * radianIncrement) + midPt)
+            }
+            x2={midPt}
+            y2={midPt}
+          ></line>
+        ))}
       </svg>
-      <Prop label="Name">{JSON.stringify(data)}</Prop>
     </div>
   );
 }
