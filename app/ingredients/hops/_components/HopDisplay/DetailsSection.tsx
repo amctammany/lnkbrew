@@ -1,4 +1,5 @@
 import { Prop } from "@/components/Prop";
+import RangeProp from "@/components/Prop/RangeProp";
 import { ClientSection } from "@/components/Section";
 import { Hop } from "@prisma/client";
 
@@ -6,12 +7,18 @@ export type DetailsSectionProps = {
   hop: Hop | null;
 };
 export function DetailsSection({ hop }: DetailsSectionProps) {
+  console.log(hop);
   return (
     <ClientSection className="px-4 py-2" title="Details">
       <div className="">
-        <Prop label="Alpha" unit="%">
-          {hop?.alpha}
-        </Prop>
+        <RangeProp
+          label="Alpha"
+          //unit="%"
+          min={0}
+          max={30}
+          value={hop?.alpha}
+          range={[hop?.alphaLow, hop?.alphaHigh]}
+        />
         <Prop label="Beta" unit="%">
           {hop?.beta}
         </Prop>

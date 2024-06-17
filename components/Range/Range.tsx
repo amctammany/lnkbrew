@@ -4,7 +4,7 @@ export type RangeProps = {
   label?: string;
   min?: number;
   max?: number;
-  range: [number | null, number | null];
+  range: [number | undefined | null, number | undefined | null];
   value?: number;
   className?: string;
 };
@@ -24,10 +24,25 @@ export function Range({
   const max = Math.max(_max!, value ?? margin * 4 + margin);
   const v0 = range?.[0] ?? min;
   const v1 = range?.[1] ?? max;
-  const diff = max - min;
-  const left = (100 * (v0 - min)) / diff;
-  const valLeft = (100 * (value! - min)) / diff;
-  const width = (100 * (v1 - v0)) / diff;
+  const diff = v1 - v0;
+  const length = max - min;
+  const left = 100 * ((v0 - min) / length);
+  //const left = Math.max((100 * ((v0 - (range?.[0] ?? 0)) / 1)) / length, 0);
+  const valLeft = (100 * (value! - min)) / length;
+  const width = (100 * ((v1 - v0) / 1)) / length;
+  console.log({
+    min,
+    max,
+    value,
+    v0,
+    v1,
+    diff,
+    range,
+    length,
+    valLeft,
+    left,
+    width,
+  });
   return (
     <div className={clsx("mb-8 flex", className)}>
       <h4 className="uppercase text-lg underline ">{label}</h4>

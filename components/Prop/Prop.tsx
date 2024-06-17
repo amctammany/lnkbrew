@@ -6,11 +6,15 @@ export type PropProps = {
 };
 export const Prop = ({ label, value, unit, children }: PropProps) => {
   return (
-    <div className=" sm:grid sm:grid-cols-3 p-2 border-b-4">
+    <div className="relative sm:grid sm:grid-cols-3 p-2 border-b-4">
       <h4 className="uppercase text-black text-md font-bold">{label}</h4>
       <div className="sm:col-span-2">
-        <span className="pr-1">{children ?? value}</span>
-        <span>{unit}</span>
+        {children ?? (
+          <>
+            <span className="pr-1">{value}</span>
+            <span>{unit}</span>
+          </>
+        )}
       </div>
     </div>
   );
