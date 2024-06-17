@@ -57,27 +57,37 @@ export const EquipmentProfileDisplay = ({
           {profile?.batchVolume}
         </AmountProp>
 
-        <Prop label="Boil Time" unit="min">
+        <AmountProp label="Boil Time" unitType="time">
           {profile?.boilTime}
-        </Prop>
-        <Prop label="Boil Off Rate" unit="gal/hr">
-          {profile?.boilOffRate}
-        </Prop>
-        <Prop label="Trub Loss" unit="gal">
-          {profile?.trubLoss}
-        </Prop>
-        <Prop label="Fermenter Loss" unit="gal">
-          {profile?.fermenterLoss}
-        </Prop>
-        <Prop label="Mash Loss" unit="gal">
+        </AmountProp>
+        <Prop
+          value={profile?.boilOffRate}
+          label="Boil Off Rate"
+          unit="gal/hr"
+        />
+        <AmountProp
+          label="Trub Loss"
+          unitType="volume"
+          value={profile?.trubLoss}
+        />
+        <AmountProp
+          label="Fermenter Loss"
+          unitType="volume"
+          value={profile?.fermenterLoss}
+        />
+        <AmountProp label="Mash Loss" unitType="volume">
           {profile?.mashLoss}
-        </Prop>
-        <Prop label="Mash Efficiency" unit="%">
-          {profile?.mashEfficiency}
-        </Prop>
-        <Prop label="Brew Efficiency" unit="%">
-          {profile?.brewEfficiency}
-        </Prop>
+        </AmountProp>
+        <AmountProp
+          label="Mash Efficiency"
+          unitType="percent"
+          value={profile?.mashEfficiency}
+        />
+        <AmountProp
+          label="Brew Efficiency"
+          unitType="percent"
+          value={profile?.brewEfficiency}
+        />
       </div>
     </Section>
   );

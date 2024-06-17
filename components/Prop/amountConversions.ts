@@ -1,4 +1,5 @@
 import {
+  TimeUnit,
   UserGravityPreference,
   UserMassPreference,
   UserPreferences,
@@ -9,6 +10,8 @@ import { AmountType } from "../Form/AmtField";
 export type Converter<T = any> = (value: number) => T;
 export type MassConverter<T = MassValue> = (value: number) => T;
 export type AmountType =
+  | "percent"
+  | "time"
   | "mass"
   | "hopMass"
   | "fermentableMass"
@@ -40,6 +43,12 @@ export const temperatureConverters: Record<
   F: (v) => v,
   C: (v) => (v - 32) * (5 / 9),
 };
+export const timeConverters: Record<TimeUnit, Converter> = {
+  min: (v) => v,
+  hr: (v) => v / 60,
+  day: (v) => v / (60 * 24),
+};
+
 export const gravityConverters: Record<UserGravityPreference, Converter> = {
   P: (v) => v,
   SG: (v) => 1 + v / (258.6 - (v / 258.2) * 227.1),
@@ -51,16 +60,20 @@ export type UnitTypes =
   | UserGravityPreference
   | UserTemperaturePreference;
 export const converters: Record<AmountType, any> = {
+  time: (type: TimeUnit) => timeConverters[type],
   mass: (type: UserMassPreference) => massConverters[type],
   hopMass: (type: UserMassPreference) => massConverters[type],
   fermentableMass: (type: UserMassPreference) => massConverters[type],
   volume: (type: UserVolumePreference) => volumeConverters[type],
   temperature: (type: UserTemperaturePreference) => temperatureConverters[type],
   gravity: (type: UserGravityPreference) => gravityConverters[type],
+  percent: (v: number) => 100 * v,
 };
 
 export function getConverterUnits(prefs: Partial<UserPreferences>) {
   return {
+    percent: "%",
+    time: prefs.timeUnit,
     mass: prefs.hopMassUnit,
     hopMass: prefs.hopMassUnit,
     fermentableMass: prefs.fermentableMassUnit,
@@ -71,6 +84,8 @@ export function getConverterUnits(prefs: Partial<UserPreferences>) {
 }
 export function getConverters(prefs: Partial<UserPreferences>) {
   return {
+    percent: converters.percent,
+    time: converters.time(prefs.timeUnit),
     mass: converters.mass(prefs.hopMassUnit),
     hopMass: converters.mass(prefs.hopMassUnit),
     fermentableMass: converters.mass(prefs.fermentableMassUnit),
