@@ -14,16 +14,19 @@ import {
 import slugify from "slugify";
 import hops from "../data/hops.json";
 //import hopSuppliers from "../data/hopsuppliers.json";
-//import yakima from "../data/yakima.json";
+import yakima from "../data/yakima.json";
 import yeasts from "../data/yeasts.json";
 import grains from "../data/grains.json";
 import styles from "../data/styles.json";
 import { prisma } from "../lib/client";
+
+slugify.extend({ "®": "", "™": "" });
 async function main() {
   await prisma.account.deleteMany();
   await prisma.session.deleteMany();
   await prisma.userPreferences.deleteMany();
   await prisma.user.deleteMany();
+  await prisma.hopSensoryPanel.deleteMany();
   await prisma.hop.deleteMany();
   await prisma.fermentable.deleteMany();
   await prisma.yeast.deleteMany();
@@ -193,7 +196,6 @@ async function main() {
   await prisma.otherIngredient.deleteMany();
   await prisma.fermentableIngredient.deleteMany();
   await prisma.yeastIngredient.deleteMany();
-  await prisma.hopSensoryPanel.deleteMany();
   await prisma.recipe.deleteMany();
   */
   //await prisma.user.deleteMany();
@@ -321,7 +323,6 @@ async function main() {
     })),
   });
 
-  /**
   const data = await Promise.allSettled(
     yakima.map(async ({ flavorMap, aromas, ...hop }) => {
       return await prisma.hop.upsert({
@@ -356,6 +357,7 @@ async function main() {
       });
     })
   );
+  /**
 
   await prisma.hopSupplier.createMany({
     data: hopSuppliers.map((sup) => ({

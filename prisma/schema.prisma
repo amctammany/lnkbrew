@@ -186,7 +186,31 @@ model Hop {
   substitutesString String[]
   styles            String[]
   //  HopIngredient     HopIngredient[]
-  //  HopSensoryPanel   HopSensoryPanel[]
+  HopSensoryPanel   HopSensoryPanel[]
+}
+
+model HopSensoryPanel {
+  id            Int     @id @default(autoincrement())
+  hopId         String?
+  slug          String  @unique
+  hop           Hop     @relation(fields: [slug], references: [slug])
+  sweetAromatic Float
+  berry         Float
+  stoneFruit    Float
+  pomme         Float
+  melon         Float
+  tropical      Float
+  citrus        Float
+  floral        Float
+  herbal        Float
+  vegetal       Float
+  grassy        Float
+  earthy        Float
+  woody         Float
+  spicy         Float
+  year          Int?
+  author        String?
+  notes         String?
 }
 
 model Fermentable {
