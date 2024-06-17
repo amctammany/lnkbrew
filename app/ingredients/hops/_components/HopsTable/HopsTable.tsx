@@ -56,6 +56,7 @@ export const HopsTable = ({
           <Link
             className="underline visited:text-violet-300"
             href={`/ingredients/hops/${row.original.slug}`}
+            prefetch={false}
           >
             {cell.getValue()}
           </Link>
