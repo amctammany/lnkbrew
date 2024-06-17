@@ -7,7 +7,7 @@ export type MashProfileListProps = {
 
 export const MashProfileList = ({ profiles }: MashProfileListProps) => {
   return (
-    <List>
+    <List className="p-6">
       {(profiles || []).map((profile) => (
         <MashProfileListItem key={profile?.id} profile={profile} />
       ))}

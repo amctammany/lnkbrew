@@ -8,7 +8,7 @@ export const EquipmentProfileList = ({
   profiles,
 }: EquipmentProfileListProps) => {
   return (
-    <List>
+    <List className="p-6">
       {(profiles || []).map((profile) => (
         <EquipmentProfileListItem key={profile?.id} profile={profile} />
       ))}

@@ -6,7 +6,7 @@ export type WaterProfileListProps = {
 };
 export const WaterProfileList = ({ profiles = [] }: WaterProfileListProps) => {
   return (
-    <List>
+    <List className="p-6">
       {(profiles || []).map((profile) => (
         <WaterProfileListItem key={profile?.id} profile={profile} />
       ))}
