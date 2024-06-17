@@ -9,6 +9,8 @@ import {
   UserMassPreference,
   UserTemperaturePreference,
   UserVolumePreference,
+  UserColorPreference,
+  TimeUnit,
 } from "@prisma/client";
 import { validateSchema } from "@/lib/validateSchema";
 import { revalidateTag } from "next/cache";
@@ -30,6 +32,8 @@ export async function updateUser(formData: FormData) {
 }
 const preferenceSchema = zfd.formData({
   userId: zfd.text(),
+  colorUnit: zfd.text(z.nativeEnum(UserColorPreference)),
+  timeUnit: zfd.text(z.nativeEnum(TimeUnit)),
   volumeUnit: zfd.text(z.nativeEnum(UserVolumePreference)),
   hopMassUnit: zfd.text(z.nativeEnum(UserMassPreference)),
   fermentableMassUnit: zfd.text(z.nativeEnum(UserMassPreference)),

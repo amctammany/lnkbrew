@@ -25,12 +25,11 @@ export function AmountProp({
 }: AmountPropProps) {
   const userPrefs = useContext(UserContext);
   const converters = getConverters(userPrefs);
-  const converter = converters[unitType];
+  const converter = converters[unitType]; //unitType ? converters[unitType] : (v: any) => v;
   const convertedValue = converter(value ?? children) ?? "error";
-  //console.log({ userPrefs, converter, converters });
   return (
     <Prop
-      value={convertedValue}
+      value={convertedValue.toFixed(3)}
       //unit={unit}
       {...props}
       unit={getConverterUnits(userPrefs)[unitType]}

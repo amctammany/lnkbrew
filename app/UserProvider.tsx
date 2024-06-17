@@ -4,6 +4,7 @@ import { createContext } from "react";
 import { useSession } from "next-auth/react";
 import {
   TimeUnit,
+  UserColorPreference,
   UserGravityPreference,
   UserMassPreference,
   UserPreferences,
@@ -22,6 +23,7 @@ export default function UserProvider({
   const session = useSession();
   const { userId, ...prefs } = session.data?.user.UserPreferences ?? {
     userId: undefined,
+    colorUnit: UserColorPreference.L,
     timeUnit: TimeUnit.min,
     temperatureUnit: UserTemperaturePreference.F,
     volumeUnit: UserVolumePreference.gal,

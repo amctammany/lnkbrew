@@ -67,6 +67,7 @@ model User {
 model UserPreferences {
   userId               String                    @id @unique @default(cuid())
   user                 User                      @relation(fields: [userId], references: [id])
+  colorUnit            UserColorPreference       @default(L)
   timeUnit             TimeUnit                  @default(min)
   volumeUnit           UserVolumePreference      @default(gal)
   hopMassUnit          UserMassPreference        @default(Oz)
@@ -126,6 +127,11 @@ enum UserTemperaturePreference {
 enum UserGravityPreference {
   SG
   P
+}
+
+enum UserColorPreference {
+  L
+  SRM
 }
 
 enum HopUsage {

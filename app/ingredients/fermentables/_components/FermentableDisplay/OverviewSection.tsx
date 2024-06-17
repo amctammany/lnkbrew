@@ -1,4 +1,5 @@
 import { Prop } from "@/components/Prop";
+import AmountProp from "@/components/Prop/AmountProp";
 import { ClientSection } from "@/components/Section";
 import { Fermentable } from "@prisma/client";
 
@@ -12,13 +13,15 @@ export function OverviewSection({ fermentable }: OverviewSectionProps) {
         <Prop label="Name">{fermentable?.name}</Prop>
         <Prop label="Country">{fermentable?.country}</Prop>
         <Prop label="Notes">{fermentable?.notes}</Prop>
-        <Prop label="Color" unit="°L">
-          {fermentable?.color}
+        <AmountProp label="Color" unitType="color" value={fermentable?.color} />
+        <Prop label="Potential" unit="PPG">
+          {fermentable?.potential}
         </Prop>
-        <Prop label="Potential">{fermentable?.potential}</Prop>
-        <Prop label="Max Usage" unit="%">
-          {fermentable?.maxUsage}
-        </Prop>
+        <AmountProp
+          label="Max Usage"
+          unitType="percent"
+          value={fermentable?.maxUsage}
+        />
       </div>
     </ClientSection>
   );

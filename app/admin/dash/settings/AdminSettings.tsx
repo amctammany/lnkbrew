@@ -1,6 +1,8 @@
 "use client";
 //import { User } from "@prisma/client";
 import {
+  TimeUnit,
+  UserColorPreference,
   UserGravityPreference,
   UserMassPreference,
   UserPreferences,
@@ -48,6 +50,17 @@ export function AdminSettings({ src, action }: AdminSettingsProps) {
           error={errors.volumeUnit}
           options={UserVolumePreference}
         />
+        <Select
+          {...register("colorUnit")}
+          error={errors.colorUnit}
+          options={UserColorPreference}
+        />
+        <Select
+          {...register("timeUnit")}
+          error={errors.timeUnit}
+          options={TimeUnit}
+        />
+
         <Select {...register("hopMassUnit")} options={UserMassPreference} />
         <Select
           {...register("fermentableMassUnit")}
