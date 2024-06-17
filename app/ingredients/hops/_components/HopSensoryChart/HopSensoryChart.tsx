@@ -28,7 +28,7 @@ export function HopSensoryChart({ size = 620, data }: HopSensoryChartProps) {
   const radiusIncrement = midPt / 6;
   const radianIncrement = (Math.PI * 2) / Object.keys(flavorNames).length;
   return (
-    <div className="">
+    <div className="text-center">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width={size}
@@ -42,8 +42,8 @@ export function HopSensoryChart({ size = 620, data }: HopSensoryChartProps) {
           <circle
             key={`circle-${i}`}
             className="circles"
-            fill-opacity="0"
-            stroke-width="2"
+            fillOpacity="0"
+            strokeWidth="2"
             cx={midPt}
             cy={midPt}
             r={i === 0 ? 5 : i * radiusIncrement}
@@ -52,8 +52,11 @@ export function HopSensoryChart({ size = 620, data }: HopSensoryChartProps) {
         {Object.entries(flavorNames).map(([flavor, label], i) => (
           <text
             key={flavor}
-            x={310 * Math.sin(i * radianIncrement) + midPt}
-            y={310 * Math.cos(i * radianIncrement) + midPt}
+            width="200"
+            height="auto"
+            textAnchor="middle"
+            x={295 * Math.sin(i * radianIncrement) + midPt + 5}
+            y={285 * Math.cos(i * radianIncrement) + midPt}
           >
             {label}
           </text>
