@@ -49,12 +49,12 @@ export function HopSensoryChart({ size = 620, data }: HopSensoryChartProps) {
   );
   const pointsString = points.join(" ");
   return (
-    <div className="text-center grid items-center">
+    <div className="text-center grid items-center uppercase font-sans">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width={size}
         height={size}
-        stroke="red"
+        stroke="black"
         fill={"black"}
         className="bi bi-google m-auto"
         viewBox="-15 -15 650 650"
