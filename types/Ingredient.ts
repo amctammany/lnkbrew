@@ -1,4 +1,4 @@
-import { Hop, Yeast, Fermentable } from "@prisma/client";
+import { Hop, Yeast, Fermentable, HopSensoryPanel } from "@prisma/client";
 export type BaseFermentable = Pick<
   Fermentable,
   | "name"
@@ -38,3 +38,4 @@ export type BaseHop = Pick<
   | "beta"
   | "flavor"
 >;
+export type ExtendedHop = Hop & { HopSensoryPanel: HopSensoryPanel[] };

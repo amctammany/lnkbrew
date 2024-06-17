@@ -1,15 +1,18 @@
 "use server";
 
 import { prisma } from "@/lib/client";
+import { ExtendedHop } from "@/types/Ingredient";
 import { cache } from "react";
 export const getHop = cache(async (slug: string) => {
   const hop = await prisma.hop.findFirst({
     where: {
       slug,
     },
-    //include: {},
+    include: {
+      HopSensoryPanel: true,
+    },
   });
-  return hop;
+  return hop as ExtendedHop;
 });
 
 export const getHops = cache(async () => {
