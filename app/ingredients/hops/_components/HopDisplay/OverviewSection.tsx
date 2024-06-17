@@ -7,7 +7,7 @@ export type OverviewSectionProps = {
 };
 export function OverviewSection({ hop }: OverviewSectionProps) {
   return (
-    <ClientSection title="Overview">
+    <ClientSection className="px-4 py-2" title="Overview">
       <div className="">
         <Prop label="Name">{hop?.name}</Prop>
         <Prop label="Country">{hop?.country}</Prop>

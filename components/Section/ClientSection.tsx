@@ -10,7 +10,7 @@ export type ClientSectionProps = SectionProps & {
 export function ClientSection({
   children,
   closed = false,
-  toggleLabel = "Toggle",
+  toggleLabel = "",
   header,
   ...props
 }: ClientSectionProps) {
