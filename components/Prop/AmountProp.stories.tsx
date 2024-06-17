@@ -12,6 +12,7 @@ type Story = StoryObj<typeof AmountProp>;
 
 export const Basic: Story = {
   args: {
+    label: "Vol.",
     value: 10,
     unit: "gal",
     unitType: "volume",
