@@ -26,25 +26,12 @@ export function Range({
   const max = Math.max(_max!, value ?? margin * 4 + margin);
   const v0 = range?.[0] ?? min;
   const v1 = range?.[1] ?? max;
-  const diff = v1 - v0;
+  //const diff = v1 - v0;
   const length = max - min;
   const left = 100 * ((v0 - min) / length);
   //const left = Math.max((100 * ((v0 - (range?.[0] ?? 0)) / 1)) / length, 0);
   const valLeft = (100 * (value! - min)) / length;
   const width = (100 * ((v1 - v0) / 1)) / length;
-  console.log({
-    min,
-    max,
-    value,
-    v0,
-    v1,
-    diff,
-    range,
-    length,
-    valLeft,
-    left,
-    width,
-  });
   return (
     <div className={clsx("mb-8 flex", className)}>
       <h4 className="uppercase text-lg underline ">{label}</h4>
@@ -52,10 +39,10 @@ export function Range({
         <div className="box-border absolute top-1/2 left-0 right-0 h-[1px] w-full bg-black before:h-4 before:w-[1px] before:top-0 before:left-3 before:bg-black before:absolute after:h-4 after:w-[1px] after:bg-black after:absolute after:top-0 after:right-3"></div>
         <div className="w-[100%] h-5 block m-auto relative">
           <span className="block absolute top-full left-[14px] text-center -translate-x-1/2">
-            {min.toPrecision(3)}
+            {min.toFixed(0)}
           </span>
           <span className="block absolute left-auto top-full right-[15px] text-center translate-x-1/2">
-            {max.toPrecision(3)}
+            {max.toFixed(0)}
           </span>
           <div
             style={{
@@ -69,7 +56,7 @@ export function Range({
             <div className="absolute flex w-full my-2 h-full">
               <div className="absolute block top-full left-0 w-full ">
                 <span className="absolute -left-1 text-sm">
-                  {value?.toPrecision(4)}
+                  {value?.toFixed(1)}
                 </span>
               </div>
             </div>
