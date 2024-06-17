@@ -29,7 +29,6 @@ export default function UserProvider({
     hopMassUnit: UserMassPreference.Oz,
     fermentableMassUnit: UserMassPreference.LbOz,
   };
-  console.log(prefs);
   //const ctx: UserContextType = prefs;
   return <UserContext.Provider value={prefs}>{children}</UserContext.Provider>;
 }

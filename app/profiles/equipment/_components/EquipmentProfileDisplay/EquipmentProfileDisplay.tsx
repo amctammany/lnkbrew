@@ -2,6 +2,7 @@ import { IconButtonLink } from "@/components/Button";
 import { EditIcon } from "@/components/Icon/EditIcon";
 import { StarIcon } from "@/components/Icon/StarIcon";
 import { Prop } from "@/components/Prop";
+import AmountProp from "@/components/Prop/AmountProp";
 import { Section } from "@/components/Section";
 import { Toolbar } from "@/components/Toolbar";
 import { ExtendedEquipmentProfile } from "@/types/Profile";
@@ -52,6 +53,9 @@ export const EquipmentProfileDisplay = ({
         <Prop label="Batch Volume" unit="gal">
           {profile?.batchVolume}
         </Prop>
+        <AmountProp label="Batch Volume" unitType="volume">
+          {profile?.batchVolume}
+        </AmountProp>
 
         <Prop label="Boil Time" unit="min">
           {profile?.boilTime}
