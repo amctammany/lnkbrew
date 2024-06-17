@@ -46,10 +46,7 @@ export const AuthOptions: NextAuthConfig = {
         },
         include: { UserPreferences: true },
       });
-      //console.log(currentUser);
-      //console.log({ token, user, account, profile });
       if (currentUser) {
-        console.log(currentUser);
         token.user = currentUser;
       }
       return token;

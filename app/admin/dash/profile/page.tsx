@@ -11,7 +11,6 @@ import { AdminProfile } from "../../_components/AdminProfile";
 export default async function Page() {
   const session = await auth();
 
-  console.log(session);
   if (!session) return redirect("/");
   const user = await prisma.user.findFirst({
     where: { email: session?.user?.email },
