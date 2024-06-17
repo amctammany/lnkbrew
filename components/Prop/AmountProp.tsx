@@ -8,6 +8,7 @@ import {
   //converters,
   UnitTypes,
   getConverters,
+  getConverterUnits,
 } from "./amountConversions";
 import { UserContext } from "@/app/UserProvider";
 export type AmountPropProps = PropProps & {
@@ -27,7 +28,14 @@ export function AmountProp({
   const converter = converters[unitType];
   const convertedValue = converter(value ?? children) ?? "error";
   //console.log({ userPrefs, converter, converters });
-  return <Prop value={convertedValue} unit={unit} {...props} />;
+  return (
+    <Prop
+      value={convertedValue}
+      //unit={unit}
+      {...props}
+      unit={getConverterUnits(userPrefs)[unitType]}
+    />
+  );
 }
 
 export default AmountProp;

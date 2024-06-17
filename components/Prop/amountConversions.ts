@@ -59,6 +59,16 @@ export const converters: Record<AmountType, any> = {
   gravity: (type: UserGravityPreference) => gravityConverters[type],
 };
 
+export function getConverterUnits(prefs: Partial<UserPreferences>) {
+  return {
+    mass: prefs.hopMassUnit,
+    hopMass: prefs.hopMassUnit,
+    fermentableMass: prefs.fermentableMassUnit,
+    volume: prefs.volumeUnit,
+    temperature: prefs.temperatureUnit,
+    gravity: prefs.gravityUnit,
+  };
+}
 export function getConverters(prefs: Partial<UserPreferences>) {
   return {
     mass: converters.mass(prefs.hopMassUnit),
