@@ -3,6 +3,8 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import NavLink from "@/components/Nav/NavLink";
 import { Nav } from "@/components/Nav/Nav";
+import UserProvider from "./UserProvider";
+import { SessionProvider } from "next-auth/react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,7 +29,9 @@ export default function RootLayout({
         </Nav>
 
         <main className="in-w-full items-center justify-between p-0 ">
-          {children}
+          <SessionProvider>
+            <UserProvider>{children}</UserProvider>
+          </SessionProvider>
         </main>
       </body>
     </html>

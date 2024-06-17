@@ -1,8 +1,26 @@
 import { prisma } from "@/lib/client";
 import { PrismaAdapter } from "@auth/prisma-adapter";
-import NextAuth, { NextAuthConfig } from "next-auth";
+import { UserPreferences } from "@prisma/client";
+import NextAuth, { DefaultSession, NextAuthConfig } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 //import { NextResponse } from "next/server";
+declare module "next-auth" {
+  /**
+   * Returned by `auth`, `useSession`, `getSession` and received as a prop on the `SessionProvider` React Context
+   */
+  interface Session {
+    user: {
+      /** The user's postal address. */
+      UserPreferences: UserPreferences;
+      /**
+       * By default, TypeScript merges new interface properties and overwrites existing ones.
+       * In this case, the default session user properties will be overwritten,
+       * with the new ones defined above. To keep the default session user properties,
+       * you need to add them back into the newly declared interface.
+       */
+    } & DefaultSession["user"];
+  }
+}
 export const AuthOptions: NextAuthConfig = {
   secret: "secret",
   adapter: PrismaAdapter(prisma),
@@ -31,7 +49,7 @@ export const AuthOptions: NextAuthConfig = {
       //console.log(currentUser);
       //console.log({ token, user, account, profile });
       if (currentUser) {
-        //console.log(currentUser);
+        console.log(currentUser);
         token.user = currentUser;
       }
       return token;
