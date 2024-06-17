@@ -19,10 +19,10 @@ export const RangeProp = ({
   unit,
   //children,
 }: RangePropProps) => {
-  console.log({ range, min, max, value, unit, label });
   return (
     <Prop label={label ?? ""}>
       <Range
+        unit={unit}
         range={range ?? [0, 100]}
         value={parseFloat(value?.toString() ?? "")}
         min={min!}

@@ -6,6 +6,7 @@ export type RangeProps = {
   max?: number;
   range: [number | undefined | null, number | undefined | null];
   value?: number;
+  unit?: string | null;
   className?: string;
 };
 
@@ -15,6 +16,7 @@ export function Range({
   max: _max,
   range,
   value,
+  unit,
   className,
 }: RangeProps) {
   const margin = (_max! - _min!) / 5;
@@ -86,6 +88,7 @@ export function Range({
           </div>
         </div>
       </div>
+      <h4 className=" text-lg ">{unit}</h4>
     </div>
   );
 }
