@@ -25,7 +25,8 @@ export default async function EquipmentProfileForkPage({
   if (!session)
     return redirect(`/admin/login?returnUrl=/profiles/equipment/${slug}/fork`);
 
-  const { id, name, ...equipmentProfile } = await getEquipmentProfile(slug);
+  const { id, name, owner, origin, ...equipmentProfile } =
+    await getEquipmentProfile(slug);
   //if (equipmentProfile?.owner?.id !== session?.user?.id)
   //return <Unauthorized returnUrl={`/profiles/equipment/${slug}`} />;
   const forkedProfile: Omit<ExtendedEquipmentProfile, "id"> = {
