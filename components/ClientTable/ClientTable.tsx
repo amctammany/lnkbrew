@@ -15,6 +15,7 @@ import {
   getSortedRowModel,
   useReactTable,
   Table as TableType,
+  RowSelectionState,
 } from "@tanstack/react-table";
 import { fuzzyFilter } from "@/lib/fuzzyFilter";
 import { FilterBar } from "./FilterBar";
@@ -47,16 +48,40 @@ export function ClientTable<T extends Record<string, any>>({
 }: ClientTableProps<T>) {
   const [globalFilter, setGlobalFilter] = useState("");
   const [columnFilters, setColumnFilters] = useState<ColumnFilter[]>([]);
+  const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
   const table = useReactTable({
     data,
-    columns,
+    columns: [
+      {
+        id: "select-col",
+        header: ({ table }) => (
+          <input
+            type="checkbox"
+            checked={table.getIsAllRowsSelected()}
+            //indeterminate={table.getIsSomeRowsSelected()}
+            onChange={table.getToggleAllRowsSelectedHandler()} //or getToggleAllPageRowsSelectedHandler
+          />
+        ),
+        cell: ({ row }) => (
+          <input
+            type="checkbox"
+            checked={row.getIsSelected()}
+            disabled={!row.getCanSelect()}
+            onChange={row.getToggleSelectedHandler()}
+          />
+        ),
+      },
+      ...columns,
+    ],
     filterFns: {
       fuzzy: fuzzyFilter, //define as a filter function that can be used in column definitions
     },
     state: {
       columnFilters,
+      rowSelection,
       globalFilter,
     },
+    onRowSelectionChange: setRowSelection,
     onColumnFiltersChange: setColumnFilters,
     onGlobalFilterChange: setGlobalFilter,
     globalFilterFn: "fuzzy",
@@ -71,6 +96,7 @@ export function ClientTable<T extends Record<string, any>>({
 
   const handleReset = useMemo(
     () => () => {
+      table.resetRowSelection();
       table.resetGlobalFilter();
       table.resetColumnFilters();
     },
