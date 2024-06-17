@@ -7,7 +7,13 @@ export type HopSensoryChartProps = {
   data?: HopSensoryPanel | null;
   size?: number;
 };
-const flavorNames = {
+const flavorNames: Record<
+  keyof Omit<
+    HopSensoryPanel,
+    "slug" | "id" | "hopId" | "year" | "author" | "notes"
+  >,
+  string
+> = {
   sweetAromatic: "Sweet Aromatic",
   berry: "Berry",
   stoneFruit: "Stone Fruit",
@@ -27,6 +33,21 @@ export function HopSensoryChart({ size = 620, data }: HopSensoryChartProps) {
   const midPt = size / 2;
   const radiusIncrement = midPt / 6;
   const radianIncrement = (Math.PI * 2) / Object.keys(flavorNames).length;
+  const points = Object.keys(flavorNames).map((flavor, i) =>
+    [
+      ((data?.[flavor as keyof HopSensoryPanel] ?? 1) as number) *
+        295 *
+        Math.sin(i * radianIncrement) +
+        midPt +
+        0,
+      0 -
+        (data?.[flavor as keyof HopSensoryPanel] as number) *
+          295 *
+          Math.cos(i * radianIncrement) +
+        midPt,
+    ].join(",")
+  );
+  const pointsString = points.join(" ");
   return (
     <div className="text-center grid items-center">
       <svg
@@ -80,6 +101,7 @@ export function HopSensoryChart({ size = 620, data }: HopSensoryChartProps) {
             y2={midPt}
           ></line>
         ))}
+        <polygon fill="red" fillOpacity={0.6} points={pointsString}></polygon>
       </svg>
     </div>
   );
