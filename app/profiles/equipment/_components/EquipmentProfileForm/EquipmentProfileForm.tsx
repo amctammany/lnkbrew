@@ -8,7 +8,7 @@ import {
 import { Prisma, TimeUnit } from "@prisma/client";
 //import { Section } from "@/components/Section";
 import { Toolbar } from "@/components/Toolbar";
-import { AmountField } from "@/components/Form/AmountField";
+import { AmountField1 as AmountField } from "@/components/Form/AmountField1";
 import { Ca2, Cl, HCO3, MgSo4, Na, SO4 } from "@/components/Elements";
 import { IconButton } from "@/components/Button/IconButton";
 import { EquipmentProfile, UserVolumePreference } from "@prisma/client";
@@ -74,44 +74,44 @@ export const EquipmentProfileForm = ({
             <AmountField
               {...register("boilTime")}
               label="Boil Time"
-              amountType={TimeUnit.min}
+              amountType="time"
               step={1}
             />
             <AmountField
               {...register("boilOffRate")}
               label="Boil Off Rate"
-              amountType="gal/hr"
+              amountType="flow"
               step={0.01}
             />
 
             <AmountField
               {...register("brewEfficiency")}
               label="Brew Efficiency"
-              amountType="%"
+              amountType="percent"
               step={0.01}
             />
             <AmountField
               {...register("mashEfficiency")}
               label="Mash Efficiency"
-              amountType="%"
+              amountType="percent"
               step={0.01}
             />
             <AmountField
               {...register("trubLoss")}
               label="Trub Loss"
-              amountType="gal"
+              amountType="volume"
               step={0.01}
             />
             <AmountField
               {...register("fermenterLoss")}
               label="Fermenter Loss"
-              amountType="gal"
+              amountType="volume"
               step={0.01}
             />
             <AmountField
               {...register("mashLoss")}
               label="Mash Loss"
-              amountType="gal"
+              amountType="volume"
               step={0.01}
             />
           </div>

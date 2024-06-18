@@ -11,6 +11,7 @@ import { AmountType } from "../Form/AmtField";
 export type Converter<T = any> = (value: number) => T;
 export type MassConverter<T = MassValue> = (value: number) => T;
 export type AmountType =
+  | "flow"
   | "color"
   | "percent"
   | "time"
@@ -67,6 +68,7 @@ export type UnitTypes =
   | UserGravityPreference
   | UserTemperaturePreference;
 export const converters: Record<AmountType, any> = {
+  flow: () => (v: number) => v,
   color: (type: UserColorPreference) => colorConverters[type],
   time: (type: TimeUnit) => timeConverters[type],
   mass: (type: UserMassPreference) => massConverters[type],
@@ -77,10 +79,25 @@ export const converters: Record<AmountType, any> = {
   gravity: (type: UserGravityPreference) => gravityConverters[type],
   percent: (v: number) => 100 * v,
 };
-
+const conversionOptions: Record<AmountType, Record<string, string>> = {
+  color: { ...UserColorPreference, L: "°L" },
+  flow: { "gal/hr": "gal/hr", "l/min": "l/min" },
+  time: TimeUnit,
+  mass: UserMassPreference,
+  hopMass: UserMassPreference,
+  fermentableMass: UserMassPreference,
+  volume: UserVolumePreference,
+  gravity: UserGravityPreference,
+  temperature: UserTemperaturePreference,
+  percent: { "%": "%" },
+};
+export function getConversionOptions(amountType: AmountType) {
+  return Object.entries(conversionOptions[amountType]);
+}
 export function getConverterUnits(prefs: Partial<UserPreferences>) {
   return {
     color: prefs.colorUnit === "L" ? "°L" : prefs.colorUnit,
+    flow: "gal/min",
     percent: "%",
     time: prefs.timeUnit,
     mass: prefs.hopMassUnit,
@@ -93,6 +110,7 @@ export function getConverterUnits(prefs: Partial<UserPreferences>) {
 }
 export function getConverters(prefs: Partial<UserPreferences>) {
   return {
+    flow: (v: number) => v,
     color: converters.color(prefs.colorUnit),
     percent: converters.percent,
     time: converters.time(prefs.timeUnit),
