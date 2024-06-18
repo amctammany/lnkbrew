@@ -66,7 +66,9 @@ export const EquipmentProfileForm = ({
             <AmountField
               {...register("batchVolume")}
               label="Batch Volume"
-              amountType={UserVolumePreference.gal}
+              amountType="volume"
+              //amount
+              //amountTypes={UserVolumePreference}
               step={0.01}
             />
             <AmountField

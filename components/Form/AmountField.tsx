@@ -13,6 +13,7 @@ import { AmtField } from "./AmtField";
 import { LbOzField } from "./LbOzField";
 import { InputProps } from "./Input";
 import { UseFormRegisterReturn } from "react-hook-form";
+import { AmountType } from "../Prop/amountConversions";
 const massFactors: Record<UserMassPreference, number> = {
   Kg: 1,
   g: 1000,
@@ -25,17 +26,17 @@ export function getAmount(value: number | undefined, type: UserMassPreference) {
 }
 
 export type AmountFieldProps = {
-  amountType?:
-    | UserMassPreference
-    | TimeUnit
-    //| YeastAmountType
-    | UserVolumePreference
-    | "%"
-    | "PPG"
-    | "ppm"
-    | "°L"
-    | "°Lintner"
-    | "gal/hr";
+  amountType?: AmountType;
+  //| UserMassPreference
+  //| TimeUnit
+  //| YeastAmountType
+  //| UserVolumePreference
+  //| "%"
+  //| "PPG"
+  //| "ppm"
+  //| "°L"
+  //| "°Lintner"
+  //| "gal/hr";
   amountTypes?: Record<string, string>;
   amountTypeProps?: UseFormRegisterReturn;
   options?: any;
