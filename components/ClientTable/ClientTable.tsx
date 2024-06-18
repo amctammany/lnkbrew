@@ -1,5 +1,5 @@
 import { VariantProps, cva } from "class-variance-authority";
-import React, { useMemo, useState } from "react";
+import React, { HTMLProps, useMemo, useState } from "react";
 import { Table, TableProps } from "../Table";
 import clsx from "clsx";
 import { ClientSection, Section } from "../Section";
@@ -19,7 +19,30 @@ import {
 } from "@tanstack/react-table";
 import { fuzzyFilter } from "@/lib/fuzzyFilter";
 import { FilterBar } from "./FilterBar";
+function IndeterminateCheckbox({
+  indeterminate,
+  className = "",
+  checked,
+  ...rest
+}: { indeterminate?: boolean } & HTMLProps<HTMLInputElement>) {
+  const ref = React.useRef<HTMLInputElement>(null!);
 
+  React.useEffect(() => {
+    if (typeof indeterminate === "boolean") {
+      ref.current.indeterminate = !checked && indeterminate;
+    }
+  }, [ref, indeterminate, checked]);
+
+  return (
+    <input
+      type="checkbox"
+      ref={ref}
+      className={className + " cursor-pointer"}
+      checked={checked}
+      {...rest}
+    />
+  );
+}
 const clientTableStyles = cva("px-6 py-8", {
   variants: {
     variant: {
@@ -55,19 +78,21 @@ export function ClientTable<T extends Record<string, any>>({
       {
         id: "select-col",
         header: ({ table }) => (
-          <input
-            type="checkbox"
+          <IndeterminateCheckbox
+            //type="checkbox"
             checked={table.getIsAllRowsSelected()}
-            //indeterminate={table.getIsSomeRowsSelected()}
+            indeterminate={table.getIsSomeRowsSelected()}
             onChange={table.getToggleAllRowsSelectedHandler()} //or getToggleAllPageRowsSelectedHandler
           />
         ),
         cell: ({ row }) => (
-          <input
-            type="checkbox"
-            checked={row.getIsSelected()}
-            disabled={!row.getCanSelect()}
-            onChange={row.getToggleSelectedHandler()}
+          <IndeterminateCheckbox
+            {...{
+              checked: row.getIsSelected(),
+              disabled: !row.getCanSelect(),
+              indeterminate: row.getIsSomeSelected(),
+              onChange: row.getToggleSelectedHandler(),
+            }}
           />
         ),
       },
@@ -81,6 +106,7 @@ export function ClientTable<T extends Record<string, any>>({
       rowSelection,
       globalFilter,
     },
+    enableRowSelection: true,
     onRowSelectionChange: setRowSelection,
     onColumnFiltersChange: setColumnFilters,
     onGlobalFilterChange: setGlobalFilter,
@@ -89,8 +115,8 @@ export function ClientTable<T extends Record<string, any>>({
     getFilteredRowModel: getFilteredRowModel(), //client side filtering
     getSortedRowModel: getSortedRowModel(),
     //getPaginationRowModel: getPaginationRowModel(),
-    debugTable: true,
-    debugHeaders: true,
+    //debugTable: true,
+    //debugHeaders: true,
     debugColumns: false,
   });
 
