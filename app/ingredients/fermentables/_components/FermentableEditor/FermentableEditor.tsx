@@ -5,7 +5,7 @@ import { SaveIcon } from "@/components/Icon/SaveIcon";
 import { Section } from "@/components/Section";
 import { Toolbar } from "@/components/Toolbar";
 import { Fermentable } from "@prisma/client";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 
 export type FermentableEditorProps = {
   fermentable: Fermentable | null;
@@ -15,7 +15,18 @@ export function FermentableEditor({
   action,
   fermentable,
 }: FermentableEditorProps) {
-  const { register } = useForm<Fermentable>({
+  const {
+    register,
+    control,
+    control,
+    control,
+    control,
+    control,
+    control,
+    control,
+    control,
+    control,
+  } = useForm<Fermentable>({
     defaultValues: fermentable || {},
   });
 
@@ -36,11 +47,39 @@ export function FermentableEditor({
           <TextArea rows={3} label="Notes" {...register("notes")} />
 
           <div className="grid gap-4 grid-cols-2 md:grid-cols-4">
-            <AmountField
-              step={0.01}
-              label="Color"
-              amountType="°L"
-              {...register("color")}
+            <Controller
+              name="color"
+              control={control}
+              defaultValue={0}
+              render={({ field }) => (
+                <AmountField
+                  //{...register("batchVolume")}
+                  {...field}
+                  value={field.value ?? 0}
+                  label="Color"
+                  amountType="color"
+                  //amount
+                  //amountTypes={UserVolumePreference}
+                  step={0.01}
+                />
+              )}
+            />
+            <Controller
+              name="power"
+              control={control}
+              defaultValue={0}
+              render={({ field }) => (
+                <AmountField
+                  //{...register("batchVolume")}
+                  {...field}
+                  value={field.value ?? 0}
+                  label="Power"
+                  amountType="color"
+                  //amount
+                  //amountTypes={UserVolumePreference}
+                  step={0.01}
+                />
+              )}
             />
             <AmountField
               step={1}
@@ -48,7 +87,34 @@ export function FermentableEditor({
               label="Power"
               {...register("power")}
             />
-            <AmountField
+
+            <Controller
+              name="color"
+              control={control}
+              defaultValue={0}
+              render={({ field }) => (
+                <AmountField
+                  //{...register("batchVolume")}
+                  {...field}
+                  value={field.value ?? 0}
+                  label="Color"
+                  amountType="color"
+                  //amount
+                  //amountTypes={UserVolumePreference}
+                  step={0.01}
+                />
+              )}
+            />
+          </div>
+        </div>
+      </Section>
+    </Form>
+  );
+}
+
+export default FermentableEditor;
+/**
+    <AmountField
               step={0.001}
               label="Potential"
               amountType="PPG"
@@ -60,11 +126,5 @@ export function FermentableEditor({
               label="Max Usage"
               {...register("maxUsage")}
             />
-          </div>
-        </div>
-      </Section>
-    </Form>
-  );
-}
 
-export default FermentableEditor;
+*/

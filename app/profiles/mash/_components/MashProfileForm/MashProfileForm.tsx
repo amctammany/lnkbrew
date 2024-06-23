@@ -1,5 +1,6 @@
 "use client";
 import {
+  AmountField,
   Form,
   NumberField,
   Select,
@@ -7,7 +8,12 @@ import {
   TextArea,
   TextField,
 } from "@/components/Form";
-import { SubmitHandler, useFieldArray, useForm } from "react-hook-form";
+import {
+  Controller,
+  SubmitHandler,
+  useFieldArray,
+  useForm,
+} from "react-hook-form";
 import {
   createMashProfile,
   updateMashProfile,
@@ -138,26 +144,44 @@ export const MashProfileForm = ({ profile }: MashProfileFormProps) => {
                       options={MashStepType}
                     />
                   </div>
-                  <NumberField
-                    {...register(`steps.${index}.temperature` as const, {
-                      value: field.temperature,
-                    })}
-                    value={field.temperature}
-                    label="Temperature"
+                  <Controller
+                    name={`steps.${index}.temperature`}
+                    control={control}
+                    defaultValue={0}
+                    render={({ field }) => (
+                      <AmountField
+                        {...field}
+                        value={field.value ?? 0}
+                        label="Temperature"
+                        amountType="temperature"
+                      />
+                    )}
                   />
-
-                  <NumberField
-                    {...register(`steps.${index}.time` as const, {
-                      value: field.time,
-                    })}
-                    label="Time (min)"
+                  <Controller
+                    name={`steps.${index}.time`}
+                    control={control}
+                    defaultValue={0}
+                    render={({ field }) => (
+                      <AmountField
+                        {...field}
+                        value={field.value ?? 0}
+                        label="Time"
+                        amountType="time"
+                      />
+                    )}
                   />
-
-                  <NumberField
-                    {...register(`steps.${index}.rampTime` as const, {
-                      value: field.rampTime,
-                    })}
-                    label="Ramp Time (min)"
+                  <Controller
+                    name={`steps.${index}.rampTime`}
+                    control={control}
+                    defaultValue={0}
+                    render={({ field }) => (
+                      <AmountField
+                        {...field}
+                        value={field.value ?? 0}
+                        label="Ramp Time"
+                        amountType="time"
+                      />
+                    )}
                   />
                 </div>
                 <div className="m-auto grid pt-3">

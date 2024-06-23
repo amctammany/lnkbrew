@@ -1,121 +1,120 @@
-import { ComponentProps, forwardRef } from "react";
-import { Label } from "./Label";
-import { cva } from "class-variance-authority";
-import {
-  TimeUnit,
-  //TimeUnit,
-  UserMassPreference,
-  UserVolumePreference,
-  //YeastAmountType,
-} from "@prisma/client";
 import clsx from "clsx";
-import { AmtField } from "./AmtField";
-import { LbOzField } from "./LbOzField";
-import { InputProps } from "./Input";
-import { UseFormRegisterReturn } from "react-hook-form";
-const massFactors: Record<UserMassPreference, number> = {
-  Kg: 1,
-  g: 1000,
-  Lb: 2.20462,
-  LbOz: 2.20462,
-  Oz: 2.20462 * 16,
+import {
+  UnitTypes,
+  AmountType as _AmountType,
+  converters,
+  getConversionOptions,
+  getConverters,
+  rawConverters,
+} from "@/lib/amountConversions";
+import { Input, InputProps, inputStyles } from "./Input";
+import { Label } from "./Label";
+import { ChangeEventHandler, ComponentProps, useState } from "react";
+import { ControllerRenderProps } from "react-hook-form";
+
+export type AmountTypeProps = ComponentProps<"select"> & {
+  options?: [k: string, v: any][];
+  type?: any;
+  name?: string;
 };
-export function getAmount(value: number | undefined, type: UserMassPreference) {
-  return value === undefined ? 0 : value * massFactors[type];
+
+function AmountType({ type, options, ...props }: AmountTypeProps) {
+  return options?.length! > 0 ? (
+    <select {...props} onSelect={props.onChange}>
+      {options?.map(([k, v]) => (
+        <option key={k} value={v}>
+          {k}
+        </option>
+      ))}
+    </select>
+  ) : (
+    <div className="grid h-full border border-black border-l-0 text-center align-middle justify-center">
+      <span className="my-auto block text-sm px-2 font-bold">{type}</span>
+    </div>
+  );
 }
 
 export type AmountFieldProps = {
-  amountType?:
-    | UserMassPreference
-    | TimeUnit
-    //| YeastAmountType
-    | UserVolumePreference
-    | "%"
-    | "PPG"
-    | "ppm"
-    | "°L"
-    | "°Lintner"
-    | "gal/hr";
-  amountTypes?: Record<string, string>;
-  amountTypeProps?: UseFormRegisterReturn;
-  options?: any;
-  step?: number;
-} & InputProps;
-export const amountFieldStyles = cva("input", {
-  variants: {
-    variant: {
-      default: [
-        "block",
-        "disabled:bg-slate-50",
-        "disabled:text-slate-500",
-        "disabled:border-slate-200",
-        "disabled:shadow-none",
-      ],
-      error: ["bg-error-200"],
-    },
-    size: {
-      default: ["w-full"],
-    },
-  },
-  defaultVariants: { size: "default", variant: "default" },
-});
+  amountType: _AmountType;
+  amountUnit?: UnitTypes;
+} & InputProps &
+  ControllerRenderProps;
+export const AmountField = ({
+  className,
+  disabled,
+  label,
+  step,
+  error,
+  size,
+  name,
+  variant,
+  amountType,
+  amountUnit,
+  value,
 
-export const AmountField = forwardRef<HTMLInputElement, AmountFieldProps>(
-  function AmountField(
-    {
-      name,
-      label,
-      amountType,
-      options,
-      step,
-      defaultValue,
-      disabled,
-      onBlur,
-      onChange,
-      value,
-      variant,
-      size,
-      error,
-      className,
-      amountTypes,
-      amountTypeProps,
-      children,
-    }: AmountFieldProps,
-    ref
-  ) {
-    //const translatedValue = getAmount(value, amountType);
-    const Comp = amountType === "LbOz" ? LbOzField : AmtField;
-    const opts = Array.isArray(options)
-      ? options
-      : Object.entries(options || {});
-    return (
-      <Label
-        className={clsx("", className)}
-        label={label || name}
-        error={error}
-      >
-        <Comp
+  ref,
+  onChange,
+  ...props
+}: AmountFieldProps) => {
+  //const [baseValue, setBaseValue] = useState<number>(value);
+  const [currentUnit, setCurrentUnit] = useState<UnitTypes>(
+    amountUnit ?? (getConversionOptions(amountType)[0][1] as UnitTypes)
+  );
+  const [currentAmount, setCurrentAmount] = useState<number>(
+    rawConverters[amountType][currentUnit] * value
+  );
+  const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+    const amt = parseFloat(e.currentTarget.value);
+    setCurrentAmount(amt);
+    //console.log(rawConverters[amountType]);
+    const convertedValue = amt / rawConverters[amountType][currentUnit]; //* amt;
+    //setBaseValue(convertedValue);
+    onChange(convertedValue);
+  };
+
+  const handleSelect: ChangeEventHandler<HTMLSelectElement> = (e) => {
+    const unit = e.currentTarget.value as UnitTypes;
+    setCurrentUnit(unit);
+    const convertedValue = currentAmount / rawConverters[amountType][unit];
+    //setBaseValue(convertedValue);
+    onChange(convertedValue);
+  };
+  //console.log({ baseValue, value, currentAmount, amountType, currentUnit });
+  return (
+    <Label className={clsx("", className)} label={label || name}>
+      <div className={clsx("flex", className)}>
+        <input
+          type="hidden"
+          name={name}
+          value={value}
+          ref={ref}
+          //onChange={changeHidden}
+        />
+        <input
           disabled={disabled || false}
-          className={amountFieldStyles({
+          className={inputStyles({
             variant: error ? "error" : variant,
             size,
           })}
-          amountType={amountType}
-          amountTypes={amountTypes}
-          amountTypeProps={amountTypeProps}
-          //options={opts}
-          //type="number"
+          type="number"
           step={step || 1}
-          name={name}
-          defaultValue={defaultValue}
-          onChange={onChange}
-          onBlur={onBlur}
-          value={value}
-          ref={ref}
-        >
-          {children}
-        </Comp>
-      </Label>
-    );
-  }
-);
+          //name={name}
+          //ref={ref}
+          {...props}
+          onChange={handleChange}
+          //onBlur={onBlur}
+          value={currentAmount}
+          //ref={ref}
+          //{...amountTypeProps}
+        />
+        <div className="grid items-center align-middle justify-center">
+          <AmountType
+            value={currentUnit}
+            options={getConversionOptions(amountType)}
+            onChange={handleSelect}
+          />
+        </div>
+      </div>
+    </Label>
+  );
+};

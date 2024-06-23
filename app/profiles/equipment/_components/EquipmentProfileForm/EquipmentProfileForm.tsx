@@ -13,7 +13,7 @@ import {
 import { Prisma, TimeUnit } from "@prisma/client";
 //import { Section } from "@/components/Section";
 import { Toolbar } from "@/components/Toolbar";
-import { AmountField1 as AmountField } from "@/components/Form/AmountField1";
+import { AmountField } from "@/components/Form/AmountField";
 import { Ca2, Cl, HCO3, MgSo4, Na, SO4 } from "@/components/Elements";
 import { IconButton } from "@/components/Button/IconButton";
 import { EquipmentProfile, UserVolumePreference } from "@prisma/client";

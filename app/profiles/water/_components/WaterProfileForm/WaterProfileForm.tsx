@@ -1,5 +1,11 @@
 "use client";
-import { Form, Submit, TextArea, TextField } from "@/components/Form";
+import {
+  AmountField,
+  Form,
+  Submit,
+  TextArea,
+  TextField,
+} from "@/components/Form";
 import {
   Controller,
   SubmitHandler,
@@ -12,7 +18,6 @@ import {
 } from "@/app/profiles/water/actions";
 //import { Section } from "@/components/Section";
 import { Toolbar } from "@/components/Toolbar";
-import { AmountField1 as AmountField } from "@/components/Form/AmountField1";
 import { Ca2, Cl, HCO3, MgSo4, Na, SO4 } from "@/components/Elements";
 import { IconButton } from "@/components/Button/IconButton";
 import { Section } from "@/components/Section";
