@@ -30,7 +30,7 @@ export default async function WaterProfileForkPage({
     ...waterProfile,
     name: `${session?.user?.name}-${name}`,
     userId: session?.user?.id!,
-    forkedFrom: id,
+    forkedFrom: id ?? null,
   };
   return <WaterProfileForm profile={forkedProfile} />;
 }

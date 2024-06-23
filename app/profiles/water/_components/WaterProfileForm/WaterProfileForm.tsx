@@ -1,25 +1,32 @@
 "use client";
 import { Form, Submit, TextArea, TextField } from "@/components/Form";
-import { SubmitHandler, useFieldArray, useForm } from "react-hook-form";
+import {
+  Controller,
+  SubmitHandler,
+  useFieldArray,
+  useForm,
+} from "react-hook-form";
 import {
   createWaterProfile,
   updateWaterProfile,
 } from "@/app/profiles/water/actions";
 //import { Section } from "@/components/Section";
 import { Toolbar } from "@/components/Toolbar";
-import { AmountField } from "@/components/Form/AmountField";
+import { AmountField1 as AmountField } from "@/components/Form/AmountField1";
 import { Ca2, Cl, HCO3, MgSo4, Na, SO4 } from "@/components/Elements";
 import { IconButton } from "@/components/Button/IconButton";
 import { Section } from "@/components/Section";
 import { SaveIcon } from "@/components/Icon/SaveIcon";
-type WaterProfileInput = any;
+import { WaterProfile } from "@prisma/client";
+import { ExtendedWaterProfile, WaterProfileInput } from "@/types/Profile";
+//type WaterProfileInput = any;
 
 export type WaterProfileFormProps = {
   profile: WaterProfileInput | null;
 };
 export const WaterProfileForm = ({ profile }: WaterProfileFormProps) => {
   const { control, register, trigger } = useForm<WaterProfileInput>({
-    defaultValues: profile,
+    defaultValues: profile!,
   });
   const action = profile?.id ? updateWaterProfile : createWaterProfile;
 
@@ -55,6 +62,108 @@ export const WaterProfileForm = ({ profile }: WaterProfileFormProps) => {
             <TextField {...register("description")} label="Description" />
           </div>
           <div className="col-span-3 md:col-span-6 grid grid-cols-3 lg:grid-cols-6">
+            <Controller
+              name="calcium"
+              control={control}
+              defaultValue={0}
+              render={({ field }) => (
+                <AmountField
+                  className="flex-grow"
+                  {...field}
+                  value={field.value ?? 0}
+                  label={<Ca2 />}
+                  amountType="concentration"
+                  step={0.01}
+                />
+              )}
+            />
+            <Controller
+              name="magnesium"
+              control={control}
+              defaultValue={0}
+              render={({ field }) => (
+                <AmountField
+                  className="flex-grow"
+                  {...field}
+                  value={field.value ?? 0}
+                  label={<MgSo4 />}
+                  amountType="concentration"
+                  step={0.01}
+                />
+              )}
+            />
+            <Controller
+              name="sodium"
+              control={control}
+              defaultValue={0}
+              render={({ field }) => (
+                <AmountField
+                  className="flex-grow"
+                  {...field}
+                  value={field.value ?? 0}
+                  label={<Na />}
+                  amountType="concentration"
+                  step={0.01}
+                />
+              )}
+            />
+            <Controller
+              name="chloride"
+              control={control}
+              defaultValue={0}
+              render={({ field }) => (
+                <AmountField
+                  className="flex-grow"
+                  {...field}
+                  value={field.value ?? 0}
+                  label={<Cl />}
+                  amountType="concentration"
+                  step={0.01}
+                />
+              )}
+            />
+            <Controller
+              name="sulfate"
+              control={control}
+              defaultValue={0}
+              render={({ field }) => (
+                <AmountField
+                  className="flex-grow"
+                  {...field}
+                  value={field.value ?? 0}
+                  label={<SO4 />}
+                  amountType="concentration"
+                  step={0.01}
+                />
+              )}
+            />
+            <Controller
+              name="bicarbonate"
+              control={control}
+              defaultValue={0}
+              render={({ field }) => (
+                <AmountField
+                  className="flex-grow"
+                  {...field}
+                  value={field.value ?? 0}
+                  label={<HCO3 />}
+                  amountType="concentration"
+                  step={0.01}
+                />
+              )}
+            />
+          </div>
+        </div>
+        <Toolbar>
+          <IconButton Icon={SaveIcon} type="submit">
+            Save
+          </IconButton>
+        </Toolbar>
+      </Section>
+    </Form>
+  );
+};
+/**
             <AmountField
               {...register("calcium")}
               label={<Ca2 />}
@@ -86,14 +195,4 @@ export const WaterProfileForm = ({ profile }: WaterProfileFormProps) => {
               label={<HCO3 />}
               amountType="ppm"
             />
-          </div>
-        </div>
-        <Toolbar>
-          <IconButton Icon={SaveIcon} type="submit">
-            Save
-          </IconButton>
-        </Toolbar>
-      </Section>
-    </Form>
-  );
-};
+*/

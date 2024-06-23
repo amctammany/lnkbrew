@@ -20,6 +20,7 @@ import { EquipmentProfile, UserVolumePreference } from "@prisma/client";
 import { Section } from "@/components/Section";
 import { EquipmentProfileIcon } from "@/components/Icon/EquipmentProfileIcon";
 import { SaveIcon } from "@/components/Icon/SaveIcon";
+import { ExtendedEquipmentProfile } from "@/types/Profile";
 type EquipmentProfileInput = any;
 
 export type EquipmentProfileFormProps = {
@@ -28,8 +29,8 @@ export type EquipmentProfileFormProps = {
 export const EquipmentProfileForm = ({
   profile,
 }: EquipmentProfileFormProps) => {
-  const { control, register, trigger } = useForm<EquipmentProfile>({
-    defaultValues: profile,
+  const { control, register, trigger } = useForm<EquipmentProfileInput>({
+    defaultValues: profile!,
   });
   const action = profile?.id ? updateEquipmentProfile : createEquipmentProfile;
 

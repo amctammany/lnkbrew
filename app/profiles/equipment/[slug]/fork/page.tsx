@@ -3,7 +3,10 @@ import { EquipmentProfileForm } from "../../_components/EquipmentProfileForm";
 import { getEquipmentProfile } from "../../queries";
 import { redirect } from "next/navigation";
 import Unauthorized from "@/app/admin/_components/Unauthorized";
-import { ExtendedEquipmentProfile } from "@/types/Profile";
+import {
+  EquipmentProfileInput,
+  ExtendedEquipmentProfile,
+} from "@/types/Profile";
 type EquipmentProfileForkPageProps = {
   params: {
     slug: string;
@@ -29,11 +32,12 @@ export default async function EquipmentProfileForkPage({
     await getEquipmentProfile(slug);
   //if (equipmentProfile?.owner?.id !== session?.user?.id)
   //return <Unauthorized returnUrl={`/profiles/equipment/${slug}`} />;
-  const forkedProfile: Omit<ExtendedEquipmentProfile, "id"> = {
+  const forkedProfile: EquipmentProfileInput = {
     ...equipmentProfile,
+    id: undefined,
     name: `${session?.user?.name}-${name}`,
     userId: session?.user?.id!,
-    forkedFrom: id,
+    forkedFrom: id ?? null,
   };
   return <EquipmentProfileForm profile={forkedProfile} />;
 }

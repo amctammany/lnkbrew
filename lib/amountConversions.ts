@@ -14,6 +14,7 @@ export type Converter<S = number, T = any> =
 export type MassConverter<T = MassValue> = (value: number) => T;
 export type AmountType =
   | "flow"
+  | "concentration"
   | "color"
   | "percent"
   | "time"
@@ -72,6 +73,10 @@ export const percentConverters: Record<string, Converter> = {
   "%": 100, // / 100,
 };
 
+export const concentrationConverters: Record<string, Converter> = {
+  ppm: 1, // / 100,
+  ppb: 1 / 1000,
+};
 export const flowConverters: Record<string, Converter> = {
   "gal/hr": 1,
   "gal/min": 1 / 60,
@@ -84,6 +89,7 @@ export type UnitTypes =
   | UserTemperaturePreference;
 export const rawConverters: Record<AmountType, any> = {
   flow: flowConverters,
+  concentration: concentrationConverters,
   color: colorConverters,
   time: timeConverters,
   mass: massConverters,
@@ -107,10 +113,12 @@ export const converters: Record<AmountType, any> = {
     temperatureConverters[type],
   gravity: (type: UserGravityPreference = "SG") => gravityConverters[type],
   percent: (v: number) => v * 100,
+  concentration: (v: number) => v * 1,
 };
 const conversionOptions: Record<AmountType, Record<string, string>> = {
   color: { ...UserColorPreference, L: "°L" },
   flow: { "gal/hr": "gal/hr", "l/min": "l/min" },
+  concentration: { ppm: "ppm", ppb: "ppb" },
   time: TimeUnit,
   mass: UserMassPreference,
   hopMass: UserMassPreference,
@@ -128,6 +136,7 @@ export function getConverterUnits(prefs: Partial<UserPreferences>) {
     color: prefs.colorUnit === "L" ? "°L" : prefs.colorUnit,
     flow: "gal/min",
     percent: "%",
+    concentration: "ppm",
     time: prefs.timeUnit,
     mass: prefs.hopMassUnit,
     hopMass: prefs.hopMassUnit,
@@ -140,6 +149,7 @@ export function getConverterUnits(prefs: Partial<UserPreferences>) {
 export function getConverters(prefs: Partial<UserPreferences>) {
   return {
     flow: (v: number) => v,
+    concentration: converters.concentration,
     color: converters.color(prefs.colorUnit),
     percent: converters.percent,
     time: converters.time(prefs.timeUnit),
