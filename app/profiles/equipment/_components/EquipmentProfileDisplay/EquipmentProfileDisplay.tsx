@@ -50,9 +50,6 @@ export const EquipmentProfileDisplay = ({
         <Prop label="Name">{profile?.name}</Prop>
         <Prop label="Owner">{profile?.owner?.name}</Prop>
         <Prop label="Description">{profile?.description}</Prop>
-        <Prop label="Batch Volume" unit="gal">
-          {profile?.batchVolume}
-        </Prop>
         <AmountProp
           label="Batch Volume"
           unitType="volume"
@@ -62,10 +59,11 @@ export const EquipmentProfileDisplay = ({
         <AmountProp label="Boil Time" unitType="time">
           {profile?.boilTime}
         </AmountProp>
-        <Prop
+        <AmountProp
           value={profile?.boilOffRate}
           label="Boil Off Rate"
-          unit="gal/hr"
+          unitType="flow"
+          //unit="gal/hr"
         />
         <AmountProp
           label="Trub Loss"
@@ -77,9 +75,11 @@ export const EquipmentProfileDisplay = ({
           unitType="volume"
           value={profile?.fermenterLoss}
         />
-        <AmountProp label="Mash Loss" unitType="volume">
-          {profile?.mashLoss}
-        </AmountProp>
+        <AmountProp
+          label="Mash Loss"
+          unitType="volume"
+          value={profile?.mashLoss}
+        />
         <AmountProp
           label="Mash Efficiency"
           unitType="percent"

@@ -9,7 +9,7 @@ import { MinimizeIcon } from "../Icon/MinimizeIcon";
 //import Link from "next/link";
 //import { usePathname } from "next/navigation";
 
-const containerStyles = cva(["absolute bg-slate-300 top-0 right-12"], {
+const containerStyles = cva(["absolute bg-slate-800 top-4 right-12"], {
   variants: {
     variant: {
       default: [],
@@ -29,7 +29,7 @@ const navCollapseStyles = cva(
   {
     variants: {
       variant: {
-        default: ["bg-slate-600 text-slate-900 hover:text-red-500 "],
+        default: ["text-slate-900 hover:text-red-500 "],
       },
       size: {
         small: ["p-0"],
