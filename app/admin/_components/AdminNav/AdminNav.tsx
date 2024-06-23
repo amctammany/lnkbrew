@@ -6,19 +6,16 @@ import NavLink from "@/components/Nav/NavLink";
 export type AdminNavProps = {};
 
 const Text: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  return <div className="font-extrabold ">{children}</div>;
+  return <span className="font-extrabold ">{children}</span>;
 };
 export async function AdminNav({}: AdminNavProps) {
   const session = await auth();
   const body = session ? (
-    <div>
-      <NavLink
-        className="flex font-extrabold py-2 px-4 mr-4"
-        href="/admin/dash/home"
-      >
-        <Text>Admin</Text>
+    <>
+      <NavLink className="font-extrabold" href="/admin/dash/home">
+        Admin
       </NavLink>
-    </div>
+    </>
   ) : (
     <div className="">
       <NavLink href="/admin/login">Sign In</NavLink>

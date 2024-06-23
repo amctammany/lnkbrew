@@ -32,5 +32,5 @@ export default function UserProvider({
     fermentableMassUnit: UserMassPreference.LbOz,
   };
   //const ctx: UserContextType = prefs;
-  return <UserContext.Provider value={prefs}>{children}</UserContext.Provider>;
+  return <UserContext value={prefs}>{children}</UserContext>;
 }

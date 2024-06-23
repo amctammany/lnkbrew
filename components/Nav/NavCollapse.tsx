@@ -9,7 +9,7 @@ import { MinimizeIcon } from "../Icon/MinimizeIcon";
 //import Link from "next/link";
 //import { usePathname } from "next/navigation";
 
-const containerStyles = cva([""], {
+const containerStyles = cva(["absolute bg-slate-300 top-0 right-12"], {
   variants: {
     variant: {
       default: [],
@@ -24,26 +24,29 @@ const containerStyles = cva([""], {
     open: "closed",
   },
 });
-const navCollapseStyles = cva(["sm:hidden group flex text-center font-bold "], {
-  variants: {
-    variant: {
-      default: ["bg-slate-600 text-slate-900 hover:text-red-500 "],
+const navCollapseStyles = cva(
+  ["sm:hidden group flex text-center font-bold relative"],
+  {
+    variants: {
+      variant: {
+        default: ["bg-slate-600 text-slate-900 hover:text-red-500 "],
+      },
+      size: {
+        small: ["p-0"],
+        default: ["py-2 px-1"],
+      },
+      open: {
+        open: [""],
+        closed: [],
+      },
     },
-    size: {
-      small: ["p-0"],
-      default: ["py-2 px-1"],
+    defaultVariants: {
+      variant: "default",
+      open: "closed",
+      size: "default",
     },
-    open: {
-      open: [""],
-      closed: [],
-    },
-  },
-  defaultVariants: {
-    variant: "default",
-    open: "closed",
-    size: "default",
-  },
-});
+  }
+);
 export type NavCollapseProps = VariantProps<typeof navCollapseStyles> & {
   children: React.ReactNode;
   className?: string;
