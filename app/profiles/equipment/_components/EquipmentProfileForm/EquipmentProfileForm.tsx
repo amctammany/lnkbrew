@@ -67,7 +67,7 @@ export const EquipmentProfileForm = ({
           <div className="col-span-3 md:col-span-6">
             <TextField {...register("description")} label="Description" />
           </div>
-          <div className="col-span-2 lg:col-span-6 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6">
+          <div className="col-span-3 lg:col-span-6 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6">
             <Controller
               name="batchVolume"
               control={control}
@@ -75,6 +75,7 @@ export const EquipmentProfileForm = ({
               render={({ field }) => (
                 <AmountField
                   //{...register("batchVolume")}
+                  className="flex-grow"
                   {...field}
                   value={field.value ?? 0}
                   label="Batch Volume"
