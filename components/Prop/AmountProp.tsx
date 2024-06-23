@@ -9,6 +9,7 @@ import {
   UnitTypes,
   getConverters,
   getConverterUnits,
+  rawConverters,
 } from "./amountConversions";
 import { UserContext } from "@/app/UserProvider";
 export type AmountPropProps = PropProps & {
@@ -27,8 +28,14 @@ export function AmountProp({
 }: AmountPropProps) {
   const userPrefs = useContext(UserContext);
   const converters = getConverters(userPrefs);
-  const converter = converters[unitType]; //unitType ? converters[unitType] : (v: any) => v;
-  const convertedValue = converter(value ?? children) ?? "error";
+  const converter = converters[unitType]; //[unit ?? Object.keys(converters[unitType])[0]]; //unitType ? converters[unitType] : (v: any) => v;
+  //console.log(converters, converter);
+
+  const convertedValue =
+    typeof converter === "function"
+      ? converter(value ?? children)
+      : (value ?? (children || "0")) * converter;
+  //console.log(converter);
   return (
     <Prop
       value={convertedValue.toFixed(precision)}

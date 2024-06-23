@@ -53,9 +53,11 @@ export const EquipmentProfileDisplay = ({
         <Prop label="Batch Volume" unit="gal">
           {profile?.batchVolume}
         </Prop>
-        <AmountProp label="Batch Volume" unitType="volume">
-          {profile?.batchVolume}
-        </AmountProp>
+        <AmountProp
+          label="Batch Volume"
+          unitType="volume"
+          value={profile?.batchVolume}
+        />
 
         <AmountProp label="Boil Time" unitType="time">
           {profile?.boilTime}

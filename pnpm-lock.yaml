@@ -10,13 +10,13 @@ importers:
     dependencies:
       '@auth/prisma-adapter':
         specifier: ^1.5.0
-        version: 1.5.0(@prisma/client@5.15.0(prisma@5.15.0))
+        version: 1.5.0(@prisma/client@5.15.1(prisma@5.15.0))
       '@heroicons/react':
         specifier: ^2.1.1
         version: 2.1.1(react@19.0.0-rc-fb9a90fa48-20240614)
       '@prisma/client':
-        specifier: ^5.15.0
-        version: 5.15.0(prisma@5.15.0)
+        specifier: ^5.15.1
+        version: 5.15.1(prisma@5.15.0)
       '@tanstack/match-sorter-utils':
         specifier: ^8.15.1
         version: 8.15.1
@@ -1338,8 +1338,8 @@ packages:
   '@polka/url@1.0.0-next.25':
     resolution: {integrity: sha512-j7P6Rgr3mmtdkeDGTe0E/aYyWEWVtc5yFXtHCRHs28/jptDEWfaVOc5T7cblqy1XKPPfCxJc/8DwQ5YgLOZOVQ==}
 
-  '@prisma/client@5.15.0':
-    resolution: {integrity: sha512-wPTeTjbd2Q0abOeffN7zCDCbkp9C9cF+e9HPiI64lmpehyq2TepgXE+sY7FXr7Rhbb21prLMnhXX27/E11V09w==}
+  '@prisma/client@5.15.1':
+    resolution: {integrity: sha512-fmZRGmsUJ9+VwC/AvfP/PwdpD0xAEyPvNsD9/B3+GYpETq9VejVRT3PiqNvl76q1uYYzNZeo8u/LmzzTetHSEg==}
     engines: {node: '>=16.13'}
     peerDependencies:
       prisma: '*'
@@ -6118,10 +6118,10 @@ snapshots:
       preact: 10.11.3
       preact-render-to-string: 5.2.3(preact@10.11.3)
 
-  '@auth/prisma-adapter@1.5.0(@prisma/client@5.15.0(prisma@5.15.0))':
+  '@auth/prisma-adapter@1.5.0(@prisma/client@5.15.1(prisma@5.15.0))':
     dependencies:
       '@auth/core': 0.28.0
-      '@prisma/client': 5.15.0(prisma@5.15.0)
+      '@prisma/client': 5.15.1(prisma@5.15.0)
     transitivePeerDependencies:
       - '@simplewebauthn/browser'
       - '@simplewebauthn/server'
@@ -7324,7 +7324,7 @@ snapshots:
 
   '@polka/url@1.0.0-next.25': {}
 
-  '@prisma/client@5.15.0(prisma@5.15.0)':
+  '@prisma/client@5.15.1(prisma@5.15.0)':
     optionalDependencies:
       prisma: 5.15.0
 

@@ -1,6 +1,11 @@
 "use client";
 import { Form, Submit, TextArea, TextField } from "@/components/Form";
-import { SubmitHandler, useFieldArray, useForm } from "react-hook-form";
+import {
+  Controller,
+  SubmitHandler,
+  useFieldArray,
+  useForm,
+} from "react-hook-form";
 import {
   createEquipmentProfile,
   updateEquipmentProfile,
@@ -63,56 +68,107 @@ export const EquipmentProfileForm = ({
             <TextField {...register("description")} label="Description" />
           </div>
           <div className="col-span-2 lg:col-span-6 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6">
-            <AmountField
-              {...register("batchVolume")}
-              label="Batch Volume"
-              amountType="volume"
-              //amount
-              //amountTypes={UserVolumePreference}
-              step={0.01}
+            <Controller
+              name="batchVolume"
+              control={control}
+              defaultValue={0}
+              render={({ field }) => (
+                <AmountField
+                  //{...register("batchVolume")}
+                  {...field}
+                  value={field.value ?? 0}
+                  label="Batch Volume"
+                  amountType="volume"
+                  //amount
+                  //amountTypes={UserVolumePreference}
+                  step={0.01}
+                />
+              )}
             />
-            <AmountField
-              {...register("boilTime")}
-              label="Boil Time"
-              amountType="time"
-              step={1}
+            <Controller
+              name="boilTime"
+              control={control}
+              defaultValue={0}
+              render={({ field }) => (
+                <AmountField
+                  //{...register("batchVolume")}
+                  {...field}
+                  value={field.value ?? 0}
+                  label="Boil Time"
+                  amountType="time"
+                  //amount
+                  //amountTypes={UserVolumePreference}
+                  step={1}
+                />
+              )}
             />
-            <AmountField
-              {...register("boilOffRate")}
-              label="Boil Off Rate"
-              amountType="flow"
-              step={0.01}
+            <Controller
+              name="boilOffRate"
+              control={control}
+              defaultValue={0}
+              render={({ field }) => (
+                <AmountField
+                  //{...register("batchVolume")}
+                  {...field}
+                  value={field.value ?? 0}
+                  label="Boil Off Rate"
+                  amountType="flow"
+                  //amount
+                  //amountTypes={UserVolumePreference}
+                  step={0.01}
+                />
+              )}
             />
-
-            <AmountField
-              {...register("brewEfficiency")}
-              label="Brew Efficiency"
-              amountType="percent"
-              step={0.01}
+            <Controller
+              name="trubLoss"
+              control={control}
+              defaultValue={0}
+              render={({ field }) => (
+                <AmountField
+                  {...field}
+                  value={field.value ?? 0}
+                  label="Trub Loss"
+                  amountType="volume"
+                  step={0.01}
+                  //amount
+                  //amountTypes={UserVolumePreference}
+                  //step={0.01}
+                />
+              )}
             />
-            <AmountField
-              {...register("mashEfficiency")}
-              label="Mash Efficiency"
-              amountType="percent"
-              step={0.01}
+            <Controller
+              name="fermenterLoss"
+              control={control}
+              defaultValue={0}
+              render={({ field }) => (
+                <AmountField
+                  {...field}
+                  value={field.value ?? 0}
+                  label="Fermenter Loss"
+                  amountType="volume"
+                  step={0.01}
+                  //amount
+                  //amountTypes={UserVolumePreference}
+                  //step={0.01}
+                />
+              )}
             />
-            <AmountField
-              {...register("trubLoss")}
-              label="Trub Loss"
-              amountType="volume"
-              step={0.01}
-            />
-            <AmountField
-              {...register("fermenterLoss")}
-              label="Fermenter Loss"
-              amountType="volume"
-              step={0.01}
-            />
-            <AmountField
-              {...register("mashLoss")}
-              label="Mash Loss"
-              amountType="volume"
-              step={0.01}
+            <Controller
+              name="mashLoss"
+              control={control}
+              defaultValue={0}
+              render={({ field }) => (
+                <AmountField
+                  //{...register("batchVolume")}
+                  {...field}
+                  value={field.value ?? 0}
+                  label="Mass Loss"
+                  amountType="volume"
+                  //amount
+                  //amountTypes={UserVolumePreference}
+                  step={0.01}
+                />
+              )}
             />
           </div>
         </div>

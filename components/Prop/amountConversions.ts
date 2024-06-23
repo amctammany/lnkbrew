@@ -8,7 +8,9 @@ import {
   UserVolumePreference,
 } from "@prisma/client";
 import { AmountType } from "../Form/AmtField";
-export type Converter<T = any> = (value: number) => T;
+export type Converter<S = number, T = any> =
+  | [(value: S) => T, (value: S) => T]
+  | S;
 export type MassConverter<T = MassValue> = (value: number) => T;
 export type AmountType =
   | "flow"
@@ -26,57 +28,84 @@ const gramToOunce: MassConverter<number> = (v) => v * 0.035274;
 type MassValue = number | [number, number];
 export const massConverters: Record<
   UserMassPreference,
-  (value: number) => MassValue
+  Converter<MassValue>
 > = {
-  g: (value) => value,
-  Kg: (v) => v / 1000,
-  Lb: (v) => v / 454,
-  LbOz: (v) => [Math.floor(v / 454), gramToOunce(v % 454)],
-  Oz: gramToOunce,
+  g: 1, //(value) => value,
+  Kg: 1 / 1000, //(v) => v / 1000,
+  Lb: 1 / 454, //(v) => v / 454,
+  LbOz: [
+    (v) => (Array.isArray(v) ? v : [Math.floor(v / 454), gramToOunce(v % 454)]),
+    (v) => (Array.isArray(v) ? v : [Math.floor(v / 454), gramToOunce(v % 454)]),
+  ],
+  Oz: 0.035274, //gramToOunce,
 };
 export const volumeConverters: Record<UserVolumePreference, Converter> = {
-  L: (v) => v,
-  gal: (v) => v * 0.264172,
-  bbl: (v) => v * 0.008522,
+  L: 1, //(v) => v,
+  gal: 0.264172, //(v) => v * 0.264172,
+  bbl: 0.008522, //(v) => v * 0.008522,
 };
 export const temperatureConverters: Record<
   UserTemperaturePreference,
   Converter
 > = {
-  F: (v) => v,
-  C: (v) => (v - 32) * (5 / 9),
+  F: 1,
+  C: [(v) => (v - 32) * (5 / 9), (v) => (9 / 5) * v + 32],
 };
 export const timeConverters: Record<TimeUnit, Converter> = {
-  min: (v) => v,
-  hr: (v) => v / 60,
-  day: (v) => v / (60 * 24),
+  min: 1, //(v) => v,
+  hr: 1 / 60, //(v) => v / 60,
+  day: 1 / (60 * 24), //(v) => v / (60 * 24),
 };
 
 export const gravityConverters: Record<UserGravityPreference, Converter> = {
-  P: (v) => v,
-  SG: (v) => 1 + v / (258.6 - (v / 258.2) * 227.1),
+  P: 1,
+  SG: [
+    (v) => 1 + v / (258.6 - (v / 258.2) * 227.1),
+    (v) => 1 + v / (258.6 - (v / 258.2) * 227.1),
+  ],
 };
 export const colorConverters: Record<UserColorPreference, Converter> = {
-  L: (v) => v,
-  SRM: (v) => v * 1.35 - 0.6,
+  L: 1,
+  SRM: [(v) => v * 1.35 - 0.6, (v) => (v + 0.6) / 1.35],
+};
+export const percentConverters: Record<string, Converter> = {
+  "%": 1,
 };
 
+export const flowConverters: Record<string, Converter> = {
+  "gal/hr": 1,
+  "gal/min": 1 / 60,
+};
 export type UnitTypes =
   | UserColorPreference
   | UserMassPreference
   | UserVolumePreference
   | UserGravityPreference
   | UserTemperaturePreference;
+export const rawConverters: Record<AmountType, any> = {
+  flow: flowConverters,
+  color: colorConverters,
+  time: timeConverters,
+  mass: massConverters,
+  hopMass: massConverters,
+  fermentableMass: massConverters,
+  volume: volumeConverters,
+  temperature: temperatureConverters,
+  gravity: gravityConverters,
+  percent: percentConverters,
+};
+
 export const converters: Record<AmountType, any> = {
   flow: () => (v: number) => v,
-  color: (type: UserColorPreference) => colorConverters[type],
-  time: (type: TimeUnit) => timeConverters[type],
-  mass: (type: UserMassPreference) => massConverters[type],
-  hopMass: (type: UserMassPreference) => massConverters[type],
-  fermentableMass: (type: UserMassPreference) => massConverters[type],
-  volume: (type: UserVolumePreference) => volumeConverters[type],
-  temperature: (type: UserTemperaturePreference) => temperatureConverters[type],
-  gravity: (type: UserGravityPreference) => gravityConverters[type],
+  color: (type: UserColorPreference = "L") => colorConverters[type],
+  time: (type: TimeUnit = "min") => timeConverters[type],
+  mass: (type: UserMassPreference = "LbOz") => massConverters[type],
+  hopMass: (type: UserMassPreference = "Oz") => massConverters[type],
+  fermentableMass: (type: UserMassPreference = "LbOz") => massConverters[type],
+  volume: (type: UserVolumePreference = "gal") => volumeConverters[type],
+  temperature: (type: UserTemperaturePreference = "F") =>
+    temperatureConverters[type],
+  gravity: (type: UserGravityPreference = "SG") => gravityConverters[type],
   percent: (v: number) => 100 * v,
 };
 const conversionOptions: Record<AmountType, Record<string, string>> = {

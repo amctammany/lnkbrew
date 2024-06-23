@@ -2,11 +2,15 @@ import clsx from "clsx";
 import {
   UnitTypes,
   AmountType as _AmountType,
+  converters,
   getConversionOptions,
+  getConverters,
+  rawConverters,
 } from "../Prop/amountConversions";
 import { Input, InputProps, inputStyles } from "./Input";
 import { Label } from "./Label";
 import { ChangeEventHandler, ComponentProps, useState } from "react";
+import { ControllerRenderProps } from "react-hook-form";
 
 export type AmountTypeProps = ComponentProps<"select"> & {
   options?: [k: string, v: any][];
@@ -33,7 +37,8 @@ function AmountType({ type, options, ...props }: AmountTypeProps) {
 export type AmountField1Props = {
   amountType: _AmountType;
   amountUnit?: UnitTypes;
-} & InputProps;
+} & InputProps &
+  ControllerRenderProps;
 export const AmountField1 = ({
   className,
   disabled,
@@ -48,37 +53,42 @@ export const AmountField1 = ({
   value,
 
   ref,
+  onChange,
   ...props
 }: AmountField1Props) => {
-  console.log({ value, amountType, amountUnit });
   const [baseValue, setBaseValue] = useState<number>(value);
   const [currentUnit, setCurrentUnit] = useState<UnitTypes>(
     amountUnit ?? (getConversionOptions(amountType)[0][1] as UnitTypes)
   );
-  const [currentAmount, setCurrentAmount] = useState<number>(value);
+  const [currentAmount, setCurrentAmount] = useState<number>(
+    rawConverters[amountType][currentUnit] * value
+  );
   const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-    setCurrentAmount(parseFloat(e.currentTarget.value));
+    const amt = parseFloat(e.currentTarget.value);
+    setCurrentAmount(amt);
+    //console.log(rawConverters[amountType]);
+    const convertedValue = rawConverters[amountType][currentUnit] * amt;
+    setBaseValue(convertedValue);
+    onChange(convertedValue);
   };
 
   const handleSelect: ChangeEventHandler<HTMLSelectElement> = (e) => {
-    setCurrentUnit(e.currentTarget.value as UnitTypes);
+    const unit = e.currentTarget.value as UnitTypes;
+    setCurrentUnit(unit);
+    const convertedValue = currentAmount / rawConverters[amountType][unit];
+    setBaseValue(convertedValue);
+    onChange(convertedValue);
   };
-  const changeHidden: ChangeEventHandler<HTMLInputElement> = (e) =>
-    console.log(e);
+  //console.log({ baseValue, value, currentAmount, amountType, currentUnit });
   return (
     <Label className={clsx("", className)} label={label || name}>
-      <span>
-        {currentAmount} {currentUnit}
-        {baseValue}
-      </span>
-
       <div className={clsx("flex", className)}>
         <input
           type="hidden"
           name={name}
-          value={baseValue}
+          value={value}
           ref={ref}
-          onChange={changeHidden}
+          //onChange={changeHidden}
         />
         <input
           disabled={disabled || false}
