@@ -54,7 +54,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
         size,
       })}
       //className="block w-full disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none"
-      type="text"
+      type={props.type ?? "text"}
       name={name}
       onChange={onChange}
       onBlur={onBlur}

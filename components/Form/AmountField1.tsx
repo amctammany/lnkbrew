@@ -50,6 +50,7 @@ export const AmountField1 = ({
   ref,
   ...props
 }: AmountField1Props) => {
+  console.log({ value, amountType, amountUnit });
   const [baseValue, setBaseValue] = useState<number>(value);
   const [currentUnit, setCurrentUnit] = useState<UnitTypes>(
     amountUnit ?? (getConversionOptions(amountType)[0][1] as UnitTypes)
@@ -62,6 +63,8 @@ export const AmountField1 = ({
   const handleSelect: ChangeEventHandler<HTMLSelectElement> = (e) => {
     setCurrentUnit(e.currentTarget.value as UnitTypes);
   };
+  const changeHidden: ChangeEventHandler<HTMLInputElement> = (e) =>
+    console.log(e);
   return (
     <Label className={clsx("", className)} label={label || name}>
       <span>
@@ -70,7 +73,13 @@ export const AmountField1 = ({
       </span>
 
       <div className={clsx("flex", className)}>
-        <input type="hidden" name={name} value={baseValue} ref={ref} />
+        <input
+          type="hidden"
+          name={name}
+          value={baseValue}
+          ref={ref}
+          onChange={changeHidden}
+        />
         <input
           disabled={disabled || false}
           className={inputStyles({
@@ -80,8 +89,8 @@ export const AmountField1 = ({
           type="number"
           step={step || 1}
           //name={name}
+          //ref={ref}
           {...props}
-          //defaultValue={defaultValue}
           onChange={handleChange}
           //onBlur={onBlur}
           value={currentAmount}
