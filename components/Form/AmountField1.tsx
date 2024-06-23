@@ -6,7 +6,7 @@ import {
   getConversionOptions,
   getConverters,
   rawConverters,
-} from "../Prop/amountConversions";
+} from "@/lib/amountConversions";
 import { Input, InputProps, inputStyles } from "./Input";
 import { Label } from "./Label";
 import { ChangeEventHandler, ComponentProps, useState } from "react";
@@ -56,7 +56,7 @@ export const AmountField1 = ({
   onChange,
   ...props
 }: AmountField1Props) => {
-  const [baseValue, setBaseValue] = useState<number>(value);
+  //const [baseValue, setBaseValue] = useState<number>(value);
   const [currentUnit, setCurrentUnit] = useState<UnitTypes>(
     amountUnit ?? (getConversionOptions(amountType)[0][1] as UnitTypes)
   );
@@ -68,7 +68,7 @@ export const AmountField1 = ({
     setCurrentAmount(amt);
     //console.log(rawConverters[amountType]);
     const convertedValue = amt / rawConverters[amountType][currentUnit]; //* amt;
-    setBaseValue(convertedValue);
+    //setBaseValue(convertedValue);
     onChange(convertedValue);
   };
 
@@ -76,7 +76,7 @@ export const AmountField1 = ({
     const unit = e.currentTarget.value as UnitTypes;
     setCurrentUnit(unit);
     const convertedValue = currentAmount / rawConverters[amountType][unit];
-    setBaseValue(convertedValue);
+    //setBaseValue(convertedValue);
     onChange(convertedValue);
   };
   //console.log({ baseValue, value, currentAmount, amountType, currentUnit });

@@ -10,7 +10,7 @@ import {
   getConverters,
   getConverterUnits,
   rawConverters,
-} from "./amountConversions";
+} from "@/lib//amountConversions";
 import { UserContext } from "@/app/UserProvider";
 export type AmountPropProps = PropProps & {
   value?: any;
