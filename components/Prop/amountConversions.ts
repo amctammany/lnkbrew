@@ -69,7 +69,7 @@ export const colorConverters: Record<UserColorPreference, Converter> = {
   SRM: [(v) => v * 1.35 - 0.6, (v) => (v + 0.6) / 1.35],
 };
 export const percentConverters: Record<string, Converter> = {
-  "%": 1,
+  "%": 100, // / 100,
 };
 
 export const flowConverters: Record<string, Converter> = {
@@ -106,7 +106,7 @@ export const converters: Record<AmountType, any> = {
   temperature: (type: UserTemperaturePreference = "F") =>
     temperatureConverters[type],
   gravity: (type: UserGravityPreference = "SG") => gravityConverters[type],
-  percent: (v: number) => 100 * v,
+  percent: (v: number) => v * 100,
 };
 const conversionOptions: Record<AmountType, Record<string, string>> = {
   color: { ...UserColorPreference, L: "°L" },

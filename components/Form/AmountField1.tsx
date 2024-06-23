@@ -67,7 +67,7 @@ export const AmountField1 = ({
     const amt = parseFloat(e.currentTarget.value);
     setCurrentAmount(amt);
     //console.log(rawConverters[amountType]);
-    const convertedValue = rawConverters[amountType][currentUnit] * amt;
+    const convertedValue = amt / rawConverters[amountType][currentUnit]; //* amt;
     setBaseValue(convertedValue);
     onChange(convertedValue);
   };

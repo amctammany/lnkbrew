@@ -170,6 +170,40 @@ export const EquipmentProfileForm = ({
                 />
               )}
             />
+            <Controller
+              name="mashEfficiency"
+              control={control}
+              defaultValue={0}
+              render={({ field }) => (
+                <AmountField
+                  //{...register("batchVolume")}
+                  {...field}
+                  value={field.value ?? 0}
+                  label="Mass Efficiency"
+                  amountType="percent"
+                  //amount
+                  //amountTypes={UserVolumePreference}
+                  step={0.01}
+                />
+              )}
+            />
+            <Controller
+              name="brewEfficiency"
+              control={control}
+              defaultValue={0}
+              render={({ field }) => (
+                <AmountField
+                  //{...register("batchVolume")}
+                  {...field}
+                  value={field.value ?? 0}
+                  label="Brew Efficiency"
+                  amountType="percent"
+                  //amount
+                  //amountTypes={UserVolumePreference}
+                  step={1}
+                />
+              )}
+            />
           </div>
         </div>
         <Toolbar>
