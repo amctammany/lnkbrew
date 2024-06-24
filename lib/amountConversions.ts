@@ -17,13 +17,15 @@ export type AmountType =
   | "concentration"
   | "color"
   | "percent"
+  | "percentage"
   | "time"
   | "mass"
   | "hopMass"
   | "fermentableMass"
   | "volume"
   | "temperature"
-  | "gravity";
+  | "gravity"
+  | "unit";
 const gramToOunce: MassConverter<number> = (v) => v * 0.035274;
 
 type MassValue = number | [number, number];
@@ -70,7 +72,10 @@ export const colorConverters: Record<UserColorPreference, Converter> = {
   SRM: [(v) => v * 1.35 - 0.6, (v) => (v + 0.6) / 1.35],
 };
 export const percentConverters: Record<string, Converter> = {
-  "%": 100, // / 100,
+  "%": 1 / 100,
+};
+export const percentageConverters: Record<string, Converter> = {
+  "%": 1,
 };
 
 export const concentrationConverters: Record<string, Converter> = {
@@ -86,8 +91,12 @@ export type UnitTypes =
   | UserMassPreference
   | UserVolumePreference
   | UserGravityPreference
-  | UserTemperaturePreference;
+  | UserTemperaturePreference
+  | "°Lintner"
+  | "PPG"
+  | "g/mL";
 export const rawConverters: Record<AmountType, any> = {
+  unit: { unit: 1 },
   flow: flowConverters,
   concentration: concentrationConverters,
   color: colorConverters,
@@ -99,9 +108,11 @@ export const rawConverters: Record<AmountType, any> = {
   temperature: temperatureConverters,
   gravity: gravityConverters,
   percent: percentConverters,
+  percentage: percentageConverters,
 };
 
 export const converters: Record<AmountType, any> = {
+  unit: () => (v: number) => v,
   flow: () => (v: number) => v,
   color: (type: UserColorPreference = "L") => colorConverters[type],
   time: (type: TimeUnit = "min") => timeConverters[type],
@@ -113,9 +124,11 @@ export const converters: Record<AmountType, any> = {
     temperatureConverters[type],
   gravity: (type: UserGravityPreference = "SG") => gravityConverters[type],
   percent: (v: number) => v * 100,
+  percentage: (v: number) => v * 1,
   concentration: (v: number) => v * 1,
 };
 const conversionOptions: Record<AmountType, Record<string, string>> = {
+  unit: {},
   color: { ...UserColorPreference, L: "°L" },
   flow: { "gal/hr": "gal/hr", "l/min": "l/min" },
   concentration: { ppm: "ppm", ppb: "ppb" },
@@ -127,6 +140,7 @@ const conversionOptions: Record<AmountType, Record<string, string>> = {
   gravity: UserGravityPreference,
   temperature: UserTemperaturePreference,
   percent: { "%": "%" },
+  percentage: { "%": "%" },
 };
 export function getConversionOptions(amountType: AmountType) {
   return Object.entries(conversionOptions[amountType]);
@@ -134,8 +148,10 @@ export function getConversionOptions(amountType: AmountType) {
 export function getConverterUnits(prefs: Partial<UserPreferences>) {
   return {
     color: prefs.colorUnit === "L" ? "°L" : prefs.colorUnit,
+    unit: undefined,
     flow: "gal/min",
     percent: "%",
+    percentage: "%",
     concentration: "ppm",
     time: prefs.timeUnit,
     mass: prefs.hopMassUnit,
@@ -148,10 +164,12 @@ export function getConverterUnits(prefs: Partial<UserPreferences>) {
 }
 export function getConverters(prefs: Partial<UserPreferences>) {
   return {
+    unit: (v: number) => v,
     flow: (v: number) => v,
     concentration: converters.concentration,
     color: converters.color(prefs.colorUnit),
     percent: converters.percent,
+    percentage: converters.percentage,
     time: converters.time(prefs.timeUnit),
     mass: converters.mass(prefs.hopMassUnit),
     hopMass: converters.mass(prefs.hopMassUnit),

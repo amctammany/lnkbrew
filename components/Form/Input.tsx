@@ -11,7 +11,7 @@ export type InputProps = {
   //onChange?: (e: SyntheticEvent) => void;
   //onBlur?: (e: SyntheticEvent) => void;
   value?: any;
-  ref: any;
+  ref?: any;
 } & VariantProps<typeof inputStyles> &
   ComponentProps<"input">;
 export const inputStyles = cva(

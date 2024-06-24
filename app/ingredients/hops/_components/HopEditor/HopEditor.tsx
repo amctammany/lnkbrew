@@ -11,14 +11,14 @@ import { SaveIcon } from "@/components/Icon/SaveIcon";
 import { Section } from "@/components/Section";
 import { Toolbar } from "@/components/Toolbar";
 import { Hop, HopUsage } from "@prisma/client";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 
 export type HopEditorProps = {
   hop: Hop | null;
   action?: (formData: FormData) => void;
 };
 export function HopEditor({ hop, action }: HopEditorProps) {
-  const { register } = useForm<Hop>({
+  const { register, control } = useForm<Hop>({
     defaultValues: hop || {},
   });
 
@@ -43,15 +43,133 @@ export function HopEditor({ hop, action }: HopEditorProps) {
           <TextArea rows={3} label="Notes" {...register("notes")} />
 
           <div className="grid gap-4 grid-cols-2 md:grid-cols-4">
-            <AmountField
-              step={0.01}
-              min={0}
-              max={35}
-              amountType="%"
-              label="Alpha Acids"
-              {...register("alpha", { valueAsNumber: true })}
+            <Controller
+              name="alpha"
+              control={control}
+              defaultValue={0}
+              render={({ field }) => (
+                <AmountField
+                  {...field}
+                  value={field.value ?? 0}
+                  label="Alpha Acids"
+                  amountType="percentage"
+                  step={0.01}
+                />
+              )}
             />
-            <AmountField
+            <Controller
+              name="beta"
+              control={control}
+              defaultValue={0}
+              render={({ field }) => (
+                <AmountField
+                  {...field}
+                  value={field.value ?? 0}
+                  label="Beta Acids"
+                  amountType="percentage"
+                  step={0.01}
+                />
+              )}
+            />
+
+            <Controller
+              name="cohumulone"
+              control={control}
+              defaultValue={0}
+              render={({ field }) => (
+                <AmountField
+                  {...field}
+                  value={field.value ?? 0}
+                  label="Cohumulone"
+                  amountType="percentage"
+                  step={0.01}
+                />
+              )}
+            />
+
+            <Controller
+              name="caryophyllene"
+              control={control}
+              defaultValue={0}
+              render={({ field }) => (
+                <AmountField
+                  {...field}
+                  value={field.value ?? 0}
+                  label="Caryophyllene"
+                  amountType="percentage"
+                  step={0.01}
+                />
+              )}
+            />
+
+            <Controller
+              name="farnesene"
+              control={control}
+              defaultValue={0}
+              render={({ field }) => (
+                <AmountField
+                  {...field}
+                  value={field.value ?? 0}
+                  label="Farnesene"
+                  amountType="percentage"
+                  step={0.01}
+                />
+              )}
+            />
+
+            <Controller
+              name="humulene"
+              control={control}
+              defaultValue={0}
+              render={({ field }) => (
+                <AmountField
+                  {...field}
+                  value={field.value ?? 0}
+                  label="Humulene"
+                  amountType="percentage"
+                  step={0.01}
+                />
+              )}
+            />
+
+            <Controller
+              name="myrcene"
+              control={control}
+              defaultValue={0}
+              render={({ field }) => (
+                <AmountField
+                  {...field}
+                  value={field.value ?? 0}
+                  label="Myrcene"
+                  amountType="percentage"
+                  step={0.01}
+                />
+              )}
+            />
+            <Controller
+              name="totalOil"
+              control={control}
+              defaultValue={0}
+              render={({ field }) => (
+                <AmountField
+                  {...field}
+                  value={field.value ?? 0}
+                  label="Total Oils"
+                  amountType="unit"
+                  amountUnit="g/mL"
+                  step={0.01}
+                />
+              )}
+            />
+          </div>
+        </div>
+      </Section>
+    </Form>
+  );
+}
+
+export default HopEditor;
+/**            <AmountField
               step={0.01}
               min={0}
               max={35}
@@ -107,11 +225,4 @@ export function HopEditor({ hop, action }: HopEditorProps) {
               label="Total Oils"
               {...register("totalOil", { valueAsNumber: true })}
             />
-          </div>
-        </div>
-      </Section>
-    </Form>
-  );
-}
-
-export default HopEditor;
+ */

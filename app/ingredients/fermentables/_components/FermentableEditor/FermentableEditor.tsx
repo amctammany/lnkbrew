@@ -15,18 +15,7 @@ export function FermentableEditor({
   action,
   fermentable,
 }: FermentableEditorProps) {
-  const {
-    register,
-    control,
-    control,
-    control,
-    control,
-    control,
-    control,
-    control,
-    control,
-    control,
-  } = useForm<Fermentable>({
+  const { register, control } = useForm<Fermentable>({
     defaultValues: fermentable || {},
   });
 
@@ -74,33 +63,41 @@ export function FermentableEditor({
                   {...field}
                   value={field.value ?? 0}
                   label="Power"
-                  amountType="color"
+                  amountType="unit"
+                  amountUnit="°Lintner"
                   //amount
                   //amountTypes={UserVolumePreference}
                   step={0.01}
                 />
               )}
             />
-            <AmountField
-              step={1}
-              amountType="°Lintner"
-              label="Power"
-              {...register("power")}
-            />
 
             <Controller
-              name="color"
+              name="potential"
               control={control}
               defaultValue={0}
               render={({ field }) => (
                 <AmountField
-                  //{...register("batchVolume")}
                   {...field}
                   value={field.value ?? 0}
-                  label="Color"
-                  amountType="color"
-                  //amount
-                  //amountTypes={UserVolumePreference}
+                  label="Potential"
+                  amountType="unit"
+                  amountUnit="PPG"
+                  step={0.01}
+                />
+              )}
+            />
+
+            <Controller
+              name="maxUsage"
+              control={control}
+              defaultValue={0}
+              render={({ field }) => (
+                <AmountField
+                  {...field}
+                  value={field.value ?? 0}
+                  label="Max Usage"
+                  amountType="percent"
                   step={0.01}
                 />
               )}

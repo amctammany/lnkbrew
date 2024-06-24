@@ -11,6 +11,26 @@ import { Input, InputProps, inputStyles } from "./Input";
 import { Label } from "./Label";
 import { ChangeEventHandler, ComponentProps, useState } from "react";
 import { ControllerRenderProps } from "react-hook-form";
+import { cva } from "class-variance-authority";
+
+export const amountFieldStyles = cva("input", {
+  variants: {
+    variant: {
+      default: [
+        "block",
+        "disabled:bg-slate-50",
+        "disabled:text-slate-500",
+        "disabled:border-slate-200",
+        "disabled:shadow-none",
+      ],
+      error: ["bg-error-200"],
+    },
+    size: {
+      default: ["w-full"],
+    },
+  },
+  defaultVariants: { size: "default", variant: "default" },
+});
 
 export type AmountTypeProps = ComponentProps<"select"> & {
   options?: [k: string, v: any][];
@@ -18,8 +38,8 @@ export type AmountTypeProps = ComponentProps<"select"> & {
   name?: string;
 };
 
-function AmountType({ type, options, ...props }: AmountTypeProps) {
-  return options?.length! > 0 ? (
+function AmountType({ type, value, options, ...props }: AmountTypeProps) {
+  return options?.length! > 1 ? (
     <select {...props} onSelect={props.onChange}>
       {options?.map(([k, v]) => (
         <option key={k} value={v}>
@@ -29,7 +49,9 @@ function AmountType({ type, options, ...props }: AmountTypeProps) {
     </select>
   ) : (
     <div className="grid h-full border border-black border-l-0 text-center align-middle justify-center">
-      <span className="my-auto block text-sm px-2 font-bold">{type}</span>
+      <span className="my-auto block text-sm px-2 font-bold">
+        {options?.length === 1 ? options[0][0] : value}
+      </span>
     </div>
   );
 }
@@ -38,7 +60,7 @@ export type AmountFieldProps = {
   amountType: _AmountType;
   amountUnit?: UnitTypes;
 } & InputProps &
-  ControllerRenderProps;
+  Partial<ControllerRenderProps>;
 export const AmountField = ({
   className,
   disabled,
@@ -61,7 +83,7 @@ export const AmountField = ({
     amountUnit ?? (getConversionOptions(amountType)[0][1] as UnitTypes)
   );
   const [currentAmount, setCurrentAmount] = useState<number>(
-    rawConverters[amountType][currentUnit] * value
+    (rawConverters[amountType][currentUnit] ?? 1) * value
   );
   const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     const amt = parseFloat(e.currentTarget.value);
@@ -69,7 +91,7 @@ export const AmountField = ({
     //console.log(rawConverters[amountType]);
     const convertedValue = amt / rawConverters[amountType][currentUnit]; //* amt;
     //setBaseValue(convertedValue);
-    onChange(convertedValue);
+    onChange?.(convertedValue);
   };
 
   const handleSelect: ChangeEventHandler<HTMLSelectElement> = (e) => {
@@ -77,7 +99,7 @@ export const AmountField = ({
     setCurrentUnit(unit);
     const convertedValue = currentAmount / rawConverters[amountType][unit];
     //setBaseValue(convertedValue);
-    onChange(convertedValue);
+    onChange?.(convertedValue);
   };
   //console.log({ baseValue, value, currentAmount, amountType, currentUnit });
   return (

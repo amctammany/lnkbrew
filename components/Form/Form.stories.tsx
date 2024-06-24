@@ -76,7 +76,7 @@ export const Primary: Story = {
       <>
         <TextArea name="description" />
         <NumberField name="age" />
-        <AmountField name="amt" />
+        <AmountField name="amt" amountType="volume" />
         <Submit />
       </>
     ),
