@@ -21,6 +21,7 @@ import { Section } from "@/components/Section";
 import { EquipmentProfileIcon } from "@/components/Icon/EquipmentProfileIcon";
 import { SaveIcon } from "@/components/Icon/SaveIcon";
 import { ExtendedEquipmentProfile } from "@/types/Profile";
+import { useFormState } from "react-dom";
 type EquipmentProfileInput = any;
 
 export type EquipmentProfileFormProps = {
@@ -34,11 +35,13 @@ export const EquipmentProfileForm = ({
   });
   const action = profile?.id ? updateEquipmentProfile : createEquipmentProfile;
 
-  const onSubmit = async (data: FormData) => {
-    const valid = await trigger();
-    if (!valid) return;
-    return action(data);
-  };
+  const [state, formAction] = useFormState<any, FormData>(action, {});
+  console.log(state);
+  //const onSubmit = async (data: FormData) => {
+  //const valid = await trigger();
+  //if (!valid) return;
+  //return action(data);
+  //};
   /**
    <Toolbar variant="topbar" title={profile?.name ?? "New EquipmentProfile"}>
         <IconButton type="submit" iconType="EditIcon">
@@ -48,7 +51,7 @@ export const EquipmentProfileForm = ({
 *
    */
   return (
-    <Form action={onSubmit}>
+    <Form action={formAction}>
       <Section
         icon="EquipmentProfileIcon"
         header={profile?.name ?? "New EquipmentProfile"}
@@ -181,6 +184,7 @@ export const EquipmentProfileForm = ({
                   //{...register("batchVolume")}
                   {...field}
                   value={field.value ?? 0}
+                  error={state.errors?.mashEfficiency}
                   label="Mass Efficiency"
                   amountType="percent"
                   //amount

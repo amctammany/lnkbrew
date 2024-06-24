@@ -1,8 +1,9 @@
 "use server";
 import { prisma } from "@/lib/client";
+import { SchemaFieldError, validateSchema } from "@/lib/validateSchema";
 import { redirect } from "next/navigation";
 import slugify from "slugify";
-import { z } from "zod";
+import { ZodError, ZodIssue, z } from "zod";
 import { zfd } from "zod-form-data";
 const equipmentSchema = zfd.formData({
   id: zfd.numeric(z.number().optional()),
@@ -20,28 +21,57 @@ const equipmentSchema = zfd.formData({
   brewEfficiency: zfd.numeric(z.number().min(0).max(1).optional()),
 });
 
-export const createEquipmentProfile = async (formData: FormData) => {
-  const { id, forkedFrom, userId, ...data } = equipmentSchema.parse(formData);
-  const res = await prisma.equipmentProfile.create({
-    data: {
-      ...data,
-      slug: slugify(data.name, { lower: true }),
-      origin: {
-        connect: { id: forkedFrom ?? undefined },
+export const createEquipmentProfile = async (
+  prevState: any,
+  formData: FormData
+) => {
+  try {
+    const v = validateSchema(formData, equipmentSchema);
+    if (v.errors) return v;
+    //const valid = equipmentSchema.parse(formData);
+    //console.log(valid);
+    //if (!valid.success) {
+    //return valid.error;
+    //}
+    const { id, forkedFrom, userId, ...data } = v; // equipmentSchema.parse(formData);
+    const res = await prisma.equipmentProfile.create({
+      data: {
+        ...data,
+        slug: slugify(data.name, { lower: true }),
+        origin: {
+          connect: { id: forkedFrom ?? undefined },
+        },
+        owner: {
+          connect: { id: userId ?? "" },
+        },
       },
-      owner: {
-        connect: { id: userId ?? "" },
+      include: {
+        origin: true,
+        owner: true,
       },
-    },
-    include: {
-      origin: true,
-      owner: true,
-    },
-  });
-  redirect(`/profiles/equipment/${res.slug}`);
+    });
+    redirect(`/profiles/equipment/${res.slug}`);
+  } catch (e) {
+    const f = e as ZodError;
+    return {
+      //errors: validatedFields.error.flatten().fieldErrors
+      errors: f.issues.reduce(
+        (acc, issue) => {
+          acc[issue.path.join(".")] = issue;
+          return acc;
+        },
+        {} as Record<string, ZodIssue>
+      ),
+    };
+  }
 };
-export const updateEquipmentProfile = async (formData: FormData) => {
-  const { id, forkedFrom, userId, ...data } = equipmentSchema.parse(formData);
+export const updateEquipmentProfile = async (
+  prevState: any,
+  formData: FormData
+) => {
+  const v = validateSchema(formData, equipmentSchema);
+  if (v.errors) return v;
+  const { id, forkedFrom, userId, ...data } = v; // equipmentSchema.parse(formData);
   const res = await prisma.equipmentProfile.update({
     where: { id },
     data: {
