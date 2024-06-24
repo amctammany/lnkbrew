@@ -76,6 +76,7 @@ export const AmountField = ({
 
   ref,
   onChange,
+  onBlur,
   ...props
 }: AmountFieldProps) => {
   //const [baseValue, setBaseValue] = useState<number>(value);
@@ -124,7 +125,7 @@ export const AmountField = ({
           //ref={ref}
           {...props}
           onChange={handleChange}
-          //onBlur={onBlur}
+          onBlur={onBlur}
           value={currentAmount}
           //ref={ref}
           //{...amountTypeProps}

@@ -17,14 +17,14 @@ import {
   YeastFlocculation,
   YeastType,
 } from "@prisma/client";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 
 export type YeastEditorProps = {
   yeast: Yeast | null;
   action?: (formData: FormData) => void;
 };
 export function YeastEditor({ action, yeast }: YeastEditorProps) {
-  const { register } = useForm<Yeast>({
+  const { register, control } = useForm<Yeast>({
     defaultValues: yeast || {},
   });
 
@@ -50,13 +50,48 @@ export function YeastEditor({ action, yeast }: YeastEditorProps) {
             <Select {...register("flocculation")} options={YeastFlocculation} />
           </div>
           <div className="grid grid-cols-3 gap-4">
-            <NumberField
-              step={0.001}
-              label="Attenuation"
-              {...register("attenuation")}
+            <Controller
+              name="attenuation"
+              control={control}
+              defaultValue={0}
+              render={({ field }) => (
+                <AmountField
+                  {...field}
+                  value={field.value ?? 0}
+                  label="Attenuation"
+                  amountType="percent"
+                  step={0.001}
+                />
+              )}
             />
-            <NumberField label="Temp Low" {...register("tempLow")} />
-            <NumberField label="Temp High" {...register("tempHigh")} />
+            <Controller
+              name="tempLow"
+              control={control}
+              defaultValue={0}
+              render={({ field }) => (
+                <AmountField
+                  {...field}
+                  value={field.value ?? 0}
+                  label="Temp Low"
+                  amountType="temperature"
+                  step={0.1}
+                />
+              )}
+            />
+            <Controller
+              name="tempHigh"
+              control={control}
+              defaultValue={0}
+              render={({ field }) => (
+                <AmountField
+                  {...field}
+                  value={field.value ?? 0}
+                  label="Temp High"
+                  amountType="temperature"
+                  step={0.1}
+                />
+              )}
+            />
           </div>
         </div>
       </Section>

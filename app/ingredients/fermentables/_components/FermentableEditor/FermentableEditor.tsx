@@ -97,7 +97,7 @@ export function FermentableEditor({
                   {...field}
                   value={field.value ?? 0}
                   label="Max Usage"
-                  amountType="percent"
+                  amountType="percentage"
                   step={0.01}
                 />
               )}

@@ -41,7 +41,7 @@ export function AmountProp({
       value={convertedValue.toFixed(precision)}
       //unit={unit}
       {...props}
-      unit={getConverterUnits(userPrefs)[unitType]}
+      unit={unit ?? getConverterUnits(userPrefs)[unitType]}
     />
   );
 }

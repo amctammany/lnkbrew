@@ -14,12 +14,15 @@ export function OverviewSection({ fermentable }: OverviewSectionProps) {
         <Prop label="Country">{fermentable?.country}</Prop>
         <Prop label="Notes">{fermentable?.notes}</Prop>
         <AmountProp label="Color" unitType="color" value={fermentable?.color} />
-        <Prop label="Potential" unit="PPG">
-          {fermentable?.potential}
-        </Prop>
+        <AmountProp
+          label="Potential"
+          unitType="unit"
+          unit="PPG"
+          value={fermentable?.potential}
+        />
         <AmountProp
           label="Max Usage"
-          unitType="percent"
+          unitType="percentage"
           value={fermentable?.maxUsage}
         />
       </div>

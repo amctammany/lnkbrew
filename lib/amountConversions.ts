@@ -72,7 +72,7 @@ export const colorConverters: Record<UserColorPreference, Converter> = {
   SRM: [(v) => v * 1.35 - 0.6, (v) => (v + 0.6) / 1.35],
 };
 export const percentConverters: Record<string, Converter> = {
-  "%": 1 / 100,
+  "%": 100,
 };
 export const percentageConverters: Record<string, Converter> = {
   "%": 1,
