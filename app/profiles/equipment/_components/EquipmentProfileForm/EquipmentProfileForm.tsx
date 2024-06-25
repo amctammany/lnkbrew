@@ -85,6 +85,7 @@ export const EquipmentProfileForm = ({
                   label="Batch Volume"
                   amountType="volume"
                   //amount
+                  error={state.errors?.batchVolume}
                   //amountTypes={UserVolumePreference}
                   step={0.01}
                 />
@@ -101,6 +102,7 @@ export const EquipmentProfileForm = ({
                   value={field.value ?? 0}
                   label="Boil Time"
                   amountType="time"
+                  error={state.errors?.boilTime}
                   //amount
                   //amountTypes={UserVolumePreference}
                   step={1}
@@ -118,6 +120,7 @@ export const EquipmentProfileForm = ({
                   value={field.value ?? 0}
                   label="Boil Off Rate"
                   amountType="flow"
+                  error={state.errors?.boilOffRate}
                   //amount
                   //amountTypes={UserVolumePreference}
                   step={0.01}
@@ -134,6 +137,7 @@ export const EquipmentProfileForm = ({
                   value={field.value ?? 0}
                   label="Trub Loss"
                   amountType="volume"
+                  error={state.errors?.trubLoss}
                   step={0.01}
                   //amount
                   //amountTypes={UserVolumePreference}
@@ -151,6 +155,7 @@ export const EquipmentProfileForm = ({
                   value={field.value ?? 0}
                   label="Fermenter Loss"
                   amountType="volume"
+                  error={state.errors?.fermenterLoss}
                   step={0.01}
                   //amount
                   //amountTypes={UserVolumePreference}
@@ -167,6 +172,7 @@ export const EquipmentProfileForm = ({
                   //{...register("batchVolume")}
                   {...field}
                   value={field.value ?? 0}
+                  error={state.errors?.batchVolume}
                   label="Mass Loss"
                   amountType="volume"
                   //amount
