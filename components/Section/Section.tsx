@@ -76,7 +76,7 @@ const sectionTitle = cva("h4", {
     size: "default",
   },
 });
-const sectionBody = cva([""], {
+const sectionBody = cva(["mx-2 md:mx-8"], {
   variants: {
     variant: {
       primary: ["bg-white border-red-300"],
