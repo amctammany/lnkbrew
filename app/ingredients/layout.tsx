@@ -40,7 +40,7 @@ export default function IngredientLayout({
       <IngredientLink href="/ingredients/fermentables" Icon={GrainIcon}>
         Fermentables
       </IngredientLink>
-      <IngredientLink href="/ingredients/hops" Icon={YeastIcon}>
+      <IngredientLink href="/ingredients/yeasts" Icon={YeastIcon}>
         Yeasts
       </IngredientLink>
     </SubNav>
