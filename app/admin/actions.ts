@@ -132,7 +132,6 @@ export async function updateUserPreferences(formData: FormData) {
     formData,
     preferenceSchema
   );
-  console.log(range);
   //console.log(errors);
   if (errors && errors.length) {
     //console.log(errors);

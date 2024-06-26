@@ -22,14 +22,8 @@ export type RangeFieldProps = //H extends Path<T> = Path<T>,
     onChange: any;
     value?: { min?: number; max?: number };
   } & Omit<InputProps, "value">;
-const inputClass = clsx(
-  "absolute w-full h-full z-30 p-0 opacity-0 appearance-none",
-  "[&::-ms-track]:bg-transparent [&::-ms-track]:border-transparent [&::-ms-track]:appearence-none [&::-ms-thumb]:appearance:none [&::-ms-thumb]:pointer-events-auto [&::-ms-thumb]:w-4 [&::-ms-thumb]:h-4 [&::-ms-thumb]:bg-red-900 [&::-ms-thumb]:cursor-grab ",
-  "[&::-moz-range-track]:bg-transparent [&::-moz-range-track]:border-transparent [&::-moz-range-track]:appearence-none [&::-moz-range-thumb]:appearance:none [&::-moz-range-thumb]:pointer-events-auto [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:bg-red-900 [&::-moz-range-thumb-thumb]:cursor-grab ",
-  "[&:focus::-webkit-slider-runnable-track]:bg-transparent [&:focus::-webkit-slider-runnable-track]:border-transparent [&:focus::-webkit-slider-runnable-track]:appearence-none [&:focus::-webkit-slider-runnable-track]:appearance-none [&:focus::-webkit-slider-runnable-track]:pointer-events-auto [&:focus::-webkit-slider-runnable-track]:w-4 [&:focus::-webkit-slider-runnable-track]:h-4 [&:focus::-webkit-slider-runnable-track]:bg-red-900 [&:focus::-webkit-slider-runnable-track]:cursor-grab [&:active]:[cursor:grabbing]"
-);
 
-const inputClass1 = clsx(
+const inputClass = clsx(
   "absolute w-full h-full z-[3] p-0 opacity-0 appearance-none pointer-events-none ",
   "[&::-ms-track]:bg-transparent [&::-ms-track]:border-transparent [&::-ms-track]:appearance-none [&::-ms-thumb]:appearance-none [&::-ms-thumb]:[pointer-events:all] [&::-ms-thumb]:w-4 [&::-ms-thumb]:h-4 [&::-ms-thumb]:bg-red-900 [&::-ms-thumb]:cursor-grab [[&::-ms-thumb]&:active]:[cursor:grabbing]",
   "[&::-moz-range-track]:bg-transparent [&::-moz-range-track]:border-transparent [&::-moz-range-track]:appearance-none [&::-moz-range-thumb]:appearance-none [&::-moz-range-thumb]:[pointer-events:all] [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:bg-red-900 [&::-moz-range-thumb]:cursor-grab [[&::-moz-range-thumb]&:active]:[cursor:grabbing]",
@@ -118,7 +112,7 @@ export function RangeField({
               //size,
               //})}
               //className="absolute w-full pointer-events-none appearance-none h-full opacity-0 z-30 p-0"
-              className={inputClass1}
+              className={inputClass}
               name={`${name}[0]`}
               type="range"
               step={step || 1}
@@ -139,7 +133,7 @@ export function RangeField({
               disabled={props.disabled || false}
               name={`${name}[1]`}
               //className="absolute w-full pointer-events-none appearance-none h-full opacity-0 z-30 p-0"
-              className={inputClass1}
+              className={inputClass}
               //className={inputStyles({
               //variant: error ? "error" : props.variant,
               //size,

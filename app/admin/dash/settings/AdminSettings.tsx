@@ -16,7 +16,6 @@ import { Submit } from "@/components/Form/Submit";
 
 import React, { FC, useMemo } from "react";
 import { Controller, useController, useForm } from "react-hook-form";
-import { RangeSlider } from "@/components/Form/RangeSlider";
 import { RangeField } from "@/components/Form/RangeField";
 
 type AdminSettingsProps = { src?: UserPreferences | null; action: any };

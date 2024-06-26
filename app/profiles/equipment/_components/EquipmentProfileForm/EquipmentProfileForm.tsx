@@ -36,7 +36,7 @@ export const EquipmentProfileForm = ({
   const action = profile?.id ? updateEquipmentProfile : createEquipmentProfile;
 
   const [state, formAction] = useFormState<any, FormData>(action, {});
-  console.log(state);
+
   //const onSubmit = async (data: FormData) => {
   //const valid = await trigger();
   //if (!valid) return;
