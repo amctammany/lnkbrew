@@ -48,7 +48,7 @@ export function AdminSettings({ src, action }: AdminSettingsProps) {
   };
 
   return (
-    <div className="m-auto w-64">
+    <div className="m-auto w-full">
       <h4>Admin Settings</h4>
       <Form action={onSubmit}>
         <input type="hidden" {...register("userId")} />
