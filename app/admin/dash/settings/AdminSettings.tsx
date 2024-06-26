@@ -14,18 +14,26 @@ import { Form } from "@/components/Form/Form";
 import { Select } from "@/components/Form/Select";
 import { Submit } from "@/components/Form/Submit";
 
-import React, { FC } from "react";
-import { useForm } from "react-hook-form";
+import React, { FC, useMemo } from "react";
+import { useController, useForm } from "react-hook-form";
 import { RangeSlider } from "@/components/Form/RangeSlider";
+import { RangeField } from "@/components/Form/RangeField";
 
 type AdminSettingsProps = { src?: UserPreferences | null; action: any };
 const equipmentProfiles = ["equ1", "eq2"];
 export function AdminSettings({ src, action }: AdminSettingsProps) {
   const {
     register,
+    control,
     formState: { errors },
     setError,
-  } = useForm<UserPreferences & { range: [number, number] }>({
+  } = useForm<
+    UserPreferences & {
+      range: [number, number];
+      rangeLow?: number;
+      rangeHigh?: number;
+    }
+  >({
     defaultValues: src || {},
   });
   const onSubmit = async (data: FormData) => {
@@ -39,11 +47,22 @@ export function AdminSettings({ src, action }: AdminSettingsProps) {
     //await trigger();
   };
 
+  const rangeLow = useController({
+    name: "rangeLow",
+    control,
+  });
+  //rangeLow.field.
+  const rangeHigh = useController({
+    name: "rangeHigh",
+    control,
+  });
+
   return (
     <div className="m-auto w-64">
       <h4>Admin Settings</h4>
       <Form action={onSubmit}>
         <input type="hidden" {...register("userId")} />
+        <RangeField lowField={rangeLow} highField={rangeHigh} />
         <RangeSlider {...register("range")} min={0} max={100} />
         <Select
           {...register("volumeUnit")}
