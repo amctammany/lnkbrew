@@ -22,7 +22,7 @@ export type SelectProps = {
   //onChange?: (e: SyntheticEvent) => void;
   onBlur?: (e: SyntheticEvent) => void;
   value?: any;
-  ref: any;
+  ref?: any;
 } & VariantProps<typeof selectStyles> &
   ComponentProps<"select">;
 const selectStyles = cva("input w-full", {
@@ -45,52 +45,48 @@ const selectStyles = cva("input w-full", {
   defaultVariants: { size: "default", variant: "default" },
 });
 
-export const Select = forwardRef<HTMLSelectElement, SelectProps>(
-  function Select(
-    {
-      name,
-      label,
-      error,
-      children,
-      options,
-      disabled,
-      defaultValue,
-      value,
-      onChange,
-      onBlur,
-      variant,
-      className,
-      size,
-    }: SelectProps,
-    ref
-  ) {
-    const opts = options
-      ? Object.entries(options).map(([k, v]) => (
-          <option key={k} value={k}>
-            {v}
-          </option>
-        ))
-      : children;
-    return (
-      <Label
-        className={className}
-        error={error}
-        size={size}
-        label={label === undefined ? name : label}
+export function Select({
+  name,
+  label,
+  error,
+  children,
+  options,
+  disabled,
+  defaultValue,
+  value,
+  onChange,
+  onBlur,
+  variant,
+  className,
+  size,
+  ref,
+}: SelectProps) {
+  const opts = options
+    ? Object.entries(options).map(([k, v]) => (
+        <option key={k} value={k}>
+          {v}
+        </option>
+      ))
+    : children;
+  return (
+    <Label
+      className={className}
+      error={error}
+      size={size}
+      label={label === undefined ? name : label}
+    >
+      <select
+        disabled={disabled}
+        className={selectStyles({ size, variant })}
+        name={name}
+        value={value}
+        defaultValue={defaultValue}
+        onChange={onChange}
+        onBlur={onBlur}
+        ref={ref}
       >
-        <select
-          disabled={disabled}
-          className={selectStyles({ size, variant })}
-          name={name}
-          value={value}
-          defaultValue={defaultValue}
-          onChange={onChange}
-          onBlur={onBlur}
-          ref={ref}
-        >
-          {opts}
-        </select>
-      </Label>
-    );
-  }
-);
+        {opts}
+      </select>
+    </Label>
+  );
+}

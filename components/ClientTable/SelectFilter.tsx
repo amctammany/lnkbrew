@@ -52,7 +52,7 @@ export function SelectFilter<T extends Record<string, any>>({
   return (
     <Select
       name={name}
-      value={filterValue}
+      value={filterValue as any}
       onChange={handleChange}
       className={clsx("p-2 font-lg border-block", className)}
       options={options}

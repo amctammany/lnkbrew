@@ -37,48 +37,44 @@ const numberFieldStyles = cva("input w-full", {
   defaultVariants: { size: "default", variant: "default" },
 });
 
-export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(
-  function NumberField(
-    {
-      name,
-      label,
-      step,
-      defaultValue,
-      disabled,
-      onBlur,
-      onChange,
-      value,
-      variant,
-      size,
-      error,
-      className,
-    }: NumberFieldProps,
-    ref
-  ) {
-    return (
-      <Label
-        className={className}
-        size={size}
-        label={label || name}
-        error={error}
-      >
-        <Input
-          disabled={disabled || false}
-          className={inputStyles({
-            variant: error ? "error" : variant,
-            size,
-          })}
-          type="number"
-          step={step || 1}
-          name={name}
-          defaultValue={defaultValue}
-          onChange={onChange}
-          onBlur={onBlur}
-          value={value}
-          ref={ref}
-          onWheel={(e) => e.currentTarget.blur()}
-        />
-      </Label>
-    );
-  }
-);
+export function NumberField({
+  name,
+  label,
+  step,
+  defaultValue,
+  disabled,
+  onBlur,
+  onChange,
+  value,
+  variant,
+  size,
+  error,
+  className,
+  ref,
+}: NumberFieldProps) {
+  return (
+    <Label
+      className={className}
+      size={size}
+      label={label || name}
+      error={error}
+    >
+      <Input
+        disabled={disabled || false}
+        className={inputStyles({
+          variant: error ? "error" : variant,
+          size,
+        })}
+        type="number"
+        step={step || 1}
+        name={name}
+        defaultValue={defaultValue}
+        onChange={onChange}
+        onBlur={onBlur}
+        value={value}
+        ref={ref}
+        onWheel={(e) => e.currentTarget.blur()}
+      />
+    </Label>
+  );
+}

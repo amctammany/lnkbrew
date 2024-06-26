@@ -37,8 +37,8 @@ export function TextFilter<T extends Record<string, any>>({
     (n, v) => table.getColumn(n)?.setFilterValue(v),
     100
   );
-  const [filterValue, setFilterValue] = useState(
-    table.getColumn(name)?.getFilterValue()
+  const [filterValue, setFilterValue] = useState<string>(
+    table.getColumn(name)?.getFilterValue() as string
   );
   const handleChange: ChangeEventHandler<HTMLInputElement> = ({
     target: { name, value },

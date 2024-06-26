@@ -29,23 +29,21 @@ export const inputStyles = cva(
     defaultVariants: { size: "default", variant: "default" },
   }
 );
-export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
-  {
-    name,
-    onChange,
-    onBlur,
-    value,
-    error,
-    className,
-    disabled,
-    label,
-    defaultValue,
-    variant,
-    size,
-    ...props
-  }: InputProps,
-  ref
-) {
+export function Input({
+  name,
+  onChange,
+  onBlur,
+  value,
+  error,
+  className,
+  disabled,
+  label,
+  defaultValue,
+  variant,
+  size,
+  ref,
+  ...props
+}: InputProps) {
   return (
     <input
       disabled={disabled}
@@ -63,4 +61,4 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
       ref={ref}
     />
   );
-});
+}

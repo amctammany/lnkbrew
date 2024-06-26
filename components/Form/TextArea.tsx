@@ -14,7 +14,7 @@ export type TextAreaProps = {
   onBlur?: (e: SyntheticEvent) => void;
   value?: any;
 } & VariantProps<typeof textAreaStyles> &
-  ComponentProps<"div">;
+  ComponentProps<"textarea">;
 const textAreaStyles = cva(["block"], {
   variants: {
     variant: {
@@ -33,41 +33,37 @@ const textAreaStyles = cva(["block"], {
   defaultVariants: { size: "default", variant: "default" },
 });
 
-export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
-  function TextAreaComp(
-    {
-      name,
-      label,
-      rows,
-      disabled,
-      defaultValue,
-      error,
-      className,
-      onChange,
-      onBlur,
-      value,
-      variant,
-      size,
-    }: TextAreaProps,
-    ref
-  ) {
-    return (
-      <Label className={className} error={error} label={label || name}>
-        <textarea
-          onBlur={onBlur}
-          onChange={onChange}
-          ref={ref}
-          value={value}
-          disabled={disabled}
-          className={textAreaStyles({
-            variant: error ? "error" : variant,
-            size,
-          })}
-          //className="block w-full disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none"
-          name={name}
-          rows={rows || 3}
-        />
-      </Label>
-    );
-  }
-);
+export function TextArea({
+  name,
+  label,
+  rows,
+  disabled,
+  defaultValue,
+  error,
+  className,
+  onChange,
+  onBlur,
+  value,
+  variant,
+  size,
+  ref,
+}: TextAreaProps) {
+  return (
+    <Label className={className} error={error} label={label || name}>
+      <textarea
+        onBlur={onBlur}
+        onChange={onChange}
+        ref={ref}
+        value={value}
+        disabled={disabled}
+        className={textAreaStyles({
+          variant: error ? "error" : variant,
+          size,
+        })}
+        //className="block w-full disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none"
+        name={name}
+        rows={rows || 3}
+      />
+    </Label>
+  );
+}
