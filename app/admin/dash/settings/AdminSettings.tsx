@@ -47,24 +47,16 @@ export function AdminSettings({ src, action }: AdminSettingsProps) {
     //await trigger();
   };
 
-  const rangeLow = useController({
-    name: "rangeLow",
-    control,
-    defaultValue: 0,
-  });
-  //rangeLow.field.
-  const rangeHigh = useController({
-    name: "rangeHigh",
-    control,
-    defaultValue: 100,
-  });
-
   return (
     <div className="m-auto w-64">
       <h4>Admin Settings</h4>
       <Form action={onSubmit}>
         <input type="hidden" {...register("userId")} />
-        <RangeField lowField={rangeLow} highField={rangeHigh} />
+        <Controller
+          name="range"
+          control={control}
+          render={({ field }) => <RangeField {...field} min={0} max={100} />}
+        />
         <Controller
           name="range"
           control={control}
