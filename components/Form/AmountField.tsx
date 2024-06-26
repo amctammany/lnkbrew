@@ -23,6 +23,7 @@ export const amountFieldStyles = cva("input", {
         "disabled:border-slate-200",
         "disabled:shadow-none",
       ],
+      tiny: ["w-8"],
       error: ["bg-error-200"],
     },
     size: {

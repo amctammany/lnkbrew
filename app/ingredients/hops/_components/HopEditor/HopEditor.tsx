@@ -7,7 +7,9 @@ import {
   TextArea,
   TextField,
 } from "@/components/Form";
+import { RangeField } from "@/components/Form/RangeField";
 import { SaveIcon } from "@/components/Icon/SaveIcon";
+import { RangeValue } from "@/components/Range/RangeSlider";
 import { Section } from "@/components/Section";
 import { Toolbar } from "@/components/Toolbar";
 import { Hop, HopUsage } from "@prisma/client";
@@ -18,7 +20,9 @@ export type HopEditorProps = {
   action?: (formData: FormData) => void;
 };
 export function HopEditor({ hop, action }: HopEditorProps) {
-  const { register, control } = useForm<Hop>({
+  const { register, control, getValues } = useForm<
+    Hop & { alphaRange?: RangeValue; betaRange?: RangeValue }
+  >({
     defaultValues: hop || {},
   });
 
@@ -43,6 +47,33 @@ export function HopEditor({ hop, action }: HopEditorProps) {
           <TextArea rows={3} label="Notes" {...register("notes")} />
 
           <div className="grid gap-4 grid-cols-2 md:grid-cols-4">
+            <div className="col-span-2 md:col-span-4">
+              <Controller
+                name="alphaRange"
+                control={control}
+                defaultValue={getValues(["alphaLow", "alphaHigh"]).reduce(
+                  (acc, v, i) => ({ ...acc, [i === 0 ? "min" : "max"]: v! }),
+                  {} as RangeValue
+                )}
+                render={({ field }) => (
+                  <RangeField {...field} label="Alpha Acids" step={0.01} />
+                )}
+              />
+            </div>
+            <div className="col-span-2 md:col-span-4">
+              <Controller
+                name="betaRange"
+                control={control}
+                defaultValue={getValues(["betaLow", "betaHigh"]).reduce(
+                  (acc, v, i) => ({ ...acc, [i === 0 ? "min" : "max"]: v! }),
+                  {} as RangeValue
+                )}
+                render={({ field }) => (
+                  <RangeField {...field} label="Beta Acids" step={0.01} />
+                )}
+              />
+            </div>
+
             <Controller
               name="alpha"
               control={control}

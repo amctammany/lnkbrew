@@ -11,6 +11,8 @@ import { SchemaFieldError } from "@/lib/validateSchema";
 import { Input, inputStyles, InputProps } from "./Input";
 import { FieldValues, Path, UseControllerReturn } from "react-hook-form";
 import clsx from "clsx";
+import { TextField } from "./TextField";
+import { NumberField, NumberFieldRaw } from "./NumberField";
 
 export type RangeFieldProps = //H extends Path<T> = Path<T>,
   {
@@ -102,77 +104,95 @@ export function RangeField({
   const maxPos = ((maxValue - min) / (max - min)) * 100;
   return (
     <Label size={size} label={label ?? ""} error={error}>
-      <div>
-        <div className="relative flex items-center mx-10 my-[8px] pt-[1.6rem] h-[calc(16px+1.6rem)]">
-          <div className="absolute mx-0 h-[16px] my-[calc(-8px)] w-[calc(100%+16px)]">
-            <input
-              disabled={props.disabled || false}
-              //className={inputStyles({
-              //variant: error ? "error" : props.variant,
-              //size,
-              //})}
-              //className="absolute w-full pointer-events-none appearance-none h-full opacity-0 z-30 p-0"
-              className={inputClass}
-              name={`${name}[0]`}
-              type="range"
-              step={step || 1}
-              //{...lowField.field}
-              //value={lowField.value}
-              //name={lowField.name}
-              onChange={handleMinChange}
-              //ref={lowField.field.ref}
-              value={minValue}
-              //defaultValue={defaultValue}
-              //onChange={onChange}
-              //onBlur={onBlur}
-              //value={value}
-              //ref={ref}
-              onWheel={(e) => e.currentTarget.blur()}
-            />
-            <input
-              disabled={props.disabled || false}
-              name={`${name}[1]`}
-              //className="absolute w-full pointer-events-none appearance-none h-full opacity-0 z-30 p-0"
-              className={inputClass}
-              //className={inputStyles({
-              //variant: error ? "error" : props.variant,
-              //size,
-              //})}
-              type="range"
-              step={step || 1}
-              value={maxValue}
-              //{...highField.field}
-              //value={highField.value}
-              //name={highField.name}
-              //ref={highField.ref}
-              //onChange={handleChange}
-              onChange={handleMaxChange}
-              //name={name}
-              //defaultValue={defaultValue}
-              //onChange={onChange}
-              //onBlur={onBlur}
-              //value={value}
-              //ref={ref}
-              onWheel={(e) => e.currentTarget.blur()}
-            />
-          </div>
-          <div className="w-full absolute h-[16px] ">
-            <div
-              //className="w-4 h-4 rounded-full absolute bg-pink-700 top-1/2 -translate-y-1/2 -ml-[5px]"
-              className={controlClass}
-              style={{ left: `${minPos}%` }}
-            />
-            <div className="absolute w-full top-1/2 -translate-y-1/2 h-[6px] rounded-[3px] bg-gray-300">
-              <div
-                className="absolute h-full bg-pink-500 opacity-50"
-                style={{ left: `${minPos}%`, right: `${100 - maxPos}%` }}
+      <div className="flex w-full">
+        <NumberFieldRaw
+          label={null}
+          name={`${name}[0]`}
+          className="flex-shrink text-center"
+          variant="tiny"
+          //size="small"
+          value={minValue}
+          onChange={handleMinChange}
+        />
+
+        <div className="flex-grow">
+          <div className="relative flex items-center mx-10 my-[8px] pt-[1.6rem] h-[calc(16px+1.6rem)]">
+            <div className="absolute mx-0 h-[16px] my-[calc(-8px)] w-[calc(100%+16px)]">
+              <input
+                disabled={props.disabled || false}
+                //className={inputStyles({
+                //variant: error ? "error" : props.variant,
+                //size,
+                //})}
+                //className="absolute w-full pointer-events-none appearance-none h-full opacity-0 z-30 p-0"
+                className={inputClass}
+                name={`${name}[0]`}
+                type="range"
+                step={step || 1}
+                //{...lowField.field}
+                //value={lowField.value}
+                //name={lowField.name}
+                onChange={handleMinChange}
+                //ref={lowField.field.ref}
+                value={minValue}
+                //defaultValue={defaultValue}
+                //onChange={onChange}
+                //onBlur={onBlur}
+                //value={value}
+                //ref={ref}
+                onWheel={(e) => e.currentTarget.blur()}
+              />
+              <input
+                disabled={props.disabled || false}
+                name={`${name}[1]`}
+                //className="absolute w-full pointer-events-none appearance-none h-full opacity-0 z-30 p-0"
+                className={inputClass}
+                //className={inputStyles({
+                //variant: error ? "error" : props.variant,
+                //size,
+                //})}
+                type="range"
+                step={step || 1}
+                value={maxValue}
+                //{...highField.field}
+                //value={highField.value}
+                //name={highField.name}
+                //ref={highField.ref}
+                //onChange={handleChange}
+                onChange={handleMaxChange}
+                //name={name}
+                //defaultValue={defaultValue}
+                //onChange={onChange}
+                //onBlur={onBlur}
+                //value={value}
+                //ref={ref}
+                onWheel={(e) => e.currentTarget.blur()}
               />
             </div>
-            <div className={controlClass} style={{ left: `${maxPos}%` }} />
+            <div className="w-full absolute h-[16px] ">
+              <div
+                //className="w-4 h-4 rounded-full absolute bg-pink-700 top-1/2 -translate-y-1/2 -ml-[5px]"
+                className={controlClass}
+                style={{ left: `${minPos}%` }}
+              />
+              <div className="absolute w-full top-1/2 -translate-y-1/2 h-[6px] rounded-[3px] bg-gray-300">
+                <div
+                  className="absolute h-full bg-pink-500 opacity-50"
+                  style={{ left: `${minPos}%`, right: `${100 - maxPos}%` }}
+                />
+              </div>
+              <div className={controlClass} style={{ left: `${maxPos}%` }} />
+            </div>
           </div>
         </div>
-        <span>Low: {value.min}</span>
-        <span>High: {value.max}</span>
+        <NumberFieldRaw
+          className="flex-shrink text-center"
+          name={`${name}[1]`}
+          variant="tiny"
+          label={null}
+          value={maxValue}
+          onChange={handleMaxChange}
+        />
       </div>
     </Label>
   );

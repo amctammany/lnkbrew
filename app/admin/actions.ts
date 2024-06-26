@@ -144,6 +144,7 @@ export async function updateUserPreferences(formData: FormData) {
     where: {
       userId,
     },
+
     update,
     create: {
       ...update,

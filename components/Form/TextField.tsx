@@ -15,6 +15,7 @@ const textFieldStyles = cva(
       },
       size: {
         default: ["w-full"],
+        small: [""],
       },
     },
     defaultVariants: { size: "default", variant: "default" },
