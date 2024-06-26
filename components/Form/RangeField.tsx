@@ -32,7 +32,7 @@ const inputClass = clsx(
 );
 
 const inputClass1 = clsx(
-  "absolute w-full h-full z-[3] p-0 opacity-0 appearance-none pointer-events-none [&:active]:[cursor:grabbing]",
+  "absolute w-full h-full z-[3] p-0 opacity-0 appearance-none  [&:active]:[cursor:grabbing]",
   "[&::-ms-track]:bg-transparent [&::-ms-track]:border-transparent [&::-ms-track]:appearance-none [&::-ms-thumb]:appearance-none [&::-ms-thumb]:[pointer-events:all] [&::-ms-thumb]:w-4 [&::-ms-thumb]:h-4 [&::-ms-thumb]:bg-red-900 [&::-ms-thumb]:cursor-grab ",
   "[&::-moz-range-track]:bg-transparent [&::-moz-range-track]:border-transparent [&::-moz-range-track]:appearance-none [&::-moz-range-thumb]:appearance-none [&::-moz-range-thumb]:[pointer-events:all] [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:bg-red-900 [&::-moz-range-thumb-thumb]:cursor-grab ",
   "[&:focus::-webkit-slider-runnable-track]:bg-transparent [&:focus::-webkit-slider-runnable-track]:border-transparent [&:focus::-webkit-slider-runnable-track]:appearance-none [&:focus::-webkit-slider-runnable-track]:w-4 [&:focus::-webkit-slider-runnable-track]:h-4 [&:focus::-webkit-slider-runnable-track]:bg-red-900 [&:focus::-webkit-slider-runnable-track]:[pointer-events:all] [&:focus::-webkit-slider-runnable-track]:cursor-grab [[&:focus::-webkit-slider-runnable-track]&:active]:[cursor:grabbing]"
