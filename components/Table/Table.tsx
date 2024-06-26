@@ -13,7 +13,7 @@ export type TableProps<T extends Record<string, any>> = VariantProps<
   ComponentProps<"table"> & { table: ReactTable<T> };
 export const tableStyles = cva(
   [
-    "w-full table table-auto border border-collapse border-slate-400 overflow-scroll",
+    "w-full table table-auto border border-collapse border-slate-400 overflow-x-scroll",
   ],
   {
     variants: {

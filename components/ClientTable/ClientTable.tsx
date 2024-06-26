@@ -43,7 +43,7 @@ function IndeterminateCheckbox({
     />
   );
 }
-const clientTableStyles = cva("px-6 py-8", {
+const clientTableStyles = cva("px-6 py-8 ", {
   variants: {
     variant: {
       default: [],
@@ -166,7 +166,9 @@ export function ClientTable<T extends Record<string, any>>({
         </Section>
       </ClientSection>
 
-      <Table table={table} variant={variant} />
+      <div className="overflow-x-scroll">
+        <Table table={table} variant={variant} />
+      </div>
     </div>
   );
 }
