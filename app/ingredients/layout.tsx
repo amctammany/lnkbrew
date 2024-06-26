@@ -18,9 +18,11 @@ type IngredientLinkProps = {
 };
 const IngredientLink = ({ href, Icon, children }: IngredientLinkProps) => {
   return (
-    <NavLink variant="subnav" href={href} className=" flex-grow mx-4">
-      <Icon className="" />
-      <span className="hidden sm:block ml-3">{children}</span>
+    <NavLink variant="subnav" href={href} className="flex-grow">
+      <div className=" flex mx-auto">
+        <Icon className="m-0" />
+        <span className="hidden sm:block ml-3">{children}</span>
+      </div>
     </NavLink>
   );
 };

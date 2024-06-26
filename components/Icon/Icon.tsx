@@ -4,7 +4,7 @@ import clsx from "clsx";
 import { ComponentProps } from "react";
 export type IconProps = ComponentProps<"div"> &
   VariantProps<typeof iconStyles> & { Svg?: typeof XMarkIcon };
-export const iconStyles = cva("m-auto", {
+export const iconStyles = cva("", {
   variants: {
     variant: {
       default: [""],
