@@ -1,3 +1,6 @@
+import { GrainIcon } from "@/components/Icon/GrainIcon";
+import { HopIcon } from "@/components/Icon/HopIcon";
+import { YeastIcon } from "@/components/Icon/YeastIcon";
 import { Body } from "@/components/Nav/Body";
 import NavLink from "@/components/Nav/NavLink";
 import { SubNav } from "@/components/Nav/SubNav";
@@ -8,6 +11,19 @@ export const metadata: Metadata = {
   description: "Ingredient Pages",
 };
 
+type IngredientLinkProps = {
+  href: string;
+  Icon: any;
+  children: React.ReactNode;
+};
+const IngredientLink = ({ href, Icon, children }: IngredientLinkProps) => {
+  return (
+    <NavLink variant="subnav" href={href} className=" flex-grow mx-4">
+      <Icon className="" />
+      <span className="hidden sm:block ml-3">{children}</span>
+    </NavLink>
+  );
+};
 export default function IngredientLayout({
   children,
 }: Readonly<{
@@ -15,15 +31,16 @@ export default function IngredientLayout({
 }>) {
   return (
     <SubNav body={children}>
-      <NavLink variant="subnav" href="/ingredients/hops">
+      <IngredientLink href="/ingredients/hops" Icon={HopIcon}>
         Hops
-      </NavLink>
-      <NavLink variant="subnav" href="/ingredients/fermentables">
+      </IngredientLink>
+
+      <IngredientLink href="/ingredients/fermentables" Icon={GrainIcon}>
         Fermentables
-      </NavLink>
-      <NavLink variant="subnav" href="/ingredients/yeasts">
+      </IngredientLink>
+      <IngredientLink href="/ingredients/hops" Icon={YeastIcon}>
         Yeasts
-      </NavLink>
+      </IngredientLink>
     </SubNav>
   );
 }

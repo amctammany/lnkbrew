@@ -4,7 +4,7 @@ import clsx from "clsx";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-const navLinkStyles = cva(["block text-center font-bold "], {
+const navLinkStyles = cva(["flex text-center font-bold "], {
   variants: {
     variant: {
       active: ["text-red-500 hover:text-slate-400 "],

@@ -4,6 +4,8 @@ import { prisma } from "@/lib/client";
 import Link from "next/link";
 import { HopIcon } from "@/components/Icon/HopIcon";
 import { IconProps } from "@/components/Icon/Icon";
+import { GrainIcon } from "@/components/Icon/GrainIcon";
+import { YeastIcon } from "@/components/Icon/YeastIcon";
 //import { AdminPage } from "./AdminPage";
 //const AdminModal = dynamic(
 //() => import("./AdminModal").then((s) => s.AdminModal),
@@ -46,10 +48,10 @@ export default async function Page() {
       <Box Icon={HopIcon} href="/ingredients/hops">
         Hops
       </Box>
-      <Box Icon={HopIcon} href="/ingredients/fermentables">
+      <Box Icon={GrainIcon} href="/ingredients/fermentables">
         Fermentables
       </Box>
-      <Box Icon={HopIcon} href="/ingredients/yeasts">
+      <Box Icon={YeastIcon} href="/ingredients/yeasts">
         Yeasts
       </Box>
       <Box Icon={HopIcon} href="/ingredients/other">
