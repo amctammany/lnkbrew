@@ -13,9 +13,17 @@ import { MinimizeIcon } from "./MinimizeIcon";
 import { MaximizeIcon } from "./MaximizeIcon";
 import { EquipmentProfileIcon } from "./EquipmentProfileIcon";
 import { WaterProfileIcon } from "./WaterProfileIcon";
+import { GrainIcon } from "./GrainIcon";
+import { RecipeIcon } from "./RecipeIcon";
+import { YeastIcon } from "./YeastIcon";
+import { HopIcon } from "./HopIcon";
 
 export const Icons = {
   AddIcon,
+  GrainIcon,
+  RecipeIcon,
+  YeastIcon,
+  HopIcon,
   UpIcon,
   EquipmentProfileIcon,
   WaterProfileIcon,
