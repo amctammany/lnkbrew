@@ -15,7 +15,7 @@ import { Select } from "@/components/Form/Select";
 import { Submit } from "@/components/Form/Submit";
 
 import React, { FC, useMemo } from "react";
-import { useController, useForm } from "react-hook-form";
+import { Controller, useController, useForm } from "react-hook-form";
 import { RangeSlider } from "@/components/Form/RangeSlider";
 import { RangeField } from "@/components/Form/RangeField";
 
@@ -29,7 +29,7 @@ export function AdminSettings({ src, action }: AdminSettingsProps) {
     setError,
   } = useForm<
     UserPreferences & {
-      range: [number, number];
+      range: { min: number; max: number }; //[number, number];
       rangeLow?: number;
       rangeHigh?: number;
     }
@@ -50,11 +50,13 @@ export function AdminSettings({ src, action }: AdminSettingsProps) {
   const rangeLow = useController({
     name: "rangeLow",
     control,
+    defaultValue: 0,
   });
   //rangeLow.field.
   const rangeHigh = useController({
     name: "rangeHigh",
     control,
+    defaultValue: 100,
   });
 
   return (
@@ -63,7 +65,11 @@ export function AdminSettings({ src, action }: AdminSettingsProps) {
       <Form action={onSubmit}>
         <input type="hidden" {...register("userId")} />
         <RangeField lowField={rangeLow} highField={rangeHigh} />
-        <RangeSlider {...register("range")} min={0} max={100} />
+        <Controller
+          name="range"
+          control={control}
+          render={({ field }) => <RangeSlider {...field} min={0} max={100} />}
+        />
         <Select
           {...register("volumeUnit")}
           error={errors.volumeUnit}

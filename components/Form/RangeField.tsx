@@ -22,22 +22,23 @@ export type RangeFieldProps<
   max?: number;
   lowField: any; //UseControllerReturn<T, Path<T>>; //["field"];
   highField: any; //UseControllerReturn<T, Path<T>>; //["field"];
+  onChange: any;
 } & Omit<InputProps, "name">;
 const inputClass = clsx(
   "absolute w-full h-full z-30 p-0 opacity-0 appearance-none",
   "[&::-ms-track]:bg-transparent [&::-ms-track]:border-transparent [&::-ms-track]:appearence-none [&::-ms-thumb]:appearance:none [&::-ms-thumb]:pointer-events-auto [&::-ms-thumb]:w-4 [&::-ms-thumb]:h-4 [&::-ms-thumb]:bg-red-900 [&::-ms-thumb]:cursor-grab ",
   "[&::-moz-range-track]:bg-transparent [&::-moz-range-track]:border-transparent [&::-moz-range-track]:appearence-none [&::-moz-range-thumb]:appearance:none [&::-moz-range-thumb]:pointer-events-auto [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:bg-red-900 [&::-moz-range-thumb-thumb]:cursor-grab ",
-  "[&:focus::-webkit-slider-runnable-track]:bg-transparent [&:focus::-webkit-slider-runnable-track]:border-transparent [&:focus::-webkit-slider-runnable-track]:appearence-none [&:focus::-webkit-slider-runnable-track]:appearance-none [&:focus::-webkit-slider-runnable-track]:pointer-events-auto [&:focus::-webkit-slider-runnable-track]:w-4 [&:focus::-webkit-slider-runnable-track]:h-4 [&:focus::-webkit-slider-runnable-track]:bg-red-900 [&:focus::-webkit-slider-runnable-track]:cursor-grab "
+  "[&:focus::-webkit-slider-runnable-track]:bg-transparent [&:focus::-webkit-slider-runnable-track]:border-transparent [&:focus::-webkit-slider-runnable-track]:appearence-none [&:focus::-webkit-slider-runnable-track]:appearance-none [&:focus::-webkit-slider-runnable-track]:pointer-events-auto [&:focus::-webkit-slider-runnable-track]:w-4 [&:focus::-webkit-slider-runnable-track]:h-4 [&:focus::-webkit-slider-runnable-track]:bg-red-900 [&:focus::-webkit-slider-runnable-track]:cursor-grab [&:active]:[cursor:grabbing]"
 );
 
 const inputClass1 = clsx(
-  "absolute w-full h-full z-[3] p-0 opacit-0 appearance-noe  "
-  //"[&::-ms-track]:bg-transparent [&::-ms-track]:border-transparent [&::-ms-track]:appearence-none [&::-ms-thumb]:appearance:none [&::-ms-thumb]:pointer-events-auto [&::-ms-thumb]:w-4 [&::-ms-thumb]:h-4 [&::-ms-thumb]:bg-red-900 [&::-ms-thumb]:cursor-grab ",
-  //"[&::-moz-range-track]:bg-transparent [&::-moz-range-track]:border-transparent [&::-moz-range-track]:appearence-none [&::-moz-range-thumb]:appearance:none [&::-moz-range-thumb]:pointer-events-auto [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:bg-red-900 [&::-moz-range-thumb-thumb]:cursor-grab ",
-  //"[&:focus::-webkit-slider-runnable-track]:bg-transparent [&:focus::-webkit-slider-runnable-track]:border-transparent [&:focus::-webkit-slider-runnable-track]:appearence-none [&:focus::-webkit-slider-runnable-track]:appearance:none [&:focus::-webkit-slider-runnable-track]:pointer-events-auto [&:focus::-webkit-slider-runnable-track]:w-4 [&:focus::-webkit-slider-runnable-track]:h-4 [&:focus::-webkit-slider-runnable-track]:bg-red-900 [&:focus::-webkit-slider-runnable-track]:cursor-grab "
+  "absolute w-full h-full z-[3] p-0 opacity-0 appearance-none pointer-events-none [&:active]:[cursor:grabbing]",
+  "[&::-ms-track]:bg-transparent [&::-ms-track]:border-transparent [&::-ms-track]:appearance-none [&::-ms-thumb]:appearance-none [&::-ms-thumb]:[pointer-events:all] [&::-ms-thumb]:w-4 [&::-ms-thumb]:h-4 [&::-ms-thumb]:bg-red-900 [&::-ms-thumb]:cursor-grab ",
+  "[&::-moz-range-track]:bg-transparent [&::-moz-range-track]:border-transparent [&::-moz-range-track]:appearance-none [&::-moz-range-thumb]:appearance-none [&::-moz-range-thumb]:[pointer-events:all] [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:bg-red-900 [&::-moz-range-thumb-thumb]:cursor-grab ",
+  "[&:focus::-webkit-slider-runnable-track]:bg-transparent [&:focus::-webkit-slider-runnable-track]:border-transparent [&:focus::-webkit-slider-runnable-track]:appearance-none [&:focus::-webkit-slider-runnable-track]:w-4 [&:focus::-webkit-slider-runnable-track]:h-4 [&:focus::-webkit-slider-runnable-track]:bg-red-900 [&:focus::-webkit-slider-runnable-track]:[pointer-events:all] [&:focus::-webkit-slider-runnable-track]:cursor-grab [[&:focus::-webkit-slider-runnable-track]&:active]:[cursor:grabbing]"
 );
 const controlClass = clsx(
-  "w-[10px] h-[10px] rounded-[50%] absolute top-1/2 bg-pink-400 z-[2] -translate-y-1/2 ml-[-5px] "
+  "w-4 h-4 rounded-[50%] absolute top-1/2 bg-pink-400 z-[2] -translate-y-1/2 transform[translate3d(0,-50%,0)] ml-[-8px] pointer-events-none "
 );
 
 const rangeFieldStyles = cva("input w-full", {
@@ -67,12 +68,12 @@ export function RangeField<T extends FieldValues>({
   //defaultValue,
   //disabled,
   //onBlur,
-  //onChange,
-  //value,
+  onChange,
+  value = {},
   //variant,
 
-  lowField,
-  highField,
+  //lowField,
+  //highField,
   size,
   error,
   max = 100,
@@ -81,30 +82,27 @@ export function RangeField<T extends FieldValues>({
   className,
   ...props
 }: RangeFieldProps<T>) {
-  const [minValue, setMinValue] = useState(
-    lowField.field.value ? lowField.field.value : min ?? 0
-  );
-  const [maxValue, setMaxValue] = useState(
-    highField.field.value ? highField.field.value : max ?? 100
-  );
+  const [minValue, setMinValue] = useState((value ? value.min : min) ?? 0);
+  const [maxValue, setMaxValue] = useState((value ? value.max : max) ?? 100);
 
-  const handleMinChange = (e) => {
+  const handleMinChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     e.preventDefault();
     const newMinVal = Math.min(+e.target.value, maxValue - step);
     setMinValue(newMinVal);
     console.log("min: " + newMinVal);
-    console.log(lowField.field.onChange);
-    lowField.onChange(newMinVal);
+    //console.log(lowField.field.onChange);
+    //lowField.field.onChange(newMinVal);
+    onChange({ min: newMinVal, max: maxValue });
   };
 
-  const handleMaxChange = (e) => {
+  const handleMaxChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     e.preventDefault();
     const newMaxVal = Math.max(+e.target.value, minValue + step);
     console.log("max: " + newMaxVal);
-    console.log(highField.field.onChange);
+    //console.log(highField.field.onChange);
     setMaxValue(newMaxVal);
-    highField.field.onChange(newMaxVal);
-    //onChange({ min: minValue, max: newMaxVal });
+    //highField.field.onChange(newMaxVal);
+    onChange({ min: minValue, max: newMaxVal });
   };
   const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     //e.preventDefault();
@@ -117,8 +115,8 @@ export function RangeField<T extends FieldValues>({
   return (
     <Label size={size} label={label ?? ""} error={error}>
       <div>
-        <div className="relative flex items-center mx-10 my-[5px] pt-[1.6rem] h-[calc(10px+1.6rem)]">
-          <div className="absolute mx-0 h-[10px] my-[calc(-5px)] w-[calc(100%+10px)]">
+        <div className="relative flex items-center mx-10 my-[8px] pt-[1.6rem] h-[calc(16px+1.6rem)]">
+          <div className="absolute mx-0 h-[16px] my-[calc(-8px)] w-[calc(100%+16px)]">
             <input
               disabled={props.disabled || false}
               //className={inputStyles({
@@ -130,11 +128,12 @@ export function RangeField<T extends FieldValues>({
               type="range"
               step={step || 1}
               //{...lowField.field}
-              value={lowField.field.value}
-              name={lowField.field.name}
+              //value={lowField.value}
+              //name={lowField.name}
               onChange={handleMinChange}
-              ref={lowField.field.ref}
+              //ref={lowField.field.ref}
               //name={name}
+              value={minValue}
               //defaultValue={defaultValue}
               //onChange={onChange}
               //onBlur={onBlur}
@@ -142,7 +141,7 @@ export function RangeField<T extends FieldValues>({
               //ref={ref}
               onWheel={(e) => e.currentTarget.blur()}
             />
-            <Input
+            <input
               disabled={props.disabled || false}
               //className="absolute w-full pointer-events-none appearance-none h-full opacity-0 z-30 p-0"
               className={inputClass1}
@@ -152,10 +151,11 @@ export function RangeField<T extends FieldValues>({
               //})}
               type="range"
               step={step || 1}
+              value={maxValue}
               //{...highField.field}
-              value={highField.field.value}
-              name={highField.field.name}
-              ref={highField.field.ref}
+              //value={highField.value}
+              //name={highField.name}
+              //ref={highField.ref}
               //onChange={handleChange}
               onChange={handleMaxChange}
               //name={name}
@@ -167,7 +167,7 @@ export function RangeField<T extends FieldValues>({
               onWheel={(e) => e.currentTarget.blur()}
             />
           </div>
-          <div className="w-full absolute h-[10px] z-[2]">
+          <div className="w-full absolute h-[16px] ">
             <div
               //className="w-4 h-4 rounded-full absolute bg-pink-700 top-1/2 -translate-y-1/2 -ml-[5px]"
               className={controlClass}
@@ -182,8 +182,8 @@ export function RangeField<T extends FieldValues>({
             <div className={controlClass} style={{ left: `${maxPos}%` }} />
           </div>
         </div>
-        <span>Low: {lowField.value}</span>
-        <span>High: {highField.value}</span>
+        <span>Low: {value.min}</span>
+        <span>High: {value.max}</span>
       </div>
     </Label>
   );

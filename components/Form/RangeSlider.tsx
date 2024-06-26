@@ -27,17 +27,10 @@ const controlClass = clsx(
 );
 export const RangeSlider = forwardRef<HTMLInputElement, RangeSliderProps>(
   function RangeSlider(
-    {
-      step = 1,
-      min = 0,
-      max = 100,
-      value: _value,
-      onChange,
-      name,
-    }: RangeSliderProps,
+    { step = 1, min = 0, max = 100, value, onChange, name }: RangeSliderProps,
     ref
   ) {
-    const [value, setValue] = useState(_value);
+    //const [value, setValue] = useState(_value);
     const [minValue, setMinValue] = useState(value ? value.min : min ?? 0);
     const [maxValue, setMaxValue] = useState(value ? value.max : max ?? 100);
     useEffect(() => {
@@ -46,9 +39,10 @@ export const RangeSlider = forwardRef<HTMLInputElement, RangeSliderProps>(
         setMaxValue(value.max);
       }
     }, [value]);
+    console.log(value);
     const handleChange = (value: RangeValue) => {
       //console.log(value);
-      setValue(value);
+      //setValue(value);
       //onChange({ target: { name, value } });
     };
     const handleMinChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -58,7 +52,7 @@ export const RangeSlider = forwardRef<HTMLInputElement, RangeSliderProps>(
       // it should not exceed the current max value!
       const newMinVal = Math.min(value, maxValue - (step ?? 1));
       if (!value) setMinValue(newMinVal);
-      setValue({ min: newMinVal, max: maxValue });
+      onChange({ min: newMinVal, max: maxValue });
     };
     const handleMaxChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
       e.preventDefault();
@@ -68,7 +62,7 @@ export const RangeSlider = forwardRef<HTMLInputElement, RangeSliderProps>(
       const newMaxVal = Math.max(value, minValue + (step ?? 1));
       if (!value) setMaxValue(newMaxVal);
       //console.log({ onChange, value, newMaxVal });
-      handleChange({ min: minValue, max: newMaxVal });
+      onChange({ min: minValue, max: newMaxVal });
     };
 
     const minPos = ((minValue - min) / (max - min)) * 100;
