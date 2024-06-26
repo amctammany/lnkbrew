@@ -57,11 +57,6 @@ export function AdminSettings({ src, action }: AdminSettingsProps) {
           control={control}
           render={({ field }) => <RangeField {...field} min={0} max={100} />}
         />
-        <Controller
-          name="range"
-          control={control}
-          render={({ field }) => <RangeSlider {...field} min={0} max={100} />}
-        />
         <Select
           {...register("volumeUnit")}
           error={errors.volumeUnit}

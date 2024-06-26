@@ -20,7 +20,8 @@ export type RangeFieldProps = //H extends Path<T> = Path<T>,
     lowField?: any; //UseControllerReturn<T, Path<T>>; //["field"];
     highField?: any; //UseControllerReturn<T, Path<T>>; //["field"];
     onChange: any;
-  } & Omit<InputProps, "name">;
+    value?: { min?: number; max?: number };
+  } & Omit<InputProps, "value">;
 const inputClass = clsx(
   "absolute w-full h-full z-30 p-0 opacity-0 appearance-none",
   "[&::-ms-track]:bg-transparent [&::-ms-track]:border-transparent [&::-ms-track]:appearence-none [&::-ms-thumb]:appearance:none [&::-ms-thumb]:pointer-events-auto [&::-ms-thumb]:w-4 [&::-ms-thumb]:h-4 [&::-ms-thumb]:bg-red-900 [&::-ms-thumb]:cursor-grab ",
@@ -59,7 +60,7 @@ const rangeFieldStyles = cva("input w-full", {
 });
 
 export function RangeField({
-  //name,
+  name,
   label,
   step = 1,
   //defaultValue,
@@ -73,6 +74,7 @@ export function RangeField({
   //highField,
   size,
   error,
+  ref,
   max = 100,
   min = 0,
 
@@ -86,7 +88,7 @@ export function RangeField({
     e.preventDefault();
     const newMinVal = Math.min(+e.target.value, maxValue - step);
     setMinValue(newMinVal);
-    console.log("min: " + newMinVal);
+    //console.log("min: " + newMinVal);
     //console.log(lowField.field.onChange);
     //lowField.field.onChange(newMinVal);
     onChange({ min: newMinVal, max: maxValue });
@@ -95,16 +97,11 @@ export function RangeField({
   const handleMaxChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     e.preventDefault();
     const newMaxVal = Math.max(+e.target.value, minValue + step);
-    console.log("max: " + newMaxVal);
+    //console.log("max: " + newMaxVal);
     //console.log(highField.field.onChange);
     setMaxValue(newMaxVal);
     //highField.field.onChange(newMaxVal);
     onChange({ min: minValue, max: newMaxVal });
-  };
-  const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-    //e.preventDefault();
-    const { value, name } = e.currentTarget;
-    console.log({ name, minValue, maxValue, value });
   };
 
   const minPos = ((minValue - min) / (max - min)) * 100;
@@ -122,6 +119,7 @@ export function RangeField({
               //})}
               //className="absolute w-full pointer-events-none appearance-none h-full opacity-0 z-30 p-0"
               className={inputClass1}
+              name={`${name}[0]`}
               type="range"
               step={step || 1}
               //{...lowField.field}
@@ -129,7 +127,6 @@ export function RangeField({
               //name={lowField.name}
               onChange={handleMinChange}
               //ref={lowField.field.ref}
-              //name={name}
               value={minValue}
               //defaultValue={defaultValue}
               //onChange={onChange}
@@ -140,6 +137,7 @@ export function RangeField({
             />
             <input
               disabled={props.disabled || false}
+              name={`${name}[1]`}
               //className="absolute w-full pointer-events-none appearance-none h-full opacity-0 z-30 p-0"
               className={inputClass1}
               //className={inputStyles({

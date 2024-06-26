@@ -32,6 +32,7 @@ export async function updateUser(formData: FormData) {
 }
 const preferenceSchema = zfd.formData({
   userId: zfd.text(),
+  range: zfd.numeric().array().length(2),
   colorUnit: zfd.text(z.nativeEnum(UserColorPreference)),
   timeUnit: zfd.text(z.nativeEnum(TimeUnit)),
   volumeUnit: zfd.text(z.nativeEnum(UserVolumePreference)),
@@ -127,10 +128,11 @@ export async function updateUserFavorite(
 */
 export async function updateUserPreferences(formData: FormData) {
   //const r = preferenceSchema.parse(formData);
-  const { errors, userId, ...data } = validateSchema(
+  const { errors, userId, range, ...data } = validateSchema(
     formData,
     preferenceSchema
   );
+  console.log(range);
   //console.log(errors);
   if (errors && errors.length) {
     //console.log(errors);
