@@ -6,6 +6,7 @@ import { HopIcon } from "@/components/Icon/HopIcon";
 import { IconProps } from "@/components/Icon/Icon";
 import { GrainIcon } from "@/components/Icon/GrainIcon";
 import { YeastIcon } from "@/components/Icon/YeastIcon";
+import { Box } from "@/components/Box";
 //import { AdminPage } from "./AdminPage";
 //const AdminModal = dynamic(
 //() => import("./AdminModal").then((s) => s.AdminModal),
@@ -13,26 +14,6 @@ import { YeastIcon } from "@/components/Icon/YeastIcon";
 //);
 
 //import { auth } from "@/app/auth";
-type BoxProps = {
-  href: string;
-  Icon: React.FC<IconProps>;
-  children?: React.ReactNode;
-};
-const Box = ({ href, children, Icon }: BoxProps) => {
-  return (
-    <Link
-      className="text-center text-2xl bg-slate-500 hover:bg-slate-200 p-8 border border-black flex"
-      href={href}
-    >
-      <Icon size="xl" />
-      <div className="flex-grow hidden sm:grid">
-        <span className="m-auto text-lg md:text-2xl lg:text-4xl">
-          {children}
-        </span>
-      </div>
-    </Link>
-  );
-};
 export default async function Page() {
   const session = await auth();
 
