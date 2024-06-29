@@ -68,7 +68,7 @@ export const AmountField = ({
   label,
   step,
   error,
-  size,
+  inputSize,
   name,
   variant,
   amountType,
@@ -118,7 +118,7 @@ export const AmountField = ({
           disabled={disabled || false}
           className={inputStyles({
             variant: error ? "error" : variant,
-            size,
+            inputSize,
           })}
           type="number"
           step={step || 1}

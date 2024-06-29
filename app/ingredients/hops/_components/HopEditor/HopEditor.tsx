@@ -84,7 +84,6 @@ export function HopEditor({ hop, action }: HopEditorProps) {
                 render={({ field }) => (
                   <RangeField
                     {...field}
-                    onChange={(v) => field.onChange(parseFloat(v))}
                     label="Beta Acids"
                     min={0}
                     max={30}
