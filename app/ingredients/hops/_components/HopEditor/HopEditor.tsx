@@ -12,6 +12,7 @@ import { SaveIcon } from "@/components/Icon/SaveIcon";
 import { RangeValue } from "@/components/Range/RangeSlider";
 import { Section } from "@/components/Section";
 import { Toolbar } from "@/components/Toolbar";
+import { HopInput } from "@/types/Ingredient";
 import { Hop, HopUsage } from "@prisma/client";
 import { Controller, useForm } from "react-hook-form";
 
@@ -20,9 +21,7 @@ export type HopEditorProps = {
   action?: (formData: FormData) => void;
 };
 export function HopEditor({ hop, action }: HopEditorProps) {
-  const { register, control, getValues } = useForm<
-    Hop & { alphaRange?: RangeValue; betaRange?: RangeValue }
-  >({
+  const { register, control, getValues } = useForm<HopInput>({
     defaultValues: hop || {},
   });
 
@@ -64,7 +63,13 @@ export function HopEditor({ hop, action }: HopEditorProps) {
                   {} as RangeValue
                 )}
                 render={({ field }) => (
-                  <RangeField {...field} label="Alpha Acids" step={0.01} />
+                  <RangeField
+                    {...field}
+                    label="Alpha Acids"
+                    step={0.01}
+                    min={0}
+                    max={40}
+                  />
                 )}
               />
             </div>
@@ -77,7 +82,140 @@ export function HopEditor({ hop, action }: HopEditorProps) {
                   {} as RangeValue
                 )}
                 render={({ field }) => (
-                  <RangeField {...field} label="Beta Acids" step={0.01} />
+                  <RangeField
+                    {...field}
+                    onChange={(v) => field.onChange(parseFloat(v))}
+                    label="Beta Acids"
+                    min={0}
+                    max={30}
+                    step={0.01}
+                  />
+                )}
+              />
+            </div>
+            <div className="col-span-2 md:col-span-4">
+              <Controller
+                name="cohumuloneRange"
+                control={control}
+                defaultValue={getValues([
+                  "cohumuloneLow",
+                  "cohumuloneHigh",
+                ]).reduce(
+                  (acc, v, i) => ({ ...acc, [i === 0 ? "min" : "max"]: v! }),
+                  {} as RangeValue
+                )}
+                render={({ field }) => (
+                  <RangeField
+                    {...field}
+                    label="Cohumulone"
+                    min={0}
+                    max={65}
+                    step={0.01}
+                  />
+                )}
+              />
+            </div>
+            <div className="col-span-2 md:col-span-4">
+              <Controller
+                name="caryophylleneRange"
+                control={control}
+                defaultValue={getValues([
+                  "caryophylleneLow",
+                  "caryophylleneHigh",
+                ]).reduce(
+                  (acc, v, i) => ({ ...acc, [i === 0 ? "min" : "max"]: v! }),
+                  {} as RangeValue
+                )}
+                render={({ field }) => (
+                  <RangeField
+                    {...field}
+                    label="Caryophyllene Range"
+                    step={0.01}
+                    min={0}
+                    max={20}
+                  />
+                )}
+              />
+            </div>
+
+            <div className="col-span-2 md:col-span-4">
+              <Controller
+                name="humuleneRange"
+                control={control}
+                defaultValue={getValues(["humuleneLow", "humuleneHigh"]).reduce(
+                  (acc, v, i) => ({ ...acc, [i === 0 ? "min" : "max"]: v! }),
+                  {} as RangeValue
+                )}
+                render={({ field }) => (
+                  <RangeField
+                    {...field}
+                    label="Humulene"
+                    step={0.01}
+                    min={0}
+                    max={65}
+                  />
+                )}
+              />
+            </div>
+
+            <div className="col-span-2 md:col-span-4">
+              <Controller
+                name="myrceneRange"
+                control={control}
+                defaultValue={getValues(["myrceneLow", "myrceneHigh"]).reduce(
+                  (acc, v, i) => ({ ...acc, [i === 0 ? "min" : "max"]: v! }),
+                  {} as RangeValue
+                )}
+                render={({ field }) => (
+                  <RangeField
+                    {...field}
+                    label="Myrcene"
+                    step={0.01}
+                    min={0}
+                    max={65}
+                  />
+                )}
+              />
+            </div>
+
+            <div className="col-span-2 md:col-span-4">
+              <Controller
+                name="farneseneRange"
+                control={control}
+                defaultValue={getValues([
+                  "farneseneLow",
+                  "farneseneHigh",
+                ]).reduce(
+                  (acc, v, i) => ({ ...acc, [i === 0 ? "min" : "max"]: v! }),
+                  {} as RangeValue
+                )}
+                render={({ field }) => (
+                  <RangeField
+                    {...field}
+                    label="Farnesene"
+                    step={0.01}
+                    min={0}
+                    max={35}
+                  />
+                )}
+              />
+            </div>
+
+            <div className="col-span-2 md:col-span-4">
+              <Controller
+                name="totalOilRange"
+                control={control}
+                defaultValue={getValues(["totalOilLow", "totalOilHigh"]).reduce(
+                  (acc, v, i) => ({ ...acc, [i === 0 ? "min" : "max"]: v! }),
+                  {} as RangeValue
+                )}
+                render={({ field }) => (
+                  <RangeField
+                    {...field}
+                    label="Total Oil"
+                    step={0.01}
+                    max={15}
+                  />
                 )}
               />
             </div>

@@ -1,5 +1,5 @@
 import { FieldError } from "react-hook-form";
-import { ZodError, ZodIssue, ZodSchema } from "zod";
+import { ZodError, ZodIssue, ZodSchema, z } from "zod";
 export type SchemaFieldError = FieldError & {
   extra?: string;
 };
@@ -10,7 +10,7 @@ export function validateSchema<
 >(formData: FormData, schema: T): S & { errors?: Record<string, ZodIssue> } {
   try {
     const data = schema.parse(formData);
-    return data;
+    return data as z.infer<T>;
   } catch (e: any) {
     return {
       errors: (e as ZodError).issues.reduce(

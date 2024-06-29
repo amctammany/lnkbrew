@@ -32,7 +32,7 @@ const numberFieldStyles = cva("input ", {
     },
     size: {
       default: ["w-auto"],
-      small: ["w-full"],
+      small: ["w-auto"],
     },
   },
   defaultVariants: { size: "default", variant: "default" },
@@ -42,21 +42,22 @@ export function NumberField({
   name,
   label,
   className,
-  size,
+  inputSize,
   error,
   ...props
 }: NumberFieldProps) {
   return (
     <Label
       className={className}
-      size={size}
+      inputSize={inputSize}
       label={label !== null ? label || name : ""}
       error={error}
     >
       <NumberFieldRaw
         //step={step || 1}
         name={name}
-        size={size}
+        inputSize={inputSize}
+        error={error}
         //defaultValue={defaultValue}
         //onChange={onChange}
         //onBlur={onBlur}
@@ -69,24 +70,13 @@ export function NumberField({
 }
 
 export function NumberFieldRaw({
-  className,
-  size,
-  variant,
-  error,
+  //className,
+  //size,
+  //variant,
+  //error,
   ...props
 }: NumberFieldProps) {
   return (
-    <Input
-      className={clsx(
-        numberFieldStyles({
-          variant: error ? "error" : variant,
-          size,
-        }),
-        className
-      )}
-      type="number"
-      onWheel={(e) => e.currentTarget.blur()}
-      {...props}
-    />
+    <input type="number" onWheel={(e) => e.currentTarget.blur()} {...props} />
   );
 }

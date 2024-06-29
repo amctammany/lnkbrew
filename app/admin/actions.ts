@@ -70,10 +70,10 @@ export async function toggleUserFavorite(
     },
     include: {
       user: true,
-      //defaultEquipment: true,
+      defaultEquipment: true,
       //defaultMashProfile: true,
-      //defaultSourceWater: true,
-      //defaultTargetWater: true,
+      defaultSourceWater: true,
+      defaultTargetWater: true,
     },
     data: {
       [profileType]: profileId !== null ? profileId : null,

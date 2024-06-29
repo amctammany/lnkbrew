@@ -4,7 +4,7 @@ import { SchemaFieldError } from "@/lib/validateSchema";
 import clsx from "clsx";
 
 export type InputProps = {
-  name: string;
+  name?: string;
   label?: string | React.ReactNode;
   defaultValue?: any;
   disabled?: boolean;
@@ -13,57 +13,53 @@ export type InputProps = {
   //onBlur?: (e: SyntheticEvent) => void;
   value?: any;
   ref?: any;
-} & VariantProps<typeof inputStyles> &
-  ComponentProps<"input">;
+} & ComponentProps<"input"> &
+  VariantProps<typeof inputStyles>;
+
 export const inputStyles = cva(
   "disabled:bg-slate-50 disabled:shadow-none disabled:text-slate-500 disabled:border-slate-200",
   {
     variants: {
       variant: {
         error: ["border-2 border-red-500"],
+        inline: ["inline-block"],
         default: ["block"],
       },
-      size: {
-        default: ["w-full"],
+      inputSize: {
+        default: [],
+        full: ["w-full"],
         small: ["w-8"],
       },
     },
-    defaultVariants: { size: "default", variant: "default" },
+    defaultVariants: { inputSize: "default", variant: "default" },
   }
 );
 export function Input({
-  name,
-  onChange,
-  onBlur,
-  value,
+  //name,
+  //onChange,
+  //onBlur,
+  //value,
   error,
   className,
-  disabled,
+  //disabled,
   label,
-  defaultValue,
+  //defaultValue,
   variant,
-  size,
-  ref,
+  inputSize,
+  //ref,
   ...props
 }: InputProps) {
   return (
     <input
-      disabled={disabled}
       className={clsx(
         inputStyles({
           variant: error ? "error" : variant,
-          size,
+          inputSize,
         }),
         className
       )}
-      //className="block w-full disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none"
       type={props.type ?? "text"}
-      name={name}
-      onChange={onChange}
-      onBlur={onBlur}
-      value={value}
       {...props}
-      ref={ref}
     />
   );
 }

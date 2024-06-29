@@ -37,25 +37,26 @@ export function TextArea({
   name,
   label,
   rows,
-  disabled,
-  defaultValue,
+  //disabled,
+  //defaultValue,
   error,
   className,
-  onChange,
-  onBlur,
-  value,
+  //onChange,
+  //onBlur,
+  //value,
   variant,
   size,
-  ref,
+  //ref,
+  ...props
 }: TextAreaProps) {
   return (
     <Label className={className} error={error} label={label || name}>
       <textarea
-        onBlur={onBlur}
-        onChange={onChange}
-        ref={ref}
-        value={value}
-        disabled={disabled}
+        //onBlur={onBlur}
+        //onChange={onChange}
+        //ref={ref}
+        //value={value}
+        //disabled={disabled}
         className={textAreaStyles({
           variant: error ? "error" : variant,
           size,
@@ -63,6 +64,7 @@ export function TextArea({
         //className="block w-full disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none"
         name={name}
         rows={rows || 3}
+        {...props}
       />
     </Label>
   );

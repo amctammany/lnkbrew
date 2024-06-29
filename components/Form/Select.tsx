@@ -25,7 +25,7 @@ export type SelectProps = {
   ref?: any;
 } & VariantProps<typeof selectStyles> &
   ComponentProps<"select">;
-const selectStyles = cva("input w-full", {
+const selectStyles = cva("input ", {
   variants: {
     variant: {
       default: [
@@ -36,30 +36,34 @@ const selectStyles = cva("input w-full", {
         "disabled:shadow-none",
         "invalid:bg-black",
       ],
+      inline: ["inline-block"],
     },
-    size: {
-      default: [""],
+    inputSize: {
+      default: ["w-24"],
+      full: ["w-full"],
       small: [""],
     },
   },
-  defaultVariants: { size: "default", variant: "default" },
+  defaultVariants: { inputSize: "default", variant: "default" },
 });
 
 export function Select({
-  name,
+  //name,
   label,
   error,
-  children,
+  //children,
   options,
-  disabled,
-  defaultValue,
-  value,
-  onChange,
-  onBlur,
+  //disabled,
+  //defaultValue,
+  //value,
+  inputSize,
+  //onChange,
+  //onBlur,
   variant,
   className,
-  size,
-  ref,
+  ...props
+  //size,
+  //ref,
 }: SelectProps) {
   const opts = options
     ? Object.entries(options).map(([k, v]) => (
@@ -67,24 +71,16 @@ export function Select({
           {v}
         </option>
       ))
-    : children;
+    : props.children;
   return (
     <Label
       className={className}
       error={error}
-      size={size}
-      label={label === undefined ? name : label}
+      inputSize={inputSize}
+      variant="inline"
+      label={label === undefined ? props.name : label!}
     >
-      <select
-        disabled={disabled}
-        className={selectStyles({ size, variant })}
-        name={name}
-        value={value}
-        defaultValue={defaultValue}
-        onChange={onChange}
-        onBlur={onBlur}
-        ref={ref}
-      >
+      <select {...props} className={selectStyles({ inputSize, variant })}>
         {opts}
       </select>
     </Label>

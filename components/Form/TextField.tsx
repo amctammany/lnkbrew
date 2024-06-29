@@ -23,35 +23,29 @@ const textFieldStyles = cva(
 );
 export function TextField({
   name,
-  onChange,
-  onBlur,
-  value,
   error,
   className,
-  disabled,
   label,
-  defaultValue,
   variant,
   size,
-  ref,
+  inputSize = "full",
   ...props
 }: TextFieldProps) {
   return (
-    <Label error={error} className={className} label={label || name}>
+    <Label
+      variant={variant}
+      inputSize={inputSize}
+      error={error}
+      className={className}
+      label={label || name}
+    >
       <Input
-        disabled={disabled}
-        className={inputStyles({
-          variant: error ? "error" : variant,
-          size,
-        })}
-        //className="block w-full disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none"
         type="text"
         name={name}
-        onChange={onChange}
-        onBlur={onBlur}
-        value={value}
+        error={error}
+        variant={variant}
+        inputSize={inputSize}
         {...props}
-        ref={ref}
       />
     </Label>
   );

@@ -9,44 +9,50 @@ export type LabelProps = {
   label?: string | React.ReactNode;
 } & VariantProps<typeof labelStyles> &
   ComponentProps<"label">;
-const labelStyles = cva(["block "], {
+const labelStyles = cva([""], {
   variants: {
     variant: {
-      default: ["m-0"],
+      default: ["mx-0 mb-2 p-2 block"],
       error: ["border-warning-500 border-2"],
+      inline: ["flex"],
     },
-    size: {
-      default: ["mx-0 mb-2", "p-2"],
+    inputSize: {
+      default: ["px-2 py-1", ""],
+      full: [],
       small: ["p-0"],
     },
   },
-  defaultVariants: { size: "default", variant: "default" },
+  defaultVariants: { inputSize: "default", variant: "default" },
 });
-const labelLabelStyles = cva(["block capitalize"], {
+const labelLabelStyles = cva(["block capitalize my-auto"], {
   variants: {
     variant: {
       default: ["text-gray-600"],
       error: ["text-warning-400"],
+      inline: ["flex-grow"],
     },
-    size: {
+    inputSize: {
       default: ["h-6"],
+      full: [],
       small: ["h-4"],
     },
   },
-  defaultVariants: { size: "default", variant: "default" },
+  defaultVariants: { inputSize: "default", variant: "default" },
 });
 const errorStyles = cva(["capitalize text-warning-400"], {
   variants: {
     variant: {
       default: ["hidden"],
       error: ["block"],
+      inline: [],
     },
-    size: {
+    inputSize: {
       default: [""],
+      full: ["w-full"],
       small: [""],
     },
   },
-  defaultVariants: { size: "default", variant: "default" },
+  defaultVariants: { inputSize: "default", variant: "default" },
 });
 
 export const Label = ({
@@ -54,27 +60,30 @@ export const Label = ({
   error,
   label,
   variant,
-  size,
+  inputSize,
   className,
 }: LabelProps) => {
   return (
     <label
       className={clsx(
-        labelStyles({ variant: error ? "error" : variant, size }),
+        labelStyles({ variant: error ? "error" : variant, inputSize }),
         className
       )}
     >
       <span
         className={labelLabelStyles({
           variant: error ? "error" : variant,
-          size,
+          inputSize,
         })}
       >
         {label}
       </span>
       {children}
       <span
-        className={errorStyles({ variant: error ? "error" : variant, size })}
+        className={errorStyles({
+          variant: error ? "error" : variant,
+          inputSize,
+        })}
       >
         {error?.message}
       </span>

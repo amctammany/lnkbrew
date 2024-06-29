@@ -65,37 +65,51 @@ export function AdminSettings({ src, action }: AdminSettingsProps) {
             <div>
               <input type="hidden" {...register("userId")} />
               <Select
+                variant="inline"
                 {...register("volumeUnit")}
+                label="Volume Unit"
                 error={errors.volumeUnit}
                 options={UserVolumePreference}
               />
               <Select
+                variant="inline"
                 {...register("colorUnit")}
+                label="Color Unit"
                 error={errors.colorUnit}
                 options={UserColorPreference}
               />
               <Select
+                variant="inline"
                 {...register("timeUnit")}
+                label="Time Unit"
                 error={errors.timeUnit}
                 options={TimeUnit}
               />
 
               <Select
+                variant="inline"
+                label="Hop Mass Unit"
                 {...register("hopMassUnit")}
                 options={UserMassPreference}
               />
               <Select
+                variant="inline"
                 {...register("fermentableMassUnit")}
+                label="Fermentable Mass Unit"
                 error={errors?.fermentableMassUnit}
                 options={UserMassPreference}
               />
               <Select
+                variant="inline"
                 {...register("temperatureUnit")}
+                label="Temperature Unit"
                 error={errors?.temperatureUnit}
                 options={UserTemperaturePreference}
               />
               <Select
+                variant="inline"
                 {...register("gravityUnit")}
+                label="Gravity Unit"
                 error={errors?.gravityUnit}
                 options={UserGravityPreference}
               />

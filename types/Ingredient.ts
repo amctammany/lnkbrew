@@ -1,3 +1,4 @@
+import { RangeValue } from "@/components/Range/RangeSlider";
 import { Hop, Yeast, Fermentable, HopSensoryPanel } from "@prisma/client";
 export type BaseFermentable = Pick<
   Fermentable,
@@ -39,3 +40,13 @@ export type BaseHop = Pick<
   | "flavor"
 >;
 export type ExtendedHop = Hop & { HopSensoryPanel: HopSensoryPanel[] };
+export type HopInput = Hop & {
+  alphaRange?: RangeValue;
+  betaRange?: RangeValue;
+  cohumuloneRange?: RangeValue;
+  caryophylleneRange?: RangeValue;
+  farneseneRange?: RangeValue;
+  humuleneRange?: RangeValue;
+  myrceneRange?: RangeValue;
+  totalOilRange?: RangeValue;
+};
