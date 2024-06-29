@@ -140,6 +140,8 @@ export function RangeField({
                 //name={lowField.name}
                 onChange={handleMinChange}
                 //ref={lowField.field.ref}
+                min={min}
+                max={max}
                 value={minValue}
                 //defaultValue={defaultValue}
                 //onChange={onChange}
@@ -153,6 +155,8 @@ export function RangeField({
                 name={name}
                 //className="absolute w-full pointer-events-none appearance-none h-full opacity-0 z-30 p-0"
                 className={inputClass}
+                min={min}
+                max={max}
                 //className={inputStyles({
                 //variant: error ? "error" : props.variant,
                 //size,
