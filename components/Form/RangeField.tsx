@@ -3,6 +3,7 @@ import {
   ComponentProps,
   SyntheticEvent,
   forwardRef,
+  useEffect,
   useState,
 } from "react";
 import { Label } from "./Label";
@@ -29,10 +30,10 @@ const inputClass = clsx(
   "absolute w-full h-full z-[3] p-0 opacity-0 appearance-none pointer-events-none ",
   "[&::-ms-track]:bg-transparent [&::-ms-track]:border-transparent [&::-ms-track]:appearance-none [&::-ms-thumb]:appearance-none [&::-ms-thumb]:[pointer-events:all] [&::-ms-thumb]:w-4 [&::-ms-thumb]:h-4 [&::-ms-thumb]:bg-red-900 [&::-ms-thumb]:cursor-grab [[&::-ms-thumb]&:active]:[cursor:grabbing]",
   "[&::-moz-range-track]:bg-transparent [&::-moz-range-track]:border-transparent [&::-moz-range-track]:appearance-none [&::-moz-range-thumb]:appearance-none [&::-moz-range-thumb]:[pointer-events:all] [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:bg-red-900 [&::-moz-range-thumb]:cursor-grab [[&::-moz-range-thumb]&:active]:[cursor:grabbing]",
-  "[&::-webkit-slider-thumb]:rounded-none [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:[pointer-events:all] [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:cursor-grab [&::-webkit-slider-thumb]:bg-red-900 [border:0,none]  [&:focus::-webkit-slider-runnable-track]:bg-transparent [&:focus::-webkit-slider-runnable-track]:border-transparent [&:focus::-webkit-slider-runnable-track]:appearance-none [&:focus::-webkit-slider-runnable-track]:w-4 [&:focus::-webkit-slider-runnable-track]:h-4 [&:focus::-webkit-slider-runnable-track]:bg-red-900   [[&::-webkit-slider-thumb]&:active]:[cursor:grabbing] "
+  "[&::-webkit-slider-thumb]:rounded-none [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:[pointer-events:all] [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:cursor-grab [&::-webkit-slider-thumb]:bg-red-900 [border:0,none]  [&:focus::-webkit-slider-runnable-track]:bg-transparent [&:focus::-webkit-slider-runnable-track]:border-transparent [&:focus::-webkit-slider-runnable-track]:appearance-none [&:focus::-webkit-slider-runnable-track]:w-4 [&:focus::-webkit-slider-runnable-track]:h-4 [&:focus::-webkit-slider-runnable-track]:bg-red-900   [[&::-webkit-slider-thumb]&:hover]:[cursor:grabbing] "
 );
 const controlClass = clsx(
-  "w-4 h-4 rounded-[50%] absolute top-1/2 bg-pink-400 z-[2] -translate-y-1/2 transform[translate3d(0,-50%,0)] ml-[-8px] pointer-events-none "
+  "w-6 h-6 rounded-[50%] absolute top-1/2 bg-pink-400 z-[2] -translate-y-1/2 transform[translate3d(0,-50%,0)] ml-[-8px] pointer-events-none "
 );
 
 const rangeFieldStyles = cva("input w-full", {
@@ -80,6 +81,10 @@ export function RangeField({
 }: RangeFieldProps) {
   const [minValue, setMinValue] = useState((value ? value.min : min) ?? 0);
   const [maxValue, setMaxValue] = useState((value ? value.max : max) ?? 100);
+  useEffect(() => {
+    if (value.min) setMinValue(value.min);
+    if (value.max) setMaxValue(value.max);
+  }, [value]);
 
   const handleMinChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     e.preventDefault();
@@ -108,7 +113,7 @@ export function RangeField({
       <div className="flex w-full">
         <NumberFieldRaw
           label={null}
-          name={`${name}[0]`}
+          //name={`${name}[0]`}
           className="flex-shrink text-center"
           //variant="tiny"
           inputSize={inputSize}
@@ -127,7 +132,7 @@ export function RangeField({
                 //})}
                 //className="absolute w-full pointer-events-none appearance-none h-full opacity-0 z-30 p-0"
                 className={inputClass}
-                name={`${name}[0]`}
+                name={name}
                 type="range"
                 step={step || 1}
                 //{...lowField.field}
@@ -145,7 +150,7 @@ export function RangeField({
               />
               <input
                 disabled={props.disabled || false}
-                name={`${name}[1]`}
+                name={name}
                 //className="absolute w-full pointer-events-none appearance-none h-full opacity-0 z-30 p-0"
                 className={inputClass}
                 //className={inputStyles({
@@ -188,7 +193,7 @@ export function RangeField({
         </div>
         <NumberFieldRaw
           className="flex-shrink text-center"
-          name={`${name}[1]`}
+          //name={`${name}[1]`}
           //variant="tiny"
           label={null}
           inputSize={inputSize}
