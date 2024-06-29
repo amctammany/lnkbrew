@@ -17,9 +17,12 @@ import { Submit } from "@/components/Form/Submit";
 import React, { FC, useMemo } from "react";
 import { Controller, useController, useForm } from "react-hook-form";
 import { RangeField } from "@/components/Form/RangeField";
+import { Section } from "@/components/Section";
+import { Toolbar } from "@/components/Toolbar";
 
 type AdminSettingsProps = { src?: UserPreferences | null; action: any };
 const equipmentProfiles = ["equ1", "eq2"];
+const mashProfiles = ["equ1", "eq2"];
 export function AdminSettings({ src, action }: AdminSettingsProps) {
   const {
     register,
@@ -47,57 +50,79 @@ export function AdminSettings({ src, action }: AdminSettingsProps) {
   };
 
   return (
-    <div className="m-auto w-full">
-      <h4>Admin Settings</h4>
-      <Form action={onSubmit}>
-        <input type="hidden" {...register("userId")} />
-        <Controller
-          name="range"
-          control={control}
-          render={({ field }) => <RangeField {...field} min={0} max={100} />}
-        />
-        <Select
-          {...register("volumeUnit")}
-          error={errors.volumeUnit}
-          options={UserVolumePreference}
-        />
-        <Select
-          {...register("colorUnit")}
-          error={errors.colorUnit}
-          options={UserColorPreference}
-        />
-        <Select
-          {...register("timeUnit")}
-          error={errors.timeUnit}
-          options={TimeUnit}
-        />
+    <Form action={onSubmit}>
+      <Section
+        header={"Admin Settings"}
+        className="m-auto w-full "
+        actions={
+          <>
+            <Submit>Save</Submit>
+          </>
+        }
+      >
+        <div className="grid md:grid-cols-2 gap-2 md:gap-4 m-4">
+          <Section header="Units">
+            <div>
+              <input type="hidden" {...register("userId")} />
+              <Select
+                {...register("volumeUnit")}
+                error={errors.volumeUnit}
+                options={UserVolumePreference}
+              />
+              <Select
+                {...register("colorUnit")}
+                error={errors.colorUnit}
+                options={UserColorPreference}
+              />
+              <Select
+                {...register("timeUnit")}
+                error={errors.timeUnit}
+                options={TimeUnit}
+              />
 
-        <Select {...register("hopMassUnit")} options={UserMassPreference} />
-        <Select
-          {...register("fermentableMassUnit")}
-          error={errors?.fermentableMassUnit}
-          options={UserMassPreference}
-        />
-        <Select
-          {...register("temperatureUnit")}
-          error={errors?.temperatureUnit}
-          options={UserTemperaturePreference}
-        />
-        <Autocomplete
-          //required
-          error={errors?.equipmentProfileId}
-          {...register("equipmentProfileId")}
-          value={src?.equipmentProfileId ?? undefined}
-          options={equipmentProfiles}
-        />
-        <Select
-          {...register("gravityUnit")}
-          error={errors?.gravityUnit}
-          options={UserGravityPreference}
-        />
-        <Submit>Save</Submit>
-      </Form>
-    </div>
+              <Select
+                {...register("hopMassUnit")}
+                options={UserMassPreference}
+              />
+              <Select
+                {...register("fermentableMassUnit")}
+                error={errors?.fermentableMassUnit}
+                options={UserMassPreference}
+              />
+              <Select
+                {...register("temperatureUnit")}
+                error={errors?.temperatureUnit}
+                options={UserTemperaturePreference}
+              />
+              <Select
+                {...register("gravityUnit")}
+                error={errors?.gravityUnit}
+                options={UserGravityPreference}
+              />
+            </div>
+          </Section>
+          <Section header="Default Profiles">
+            <Autocomplete
+              //required
+              error={errors?.equipmentProfileId}
+              {...register("equipmentProfileId")}
+              value={src?.equipmentProfileId ?? undefined}
+              options={equipmentProfiles}
+            />
+            <Autocomplete
+              //required
+              error={errors?.mashProfileId}
+              {...register("mashProfileId")}
+              value={src?.mashProfileId ?? undefined}
+              options={mashProfiles}
+            />
+          </Section>
+          <Toolbar className="md:col-span-2">
+            <Submit>Save</Submit>
+          </Toolbar>
+        </div>
+      </Section>
+    </Form>
   );
 }
 

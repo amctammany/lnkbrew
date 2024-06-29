@@ -76,10 +76,10 @@ const sectionTitle = cva("h4", {
     size: "default",
   },
 });
-const sectionBody = cva(["mx-2 md:mx-8"], {
+const sectionBody = cva([""], {
   variants: {
     variant: {
-      primary: ["bg-white border-red-300"],
+      primary: ["bg-white "],
       paper: ["bg-paper"],
       warning: [""],
       alert: [],

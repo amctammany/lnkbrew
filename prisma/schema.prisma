@@ -258,20 +258,22 @@ enum YeastType {
 
 model Yeast {
   //id           Int                @id @default(autoincrement())
-  id           String             @id @unique @default(cuid())
-  name         String
-  slug         String             @unique
-  usage        String?
-  description  String?
-  notes        String?
-  manufacturer String?
-  type         YeastType?
-  form         YeastForm?
-  tempLow      Float?
-  tempHigh     Float?
-  flocculation YeastFlocculation?
-  tolerance    Float?
-  attenuation  Float?
+  id              String             @id @unique @default(cuid())
+  name            String
+  slug            String             @unique
+  usage           String?
+  description     String?
+  notes           String?
+  manufacturer    String?
+  type            YeastType?
+  form            YeastForm?
+  tempLow         Float?
+  tempHigh        Float?
+  flocculation    YeastFlocculation?
+  tolerance       Float?
+  attenuation     Float?
+  attenuationLow  Float?
+  attenuationHigh Float?
   //  YeastIngredient YeastIngredient[]
 }
 
