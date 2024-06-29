@@ -18,7 +18,7 @@ export type NumberFieldProps = {
   //ref: any;
 } & InputProps;
 
-const numberFieldStyles = cva("input w-full", {
+const numberFieldStyles = cva("input ", {
   variants: {
     variant: {
       default: [
@@ -31,8 +31,8 @@ const numberFieldStyles = cva("input w-full", {
       error: ["bg-error-200"],
     },
     size: {
-      default: [""],
-      small: [""],
+      default: ["w-auto"],
+      small: ["w-full"],
     },
   },
   defaultVariants: { size: "default", variant: "default" },
@@ -56,6 +56,7 @@ export function NumberField({
       <NumberFieldRaw
         //step={step || 1}
         name={name}
+        size={size}
         //defaultValue={defaultValue}
         //onChange={onChange}
         //onBlur={onBlur}
@@ -77,7 +78,7 @@ export function NumberFieldRaw({
   return (
     <Input
       className={clsx(
-        inputStyles({
+        numberFieldStyles({
           variant: error ? "error" : variant,
           size,
         }),

@@ -109,7 +109,7 @@ export function RangeField({
           label={null}
           name={`${name}[0]`}
           className="flex-shrink text-center"
-          variant="tiny"
+          //variant="tiny"
           //size="small"
           value={minValue}
           onChange={handleMinChange}
@@ -188,7 +188,7 @@ export function RangeField({
         <NumberFieldRaw
           className="flex-shrink text-center"
           name={`${name}[1]`}
-          variant="tiny"
+          //variant="tiny"
           label={null}
           value={maxValue}
           onChange={handleMaxChange}

@@ -34,9 +34,17 @@ export function HopEditor({ hop, action }: HopEditorProps) {
       >
         <div className="p-4">
           <input type="hidden" {...register("id")} />
-          <TextField label="Name" {...register("name")} />
-          <TextField label="Country" {...register("country")} />
-          <Select {...register("usage")} options={HopUsage} />
+          <TextField className="w-full" label="Name" {...register("name")} />
+          <TextField
+            className="w-full"
+            label="Country"
+            {...register("country")}
+          />
+          <Select
+            {...register("usage")}
+            className="w-full"
+            options={HopUsage}
+          />
           <TextArea label="flavor" {...register("flavor")} />
 
           <TextArea

@@ -13,8 +13,8 @@ export type InputProps = {
   //onBlur?: (e: SyntheticEvent) => void;
   value?: any;
   ref?: any;
-} & ComponentProps<"input"> &
-  VariantProps<typeof inputStyles>;
+} & VariantProps<typeof inputStyles> &
+  ComponentProps<"input">;
 export const inputStyles = cva(
   "disabled:bg-slate-50 disabled:shadow-none disabled:text-slate-500 disabled:border-slate-200",
   {
@@ -22,10 +22,9 @@ export const inputStyles = cva(
       variant: {
         error: ["border-2 border-red-500"],
         default: ["block"],
-        tiny: ["w-24"],
       },
       size: {
-        default: [""],
+        default: ["w-full"],
         small: ["w-8"],
       },
     },
