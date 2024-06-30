@@ -14,7 +14,7 @@ const labelStyles = cva([""], {
     variant: {
       default: ["mx-0 mb-2 p-2 block"],
       error: ["border-warning-500 border-2"],
-      inline: ["flex"],
+      inline: ["grid grid-cols-2"],
     },
     inputSize: {
       default: ["px-2 py-1", ""],
@@ -29,7 +29,7 @@ const labelLabelStyles = cva(["block capitalize my-auto"], {
     variant: {
       default: ["text-gray-600"],
       error: ["text-warning-400"],
-      inline: ["flex-grow"],
+      inline: [""],
     },
     inputSize: {
       default: ["h-6"],
