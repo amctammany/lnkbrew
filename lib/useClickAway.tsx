@@ -5,17 +5,17 @@ export function useClickAway<E extends HTMLElement>(callback: () => void) {
 
   useEffect(() => {
     const handleClick = (event: any) => {
-      if (ref.current && !ref.current.contains(event.currentTarget)) {
+      if (ref.current && !ref.current.contains(event.target)) {
         callback();
       }
     };
     //console.log("init clickaway");
 
-    document.addEventListener("click", handleClick);
+    document.addEventListener("mousedown", handleClick);
 
     return () => {
       //console.log("remove clickaway");
-      document.removeEventListener("click", handleClick);
+      document.removeEventListener("mousedown", handleClick);
     };
   }, [ref, callback]);
 

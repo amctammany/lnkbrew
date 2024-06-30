@@ -58,8 +58,8 @@ export const NavCollapse = ({
   size,
 }: NavCollapseProps) => {
   const [open, setOpen] = useState(false);
-  //const handler = useCallback(() => setOpen(false), [setOpen]);
-  //const ref = useClickAway<HTMLDivElement>(handler);
+  const handler = useCallback(() => setOpen(() => false), [setOpen]);
+  const ref = useClickAway<HTMLDivElement>(handler);
   //const pathname = usePathname();
   //const active = href === pathname.slice(0, href.length) ? "active" : variant;
   const handleToggle: React.MouseEventHandler<HTMLButtonElement> = (e) => {
@@ -73,7 +73,7 @@ export const NavCollapse = ({
   return (
     <div className={c}>
       <div
-        //ref={ref}
+        ref={ref}
         className={containerStyles({ variant, open: open ? "open" : "closed" })}
         onClick={handleToggle as any}
       >
