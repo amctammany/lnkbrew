@@ -8,9 +8,12 @@ import {
   TextArea,
   TextField,
 } from "@/components/Form";
+import { RangeField } from "@/components/Form/RangeField";
 import { SaveIcon } from "@/components/Icon/SaveIcon";
+import { RangeValue } from "@/components/Range/RangeSlider";
 import { Section } from "@/components/Section";
 import { Toolbar } from "@/components/Toolbar";
+import { YeastInput } from "@/types/Ingredient";
 import {
   Yeast,
   YeastForm as YeastFormEnum,
@@ -24,7 +27,7 @@ export type YeastEditorProps = {
   action?: (formData: FormData) => void;
 };
 export function YeastEditor({ action, yeast }: YeastEditorProps) {
-  const { register, control } = useForm<Yeast>({
+  const { register, control, getValues } = useForm<YeastInput>({
     defaultValues: yeast || {},
   });
 
@@ -64,34 +67,47 @@ export function YeastEditor({ action, yeast }: YeastEditorProps) {
                 />
               )}
             />
-            <Controller
-              name="tempLow"
-              control={control}
-              defaultValue={0}
-              render={({ field }) => (
-                <AmountField
-                  {...field}
-                  value={field.value ?? 0}
-                  label="Temp Low"
-                  amountType="temperature"
-                  step={0.1}
-                />
-              )}
-            />
-            <Controller
-              name="tempHigh"
-              control={control}
-              defaultValue={0}
-              render={({ field }) => (
-                <AmountField
-                  {...field}
-                  value={field.value ?? 0}
-                  label="Temp High"
-                  amountType="temperature"
-                  step={0.1}
-                />
-              )}
-            />
+            <div className="col-span-2 md:col-span-4">
+              <Controller
+                name="tempRange"
+                control={control}
+                defaultValue={getValues(["tempLow", "tempHigh"]).reduce(
+                  (acc, v, i) => ({ ...acc, [i === 0 ? "min" : "max"]: v! }),
+                  {} as RangeValue
+                )}
+                render={({ field }) => (
+                  <RangeField
+                    {...field}
+                    label="Temperature Range"
+                    min={32}
+                    max={180}
+                    step={0.1}
+                  />
+                )}
+              />
+            </div>
+            <div className="col-span-2 md:col-span-4">
+              <Controller
+                name="attenuationRange"
+                control={control}
+                defaultValue={getValues([
+                  "attenuationLow",
+                  "attenuationHigh",
+                ]).reduce(
+                  (acc, v, i) => ({ ...acc, [i === 0 ? "min" : "max"]: v! }),
+                  {} as RangeValue
+                )}
+                render={({ field }) => (
+                  <RangeField
+                    {...field}
+                    label="Attenuation Range"
+                    min={0}
+                    max={100}
+                    step={0.1}
+                  />
+                )}
+              />
+            </div>
           </div>
         </div>
       </Section>

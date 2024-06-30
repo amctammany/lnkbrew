@@ -50,3 +50,8 @@ export type HopInput = Hop & {
   myrceneRange?: RangeValue;
   totalOilRange?: RangeValue;
 };
+
+export type YeastInput = Yeast & {
+  tempRange?: RangeValue;
+  attenuationRange?: RangeValue;
+};
