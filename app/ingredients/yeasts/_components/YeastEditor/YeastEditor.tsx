@@ -102,8 +102,8 @@ export function YeastEditor({ action, yeast }: YeastEditorProps) {
                     {...field}
                     label="Attenuation Range"
                     min={0}
-                    max={100}
-                    step={0.1}
+                    max={1}
+                    step={0.001}
                   />
                 )}
               />

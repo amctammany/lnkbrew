@@ -299,6 +299,8 @@ async function main() {
           ],
         form: YeastForm[form as YeastForm],
         attenuation: attenuation / 100,
+        attenuationLow: (attenuation - 2) / 100,
+        attenuationHigh: (attenuation + 2) / 100,
         tempLow: temp[0],
         tempHigh: temp[1],
         notes: notes[0],

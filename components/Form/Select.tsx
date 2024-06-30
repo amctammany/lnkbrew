@@ -3,6 +3,7 @@ import { ComponentProps, SyntheticEvent, forwardRef } from "react";
 import { Label } from "./Label";
 import { VariantProps, cva } from "class-variance-authority";
 import { SchemaFieldError } from "@/lib/validateSchema";
+import { inputStyles } from "./Input";
 
 type ErrorType = {
   type: string;
@@ -39,7 +40,7 @@ const selectStyles = cva("input ", {
       inline: ["inline-block"],
     },
     inputSize: {
-      default: ["w-24"],
+      default: ["flex-grow w-auto"],
       full: ["w-full"],
       small: [""],
     },
