@@ -3,6 +3,18 @@ import { redirect } from "next/navigation";
 import { prisma } from "@/lib/client";
 import { AdminSettings } from "./AdminSettings";
 import { updateUserPreferences } from "../../actions";
+import {
+  getWaterProfileOptions,
+  getWaterProfiles,
+} from "@/app/profiles/water/queries";
+import {
+  getMashProfileOptions,
+  getMashProfiles,
+} from "@/app/profiles/mash/queries";
+import {
+  getEquipmentProfileOptions,
+  getEquipmentProfiles,
+} from "@/app/profiles/equipment/queries";
 //const AdminModal = dynamic(
 //() => import("./AdminModal").then((s) => s.AdminModal),
 //{ ssr: false }
@@ -13,6 +25,9 @@ export default async function Page() {
   const session = await auth();
 
   if (!session) return redirect("/");
+  const waterProfiles = await getWaterProfileOptions();
+  const mashProfiles = await getMashProfileOptions();
+  const equipmentProfiles = await getEquipmentProfileOptions();
   const user = await prisma.user.findFirst({
     where: { email: session?.user?.email },
     include: {
@@ -24,6 +39,9 @@ export default async function Page() {
     <AdminSettings
       src={user?.UserPreferences ?? ({ userId: user?.id } as any)}
       action={updateUserPreferences}
+      waterProfiles={waterProfiles}
+      mashProfiles={mashProfiles}
+      equipmentProfiles={equipmentProfiles}
     />
   );
 }

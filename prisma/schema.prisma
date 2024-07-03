@@ -75,14 +75,14 @@ model UserPreferences {
   gravityUnit          UserGravityPreference     @default(SG)
   temperatureUnit      UserTemperaturePreference @default(F)
   defaultEquipment     EquipmentProfile?         @relation(fields: [equipmentProfileId], references: [id])
-  //  defaultMashProfile   MashProfile?              @relation(fields: [mashProfileId], references: [id])
+  defaultMashProfile   MashProfile?              @relation(fields: [mashProfileId], references: [id])
   defaultSourceWater   WaterProfile?             @relation("SourceWater", fields: [sourceWaterProfileId], references: [id])
   defaultTargetWater   WaterProfile?             @relation("TargetWater", fields: [targetWaterProfileId], references: [id])
   equipmentProfileId   Int?
   sourceWaterProfileId Int?
   targetWaterProfileId Int?
   mashProfileId        Int?
-  MashProfile          MashProfile?              @relation(fields: [mashProfileId], references: [id])
+  //  MashProfile          MashProfile?              @relation(fields: [mashProfileId], references: [id])
 }
 
 enum MassUnit {

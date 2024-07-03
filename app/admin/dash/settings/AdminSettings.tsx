@@ -22,10 +22,22 @@ import { Toolbar } from "@/components/Toolbar";
 import { Radio } from "@/components/Form/Radio";
 import RadioGroup from "@/components/Form/RadioGroup";
 
-type AdminSettingsProps = { src?: UserPreferences | null; action: any };
-const equipmentProfiles = ["equ1", "eq2"];
-const mashProfiles = ["equ1", "eq2"];
-export function AdminSettings({ src, action }: AdminSettingsProps) {
+type AdminSettingsProps = {
+  src?: UserPreferences | null;
+  action: any;
+  mashProfiles: any;
+  waterProfiles: any;
+  equipmentProfiles: any;
+};
+//const equipmentProfiles = ["equ1", "eq2"];
+//const mashProfiles = ["equ1", "eq2"];
+export function AdminSettings({
+  src,
+  action,
+  mashProfiles,
+  waterProfiles,
+  equipmentProfiles,
+}: AdminSettingsProps) {
   const {
     register,
     control,
@@ -120,15 +132,34 @@ export function AdminSettings({ src, action }: AdminSettingsProps) {
           <Section header="Default Profiles">
             <Autocomplete
               //required
+              error={errors?.sourceWaterProfileId}
+              {...register("sourceWaterProfileId")}
+              label="Source Water"
+              value={src?.sourceWaterProfileId ?? undefined}
+              options={waterProfiles}
+            />
+            <Autocomplete
+              //required
+              error={errors?.targetWaterProfileId}
+              label="Target Water"
+              {...register("targetWaterProfileId")}
+              value={src?.targetWaterProfileId ?? undefined}
+              options={waterProfiles}
+            />
+
+            <Autocomplete
+              //required
               error={errors?.equipmentProfileId}
               {...register("equipmentProfileId")}
               value={src?.equipmentProfileId ?? undefined}
+              label="Equipment Profile"
               options={equipmentProfiles}
             />
             <Autocomplete
               //required
               error={errors?.mashProfileId}
               {...register("mashProfileId")}
+              label="Mash Profile"
               value={src?.mashProfileId ?? undefined}
               options={mashProfiles}
             />
