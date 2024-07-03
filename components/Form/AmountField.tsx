@@ -41,7 +41,11 @@ export type AmountTypeProps = ComponentProps<"select"> & {
 
 function AmountType({ type, value, options, ...props }: AmountTypeProps) {
   return options?.length! > 1 ? (
-    <select {...props} onSelect={props.onChange}>
+    <select
+      {...props}
+      onSelect={props.onChange}
+      className="w-full h-full border border-black border-l-0 text-center align-middle justify-center"
+    >
       {options?.map(([k, v]) => (
         <option key={k} value={v}>
           {k}
@@ -116,10 +120,13 @@ export const AmountField = ({
         />
         <input
           disabled={disabled || false}
-          className={inputStyles({
-            variant: error ? "error" : variant,
-            inputSize,
-          })}
+          className={clsx(
+            inputStyles({
+              variant: error ? "error" : variant,
+              inputSize,
+            }),
+            "flex-grow w-full"
+          )}
           type="number"
           step={step || 1}
           //name={name}
@@ -131,7 +138,7 @@ export const AmountField = ({
           //ref={ref}
           //{...amountTypeProps}
         />
-        <div className="grid items-center align-middle justify-center">
+        <div className="flex-grow grid items-center align-middle justify-center">
           <AmountType
             value={currentUnit}
             options={getConversionOptions(amountType)}

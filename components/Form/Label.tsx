@@ -29,7 +29,7 @@ const labelLabelStyles = cva(["block capitalize my-auto"], {
     variant: {
       default: ["text-gray-600"],
       error: ["text-warning-400"],
-      inline: [""],
+      inline: ["text-gray-600"],
     },
     inputSize: {
       default: ["h-6"],

@@ -26,7 +26,7 @@ export type SelectProps = {
   ref?: any;
 } & VariantProps<typeof selectStyles> &
   ComponentProps<"select">;
-const selectStyles = cva("input ", {
+const selectStyles = cva("", {
   variants: {
     variant: {
       default: [
@@ -40,7 +40,7 @@ const selectStyles = cva("input ", {
       inline: ["inline-block"],
     },
     inputSize: {
-      default: ["flex-grow w-auto"],
+      default: ["w-full content-center"],
       full: ["w-full"],
       small: [""],
     },
