@@ -11,8 +11,11 @@ import {
   UserTemperaturePreference,
   UserVolumePreference,
 } from "@prisma/client";
+import { toggleUserFavorite } from "./admin/actions";
 
-export type UserContextType = Partial<UserPreferences>; // Omit<UserPreferences, "userId"> | null;
+export type UserContextType = Partial<UserPreferences> & {
+  toggleUserFavorite?: typeof toggleUserFavorite;
+}; // Omit<UserPreferences, "userId"> | null;
 export const UserContext = createContext<UserContextType>({});
 
 export default function UserProvider({
@@ -31,6 +34,27 @@ export default function UserProvider({
     hopMassUnit: UserMassPreference.Oz,
     fermentableMassUnit: UserMassPreference.LbOz,
   };
+  const val = {
+    userId,
+    ...prefs,
+    toggleUserFavorite: async (
+      userId: string | undefined,
+      profileType: Exclude<
+        keyof UserPreferences,
+        | "gravityUnit"
+        | "temperatureUnit"
+        | "userId"
+        | "volumeUnit"
+        | "hopMassUnit"
+        | "fermentableMassUnit"
+      >,
+      profileId: number | null
+    ) => {
+      await toggleUserFavorite(userId, profileType, profileId);
+      await session?.update();
+    },
+  };
+
   //const ctx: UserContextType = prefs;
-  return <UserContext value={prefs}>{children}</UserContext>;
+  return <UserContext value={val}>{children}</UserContext>;
 }

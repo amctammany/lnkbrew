@@ -20,12 +20,12 @@ export default async function EquipmentProfileDisplayPage({
   params: { slug },
 }: EquipmentProfileDisplayPageProps) {
   const equipmentProfile = await getEquipmentProfile(slug);
-  const session = await auth();
+  //const session = await auth();
   return (
     <EquipmentProfileDisplay
       profile={equipmentProfile}
-      preferences={session?.user?.UserPreferences}
-      action={toggleUserFavorite}
+      //preferences={session?.user?.UserPreferences}
+      //action={toggleUserFavorite}
     />
   );
 }

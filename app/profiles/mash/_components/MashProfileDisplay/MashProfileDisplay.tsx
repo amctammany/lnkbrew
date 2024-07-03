@@ -32,8 +32,8 @@ export const MashProfileDisplay = ({
           <FavButton
             id={profile?.id}
             name="mashProfileId"
-            isActive={preferences?.mashProfileId === profile?.id}
-            action={action?.bind(null, preferences?.userId, "mashProfileId")}
+            //isActive={preferences?.mashProfileId === profile?.id}
+            //action={action?.bind(null, preferences?.userId, "mashProfileId")}
           />
 
           <IconButtonLink

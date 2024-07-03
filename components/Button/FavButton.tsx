@@ -1,23 +1,37 @@
 "use client";
+import UserProvider, { UserContext } from "@/app/UserProvider";
 import { IconButton } from "@/components/Button/IconButton";
 import { SolidStarIcon, StarIcon } from "@/components/Icon/StarIcon";
 import { UserPreferences } from "@prisma/client";
 import clsx from "clsx";
-import React from "react";
+import { User } from "next-auth";
+import React, { use } from "react";
 import { SubmitHandler } from "react-hook-form";
 
 export type FavButtonProps = {
-  name: any;
+  //name: keyof Omit<UserPreferences, "userId">;
+  name: Exclude<
+    keyof UserPreferences,
+    | "gravityUnit"
+    | "temperatureUnit"
+    | "userId"
+    | "volumeUnit"
+    | "hopMassUnit"
+    | "colorUnit"
+    | "timeUnit"
+    | "fermentableMassUnit"
+  >;
+
   action?: any;
   id?: number;
   label?: string | React.ReactNode;
-  isActive?: boolean;
+  //isActive?: boolean;
 };
 export function FavButton({
   label,
   action,
   name,
-  isActive,
+  //isActive,
   id,
 }: FavButtonProps) {
   //const onSubmit: SubmitHandler<Partial<UserPreferences>> = (data) => {
@@ -26,6 +40,9 @@ export function FavButton({
   //action(body);
   //};
 
+  const user = use(UserContext);
+  const isActive = user?.[name] === id;
+  console.log(user, name, user?.[name], id, isActive);
   const className = clsx(
     "border hover:text-red-300  hover:bg-white text-white rounded-md ",
     {
@@ -34,7 +51,11 @@ export function FavButton({
     }
   );
   const handleAction = async () => {
-    const res = await action(isActive ? null : id);
+    const res = await user.toggleUserFavorite?.(
+      user.userId,
+      name,
+      isActive ? null : id!
+    );
   };
   return (
     <IconButton

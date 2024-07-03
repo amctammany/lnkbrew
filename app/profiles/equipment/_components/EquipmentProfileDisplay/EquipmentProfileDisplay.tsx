@@ -1,5 +1,5 @@
 import { IconButtonLink } from "@/components/Button";
-import FavButton from "@/components/Button/FavButton";
+import { FavButton } from "@/components/Button/FavButton";
 import { EditIcon } from "@/components/Icon/EditIcon";
 import { StarIcon } from "@/components/Icon/StarIcon";
 import { Prop } from "@/components/Prop";
@@ -27,8 +27,8 @@ export type EquipmentProfileDisplayProps = {
 };
 export const EquipmentProfileDisplay = ({
   profile,
-  preferences,
-  action,
+  //preferences,
+  //action,
 }: EquipmentProfileDisplayProps) => {
   return (
     <Section
@@ -38,12 +38,12 @@ export const EquipmentProfileDisplay = ({
           <FavButton
             id={profile?.id}
             name="equipmentProfileId"
-            isActive={preferences?.equipmentProfileId === profile?.id}
-            action={action?.bind(
-              null,
-              preferences?.userId,
-              "equipmentProfileId"
-            )}
+            //isActive={preferences?.equipmentProfileId === profile?.id}
+            //action={action?.bind(
+            //null,
+            //preferences?.userId,
+            //"equipmentProfileId"
+            //)}
           />
 
           <IconButtonLink

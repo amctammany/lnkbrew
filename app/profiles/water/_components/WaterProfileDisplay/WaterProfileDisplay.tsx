@@ -1,5 +1,5 @@
 import { IconButtonLink } from "@/components/Button";
-import FavButton from "@/components/Button/FavButton";
+import { FavButton } from "@/components/Button/FavButton";
 import { EditIcon } from "@/components/Icon/EditIcon";
 import { Prop } from "@/components/Prop";
 import { Section } from "@/components/Section";
@@ -27,23 +27,23 @@ export const WaterProfileDisplay = ({
             id={profile?.id}
             name="sourceWaterProfileId"
             label="Source"
-            isActive={preferences?.sourceWaterProfileId === profile?.id}
-            action={action?.bind(
-              null,
-              preferences?.userId,
-              "sourceWaterProfileId"
-            )}
+            //isActive={preferences?.sourceWaterProfileId === profile?.id}
+            //action={action?.bind(
+            //null,
+            //preferences?.userId,
+            //"sourceWaterProfileId"
+            //)}
           />
           <FavButton
             id={profile?.id}
             name="targetWaterProfileId"
             label="Target"
-            isActive={preferences?.targetWaterProfileId === profile?.id}
-            action={action?.bind(
-              null,
-              preferences?.userId,
-              "targetWaterProfileId"
-            )}
+            //isActive={preferences?.targetWaterProfileId === profile?.id}
+            //action={action?.bind(
+            //null,
+            //preferences?.userId,
+            //"targetWaterProfileId"
+            //)}
           />
 
           <IconButtonLink
