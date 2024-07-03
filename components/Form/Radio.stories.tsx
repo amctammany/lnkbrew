@@ -14,6 +14,5 @@ export const Basic: Story = {
     name: "foo",
     onChange: (v) => v,
     value: "foo",
-    options: { name: "foo", bar: "doo" },
   },
 };

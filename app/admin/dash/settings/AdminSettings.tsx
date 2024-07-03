@@ -19,6 +19,8 @@ import { Controller, useController, useForm } from "react-hook-form";
 import { RangeField } from "@/components/Form/RangeField";
 import { Section } from "@/components/Section";
 import { Toolbar } from "@/components/Toolbar";
+import { Radio } from "@/components/Form/Radio";
+import RadioGroup from "@/components/Form/RadioGroup";
 
 type AdminSettingsProps = { src?: UserPreferences | null; action: any };
 const equipmentProfiles = ["equ1", "eq2"];
@@ -29,6 +31,7 @@ export function AdminSettings({ src, action }: AdminSettingsProps) {
     control,
     formState: { errors },
     setError,
+    getValues,
   } = useForm<
     UserPreferences & {
       range: { min: number; max: number }; //[number, number];
@@ -64,28 +67,27 @@ export function AdminSettings({ src, action }: AdminSettingsProps) {
           <Section header="Units">
             <div>
               <input type="hidden" {...register("userId")} />
-              <Select
+              <RadioGroup
                 variant="inline"
                 {...register("volumeUnit")}
                 label="Volume Unit"
                 error={errors.volumeUnit}
                 options={UserVolumePreference}
               />
-              <Select
+              <RadioGroup
                 variant="inline"
                 {...register("colorUnit")}
                 label="Color Unit"
                 error={errors.colorUnit}
                 options={UserColorPreference}
               />
-              <Select
+              <RadioGroup
                 variant="inline"
                 {...register("timeUnit")}
                 label="Time Unit"
                 error={errors.timeUnit}
                 options={TimeUnit}
               />
-
               <Select
                 variant="inline"
                 label="Hop Mass Unit"
@@ -99,14 +101,14 @@ export function AdminSettings({ src, action }: AdminSettingsProps) {
                 error={errors?.fermentableMassUnit}
                 options={UserMassPreference}
               />
-              <Select
+              <RadioGroup
                 variant="inline"
-                {...register("temperatureUnit")}
                 label="Temperature Unit"
                 error={errors?.temperatureUnit}
                 options={UserTemperaturePreference}
+                {...register("temperatureUnit")}
               />
-              <Select
+              <RadioGroup
                 variant="inline"
                 {...register("gravityUnit")}
                 label="Gravity Unit"
