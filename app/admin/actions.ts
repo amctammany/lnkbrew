@@ -64,6 +64,7 @@ export async function toggleUserFavorite(
   >,
   profileId: number | null
 ) {
+  console.log({ userId, profileId, profileType });
   const res = await prisma.userPreferences.update({
     where: {
       userId,
@@ -71,7 +72,7 @@ export async function toggleUserFavorite(
     include: {
       user: true,
       defaultEquipment: true,
-      //defaultMashProfile: true,
+      defaultMashProfile: true,
       defaultSourceWater: true,
       defaultTargetWater: true,
     },
@@ -81,7 +82,6 @@ export async function toggleUserFavorite(
   });
   revalidateTag("userPreferences");
 }
-/**
 export async function updateUserFavorite(
   userId: string | undefined,
   formData: FormData
@@ -91,6 +91,7 @@ export async function updateUserFavorite(
     console.log(errors);
     return { errors };
   }
+  console.log(userId, data);
   const res = await prisma.userPreferences.update({
     where: {
       userId,
@@ -125,7 +126,6 @@ export async function updateUserFavorite(
 
   revalidateTag("userPreferences");
 }
-*/
 export async function updateUserPreferences(formData: FormData) {
   //const r = preferenceSchema.parse(formData);
   const { errors, userId, ...data } = validateSchema(

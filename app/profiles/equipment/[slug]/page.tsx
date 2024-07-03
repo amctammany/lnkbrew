@@ -1,5 +1,7 @@
+import { auth } from "@/app/auth";
 import { EquipmentProfileDisplay } from "../_components/EquipmentProfileDisplay";
 import { getEquipmentProfile } from "../queries";
+import { toggleUserFavorite } from "@/app/admin/actions";
 type EquipmentProfileDisplayPageProps = {
   params: {
     slug: string;
@@ -18,5 +20,12 @@ export default async function EquipmentProfileDisplayPage({
   params: { slug },
 }: EquipmentProfileDisplayPageProps) {
   const equipmentProfile = await getEquipmentProfile(slug);
-  return <EquipmentProfileDisplay profile={equipmentProfile} />;
+  const session = await auth();
+  return (
+    <EquipmentProfileDisplay
+      profile={equipmentProfile}
+      preferences={session?.user?.UserPreferences}
+      action={toggleUserFavorite}
+    />
+  );
 }

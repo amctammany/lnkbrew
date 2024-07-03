@@ -1,4 +1,5 @@
 import { IconButtonLink } from "@/components/Button";
+import FavButton from "@/components/Button/FavButton";
 import { EditIcon } from "@/components/Icon/EditIcon";
 import { StarIcon } from "@/components/Icon/StarIcon";
 import { Prop } from "@/components/Prop";
@@ -6,7 +7,7 @@ import AmountProp from "@/components/Prop/AmountProp";
 import { Section } from "@/components/Section";
 import { Toolbar } from "@/components/Toolbar";
 import { ExtendedEquipmentProfile } from "@/types/Profile";
-import { EquipmentProfile, User } from "@prisma/client";
+import { EquipmentProfile, User, UserPreferences } from "@prisma/client";
 import React from "react";
 const numberFieldNames: [keyof EquipmentProfile, string][] = [
   ["batchVolume", "gal"],
@@ -21,15 +22,30 @@ const numberFieldNames: [keyof EquipmentProfile, string][] = [
 
 export type EquipmentProfileDisplayProps = {
   profile?: ExtendedEquipmentProfile;
+  preferences?: UserPreferences;
+  action?: any;
 };
 export const EquipmentProfileDisplay = ({
   profile,
+  preferences,
+  action,
 }: EquipmentProfileDisplayProps) => {
   return (
     <Section
       header={profile?.name}
       actions={
         <>
+          <FavButton
+            id={profile?.id}
+            name="equipmentProfileId"
+            isActive={preferences?.equipmentProfileId === profile?.id}
+            action={action?.bind(
+              null,
+              preferences?.userId,
+              "equipmentProfileId"
+            )}
+          />
+
           <IconButtonLink
             href={`/profiles/equipment/${profile?.slug}/fork`}
             Icon={StarIcon}
