@@ -64,7 +64,6 @@ export async function toggleUserFavorite(
   >,
   profileId: number | null
 ) {
-  console.log({ userId, profileId, profileType });
   const res = await prisma.userPreferences.update({
     where: {
       userId,
@@ -88,10 +87,9 @@ export async function updateUserFavorite(
 ) {
   const { errors, ...data } = validateSchema(formData, favoriteSchema);
   if (errors && errors.length) {
-    console.log(errors);
+    //console.error(errors);
     return { errors };
   }
-  console.log(userId, data);
   const res = await prisma.userPreferences.update({
     where: {
       userId,
@@ -132,9 +130,8 @@ export async function updateUserPreferences(formData: FormData) {
     formData,
     preferenceSchema
   );
-  console.log(errors);
   if (errors && errors.length) {
-    //console.log(errors);
+    //console.error(errors);
     return { errors };
   }
   const update = {
