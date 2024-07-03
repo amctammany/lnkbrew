@@ -44,7 +44,10 @@ function AmountType({ type, value, options, ...props }: AmountTypeProps) {
     <select
       {...props}
       onSelect={props.onChange}
-      className="w-full h-full border border-black border-l-0 text-center align-middle justify-center"
+      className={clsx(
+        "h-full border border-black border-l-0 text-center align-middle justify-center",
+        props.className
+      )}
     >
       {options?.map(([k, v]) => (
         <option key={k} value={v}>
@@ -53,7 +56,7 @@ function AmountType({ type, value, options, ...props }: AmountTypeProps) {
       ))}
     </select>
   ) : (
-    <div className="grid h-full border border-black border-l-0 text-center align-middle justify-center">
+    <div className={clsx("border-black border border-l-0", props.className)}>
       <span className="my-auto block text-sm px-2 font-bold">
         {options?.length === 1 ? options[0][0] : value}
       </span>
@@ -110,7 +113,7 @@ export const AmountField = ({
   //console.log({ baseValue, value, currentAmount, amountType, currentUnit });
   return (
     <Label className={clsx("", className)} label={label || name} error={error}>
-      <div className={clsx("flex", className)}>
+      <div className={clsx("flex")}>
         <input
           type="hidden"
           name={name}
@@ -138,13 +141,12 @@ export const AmountField = ({
           //ref={ref}
           //{...amountTypeProps}
         />
-        <div className="flex-grow grid items-center align-middle justify-center">
-          <AmountType
-            value={currentUnit}
-            options={getConversionOptions(amountType)}
-            onChange={handleSelect}
-          />
-        </div>
+        <AmountType
+          value={currentUnit}
+          options={getConversionOptions(amountType)}
+          onChange={handleSelect}
+          className="flex-shrink grid items-center align-middle justify-center"
+        />
       </div>
     </Label>
   );
