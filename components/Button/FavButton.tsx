@@ -42,7 +42,6 @@ export function FavButton({
 
   const user = use(UserContext);
   const isActive = user?.[name] === id;
-  console.log(user, name, user?.[name], id, isActive);
   const className = clsx(
     "border hover:text-red-300  hover:bg-white text-white rounded-md ",
     {
