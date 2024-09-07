@@ -1,6 +1,7 @@
 import { EquipmentProfileIcon } from "@/components/Icon/EquipmentProfileIcon";
 import { MashProfileIcon } from "@/components/Icon/MashProfileIcon";
 import { WaterProfileIcon } from "@/components/Icon/WaterProfileIcon";
+import { Label } from "@/components/Label";
 import { Body } from "@/components/Nav/Body";
 import { NavLink, NavLinkProps } from "@/components/Nav/NavLink";
 import { SubNav } from "@/components/Nav/SubNav";
@@ -18,10 +19,9 @@ type ProfileLinkProps = NavLinkProps & {
 const ProfileLink = ({ href, Icon, children }: ProfileLinkProps) => {
   return (
     <NavLink variant="subnav" href={href} className="flex-grow">
-      <div className=" flex mx-auto">
+      <Label text={children?.toString()}>
         <Icon className="m-0" />
-        <span className="hidden sm:block ml-3">{children}</span>
-      </div>
+      </Label>
     </NavLink>
   );
 };

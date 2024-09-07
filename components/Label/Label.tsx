@@ -4,7 +4,7 @@ export type LabelProps = VariantProps<typeof labelStyles> & {
   children?: React.ReactNode;
   text?: string;
 };
-const labelStyles = cva(["inline-flex gap-1"], {
+const labelStyles = cva(["inline-flex mx-auto"], {
   variants: {
     variant: {
       default: "text-inherit",
@@ -25,7 +25,7 @@ export const Label = ({ text, variant, order, children }: LabelProps) => {
   return (
     <div className={labelStyles({ variant, order })}>
       {children}
-      <span>{text}</span>
+      <span className="hidden sm:block ml-2">{text}</span>
     </div>
   );
 };
