@@ -7,9 +7,11 @@ import { usePathname } from "next/navigation";
 const navLinkStyles = cva(["flex text-center font-bold "], {
   variants: {
     variant: {
-      active: ["text-red-500 hover:text-slate-400 fill-red-500"],
-      default: ["text-white hover:text-slate-400 "],
-      subnav: ["text-black hover:text-white "],
+      active: [
+        "text-red-500 hover:text-slate-400 hover:fill-slate-400 fill-red-500",
+      ],
+      default: ["text-white hover:text-slate-400 hover:fill-slate-400 "],
+      subnav: ["text-black hover:text-white hover:fill-white"],
       danger: ["text-red-400 hover:text-red-700 hover:underline"],
     },
     active: {

@@ -7,7 +7,7 @@ export type IconProps = ComponentProps<"div"> &
 export const iconStyles = cva("", {
   variants: {
     variant: {
-      default: [""],
+      default: ["text-inherit"],
       white: ["text-white"],
       warning: ["text-warning-500"],
       active: ["fill-red-400"],
