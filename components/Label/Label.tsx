@@ -4,7 +4,7 @@ export type LabelProps = VariantProps<typeof labelStyles> & {
   children?: React.ReactNode;
   text?: string;
 };
-const labelStyles = cva(["inline-flex mx-auto"], {
+const labelStyles = cva(["flex mx-auto"], {
   variants: {
     variant: {
       default: "text-inherit",

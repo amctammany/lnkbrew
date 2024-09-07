@@ -1,3 +1,8 @@
+import { DashboardIcon } from "@/components/Icon/DashboardIcon";
+import { LogoutIcon } from "@/components/Icon/LogoutIcon";
+import { ProfileIcon } from "@/components/Icon/ProfileIcon";
+import { SettingsIcon } from "@/components/Icon/SettingsIcon";
+import { Label } from "@/components/Label";
 import Body from "@/components/Nav/Body";
 import NavLink from "@/components/Nav/NavLink";
 import { SubNav } from "@/components/Nav/SubNav";
@@ -20,17 +25,33 @@ export default function AdminLayout({
 }>) {
   return (
     <SubNav body={children}>
-      <NavLink variant="subnav" href="/admin/dash/home">
-        Dashboard
+      <NavLink variant="subnav" href="/admin/dash/home" className="flex-grow">
+        <Label text="Dashboard">
+          <DashboardIcon />
+        </Label>
       </NavLink>
-      <NavLink variant="subnav" href="/admin/dash/profile">
-        Profile
+      <NavLink
+        variant="subnav"
+        href="/admin/dash/profile"
+        className="flex-grow"
+      >
+        <Label text="Profile">
+          <ProfileIcon />
+        </Label>
       </NavLink>
-      <NavLink variant="subnav" href="/admin/dash/settings">
-        Settings
+      <NavLink
+        variant="subnav"
+        href="/admin/dash/settings"
+        className="flex-grow"
+      >
+        <Label text="Settings">
+          <SettingsIcon />
+        </Label>
       </NavLink>
-      <NavLink variant="danger" href="/api/auth/signout">
-        Logout
+      <NavLink variant="danger" href="/api/auth/signout" className="flex-grow">
+        <Label text="Logout">
+          <LogoutIcon />
+        </Label>
       </NavLink>
     </SubNav>
   );
