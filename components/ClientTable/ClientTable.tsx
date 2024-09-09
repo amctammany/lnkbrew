@@ -36,7 +36,7 @@ const SelectedBadge = ({
       <span className="font-bold m-auto ml-2 px-2 text-sm">{name}</span>
 
       <CloseIcon
-        name={value}
+        data-name={value}
         size="medium"
         onClick={onClick}
         className="m-2 ml-0 hover:text-red-400"
@@ -157,10 +157,12 @@ export function ClientTable<T extends Record<string, any>>({
     [table]
   );
   const handleUnselect = useMemo(
-    () => (e: React.MouseEvent<HTMLButtonElement>) => {
-      if (e.currentTarget?.name) {
+    () => (e: React.MouseEvent<HTMLOrSVGElement>) => {
+      console.log(e.currentTarget.dataset.name);
+      //console.log(e.target.name);
+      if (e.currentTarget?.dataset.name) {
         table.setRowSelection((old) => {
-          return { ...old, [e.currentTarget?.name]: false };
+          return { ...old, [e.currentTarget?.dataset.name as string]: false };
         });
       }
     },
