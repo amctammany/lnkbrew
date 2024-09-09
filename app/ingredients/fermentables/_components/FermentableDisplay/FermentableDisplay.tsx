@@ -6,6 +6,7 @@ import { Toolbar } from "@/components/Toolbar";
 import { IconButton } from "@/components/Button/IconButton";
 import { IconButtonLink } from "@/components/Button";
 import { EditIcon } from "@/components/Icon/EditIcon";
+import { GrainIcon } from "@/components/Icon/GrainIcon";
 
 export type FermentableDisplayProps = {
   fermentable: Fermentable | null;
@@ -14,6 +15,7 @@ export function FermentableDisplay({ fermentable }: FermentableDisplayProps) {
   return (
     <Section
       title={fermentable?.name}
+      Icon={GrainIcon}
       actions={
         <IconButtonLink
           href={`/ingredients/fermentables/${fermentable?.slug}/edit`}

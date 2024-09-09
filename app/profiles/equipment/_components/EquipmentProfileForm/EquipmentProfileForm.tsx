@@ -53,7 +53,7 @@ export const EquipmentProfileForm = ({
   return (
     <Form action={formAction}>
       <Section
-        icon="EquipmentProfileIcon"
+        Icon={EquipmentProfileIcon}
         header={profile?.name ?? "New EquipmentProfile"}
         actions={
           <IconButton type="submit" Icon={SaveIcon}>

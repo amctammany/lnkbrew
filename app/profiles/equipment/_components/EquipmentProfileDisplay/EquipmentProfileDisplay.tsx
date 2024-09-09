@@ -1,6 +1,8 @@
 import { IconButtonLink } from "@/components/Button";
 import { FavButton } from "@/components/Button/FavButton";
 import { EditIcon } from "@/components/Icon/EditIcon";
+import { EquipmentProfileIcon } from "@/components/Icon/EquipmentProfileIcon";
+import { ForkIcon } from "@/components/Icon/ForkIcon";
 import { StarIcon } from "@/components/Icon/StarIcon";
 import { Prop } from "@/components/Prop";
 import AmountProp from "@/components/Prop/AmountProp";
@@ -32,6 +34,7 @@ export const EquipmentProfileDisplay = ({
 }: EquipmentProfileDisplayProps) => {
   return (
     <Section
+      Icon={EquipmentProfileIcon}
       header={profile?.name}
       actions={
         <>
@@ -48,7 +51,7 @@ export const EquipmentProfileDisplay = ({
 
           <IconButtonLink
             href={`/profiles/equipment/${profile?.slug}/fork`}
-            Icon={StarIcon}
+            Icon={ForkIcon}
           >
             Fork
           </IconButtonLink>

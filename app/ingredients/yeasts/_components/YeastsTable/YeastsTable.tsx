@@ -34,6 +34,7 @@ import {
 import { VariantProps } from "class-variance-authority";
 import Link from "next/link";
 import { useMemo, useState } from "react";
+import { YeastIcon } from "@/components/Icon/YeastIcon";
 const YeastTypeWithBlank = { "": "", ...YeastType };
 const YeastFormWithBlank = { "": "", ...YeastForm };
 const YeastFlocculationWithBlank = { "": "", ...YeastFlocculation };
@@ -127,6 +128,7 @@ export const YeastsTable = ({
   return (
     <Section
       title="Yeasts"
+      Icon={YeastIcon}
       actions={
         <IconButtonLink Icon={AddIcon} href="/ingredients/yeasts/new">
           New

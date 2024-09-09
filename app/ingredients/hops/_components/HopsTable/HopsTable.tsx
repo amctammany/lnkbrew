@@ -39,6 +39,7 @@ import { Toolbar } from "@/components/Toolbar";
 import { ButtonLink, IconButtonLink } from "@/components/Button";
 import { Section } from "@/components/Section";
 import { AddIcon } from "@/components/Icon/AddIcon";
+import { HopIcon } from "@/components/Icon/HopIcon";
 export const HopsTable = ({
   hops,
   sort,
@@ -118,6 +119,7 @@ export const HopsTable = ({
   return (
     <Section
       header="Hops"
+      Icon={HopIcon}
       actions={
         <IconButtonLink Icon={AddIcon} href="/ingredients/hops/new">
           New

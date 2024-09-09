@@ -10,6 +10,7 @@ import {
 } from "@/components/Form";
 import { RangeField } from "@/components/Form/RangeField";
 import { SaveIcon } from "@/components/Icon/SaveIcon";
+import { YeastIcon } from "@/components/Icon/YeastIcon";
 import { RangeValue } from "@/components/Range/RangeSlider";
 import { Section } from "@/components/Section";
 import { Toolbar } from "@/components/Toolbar";
@@ -35,6 +36,7 @@ export function YeastEditor({ action, yeast }: YeastEditorProps) {
     <Form action={action}>
       <Section
         title={yeast?.name ?? "New Yeast"}
+        Icon={YeastIcon}
         actions={
           <IconButton Icon={SaveIcon} type="submit">
             Save

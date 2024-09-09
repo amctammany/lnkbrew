@@ -154,7 +154,9 @@ export const Section = ({
   return (
     <div className={clsx(section({ size, variant, collapsed }), className)}>
       <div className={sectionHeader({ size, variant, collapsed })}>
-        <div className="flex-shrink">{!!Icon ? <Icon /> : <></>}</div>
+        <div className="flex-shrink pl-2 md:pl-4">
+          {!!Icon ? <Icon /> : <></>}
+        </div>
         <h4 className={sectionTitle({ size, variant, collapsed })}>
           {_title || title}
         </h4>

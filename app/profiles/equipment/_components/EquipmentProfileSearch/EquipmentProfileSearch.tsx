@@ -6,6 +6,7 @@ import { EquipmentProfileList } from "../EquipmentProfileList";
 import { AddIcon } from "@/components/Icon/AddIcon";
 import { useMemo, useState } from "react";
 import { TextField } from "@/components/Form";
+import { EquipmentProfileIcon } from "@/components/Icon/EquipmentProfileIcon";
 export type EquipmentProfileListProps = {
   profiles?: EquipmentProfile[];
 };
@@ -36,6 +37,7 @@ export const EquipmentProfileSearch = ({
     <Section
       variant="primary"
       header="Equipment Profiles"
+      Icon={EquipmentProfileIcon}
       actions={<EquipmentProfilesActions />}
     >
       <TextField

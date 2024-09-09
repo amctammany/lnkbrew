@@ -6,6 +6,7 @@ import { Toolbar } from "@/components/Toolbar";
 import { IconButton } from "@/components/Button/IconButton";
 import { IconButtonLink } from "@/components/Button";
 import { EditIcon } from "@/components/Icon/EditIcon";
+import { YeastIcon } from "@/components/Icon/YeastIcon";
 
 export type YeastDisplayProps = {
   yeast: Yeast | null;
@@ -14,6 +15,7 @@ export function YeastDisplay({ yeast }: YeastDisplayProps) {
   return (
     <Section
       title={yeast?.name}
+      Icon={YeastIcon}
       actions={
         <IconButtonLink
           href={`/ingredients/yeasts/${yeast?.slug}/edit`}

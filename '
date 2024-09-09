@@ -8,7 +8,6 @@ import {
   TextField,
 } from "@/components/Form";
 import { RangeField } from "@/components/Form/RangeField";
-import { HopIcon } from "@/components/Icon/HopIcon";
 import { SaveIcon } from "@/components/Icon/SaveIcon";
 import { RangeValue } from "@/components/Range/RangeSlider";
 import { Section } from "@/components/Section";

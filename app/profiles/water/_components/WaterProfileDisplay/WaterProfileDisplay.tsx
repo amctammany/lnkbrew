@@ -1,6 +1,7 @@
 import { IconButtonLink } from "@/components/Button";
 import { FavButton } from "@/components/Button/FavButton";
 import { EditIcon } from "@/components/Icon/EditIcon";
+import { ForkIcon } from "@/components/Icon/ForkIcon";
 import { Prop } from "@/components/Prop";
 import { Section } from "@/components/Section";
 import { Toolbar } from "@/components/Toolbar";
@@ -48,7 +49,7 @@ export const WaterProfileDisplay = ({
 
           <IconButtonLink
             href={`/profiles/water/${profile?.slug}/fork`}
-            Icon={EditIcon}
+            Icon={ForkIcon}
           >
             Fork
           </IconButtonLink>

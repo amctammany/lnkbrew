@@ -1,6 +1,7 @@
 "use client";
 import { IconButton } from "@/components/Button/IconButton";
 import { AmountField, Form, TextArea, TextField } from "@/components/Form";
+import { GrainIcon } from "@/components/Icon/GrainIcon";
 import { SaveIcon } from "@/components/Icon/SaveIcon";
 import { Section } from "@/components/Section";
 import { Toolbar } from "@/components/Toolbar";
@@ -23,6 +24,7 @@ export function FermentableEditor({
     <Form action={action}>
       <Section
         title={fermentable?.name ?? "New Fermentable"}
+        Icon={GrainIcon}
         actions={
           <IconButton Icon={SaveIcon} type="submit">
             Save

@@ -17,6 +17,7 @@ import Link from "next/link";
 import { useMemo, useState } from "react";
 import { Label } from "@/components/Label";
 import { AddIcon } from "@/components/Icon/AddIcon";
+import { GrainIcon } from "@/components/Icon/GrainIcon";
 const FermentableUsageWithBlank = { "": "" }; //{ "": "", ...FermentableUsage };
 
 export type FermentablesTableProps = {
@@ -89,6 +90,7 @@ export const FermentablesTable = ({
   return (
     <Section
       header="Fermentables"
+      Icon={GrainIcon}
       actions={
         <ButtonLink href="/ingredients/fermentables/new">
           <Label text="New">

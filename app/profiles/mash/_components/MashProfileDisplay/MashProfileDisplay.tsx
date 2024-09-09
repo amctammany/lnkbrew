@@ -8,6 +8,7 @@ import { type ExtendedMashProfile } from "@/types/Profile";
 import { EditIcon } from "@/components/Icon/EditIcon";
 import { MashProfileIcon } from "@/components/Icon/MashProfileIcon";
 import FavButton from "@/components/Button/FavButton";
+import { ForkIcon } from "@/components/Icon/ForkIcon";
 
 export type MashProfileDisplayProps = {
   profile?: ExtendedMashProfile | null;
@@ -28,7 +29,7 @@ export const MashProfileDisplay = ({ profile }: MashProfileDisplayProps) => {
 
           <IconButtonLink
             href={`/profiles/mash/${profile?.slug}/fork`}
-            Icon={EditIcon}
+            Icon={ForkIcon}
           >
             Fork
           </IconButtonLink>
