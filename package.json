@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "@auth/prisma-adapter": "^1.5.0",
-    "@heroicons/react": "^2.1.1",
+    "@heroicons/react": "^2.1.5",
     "@prisma/client": "^5.19.1",
     "@tanstack/match-sorter-utils": "^8.15.1",
     "@tanstack/react-table": "^8.17.3",
