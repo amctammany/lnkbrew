@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { IconProps } from "../Icon/Icon";
+import { Label } from "../Label";
 
 export type BoxProps = {
   href: string;
@@ -12,12 +13,9 @@ export const Box = ({ href, children, Icon }: BoxProps) => {
       className="text-center text-2xl bg-slate-500 hover:bg-slate-200 p-8 border border-black flex"
       href={href}
     >
-      <Icon size="xl" />
-      <div className="flex-grow hidden sm:grid">
-        <span className="m-auto text-lg md:text-2xl lg:text-4xl">
-          {children}
-        </span>
-      </div>
+      <Label text={children?.toString()}>
+        <Icon size="xl" />
+      </Label>
     </Link>
   );
 };

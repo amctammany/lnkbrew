@@ -25,7 +25,7 @@ const containerStyles = cva(["absolute bg-slate-800 top-4 right-12"], {
   },
 });
 const navCollapseStyles = cva(
-  ["sm:hidden group flex text-center font-bold relative"],
+  ["sm:hidden group flex text-center font-bold relative z-50"],
   {
     variants: {
       variant: {
