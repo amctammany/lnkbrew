@@ -62,6 +62,7 @@ model User {
   WaterProfile     WaterProfile[]
   EquipmentProfile EquipmentProfile[]
   MashProfile      MashProfile[]
+  Recipe           Recipe[]
 }
 
 model UserPreferences {
@@ -400,4 +401,17 @@ model MashStep {
 
   MashProfile   MashProfile? @relation(fields: [mashProfileId], references: [id])
   mashProfileId Int?
+}
+
+model Recipe {
+  id          String   @id @unique @default(cuid())
+  name        String
+  slug        String   @unique
+  description String?
+  userId      String?
+  ownerEmail  String?
+  owner       User?    @relation(fields: [ownerEmail], references: [email])
+  forkedFrom  String?
+  origin      Recipe?  @relation("origin", fields: [forkedFrom], references: [id])
+  forks       Recipe[] @relation("origin")
 }
