@@ -2,7 +2,7 @@
 import { prisma } from "@/lib/client";
 import { redirect } from "next/navigation";
 import { zfd } from "zod-form-data";
-import { z } from "zod";
+import { z, ZodError, ZodIssue } from "zod";
 import {
   UserPreferences,
   UserGravityPreference,
@@ -16,19 +16,46 @@ import { validateSchema } from "@/lib/validateSchema";
 import { revalidateTag } from "next/cache";
 
 const schema = zfd.formData({
+  //userId: zfd.text(),
   id: zfd.text(),
   name: zfd.text(),
   username: zfd.text(),
+  email: zfd.text(),
 });
 export async function updateUser(formData: FormData) {
-  const data = schema.parse(formData);
+  //try {
+  const v = validateSchema(formData, schema);
+  //console.log(v);
+  //if (v.errors) return v;
+  const { errors, id, ...data } = v;
+
+  //if (errors) return Promise.resolve({ errors });
+
+  //const data = validateSchema(formData, schema); //  schema.parse(formData);
+  //console.log(data);
   const res = await prisma.user.update({
     where: {
-      id: data.id,
+      id,
     },
     data,
   });
-  return redirect("/admin");
+  redirect("/admin/dash/profile");
+  /**
+  } catch (e) {
+    const f = e as ZodError;
+    console.log(f);
+    return {
+      //errors: validatedFields.error.flatten().fieldErrors
+      errors: (f.issues || []).reduce(
+        (acc, issue) => {
+          acc[issue.path.join(".")] = issue;
+          return acc;
+        },
+        {} as Record<string, ZodIssue>
+      ),
+    };
+  }
+  */
 }
 const preferenceSchema = zfd.formData({
   userId: zfd.text(),

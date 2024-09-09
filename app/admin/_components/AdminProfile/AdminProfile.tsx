@@ -1,4 +1,7 @@
+import { IconButtonLink } from "@/components/Button";
+import { EditIcon } from "@/components/Icon/EditIcon";
 import { Prop } from "@/components/Prop";
+import { Section } from "@/components/Section";
 import { User } from "@prisma/client";
 import { VariantProps, cva } from "class-variance-authority";
 
@@ -15,12 +18,23 @@ type AdminProfileProps = { src?: User | null } & VariantProps<
 >;
 export function AdminProfile({ src, variant }: AdminProfileProps) {
   return (
-    <div className={adminProfileStyles({ variant })}>
-      <h4>Profile</h4>
-      <Prop label="Name" value={src?.name} />
-      <Prop label="Email" value={src?.email} />
-      <Prop label="Username" value={src?.username} />
-    </div>
+    <Section
+      header="Profile"
+      actions={
+        <>
+          <IconButtonLink Icon={EditIcon} href="/admin/dash/profile/edit">
+            Edit
+          </IconButtonLink>
+        </>
+      }
+    >
+      <div className={adminProfileStyles({ variant })}>
+        <h4>Profile</h4>
+        <Prop label="Name" value={src?.name} />
+        <Prop label="Email" value={src?.email} />
+        <Prop label="Username" value={src?.username} />
+      </div>
+    </Section>
   );
 }
 

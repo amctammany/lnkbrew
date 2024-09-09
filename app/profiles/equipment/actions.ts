@@ -26,10 +26,10 @@ export const createEquipmentProfile = async (
   formData: FormData
 ) => {
   try {
-    console.log(prevState);
-    console.log(Object.fromEntries(formData.entries()));
+    //console.log(prevState);
+    //console.log(Object.fromEntries(formData.entries()));
     const v = validateSchema(formData, equipmentSchema);
-    console.log(v);
+    //console.log(v);
     if (v.errors) return v;
     //const valid = equipmentSchema.parse(formData);
     //console.log(valid);
