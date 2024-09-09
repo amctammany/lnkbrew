@@ -80,6 +80,10 @@ export const YeastsTable = ({
         accessorKey: "type",
         cell: (info) => info.getValue(),
       },
+      {
+        accessorKey: "slug",
+        cell: (info) => info.getValue(),
+      },
 
       {
         accessorKey: "form",
@@ -135,7 +139,14 @@ export const YeastsTable = ({
         </IconButtonLink>
       }
     >
-      <ClientTable data={yeasts} columns={columns} filters={filters} />
+      <ClientTable
+        initialState={{ columnVisibility: { slug: false } }}
+        baseUrl="/ingredients/yeasts/compare"
+        data={yeasts}
+        columns={columns}
+        variant={variant}
+        filters={filters}
+      />
     </Section>
   );
   /**

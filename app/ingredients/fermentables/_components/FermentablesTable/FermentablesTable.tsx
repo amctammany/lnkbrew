@@ -45,6 +45,10 @@ export const FermentablesTable = ({
           </Link>
         ),
       },
+      {
+        accessorKey: "slug",
+        cell: (info) => info.getValue(),
+      },
 
       {
         accessorKey: "country",
@@ -100,8 +104,14 @@ export const FermentablesTable = ({
       }
     >
       <ClientTable
+        baseUrl="/ingredients/fermentables/compare"
         //className="my-2"
         //table={table}
+        initialState={{
+          columnVisibility: {
+            slug: false,
+          },
+        }}
         data={fermentables}
         columns={columns}
         filters={filters}

@@ -86,6 +86,7 @@ export type ClientTableProps<T extends Record<string, any>> = VariantProps<
   filters?: TableFilter<T>[];
   className?: string;
   initialState?: InitialTableState;
+  baseUrl?: string;
 };
 export function ClientTable<T extends Record<string, any>>({
   //table,
@@ -94,6 +95,7 @@ export function ClientTable<T extends Record<string, any>>({
   variant,
   filters,
   initialState,
+  baseUrl,
   className,
 }: ClientTableProps<T>) {
   const [globalFilter, setGlobalFilter] = useState("");
@@ -158,7 +160,6 @@ export function ClientTable<T extends Record<string, any>>({
   );
   const handleUnselect = useMemo(
     () => (e: React.MouseEvent<HTMLOrSVGElement>) => {
-      console.log(e.currentTarget.dataset.name);
       //console.log(e.target.name);
       if (e.currentTarget?.dataset.name) {
         table.setRowSelection((old) => {
@@ -225,7 +226,7 @@ export function ClientTable<T extends Record<string, any>>({
 
           <Button onClick={handleReset}>Clear</Button>
           <ButtonLink
-            href={`/ingredients/hops/compare?${new URLSearchParams(table.getSelectedRowModel().rows.map((r) => ["hop", r.getValue("slug")]))}`}
+            href={`${baseUrl}?${new URLSearchParams(table.getSelectedRowModel().rows.map((r) => ["hop", r.getValue("slug")]))}`}
           >
             Compare
           </ButtonLink>

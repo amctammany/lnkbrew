@@ -140,6 +140,7 @@ export const HopsTable = ({
       <ClientTable
         //className="my-2"
         //table={table}
+        baseUrl="/ingredients/hops/compare"
         initialState={initialState}
         data={hops}
         columns={columns}
