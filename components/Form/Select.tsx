@@ -78,7 +78,7 @@ export function Select({
       className={className}
       error={error}
       inputSize={inputSize}
-      variant="inline"
+      //variant="inline"
       label={label === undefined ? props.name : label!}
     >
       <select {...props} className={selectStyles({ inputSize, variant })}>

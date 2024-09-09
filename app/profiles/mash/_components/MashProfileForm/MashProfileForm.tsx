@@ -28,6 +28,10 @@ import { ExtendedMashProfile, MashProfileInput } from "@/types/Profile";
 import { SaveIcon } from "@/components/Icon/SaveIcon";
 import { AddIcon } from "@/components/Icon/AddIcon";
 import { DeleteIcon } from "@/components/Icon/DeleteIcon";
+import { MashProfileIcon } from "@/components/Icon/MashProfileIcon";
+import { UpIcon } from "@/components/Icon/UpIcon";
+import { Label } from "@/components/Label";
+import { DownIcon } from "@/components/Icon/DownIcon";
 //import { ExtendedMashProfile } from "@/types/Profile";
 
 export type MashProfileFormProps = {
@@ -88,7 +92,7 @@ export const MashProfileForm = ({ profile }: MashProfileFormProps) => {
   return (
     <Form action={onSubmit}>
       <Section
-        icon="MashProfileIcon"
+        Icon={MashProfileIcon}
         header={profile?.name ?? "New Mash Profile"}
         actions={
           <IconButton type="submit" Icon={SaveIcon}>
@@ -191,7 +195,9 @@ export const MashProfileForm = ({ profile }: MashProfileFormProps) => {
                     data-direction={-1}
                     onClick={handleSwap}
                   >
-                    Up
+                    <Label text="Up">
+                      <UpIcon />
+                    </Label>
                   </Button>
                   <Button
                     className={`${
@@ -201,13 +207,17 @@ export const MashProfileForm = ({ profile }: MashProfileFormProps) => {
                     data-direction={1}
                     onClick={handleSwap}
                   >
-                    down
+                    <Label text="Down">
+                      <DownIcon />
+                    </Label>
                   </Button>
                   <IconButton
                     Icon={DeleteIcon}
                     data-index={index}
                     onClick={handleRemove}
-                  />
+                  >
+                    Remove
+                  </IconButton>
                 </div>
               </div>
             ))}

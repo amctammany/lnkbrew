@@ -2,6 +2,7 @@ import { IconButtonLink } from "@/components/Button";
 import { FavButton } from "@/components/Button/FavButton";
 import { EditIcon } from "@/components/Icon/EditIcon";
 import { ForkIcon } from "@/components/Icon/ForkIcon";
+import { WaterProfileIcon } from "@/components/Icon/WaterProfileIcon";
 import { Prop } from "@/components/Prop";
 import { Section } from "@/components/Section";
 import { Toolbar } from "@/components/Toolbar";
@@ -21,7 +22,7 @@ export const WaterProfileDisplay = ({
   return (
     <Section
       header={profile?.name}
-      icon="WaterProfileIcon"
+      Icon={WaterProfileIcon}
       actions={
         <>
           <FavButton

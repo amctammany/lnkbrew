@@ -24,6 +24,7 @@ import { Section } from "@/components/Section";
 import { SaveIcon } from "@/components/Icon/SaveIcon";
 import { WaterProfile } from "@prisma/client";
 import { ExtendedWaterProfile, WaterProfileInput } from "@/types/Profile";
+import { WaterProfileIcon } from "@/components/Icon/WaterProfileIcon";
 //type WaterProfileInput = any;
 
 export type WaterProfileFormProps = {
@@ -44,7 +45,7 @@ export const WaterProfileForm = ({ profile }: WaterProfileFormProps) => {
   return (
     <Form action={onSubmit}>
       <Section
-        icon="WaterProfileIcon"
+        Icon={WaterProfileIcon}
         header={profile?.name ?? "New Water Profile"}
         actions={
           <IconButton type="submit" Icon={SaveIcon}>

@@ -6,6 +6,7 @@ import { MashProfileList } from "../MashProfileList";
 import { AddIcon } from "@/components/Icon/AddIcon";
 import { useMemo, useState } from "react";
 import { TextField } from "@/components/Form";
+import { MashProfileIcon } from "@/components/Icon/MashProfileIcon";
 export type MashProfileListProps = {
   profiles?: MashProfile[];
 };
@@ -33,6 +34,7 @@ export const MashProfileSearch = ({ profiles = [] }: MashProfileListProps) => {
   return (
     <Section
       variant="primary"
+      Icon={MashProfileIcon}
       header="Mash Profiles"
       actions={<MashProfilesActions />}
     >

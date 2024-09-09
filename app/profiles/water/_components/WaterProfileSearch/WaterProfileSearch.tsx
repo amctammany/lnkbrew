@@ -6,6 +6,7 @@ import { WaterProfileList } from "../WaterProfileList";
 import { AddIcon } from "@/components/Icon/AddIcon";
 import { useMemo, useState } from "react";
 import { TextField } from "@/components/Form";
+import { WaterProfileIcon } from "@/components/Icon/WaterProfileIcon";
 export type WaterProfileListProps = {
   profiles?: WaterProfile[];
 };
@@ -35,6 +36,7 @@ export const WaterProfileSearch = ({
   return (
     <Section
       variant="primary"
+      Icon={WaterProfileIcon}
       header="Water Profiles"
       actions={<WaterProfilesActions />}
     >
