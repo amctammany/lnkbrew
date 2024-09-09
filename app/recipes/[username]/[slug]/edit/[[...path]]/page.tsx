@@ -8,6 +8,7 @@ type RecipeEditorPageProps = {
   params: {
     username: string;
     slug: string;
+    path?: string[];
   };
 };
 
@@ -18,8 +19,9 @@ type RecipeEditorPageProps = {
 //}
 
 export default async function RecipeEditorPage({
-  params: { username, slug },
+  params: { username, slug, path },
 }: RecipeEditorPageProps) {
+  console.log(path);
   const session = await auth();
   if (!session?.user?.email) redirect("/api/auth/signin");
   const recipe = await getExtendedRecipe({ ownerUsername: username, slug });
