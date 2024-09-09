@@ -33,14 +33,16 @@ export const Label = ({
   return (
     <div className={clsx(labelStyles({ variant, order }), className)}>
       {children}
-      <span className="hidden sm:block m-auto ml-2">{text}</span>
       {text && (
-        <span
-          className="group-hover:opacity-100 transition-opacity bg-gray-800 p-2 text-sm text-gray-100 rounded-md absolute left-1/2 
+        <>
+          <span className="hidden sm:block m-auto ml-2">{text}</span>
+          <span
+            className="group-hover:opacity-100 transition-opacity bg-gray-800 p-2 text-sm text-gray-100 rounded-md absolute left-1/2 
         -translate-x-1/2 translate-y-1/2 opacity-0 my-2 mx-auto"
-        >
-          {text}
-        </span>
+          >
+            {text}
+          </span>
+        </>
       )}
     </div>
   );

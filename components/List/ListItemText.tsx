@@ -28,11 +28,11 @@ export const ListItemText = ({
 }: ListItemTextProps) => {
   return (
     <div className={clsx(listItemTextStyles({ variant }), className)}>
-      <div className="block text-lg whitespace-nowrap">
+      <div className="block text-lg witespace-nowrap">
         {primary || children}
       </div>
       {secondary && (
-        <div className="block text-xs whitespace-nowrap">{secondary}</div>
+        <div className="block text-xs hitespace-nowrap">{secondary}</div>
       )}
     </div>
   );
