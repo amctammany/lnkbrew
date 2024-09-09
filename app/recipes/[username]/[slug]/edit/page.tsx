@@ -2,8 +2,9 @@ import { prisma } from "@/lib/client";
 import { auth } from "@/app/auth";
 import { redirect } from "next/navigation";
 import { getExtendedRecipe } from "@/app/recipes/queries";
+import RecipeEditor from "@/app/recipes/_components/RecipeEditor/RecipeEditor";
 //import { updateRecipeVitals } from "../actions";
-type RecipeEditorProps = {
+type RecipeEditorPageProps = {
   params: {
     username: string;
     slug: string;
@@ -16,18 +17,18 @@ type RecipeEditorProps = {
 //};
 //}
 
-export default async function RecipeEditor({
+export default async function RecipeEditorPage({
   params: { username, slug },
-}: RecipeEditorProps) {
+}: RecipeEditorPageProps) {
   const session = await auth();
   if (!session?.user?.email) redirect("/api/auth/signin");
   const recipe = await getExtendedRecipe({ ownerUsername: username, slug });
 
   if (recipe?.ownerEmail !== session?.user.email) {
     //console.error("Unauthorized User");
-    redirect(`/recipes/${recipe?.id}`);
+    //redirect(`/recipes/${recipe?.id}`);
   }
 
   //const r = await updateRecipeVitals(recipe.id);
-  return redirect(`/recipes/${recipe.ownerUsername}/${recipe.slug}/edit`);
+  return <RecipeEditor recipe={recipe} />;
 }

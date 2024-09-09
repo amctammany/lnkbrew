@@ -31,14 +31,14 @@ export const RecipeDisplay = ({
       actions={
         <>
           <IconButtonLink
-            href={`/recipes/equipment/${recipe?.slug}/fork`}
+            href={`/recipes/${recipe.ownerUsername}/${recipe?.slug}/fork`}
             Icon={ForkIcon}
           >
             Fork
           </IconButtonLink>
 
           <IconButtonLink
-            href={`/recipes/equipment/${recipe?.slug}/edit`}
+            href={`/recipes/${recipe.ownerUsername}/${recipe?.slug}/edit`}
             Icon={EditIcon}
           >
             Edit
@@ -50,7 +50,13 @@ export const RecipeDisplay = ({
         <Prop label="Name">{recipe?.name}</Prop>
         <Prop label="Owner">{recipe?.owner?.name}</Prop>
         <Prop label="Description">{recipe?.description}</Prop>
-        <AmountProp
+      </div>
+    </Section>
+  );
+};
+
+export default RecipeDisplay;
+/**        <AmountProp
           label="Batch Volume"
           unitType="volume"
           value={recipe?.batchVolume}
@@ -90,9 +96,5 @@ export const RecipeDisplay = ({
           unitType="percent"
           value={recipe?.brewEfficiency}
         />
-      </div>
-    </Section>
-  );
-};
 
-export default RecipeDisplay;
+ */

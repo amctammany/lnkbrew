@@ -17,7 +17,7 @@ export default async function RecipeCreator({}: RecipeCreatorProps) {
   const recipe = await prisma.recipe.create({
     data: {
       ownerEmail: session?.user.email,
-      ownerUsername: session?.user.username ?? "",
+      ownerUsername: session?.user.username,
       //mashProfileId: session?.preferences.mashProfileId,
       //equipmentProfileId: session?.preferences.equipmentProfileId,
       //waterProfileId: session?.preferences.sourceWaterProfileId,
@@ -29,3 +29,4 @@ export default async function RecipeCreator({}: RecipeCreatorProps) {
   //const r = await updateRecipeVitals(recipe.id);
   return redirect(`/recipes/${recipe.ownerUsername}/${recipe.slug}/edit`);
 }
+TypeError;

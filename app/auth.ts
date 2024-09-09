@@ -38,6 +38,7 @@ export const AuthOptions: NextAuthConfig = {
       //session.preferences = ((token.user || {}) as any).UserPreferences as any;
 
       session.user = token.user as any;
+      session.user.username = (token.user as any).username;
       return session;
     },
     async jwt({ token, user, account, profile }) {

@@ -45,6 +45,7 @@ export const getRecipes = cache(
         name: true,
         slug: true,
         //styleIdentifer: true,
+        ownerUsername: true,
         ownerEmail: true,
         owner: true,
       },
