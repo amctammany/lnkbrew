@@ -42,20 +42,24 @@ export function Table<T extends Record<string, any>>({
       <thead>
         {table.getHeaderGroups().map((headerGroup) => (
           <tr key={headerGroup.id}>
-            {headerGroup.headers.map((header) => (
-              <TableHeader
-                header={header}
-                key={header.id}
-                variant={variant}
-                active={
-                  header.column
-                    .getIsSorted()
-                    .valueOf()
-                    .toString()
-                    .toUpperCase() as Direction
-                }
-              />
-            ))}
+            {headerGroup.headers.map((header) =>
+              header.column.getIsVisible() ? (
+                <TableHeader
+                  header={header}
+                  key={header.id}
+                  variant={variant}
+                  active={
+                    header.column
+                      .getIsSorted()
+                      .valueOf()
+                      .toString()
+                      .toUpperCase() as Direction
+                  }
+                />
+              ) : (
+                <th key={header.id}>#</th>
+              )
+            )}
           </tr>
         ))}
       </thead>

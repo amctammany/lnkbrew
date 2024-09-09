@@ -65,6 +65,12 @@ export const HopsTable = ({
         ),
       },
       {
+        id: "slug",
+        accessorKey: "slug",
+        cell: (info) => info.getValue(),
+      },
+
+      {
         accessorKey: "country",
         cell: (info) => info.getValue(),
       },
@@ -115,6 +121,11 @@ export const HopsTable = ({
     debugHeaders: true,
     debugColumns: false,
   });
+  const initialState = {
+    columnVisibility: {
+      slug: false,
+    },
+  };
 
   return (
     <Section
@@ -129,6 +140,7 @@ export const HopsTable = ({
       <ClientTable
         //className="my-2"
         //table={table}
+        initialState={initialState}
         data={hops}
         columns={columns}
         variant={variant}

@@ -4,7 +4,7 @@ import { Table, TableProps } from "../Table";
 import clsx from "clsx";
 import { ClientSection, Section } from "../Section";
 import { Select, TextField } from "../Form";
-import { Button } from "../Button";
+import { Button, ButtonLink } from "../Button";
 import ClientTableFilter from "./ClientTableFilter";
 import { TableFilter } from "../Table/types";
 import {
@@ -16,6 +16,7 @@ import {
   useReactTable,
   Table as TableType,
   RowSelectionState,
+  InitialTableState,
 } from "@tanstack/react-table";
 import { fuzzyFilter } from "@/lib/fuzzyFilter";
 import { FilterBar } from "./FilterBar";
@@ -60,6 +61,7 @@ export type ClientTableProps<T extends Record<string, any>> = VariantProps<
   columns: ColumnDef<T>[];
   filters?: TableFilter<T>[];
   className?: string;
+  initialState?: InitialTableState;
 };
 export function ClientTable<T extends Record<string, any>>({
   //table,
@@ -67,6 +69,7 @@ export function ClientTable<T extends Record<string, any>>({
   columns,
   variant,
   filters,
+  initialState,
   className,
 }: ClientTableProps<T>) {
   const [globalFilter, setGlobalFilter] = useState("");
@@ -101,6 +104,7 @@ export function ClientTable<T extends Record<string, any>>({
     filterFns: {
       fuzzy: fuzzyFilter, //define as a filter function that can be used in column definitions
     },
+    initialState,
     state: {
       columnFilters,
       rowSelection,
@@ -150,6 +154,11 @@ export function ClientTable<T extends Record<string, any>>({
           variant="warning"
           actions={
             <>
+              <ButtonLink
+                href={`/ingredients/hops/compare?${new URLSearchParams(table.getSelectedRowModel().rows.map((r) => ["hop", r.getValue("slug")]))}`}
+              >
+                Compare
+              </ButtonLink>
               <Button onClick={handleReset}>Clear</Button>
             </>
           }
