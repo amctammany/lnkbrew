@@ -5,6 +5,8 @@ import { HopIcon } from "@/components/Icon/HopIcon";
 import { AddIcon } from "@/components/Icon/AddIcon";
 import HopComparePanel from "./HopComparePanel";
 import { Hop } from "@prisma/client";
+import Link from "next/link";
+import { CloseIcon } from "@/components/Icon/CloseIcon";
 
 export type HopCompareProps = {
   hops: Hop[];
@@ -26,7 +28,7 @@ export function HopCompare({ hops }: HopCompareProps) {
           <th className="capitalize">{prop}</th>
         )}
         {hops.map((hop) => (
-          <td className="text-center border p-2" key={hop.id}>
+          <td className="text-center border p-2 pr-8" key={hop.id}>
             {hop[prop]?.toString()}
           </td>
         ))}
@@ -44,13 +46,22 @@ export function HopCompare({ hops }: HopCompareProps) {
       }
     >
       <div className="p-4">
-        <table className="table-fixed w-full border-collapse">
+        <table className="table-auto w-full border-collapse">
           <thead>
             <tr>
               <th></th>
               {hops.map((hop) => (
                 <th key={hop.id} className="border">
-                  {hop.name}
+                  <div className="flex">
+                    <span className="my-auto pl-8 h-full flex-grow">
+                      {hop.name}
+                    </span>
+                    <IconButtonLink
+                      //className="float-right"
+                      href={`/ingredients/hops/compare?${new URLSearchParams(hops.filter((h) => h.id !== hop.id).map((h) => ["hop", h.slug]))}`}
+                      Icon={CloseIcon}
+                    ></IconButtonLink>
+                  </div>
                 </th>
               ))}
             </tr>

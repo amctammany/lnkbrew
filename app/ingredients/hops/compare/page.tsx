@@ -14,7 +14,7 @@ export default async function HopComparePage({
   searchParams: { hop },
 }: HopComparePageProps) {
   const hopIds = Array.isArray(hop) ? hop.map((id) => id) : [hop];
-  const hops = await getHops({ where: { slug: { in: hopIds } } });
+  const hops = await getHops({ where: { slug: { in: hop ? hopIds : [] } } });
 
   return <HopCompare hops={hops} />;
 }
