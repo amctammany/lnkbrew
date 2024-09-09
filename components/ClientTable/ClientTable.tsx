@@ -4,7 +4,7 @@ import { Table, TableProps } from "../Table";
 import clsx from "clsx";
 import { ClientSection, Section } from "../Section";
 import { Select, TextField } from "../Form";
-import { Button, ButtonLink } from "../Button";
+import { Button, ButtonLink, IconButton } from "../Button";
 import ClientTableFilter from "./ClientTableFilter";
 import { TableFilter } from "../Table/types";
 import {
@@ -20,6 +20,29 @@ import {
 } from "@tanstack/react-table";
 import { fuzzyFilter } from "@/lib/fuzzyFilter";
 import { FilterBar } from "./FilterBar";
+import { CloseIcon } from "../Icon/CloseIcon";
+const SelectedBadge = ({
+  name,
+  value,
+  onClick,
+}: {
+  name: string;
+  value: string;
+  onClick?: any;
+}) => {
+  return (
+    <div className="my-auto  border border-black inline-flex">
+      <span className="m-auto ml-2 px-2">{name}</span>
+
+      <IconButton
+        name={value}
+        Icon={CloseIcon}
+        size="default"
+        onClick={onClick}
+      />
+    </div>
+  );
+};
 function IndeterminateCheckbox({
   indeterminate,
   className = "",
@@ -132,6 +155,16 @@ export function ClientTable<T extends Record<string, any>>({
     },
     [table]
   );
+  const handleUnselect = useMemo(
+    () => (e: React.MouseEvent<HTMLButtonElement>) => {
+      if (e.currentTarget?.name) {
+        table.setRowSelection((old) => {
+          return { ...old, [e.currentTarget?.name]: false };
+        });
+      }
+    },
+    [table]
+  );
 
   return (
     <div className={clsx(clientTableStyles({ variant }), className)}>
@@ -139,13 +172,34 @@ export function ClientTable<T extends Record<string, any>>({
         className=""
         closed={true}
         header={
-          <TextField
-            name="query"
-            value={globalFilter ?? ""}
-            onChange={({ target: { value } }) => setGlobalFilter(String(value))}
-            className="p-0 font-lg border-block"
-            placeholder="Search all columns..."
-          />
+          <div>
+            <TextField
+              name="query"
+              value={globalFilter ?? ""}
+              onChange={({ target: { value } }) =>
+                setGlobalFilter(String(value))
+              }
+              className="p-0 font-lg border-block"
+              placeholder="Search all columns..."
+            />
+            <div className="flex">
+              <div className="flex flex-grow gap-4">
+                {table.getSelectedRowModel().rows.map((r) => (
+                  <SelectedBadge
+                    onClick={handleUnselect}
+                    key={r.id}
+                    name={r.getValue("name")}
+                    value={r.id}
+                  />
+                ))}
+              </div>
+              <ButtonLink
+                href={`/ingredients/hops/compare?${new URLSearchParams(table.getSelectedRowModel().rows.map((r) => ["hop", r.getValue("slug")]))}`}
+              >
+                Compare
+              </ButtonLink>
+            </div>
+          </div>
         }
       >
         <Section
@@ -154,11 +208,6 @@ export function ClientTable<T extends Record<string, any>>({
           variant="warning"
           actions={
             <>
-              <ButtonLink
-                href={`/ingredients/hops/compare?${new URLSearchParams(table.getSelectedRowModel().rows.map((r) => ["hop", r.getValue("slug")]))}`}
-              >
-                Compare
-              </ButtonLink>
               <Button onClick={handleReset}>Clear</Button>
             </>
           }
