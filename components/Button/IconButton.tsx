@@ -20,11 +20,13 @@ export type IconButtonProps = ButtonProps &
   VariantProps<typeof iconButtonStyles> & {
     Icon: typeof IconClass;
     iconVariant?: IconProps["variant"];
+    iconSize?: IconProps["size"];
     //iconType: IconNames;
   };
 export const IconButton = ({
   Icon,
   iconVariant,
+  iconSize,
   //iconType,
   direction,
   children,
@@ -33,7 +35,7 @@ export const IconButton = ({
   const body = (
     <div className={iconButtonStyles({ direction })}>
       <Label text={children?.toString()} className="uppercase">
-        <Icon variant={iconVariant} />
+        <Icon variant={iconVariant} size={iconSize} />
       </Label>
     </div>
   );

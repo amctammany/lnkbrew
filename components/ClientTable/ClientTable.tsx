@@ -21,6 +21,7 @@ import {
 import { fuzzyFilter } from "@/lib/fuzzyFilter";
 import { FilterBar } from "./FilterBar";
 import { CloseIcon } from "../Icon/CloseIcon";
+import Icon from "../Icon/Icon";
 const SelectedBadge = ({
   name,
   value,
@@ -31,14 +32,14 @@ const SelectedBadge = ({
   onClick?: any;
 }) => {
   return (
-    <div className="my-auto  border border-black inline-flex">
-      <span className="m-auto ml-2 px-2">{name}</span>
+    <div className="my-auto  border border-black inline-flex rounded-lg bg-primary-200">
+      <span className="font-bold m-auto ml-2 px-2 text-sm">{name}</span>
 
-      <IconButton
+      <CloseIcon
         name={value}
-        Icon={CloseIcon}
-        size="default"
+        size="medium"
         onClick={onClick}
+        className="m-2 ml-0 hover:text-red-400"
       />
     </div>
   );
@@ -182,23 +183,6 @@ export function ClientTable<T extends Record<string, any>>({
               className="p-0 font-lg border-block"
               placeholder="Search all columns..."
             />
-            <div className="flex">
-              <div className="flex flex-grow gap-4">
-                {table.getSelectedRowModel().rows.map((r) => (
-                  <SelectedBadge
-                    onClick={handleUnselect}
-                    key={r.id}
-                    name={r.getValue("name")}
-                    value={r.id}
-                  />
-                ))}
-              </div>
-              <ButtonLink
-                href={`/ingredients/hops/compare?${new URLSearchParams(table.getSelectedRowModel().rows.map((r) => ["hop", r.getValue("slug")]))}`}
-              >
-                Compare
-              </ButtonLink>
-            </div>
           </div>
         }
       >
@@ -225,6 +209,26 @@ export function ClientTable<T extends Record<string, any>>({
       </ClientSection>
 
       <div className="overflow-x-scroll">
+        <div className="flex border border-black">
+          <div className="flex flex-grow mx-2 gap-4">
+            {table.getSelectedRowModel().rows.map((r) => (
+              <SelectedBadge
+                onClick={handleUnselect}
+                key={r.id}
+                name={r.getValue("name")}
+                value={r.id}
+              />
+            ))}
+          </div>
+
+          <Button onClick={handleReset}>Clear</Button>
+          <ButtonLink
+            href={`/ingredients/hops/compare?${new URLSearchParams(table.getSelectedRowModel().rows.map((r) => ["hop", r.getValue("slug")]))}`}
+          >
+            Compare
+          </ButtonLink>
+        </div>
+
         <Table table={table} variant={variant} />
       </div>
     </div>

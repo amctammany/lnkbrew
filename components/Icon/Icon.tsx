@@ -3,7 +3,7 @@ import { VariantProps, cva } from "class-variance-authority";
 import clsx from "clsx";
 import { ComponentProps } from "react";
 export type IconProps = ComponentProps<"div"> &
-  VariantProps<typeof iconStyles> & { Svg?: typeof XMarkIcon };
+  VariantProps<typeof iconStyles> & { Svg?: typeof XMarkIcon; name?: string };
 export const iconStyles = cva("", {
   variants: {
     variant: {
@@ -16,6 +16,7 @@ export const iconStyles = cva("", {
       default: ["w-6 h-6 p-0"],
       medium: ["w-5 h-5 p-0"],
       small: ["w-4 h-4 p-0"],
+      tiny: ["w-3 h-3 p-0"],
       large: ["w-8 h-8 p-1"],
       xl: ["w-24 h-24 p-2"],
     },
