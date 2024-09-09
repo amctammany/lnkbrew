@@ -3,6 +3,7 @@ import { Icon as IconClass, IconProps } from "../Icon/Icon";
 import { Button, ButtonProps } from "./Button";
 import { IconNames } from "../Icon";
 import { VariantProps, cva } from "class-variance-authority";
+import { Label } from "../Label";
 
 const iconButtonStyles = cva(["flex px-1 text-sm -mx-2"], {
   variants: {
@@ -31,10 +32,9 @@ export const IconButton = ({
 }: IconButtonProps) => {
   const body = (
     <div className={iconButtonStyles({ direction })}>
-      <Icon variant={iconVariant} />
-      {children && (
-        <span className="block m-auto pl-1 uppercase">{children}</span>
-      )}
+      <Label text={children?.toString()} className="uppercase">
+        <Icon variant={iconVariant} />
+      </Label>
     </div>
   );
   return <Button {...props}>{body}</Button>;

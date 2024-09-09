@@ -36,8 +36,9 @@ import { fuzzyFilter } from "@/lib/fuzzyFilter";
 import Link from "next/link";
 import { ClientTable } from "@/components/ClientTable";
 import { Toolbar } from "@/components/Toolbar";
-import { ButtonLink } from "@/components/Button";
+import { ButtonLink, IconButtonLink } from "@/components/Button";
 import { Section } from "@/components/Section";
+import { AddIcon } from "@/components/Icon/AddIcon";
 export const HopsTable = ({
   hops,
   sort,
@@ -117,7 +118,11 @@ export const HopsTable = ({
   return (
     <Section
       header="Hops"
-      actions={<ButtonLink href="/ingredients/hops/new">New</ButtonLink>}
+      actions={
+        <IconButtonLink Icon={AddIcon} href="/ingredients/hops/new">
+          New
+        </IconButtonLink>
+      }
     >
       <ClientTable
         //className="my-2"
