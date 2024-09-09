@@ -19,7 +19,17 @@ export const getExtendedRecipe = cache(async (where: Prisma.RecipeWhereInput) =>
   })
 );
 
-export const getRecipe = cache(async (id: string) =>
+export const getRecipe = cache(async (username: string, slug: string) =>
+  prisma.recipe.findFirst({
+    where: {
+      ownerUsername: { equals: username },
+      slug: { equals: slug },
+    },
+    include: { owner: true },
+  })
+);
+
+export const getRecipeById = cache(async (id: string) =>
   prisma.recipe.findFirst({
     where: {
       id,
