@@ -21,7 +21,7 @@ import { Section } from "@/components/Section";
 import { EquipmentProfileIcon } from "@/components/Icon/EquipmentProfileIcon";
 import { SaveIcon } from "@/components/Icon/SaveIcon";
 import { ExtendedEquipmentProfile } from "@/types/Profile";
-import { useFormState } from "react-dom";
+import { useActionState } from "react";
 type EquipmentProfileInput = any;
 
 export type EquipmentProfileFormProps = {
@@ -35,7 +35,7 @@ export const EquipmentProfileForm = ({
   });
   const action = profile?.id ? updateEquipmentProfile : createEquipmentProfile;
 
-  const [state, formAction] = useFormState<any, FormData>(action, {});
+  const [state, formAction] = useActionState<any, FormData>(action, profile);
 
   //const onSubmit = async (data: FormData) => {
   //const valid = await trigger();
