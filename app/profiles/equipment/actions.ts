@@ -27,6 +27,7 @@ export const createEquipmentProfile = async (
 ) => {
   try {
     const v = validateSchema(formData, equipmentSchema);
+    console.log(v);
     if (v.errors) return v;
     //const valid = equipmentSchema.parse(formData);
     //console.log(valid);
@@ -52,10 +53,12 @@ export const createEquipmentProfile = async (
     });
     redirect(`/profiles/equipment/${res.slug}`);
   } catch (e) {
+    console.log(e);
     const f = e as ZodError;
+    console.log(f);
     return {
       //errors: validatedFields.error.flatten().fieldErrors
-      errors: f.issues.reduce(
+      errors: (f.issues || []).reduce(
         (acc, issue) => {
           acc[issue.path.join(".")] = issue;
           return acc;
