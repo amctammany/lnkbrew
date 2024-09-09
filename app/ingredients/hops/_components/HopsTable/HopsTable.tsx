@@ -100,27 +100,27 @@ export const HopsTable = ({
     ],
     []
   );
-  const table = useReactTable({
-    data: hops,
-    columns,
-    filterFns: {
-      fuzzy: fuzzyFilter, //define as a filter function that can be used in column definitions
-    },
-    //state: {
-    //columnFilters,
-    //globalFilter,
-    //},
-    //onColumnFiltersChange: setColumnFilters,
-    //onGlobalFilterChange: setGlobalFilter,
-    globalFilterFn: "fuzzy",
-    getCoreRowModel: getCoreRowModel(),
-    getFilteredRowModel: getFilteredRowModel(), //client side filtering
-    getSortedRowModel: getSortedRowModel(),
-    //getPaginationRowModel: getPaginationRowModel(),
-    debugTable: true,
-    debugHeaders: true,
-    debugColumns: false,
-  });
+  //const table = useReactTable({
+  //data: hops,
+  //columns,
+  //filterFns: {
+  //fuzzy: fuzzyFilter, //define as a filter function that can be used in column definitions
+  //},
+  ////state: {
+  ////columnFilters,
+  ////globalFilter,
+  ////},
+  ////onColumnFiltersChange: setColumnFilters,
+  ////onGlobalFilterChange: setGlobalFilter,
+  //globalFilterFn: "fuzzy",
+  //getCoreRowModel: getCoreRowModel(),
+  //getFilteredRowModel: getFilteredRowModel(), //client side filtering
+  //getSortedRowModel: getSortedRowModel(),
+  ////getPaginationRowModel: getPaginationRowModel(),
+  //debugTable: true,
+  //debugHeaders: true,
+  //debugColumns: false,
+  //});
   const initialState = {
     columnVisibility: {
       slug: false,

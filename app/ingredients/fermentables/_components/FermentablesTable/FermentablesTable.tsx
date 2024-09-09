@@ -71,21 +71,21 @@ export const FermentablesTable = ({
     []
   );
 
-  const table = useReactTable({
-    data: fermentables,
-    columns,
-    filterFns: {
-      fuzzy: fuzzyFilter, //define as a filter function that can be used in column definitions
-    },
-    globalFilterFn: "fuzzy",
-    getCoreRowModel: getCoreRowModel(),
-    getFilteredRowModel: getFilteredRowModel(), //client side filtering
-    getSortedRowModel: getSortedRowModel(),
-    //getPaginationRowModel: getPaginationRowModel(),
-    debugTable: true,
-    debugHeaders: true,
-    debugColumns: false,
-  });
+  //const table = useReactTable({
+  //data: fermentables,
+  //columns,
+  //filterFns: {
+  //fuzzy: fuzzyFilter, //define as a filter function that can be used in column definitions
+  //},
+  //globalFilterFn: "fuzzy",
+  //getCoreRowModel: getCoreRowModel(),
+  //getFilteredRowModel: getFilteredRowModel(), //client side filtering
+  //getSortedRowModel: getSortedRowModel(),
+  ////getPaginationRowModel: getPaginationRowModel(),
+  //debugTable: true,
+  //debugHeaders: true,
+  //debugColumns: false,
+  //});
   const filters = useMemo<TableFilter<Fermentable>[]>(
     () => [{ type: "text", name: "name" }],
     []
