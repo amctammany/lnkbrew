@@ -10,9 +10,12 @@ export type RecipeEditorProps = {
 function RecipeEditor({ recipe, path }: RecipeEditorProps) {
   return (
     <div className="">
-      <Section header="Recipe Editor" footer={<span>{path?.join(" - ")}</span>}>
-        Recipe {JSON.stringify(recipe)}
-        <div>
+      <Section
+        variant="secondary"
+        header="Recipe Editor"
+        footer={<span>{path?.join(" - ")}</span>}
+      >
+        <div className="grid grid-cols-2 md:grid-cols-3">
           <GeneralContainer recipe={recipe} path={path} />
         </div>
       </Section>

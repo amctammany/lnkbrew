@@ -9,6 +9,7 @@ const section = cva(["min-w-full bg-white "], {
   variants: {
     variant: {
       primary: [""],
+      secondary: [""],
       warning: [""],
       alert: [""],
     },
@@ -33,6 +34,7 @@ const sectionHeader = cva(["flex items-center "], {
   variants: {
     variant: {
       primary: ["bg-primary-200"],
+      secondary: ["bg-secondary-200"],
       warning: ["bg-warning-200"],
       alert: ["bg-red-500"],
     },
@@ -57,6 +59,7 @@ const sectionTitle = cva("h4", {
   variants: {
     variant: {
       primary: ["border-red-300"],
+      secondary: ["border-green-300"],
       warning: ["text-black"],
       alert: ["text-white"],
     },
@@ -80,6 +83,7 @@ const sectionBody = cva([""], {
   variants: {
     variant: {
       primary: ["bg-white "],
+      secondary: ["bg-paper"],
       paper: ["bg-paper"],
       warning: [""],
       alert: [],
@@ -103,6 +107,7 @@ const sectionFooter = cva(["m-0 p-0"], {
   variants: {
     variant: {
       primary: [],
+      secondary: [""],
       paper: [""],
       warning: [""],
       alert: [],

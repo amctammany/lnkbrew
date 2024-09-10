@@ -2,7 +2,7 @@
 import { RoutedModal } from "@/components/Modal/RoutedModal";
 import React, { FC } from "react";
 import dynamic from "next/dynamic";
-//const GeneralForm = dynamic(() => import("./GeneralForm"));
+const GeneralForm = dynamic(() => import("./GeneralForm"), { ssr: true });
 
 import { UserMassPreference } from "@prisma/client";
 import { ExtendedRecipe } from "@/types/Recipe";
@@ -30,8 +30,10 @@ export const GeneralModal: FC<GeneralProfileModalProps> = ({
       >
         <div>
           {modalType === "general" && (
-            <div>General</div>
-            //<GeneralForm recipe={recipe} massUnit={massUnit} />
+            <>
+              <div>General</div>
+              <GeneralForm recipe={recipe} />
+            </>
           )}
         </div>
       </RoutedModal>
