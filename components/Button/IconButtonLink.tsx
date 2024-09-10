@@ -12,7 +12,7 @@ export const IconButtonLink = ({
   ...props
 }: IconButtonLinkProps) => {
   return (
-    <Link href={href} scroll={scroll}>
+    <Link prefetch={false} href={href} scroll={scroll}>
       <IconButton {...props} />
     </Link>
   );

@@ -21,16 +21,15 @@ type RecipeEditorPageProps = {
 export default async function RecipeEditorPage({
   params: { username, slug, path },
 }: RecipeEditorPageProps) {
-  console.log(path);
   const session = await auth();
   if (!session?.user?.email) redirect("/api/auth/signin");
   const recipe = await getExtendedRecipe({ ownerUsername: username, slug });
 
   if (recipe?.ownerEmail !== session?.user.email) {
-    //console.error("Unauthorized User");
-    //redirect(`/recipes/${recipe?.id}`);
+    console.error("Unauthorized User");
+    redirect(`/recipes/${recipe?.id}`);
   }
 
   //const r = await updateRecipeVitals(recipe.id);
-  return <RecipeEditor recipe={recipe} />;
+  return <RecipeEditor recipe={recipe} path={path} />;
 }
