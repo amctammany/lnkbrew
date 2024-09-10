@@ -83,7 +83,7 @@ const sectionBody = cva([""], {
   variants: {
     variant: {
       primary: ["bg-white "],
-      secondary: ["bg-paper"],
+      secondary: ["bg-white"],
       paper: ["bg-paper"],
       warning: [""],
       alert: [],

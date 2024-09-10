@@ -1,18 +1,14 @@
 import { Section } from "@/components/Section";
 import { IconButtonLink } from "@/components/Button";
-import { ExtendedHop } from "@/types/Ingredient";
 import { HopIcon } from "@/components/Icon/HopIcon";
 import { AddIcon } from "@/components/Icon/AddIcon";
-import HopComparePanel from "./HopComparePanel";
 import { Hop } from "@prisma/client";
-import Link from "next/link";
 import { CloseIcon } from "@/components/Icon/CloseIcon";
 
 export type HopCompareProps = {
   hops: Hop[];
 };
 export function HopCompare({ hops }: HopCompareProps) {
-  console.log(hops);
   const Row = ({
     prop,
     children,

@@ -13,6 +13,7 @@ export const GeneralSection: FC<GeneralSectionProps> = ({ recipe }) => {
   return (
     <Section
       className="col-span-2"
+      variant="secondary"
       header="General"
       actions={
         <>

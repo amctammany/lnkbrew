@@ -26,7 +26,7 @@ export default async function RecipeEditorPage({
   const recipe = await getExtendedRecipe({ ownerUsername: username, slug });
 
   if (recipe?.ownerEmail !== session?.user.email) {
-    console.error("Unauthorized User");
+    //console.error("Unauthorized User");
     redirect(`/recipes/${recipe?.id}`);
   }
 

@@ -55,9 +55,7 @@ export const createEquipmentProfile = async (
     });
     redirect(`/profiles/equipment/${res.slug}`);
   } catch (e) {
-    console.log(e);
     const f = e as ZodError;
-    console.log(f);
     return {
       //errors: validatedFields.error.flatten().fieldErrors
       errors: (f.issues || []).reduce(
