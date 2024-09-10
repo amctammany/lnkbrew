@@ -8,10 +8,12 @@ export type RoutedModalProps = {
   title?: string;
   returnUrl: string;
   children?: any;
+  callback?: () => void;
 };
 export const RoutedModal = ({
   hidden,
   title,
+  callback,
   returnUrl,
   children,
 }: RoutedModalProps) => {
@@ -27,9 +29,14 @@ export const RoutedModal = ({
   return (
     <div className={cn}>
       <div className="relative mx-auto max-w-2xl border-slate-200 rounded bg-white mt-3">
-        <ClickAwayRouter url={returnUrl}>
-          <div className="relative p-0 z-50">
-            <div className="w-full bg-primary-500 flex ">
+        <ClickAwayRouter url={returnUrl} callback={callback}>
+          <div className="relative p-0 z-50">{children}</div>
+        </ClickAwayRouter>
+      </div>
+    </div>
+  );
+  /**
+   *         <div className="w-full bg-primary-500 flex ">
               <div className="flex-grow m-1 py-2 px-4 text-lg font-bold">
                 {title}
               </div>
@@ -43,12 +50,8 @@ export const RoutedModal = ({
                 </IconButtonLink>
               </div>
             </div>
-            {children}
-          </div>
-        </ClickAwayRouter>
-      </div>
-    </div>
-  ); /**  const className = clsx(
+*/
+  /**  const className = clsx(
     "bg-slate-800/75 top-0 bottom-0 right-0 left-0 z-50  h-[calc(100%-1rem)] w-[calc(100%-0rem)] max-h-full pt-5",
     {
       hidden: hidden,
