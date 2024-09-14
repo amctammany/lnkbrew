@@ -41,11 +41,15 @@ export const StyleForm = ({ recipe, styles }: StyleFormProps) => {
       <div>
         Styles!
         <input type="hidden" {...register("id")} />
+        <input type="hidden" {...register("name")} />
         <Autocomplete
-          {...register("styleIdentifier")}
+          {...register("styleId")}
           options={styles}
-          value={recipe?.styleIdentifier ?? undefined}
+          value={recipe?.styleId ?? ""}
         />
+        <IconButton type="submit" Icon={SaveIcon}>
+          Save
+        </IconButton>
       </div>
     </Section>
   );

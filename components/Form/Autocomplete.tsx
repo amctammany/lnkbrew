@@ -15,14 +15,14 @@ import clsx from "clsx";
 import { type SchemaFieldError } from "@/lib/validateSchema";
 //import { XMarkIcon } from "@heroicons/react/20/solid";
 import { CloseIcon } from "../Icon/CloseIcon";
-export type Option<T = string, ID = number | string> = [T, ID];
+export type Option<T = string, ID = number> = [T, ID];
 export type AutocompleteProps = VariantProps<typeof autocompleteStyles> &
   ComponentProps<"input"> & {
     value?: number | string | null;
     error?: SchemaFieldError;
     label?: string;
     options: Record<number, string>;
-    handleChange?: (id?: number | string) => void;
+    handleChange?: (id?: number) => void;
     //options: Option[];
   };
 const optionStyles = cva(["px-4 py-2 hover:bg-slate-300 hover:text-white"], {
@@ -83,7 +83,7 @@ export function Autocomplete({
   ref,
 }: AutocompleteProps) {
   const options: Option[] = useMemo(
-    () => Object.entries(ops).map(([k, v]) => [v, k]),
+    () => Object.entries(ops).map(([k, v]) => [v, parseInt(k)]),
     [ops]
   );
   const [query, setQuery] = useState(
@@ -113,7 +113,7 @@ export function Autocomplete({
     setActiveOption(-1);
     e.preventDefault();
   };
-  const changeValue = (val?: number | string) => {
+  const changeValue = (val?: number) => {
     if (val === undefined) return;
     setHidden(val);
     if (handleChange) handleChange(val);
@@ -132,7 +132,7 @@ export function Autocomplete({
     }
   };
   const onOptionClick: MouseEventHandler<HTMLLIElement> = (e) => {
-    const id = e.currentTarget.dataset.id || "";
+    const id = parseInt(e.currentTarget.dataset.id || "");
     const label = e.currentTarget.innerText;
     setQuery(label);
     setDisplayOptions(false);

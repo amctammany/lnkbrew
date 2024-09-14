@@ -20,10 +20,10 @@ export const getStyleOptions = async () => {
   const styles = await getStyles();
   const options = styles.reduce(
     (acc, style) => {
-      acc[style.identifier] = `${style.identifier}: ${style.name}`;
+      acc[style.id] = `${style.identifier}: ${style.name}`;
       return acc;
     },
-    {} as Record<string, string>
+    {} as Record<number, string>
   );
   return options;
 };

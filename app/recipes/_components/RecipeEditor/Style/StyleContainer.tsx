@@ -22,7 +22,7 @@ export const StyleContainer: FC<StyleContainerProps> = async ({
   //const recipe = await getExtendedRecipe({ id: recipeId });
   const [modalType, modalId] = path ?? [undefined, undefined];
   return (
-    <div className="lg:col-span-2">
+    <div className="lg:col-span-1">
       <StyleSection recipe={recipe} />
     </div>
   );

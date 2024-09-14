@@ -416,7 +416,8 @@ model Recipe {
   origin          Recipe?  @relation("origin", fields: [forkedFrom], references: [id])
   forks           Recipe[] @relation("origin")
   styleIdentifier String?
-  style           Style?   @relation(fields: [styleIdentifier], references: [identifier])
+  styleId         Int?
+  style           Style?   @relation(fields: [styleId], references: [id])
 
   @@id([ownerUsername, slug])
 }

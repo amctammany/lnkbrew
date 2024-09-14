@@ -24,7 +24,8 @@ const recipeSchema = zfd.formData({
   description: zfd.text(z.string().optional()),
   mashProfileId: zfd.numeric(z.number().optional()),
   waterProfileId: zfd.numeric(z.number().optional()),
-  styleIdentifer: zfd.text(z.string().optional()),
+  styleId: zfd.numeric(z.number().optional()),
+  //styleIdentifer: zfd.text(z.string().optional()),
   equipmentProfileId: zfd.numeric(z.number().optional()),
   boilTime: zfd.numeric(z.number().min(0).optional()),
   batchVolume: zfd.numeric(z.number().min(0).optional()),
@@ -55,11 +56,11 @@ export async function updateRecipe(formData: FormData) {
     mashProfileId,
     waterProfileId,
     equipmentProfileId,
-    styleIdentifer,
+    styleId,
     ...data
   } = validateSchema(formData, recipeSchema);
   //recipeSchema.parse(formData);
-  console.log({ id, styleIdentifer, data });
+  //console.log({ id, styleIdentifer, data });
   const old = await prisma.recipe.findFirst({
     where: {
       id,
@@ -79,11 +80,11 @@ export async function updateRecipe(formData: FormData) {
       ...(equipmentProfileId
         ? { equipment: { connect: { id: equipmentProfileId } } }
         : {}),
-      ...(styleIdentifer
+      ...(styleId
         ? {
             style: {
               connect: {
-                identifier: styleIdentifer,
+                id: styleId,
               },
             },
           }
