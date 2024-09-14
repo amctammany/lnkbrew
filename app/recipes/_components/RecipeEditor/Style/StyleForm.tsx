@@ -26,7 +26,7 @@ export const StyleForm = ({ recipe }: StyleFormProps) => {
   return (
     <Section
       Icon={EditIcon}
-      header={recipe?.name ?? "New Recipe"}
+      header="Style"
       actions={
         <IconButton type="submit" Icon={SaveIcon}>
           Save

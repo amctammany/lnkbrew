@@ -2,7 +2,7 @@
 import React, { FC } from "react";
 import dynamic from "next/dynamic";
 const GeneralModal = dynamic(() => import("./GeneralModal"), {
-  ssr: true,
+  ssr: false,
 });
 import { UserMassPreference } from "@prisma/client";
 import { GeneralSection } from "./GeneralSection";
@@ -24,7 +24,13 @@ export const GeneralContainer: FC<GeneralContainerProps> = async ({
   return (
     <div className="md:col-span-2">
       <GeneralSection recipe={recipe} />
-      <GeneralModal recipe={recipe} massUnit={massUnit} modalType={modalType} />
+      {modalType === "general" && (
+        <GeneralModal
+          recipe={recipe}
+          massUnit={massUnit}
+          modalType={modalType}
+        />
+      )}
     </div>
   );
 };

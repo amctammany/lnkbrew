@@ -2,7 +2,7 @@
 //import { RoutedModal } from "@/components/Modal/RoutedModal";
 import React, { FC, useCallback } from "react";
 import dynamic from "next/dynamic";
-const StyleForm = dynamic(() => import("./StyleForm"), { ssr: true });
+const StyleForm = dynamic(() => import("./StyleForm"), { ssr: false });
 
 import { UserMassPreference } from "@prisma/client";
 import { ExtendedRecipe } from "@/types/Recipe";
