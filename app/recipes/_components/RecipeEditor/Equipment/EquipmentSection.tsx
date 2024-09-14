@@ -33,9 +33,28 @@ export const EquipmentSection: FC<EquipmentSectionProps> = ({ recipe }) => {
         unitType="volume"
       />
       <AmountProp
+        label="Boil Volume"
+        value={recipe?.boilVolume}
+        unitType="volume"
+        precision={0}
+      />
+      <AmountProp
         label="Boil Time"
         value={recipe?.boilTime}
         unitType="time"
+        precision={0}
+      />
+
+      <AmountProp
+        label="Mash Efficiency"
+        value={recipe?.mashEfficiency}
+        unitType="percent"
+        precision={0}
+      />
+      <AmountProp
+        label="Brew Efficiency"
+        value={recipe?.brewEfficiency}
+        unitType="percent"
         precision={0}
       />
     </Section>

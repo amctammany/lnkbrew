@@ -52,7 +52,7 @@ export const EquipmentForm = ({ recipe, profiles }: EquipmentFormProps) => {
             value={recipe?.equipmentProfileId ?? ""}
           />
         </div>
-        <div className="col-span-3 md:col-span-6">
+        <div className="md:col-span-2">
           <Controller
             name="batchVolume"
             control={control}
@@ -61,13 +61,14 @@ export const EquipmentForm = ({ recipe, profiles }: EquipmentFormProps) => {
               <AmountField
                 {...field}
                 value={field.value ?? 0}
+                step={0.01}
                 label="Batch Volume"
                 amountType="volume"
               />
             )}
           />
         </div>
-        <div className="col-span-3 md:col-span-6">
+        <div className="md:col-span-2">
           <Controller
             name="boilTime"
             control={control}
@@ -76,8 +77,57 @@ export const EquipmentForm = ({ recipe, profiles }: EquipmentFormProps) => {
               <AmountField
                 {...field}
                 value={field.value ?? 0}
+                step={0.01}
                 label="Boil Time"
                 amountType="time"
+              />
+            )}
+          />
+        </div>
+        <div className="md:col-span-2">
+          <Controller
+            name="boilVolume"
+            control={control}
+            defaultValue={0}
+            render={({ field }) => (
+              <AmountField
+                {...field}
+                step={0.01}
+                value={field.value ?? 0}
+                label="Boil Volume"
+                amountType="volume"
+              />
+            )}
+          />
+        </div>
+        <div className="md:col-span-2">
+          <Controller
+            name="mashEfficiency"
+            control={control}
+            defaultValue={70}
+            render={({ field }) => (
+              <AmountField
+                {...field}
+                step={0.1}
+                value={field.value ?? 0}
+                label="Mash Efficiency"
+                amountType="percent"
+              />
+            )}
+          />
+        </div>
+        <div className="md:col-span-2">
+          <Controller
+            name="brewEfficiency"
+            control={control}
+            defaultValue={60}
+            render={({ field }) => (
+              <AmountField
+                {...field}
+                step={0.1}
+                value={field.value ?? 0}
+                label="Brew Efficiency"
+                amountType="percent"
               />
             )}
           />
