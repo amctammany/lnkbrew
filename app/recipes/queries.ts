@@ -13,7 +13,7 @@ export const getExtendedRecipe = cache(
         style: true,
         //hops: { include: { hop: true } },
         //yeasts: { include: { yeast: true } },
-        //equipment: true,
+        equipmentProfile: true,
         //water: true,
         //mash: { include: { steps: true } },
         //otherIngredients: { include: { otherIngredient: true } },

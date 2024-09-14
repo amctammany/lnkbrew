@@ -78,7 +78,7 @@ export async function updateRecipe(formData: FormData) {
       ...(mashProfileId ? { mash: { connect: { id: mashProfileId } } } : {}),
       ...(waterProfileId ? { water: { connect: { id: waterProfileId } } } : {}),
       ...(equipmentProfileId
-        ? { equipment: { connect: { id: equipmentProfileId } } }
+        ? { equipmentProfile: { connect: { id: equipmentProfileId } } }
         : {}),
       ...(styleId
         ? {

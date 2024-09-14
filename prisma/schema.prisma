@@ -367,6 +367,7 @@ model EquipmentProfile {
   waterGrainRatio Float?             @default(1.5)
   //  Recipe          Recipe[]
   UserPreferences UserPreferences[]
+  Recipe          Recipe[]
 }
 
 model MashProfile {
@@ -418,6 +419,11 @@ model Recipe {
   styleIdentifier String?
   styleId         Int?
   style           Style?   @relation(fields: [styleId], references: [id])
+
+  equipmentProfileId Int?
+  equipmentProfile   EquipmentProfile? @relation(fields: [equipmentProfileId], references: [id])
+  batchVolume        Float?            @default(5)
+  boilTime           Float?            @default(60)
 
   @@id([ownerUsername, slug])
 }
