@@ -5,6 +5,7 @@ import { IconButtonLink } from "@/components/Button";
 import { RecipeIcon } from "@/components/Icon/RecipeIcon";
 import { ExtendedRecipe } from "@/types/Recipe";
 import { EditIcon } from "@/components/Icon/EditIcon";
+import AmountProp from "@/components/Prop/AmountProp";
 
 interface EquipmentSectionProps {
   recipe?: ExtendedRecipe | null;
@@ -26,8 +27,17 @@ export const EquipmentSection: FC<EquipmentSectionProps> = ({ recipe }) => {
       }
     >
       <Prop label="Profile Name" value={recipe?.equipmentProfile?.name} />
-      <Prop label="Batch Volume" value={recipe?.batchVolume} />
-      <Prop label="Boil Time" value={recipe?.boilTime} />
+      <AmountProp
+        label="Batch Volume"
+        value={recipe?.batchVolume}
+        unitType="volume"
+      />
+      <AmountProp
+        label="Boil Time"
+        value={recipe?.boilTime}
+        unitType="time"
+        precision={0}
+      />
     </Section>
   );
 };

@@ -1,13 +1,19 @@
 "use client";
 import { updateRecipe } from "@/app/recipes/actions";
 import { IconButton } from "@/components/Button";
-import { Autocomplete, Form, Option, TextField } from "@/components/Form";
+import {
+  AmountField,
+  Autocomplete,
+  Form,
+  Option,
+  TextField,
+} from "@/components/Form";
 import { EditIcon } from "@/components/Icon/EditIcon";
 import { EquipmentProfileIcon } from "@/components/Icon/EquipmentProfileIcon";
 import { SaveIcon } from "@/components/Icon/SaveIcon";
 import { Section } from "@/components/Section";
 import { ExtendedRecipe } from "@/types/Recipe";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 
 export const EquipmentFormContainer = ({
   children,
@@ -43,14 +49,38 @@ export const EquipmentForm = ({ recipe, profiles }: EquipmentFormProps) => {
           <Autocomplete
             {...register("equipmentProfileId")}
             options={profiles}
-            value={recipe?.styleId ?? ""}
+            value={recipe?.equipmentProfileId ?? ""}
           />
         </div>
         <div className="col-span-3 md:col-span-6">
-          <TextField {...register("batchVolume")} label="Batch Volume" />
+          <Controller
+            name="batchVolume"
+            control={control}
+            defaultValue={0}
+            render={({ field }) => (
+              <AmountField
+                {...field}
+                value={field.value ?? 0}
+                label="Batch Volume"
+                amountType="volume"
+              />
+            )}
+          />
         </div>
         <div className="col-span-3 md:col-span-6">
-          <TextField {...register("boilTime")} label="Boil Time" />
+          <Controller
+            name="boilTime"
+            control={control}
+            defaultValue={0}
+            render={({ field }) => (
+              <AmountField
+                {...field}
+                value={field.value ?? 0}
+                label="Boil Time"
+                amountType="time"
+              />
+            )}
+          />
         </div>
       </div>
     </Section>

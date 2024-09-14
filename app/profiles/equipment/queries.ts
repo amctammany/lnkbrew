@@ -23,7 +23,7 @@ export const getEquipmentProfileOptions = async () => {
       acc[profile.id] = `${profile.name}`;
       return acc;
     },
-    {} as Record<string, string>
+    {} as Record<number, string>
   );
   return options;
 };
