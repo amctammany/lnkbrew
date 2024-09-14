@@ -13,7 +13,6 @@ type RecipeCreatorProps = {};
 export default async function RecipeCreator({}: RecipeCreatorProps) {
   const session = await auth();
   if (!session?.user?.email) redirect("/api/auth/signin");
-  console.log(session.user);
   const recipe = await prisma.recipe.create({
     data: {
       ownerEmail: session?.user.email,

@@ -21,7 +21,6 @@ export const GeneralContainer: FC<GeneralContainerProps> = async ({
 }) => {
   //const recipe = await getExtendedRecipe({ id: recipeId });
   const [modalType, modalId] = path ?? [undefined, undefined];
-  console.log(modalType);
   return (
     <div className="md:col-span-2">
       <GeneralSection recipe={recipe} />
