@@ -14,7 +14,7 @@ import { Form } from "@/components/Form/Form";
 import { Select } from "@/components/Form/Select";
 import { Submit } from "@/components/Form/Submit";
 
-import React, { FC, useMemo } from "react";
+import React, { act, FC, useMemo } from "react";
 import { Controller, useController, useForm } from "react-hook-form";
 import { RangeField } from "@/components/Form/RangeField";
 import { Section } from "@/components/Section";
@@ -38,6 +38,7 @@ export function AdminSettings({
   waterProfiles,
   equipmentProfiles,
 }: AdminSettingsProps) {
+  console.log(src);
   const {
     register,
     control,
@@ -47,7 +48,7 @@ export function AdminSettings({
   } = useForm<
     UserPreferences & {
       range: { min: number; max: number }; //[number, number];
-      rangeLow?: number;
+      rangeLoaw?: number;
       rangeHigh?: number;
     }
   >({
@@ -65,7 +66,7 @@ export function AdminSettings({
   };
 
   return (
-    <Form action={onSubmit}>
+    <Form action={action}>
       <Section
         header={"Admin Settings"}
         className="m-auto w-full "

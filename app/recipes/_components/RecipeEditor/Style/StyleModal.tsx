@@ -2,23 +2,25 @@
 //import { RoutedModal } from "@/components/Modal/RoutedModal";
 import React, { FC, useCallback } from "react";
 import dynamic from "next/dynamic";
-const StyleForm = dynamic(() => import("./StyleForm"), { ssr: false });
+//const StyleForm = dynamic(() => import("./StyleForm"), { ssr: false });
 
 import { UserMassPreference } from "@prisma/client";
 import { ExtendedRecipe } from "@/types/Recipe";
 import { Modal } from "@/components/Modal/Modal";
 import { RoutedModal } from "@/components/Modal/RoutedModal";
-import { StyleFormContainer } from "./StyleForm";
+import StyleForm, { StyleFormContainer } from "./StyleForm";
 
 interface StyleProfileModalProps {
   massUnit?: UserMassPreference;
   recipe?: ExtendedRecipe | null;
   modalType?: string;
+  styles?: any;
 }
 
 export const StyleModal: FC<StyleProfileModalProps> = ({
   recipe,
   massUnit,
+  styles,
   modalType,
 }) => {
   //const { modalType, openModal, closeModal } = useRecipe();
@@ -32,11 +34,7 @@ export const StyleModal: FC<StyleProfileModalProps> = ({
         hidden={modalType !== "style"}
       >
         <div>
-          {modalType === "style" && (
-            <>
-              <StyleForm recipe={recipe} />
-            </>
-          )}
+          <StyleForm recipe={recipe} styles={styles} />
         </div>
       </RoutedModal>
     </StyleFormContainer>

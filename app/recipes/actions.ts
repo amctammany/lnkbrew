@@ -57,8 +57,9 @@ export async function updateRecipe(formData: FormData) {
     equipmentProfileId,
     styleIdentifer,
     ...data
-  } = recipeSchema.parse(formData);
-
+  } = validateSchema(formData, recipeSchema);
+  //recipeSchema.parse(formData);
+  console.log({ id, styleIdentifer, data });
   const old = await prisma.recipe.findFirst({
     where: {
       id,

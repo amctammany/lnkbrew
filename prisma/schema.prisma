@@ -66,7 +66,7 @@ model User {
 }
 
 model UserPreferences {
-  userId               String                    @id @unique @default(cuid())
+  userId               String                    @id @unique
   user                 User                      @relation(fields: [userId], references: [id])
   colorUnit            UserColorPreference       @default(L)
   timeUnit             TimeUnit                  @default(min)
@@ -291,7 +291,7 @@ model Style {
 
   name          String
   slug          String        @unique
-  //recipes       Recipe[]
+  recipes       Recipe[]
   category      StyleCategory
   subcategoryId Int
   identifier    String        @unique
@@ -404,17 +404,19 @@ model MashStep {
 }
 
 model Recipe {
-  id            String   @unique @default(cuid())
-  createdAt     DateTime @default(now())
-  name          String
-  slug          String
-  description   String?
-  ownerUsername String
-  ownerEmail    String
-  owner         User     @relation(fields: [ownerUsername], references: [username])
-  forkedFrom    String?
-  origin        Recipe?  @relation("origin", fields: [forkedFrom], references: [id])
-  forks         Recipe[] @relation("origin")
+  id              String   @unique @default(cuid())
+  createdAt       DateTime @default(now())
+  name            String
+  slug            String
+  description     String?
+  ownerUsername   String
+  ownerEmail      String
+  owner           User     @relation(fields: [ownerUsername], references: [username])
+  forkedFrom      String?
+  origin          Recipe?  @relation("origin", fields: [forkedFrom], references: [id])
+  forks           Recipe[] @relation("origin")
+  styleIdentifier String?
+  style           Style?   @relation(fields: [styleIdentifier], references: [identifier])
 
   @@id([ownerUsername, slug])
 }

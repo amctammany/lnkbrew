@@ -26,8 +26,8 @@ export const StyleSection: FC<StyleSectionProps> = ({ recipe }) => {
         </>
       }
     >
-      <Prop label="Name" value={recipe?.name} />
-      <Prop label="Description" value={recipe?.description} />
+      <Prop label="Style Name" value={recipe?.style?.name} />
+      <Prop label="Style Identifier" value={recipe?.style?.identifier} />
     </Section>
   );
 };

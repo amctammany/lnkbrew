@@ -1,9 +1,9 @@
 //import { getExtendedRecipe } from "@/app/recipes/queries";
 import React, { FC } from "react";
 import dynamic from "next/dynamic";
-const GeneralModal = dynamic(() => import("./GeneralModal"), {
-  ssr: false,
-});
+//const GeneralModal = dynamic(() => import("./GeneralModal"), {
+//ssr: false,
+//});
 import { UserMassPreference } from "@prisma/client";
 import { GeneralSection } from "./GeneralSection";
 import { ExtendedRecipe } from "@/types/Recipe";
@@ -21,16 +21,10 @@ export const GeneralContainer: FC<GeneralContainerProps> = async ({
 }) => {
   //const recipe = await getExtendedRecipe({ id: recipeId });
   const [modalType, modalId] = path ?? [undefined, undefined];
+  console.log(modalType);
   return (
     <div className="md:col-span-2">
       <GeneralSection recipe={recipe} />
-      {modalType === "general" && (
-        <GeneralModal
-          recipe={recipe}
-          massUnit={massUnit}
-          modalType={modalType}
-        />
-      )}
     </div>
   );
 };

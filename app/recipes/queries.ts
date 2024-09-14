@@ -1,22 +1,27 @@
 import { Prisma, Recipe } from "@prisma/client";
 import { prisma } from "@/lib/client";
 import { cache } from "react";
+import { ExtendedRecipe } from "@/types/Recipe";
 
-export const getExtendedRecipe = cache(async (where: Prisma.RecipeWhereInput) =>
-  prisma.recipe.findFirst({
-    include: {
-      owner: true,
-      //hops: { include: { hop: true } },
-      //yeasts: { include: { yeast: true } },
-      //equipment: true,
-      //water: true,
-      //mash: { include: { steps: true } },
-      //otherIngredients: { include: { otherIngredient: true } },
-      //fermentables: { include: { fermentable: true } },
-      //style: true,
-    },
-    where,
-  })
+export const getExtendedRecipe = cache(
+  async (where: Prisma.RecipeWhereInput) =>
+    prisma.recipe.findFirst({
+      include: {
+        owner: {
+          select: { id: true, name: true, username: true, email: true },
+        },
+        style: true,
+        //hops: { include: { hop: true } },
+        //yeasts: { include: { yeast: true } },
+        //equipment: true,
+        //water: true,
+        //mash: { include: { steps: true } },
+        //otherIngredients: { include: { otherIngredient: true } },
+        //fermentables: { include: { fermentable: true } },
+        //style: { select: { name: true, identifier: true, overall: true } },
+      },
+      where,
+    }) as unknown as ExtendedRecipe
 );
 
 export const getRecipe = cache(async (username: string, slug: string) =>

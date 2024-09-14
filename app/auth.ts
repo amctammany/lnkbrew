@@ -9,6 +9,7 @@ declare module "next-auth" {
    * Returned by `auth`, `useSession`, `getSession` and received as a prop on the `SessionProvider` React Context
    */
   interface Session {
+    preferences: UserPreferences;
     user: {
       /** The user's postal address. */
       UserPreferences: UserPreferences;
@@ -35,7 +36,7 @@ export const AuthOptions: NextAuthConfig = {
   session: { strategy: "jwt" },
   callbacks: {
     async session({ session, token, user }) {
-      //session.preferences = ((token.user || {}) as any).UserPreferences as any;
+      session.preferences = ((token.user || {}) as any).UserPreferences as any;
 
       session.user = token.user as any;
       session.user.username = (token.user as any).username;

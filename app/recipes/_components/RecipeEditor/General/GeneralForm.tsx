@@ -1,3 +1,4 @@
+"use client";
 import { updateRecipe } from "@/app/recipes/actions";
 import { IconButton } from "@/components/Button";
 import { Form, TextField } from "@/components/Form";

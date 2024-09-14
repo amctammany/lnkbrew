@@ -1,3 +1,4 @@
+import { ExtendedRecipe } from "@/types/Recipe";
 import { memo } from "react";
 export const genericMemo: <
   T extends keyof JSX.IntrinsicElements | React.JSXElementConstructor<any>,
@@ -25,3 +26,6 @@ export const debounce = <F extends (...args: any[]) => any>(
 
   return debounced as (...args: Parameters<F>) => ReturnType<F>;
 };
+export function getRecipeUrl(recipe: ExtendedRecipe, edit = false) {
+  return `/recipes/${recipe.ownerUsername}/${recipe.slug}/${edit ? "edit" : ""}`;
+}

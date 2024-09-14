@@ -1,9 +1,9 @@
 //import { getExtendedRecipe } from "@/app/recipes/queries";
 import React, { FC } from "react";
 import dynamic from "next/dynamic";
-const StyleModal = dynamic(() => import("./StyleModal"), {
-  ssr: false,
-});
+//const StyleModal = dynamic(() => import("./StyleModal"), {
+//ssr: false,
+//});
 import { UserMassPreference } from "@prisma/client";
 import { StyleSection } from "./StyleSection";
 import { ExtendedRecipe } from "@/types/Recipe";
@@ -24,9 +24,6 @@ export const StyleContainer: FC<StyleContainerProps> = async ({
   return (
     <div className="lg:col-span-2">
       <StyleSection recipe={recipe} />
-      {modalType === "style" && (
-        <StyleModal recipe={recipe} massUnit={massUnit} modalType={modalType} />
-      )}
     </div>
   );
 };
