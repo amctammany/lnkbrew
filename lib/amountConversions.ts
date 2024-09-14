@@ -128,7 +128,7 @@ export const converters: Record<AmountType, any> = {
   concentration: (v: number) => v * 1,
 };
 const conversionOptions: Record<AmountType, Record<string, string>> = {
-  unit: {},
+  unit: { item: "item", group: "group" },
   color: { ...UserColorPreference, L: "°L" },
   flow: { "gal/hr": "gal/hr", "l/min": "l/min" },
   concentration: { ppm: "ppm", ppb: "ppb" },

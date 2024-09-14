@@ -28,7 +28,7 @@ export const RoutedModal = ({
   );
   return (
     <div className={cn}>
-      <div className="relative mx-auto max-w-2xl border-slate-200 rounded bg-white mt-3">
+      <div className="relative mx-auto max-w-6xl border-slate-200 rounded bg-white mt-3">
         <ClickAwayRouter url={returnUrl} callback={callback}>
           <div className="relative p-0 z-50">{children}</div>
         </ClickAwayRouter>

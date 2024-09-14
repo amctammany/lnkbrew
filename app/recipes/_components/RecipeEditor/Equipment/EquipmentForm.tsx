@@ -1,15 +1,7 @@
 "use client";
-import { updateRecipe } from "@/app/recipes/actions";
 import { IconButton } from "@/components/Button";
-import {
-  AmountField,
-  Autocomplete,
-  Form,
-  Option,
-  TextField,
-} from "@/components/Form";
+import { AmountField, Autocomplete, Form } from "@/components/Form";
 import { EditIcon } from "@/components/Icon/EditIcon";
-import { EquipmentProfileIcon } from "@/components/Icon/EquipmentProfileIcon";
 import { SaveIcon } from "@/components/Icon/SaveIcon";
 import { Section } from "@/components/Section";
 import { ExtendedRecipe } from "@/types/Recipe";
