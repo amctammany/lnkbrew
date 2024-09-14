@@ -3,7 +3,10 @@ import { redirect } from "next/navigation";
 import { getExtendedRecipe } from "@/app/recipes/queries";
 import { updateRecipe } from "@/app/recipes/actions";
 import { EquipmentModal } from "@/app/recipes/_components/RecipeEditor/Equipment/EquipmentModal";
-import { getEquipmentProfileOptions } from "@/app/profiles/equipment/queries";
+import {
+  getEquipmentProfileOptions,
+  getEquipmentProfiles,
+} from "@/app/profiles/equipment/queries";
 //import { updateRecipeVitals } from "../actions";
 type RecipeEditorEquipmentPageProps = {
   params: {
@@ -25,7 +28,7 @@ export default async function RecipeEditorEquipmentPage({
   const session = await auth();
   if (!session?.user?.email) redirect("/api/auth/signin");
   const recipe = await getExtendedRecipe({ ownerUsername: username, slug });
-  const profiles = await getEquipmentProfileOptions();
+  const profiles = await getEquipmentProfiles();
 
   if (recipe?.ownerEmail !== session?.user.email) {
     //console.error("Unauthorized User");

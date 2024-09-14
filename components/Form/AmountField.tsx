@@ -10,7 +10,7 @@ import {
 } from "@/lib/amountConversions";
 import { Input, InputProps, inputStyles } from "./Input";
 import { Label } from "./Label";
-import { ChangeEventHandler, ComponentProps, useState } from "react";
+import { ChangeEventHandler, ComponentProps, useEffect, useState } from "react";
 import { ControllerRenderProps } from "react-hook-form";
 import { cva } from "class-variance-authority";
 
@@ -68,6 +68,7 @@ function AmountType({ type, value, options, ...props }: AmountTypeProps) {
 export type AmountFieldProps = {
   amountType: _AmountType;
   amountUnit?: UnitTypes;
+  isDirty?: boolean;
 } & InputProps &
   Partial<ControllerRenderProps>;
 export const AmountField = ({
@@ -82,6 +83,7 @@ export const AmountField = ({
   amountType,
   amountUnit,
   value,
+  isDirty,
 
   ref,
   onChange,
@@ -111,6 +113,13 @@ export const AmountField = ({
     //setBaseValue(convertedValue);
     onChange?.(convertedValue);
   };
+  useEffect(() => {
+    setCurrentAmount(
+      (rawConverters[amountType][
+        getConversionOptions(amountType)[0][1] as UnitTypes
+      ] ?? 1) * value
+    );
+  }, [amountType, currentUnit, value, name]);
   //console.log({ baseValue, value, currentAmount, amountType, currentUnit });
   return (
     <Label className={clsx("", className)} label={label || name} error={error}>

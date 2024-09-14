@@ -13,6 +13,7 @@ import { EquipmentProfileIcon } from "@/components/Icon/EquipmentProfileIcon";
 import { SaveIcon } from "@/components/Icon/SaveIcon";
 import { Section } from "@/components/Section";
 import { ExtendedRecipe } from "@/types/Recipe";
+import { EquipmentProfile } from "@prisma/client";
 import { Controller, useForm } from "react-hook-form";
 
 export const EquipmentFormContainer = ({
@@ -26,12 +27,25 @@ export const EquipmentFormContainer = ({
 };
 export type EquipmentFormProps = {
   recipe?: ExtendedRecipe | null;
-  profiles?: any;
+  profiles: EquipmentProfile[];
 };
 export const EquipmentForm = ({ recipe, profiles }: EquipmentFormProps) => {
-  const { control, register, trigger } = useForm<ExtendedRecipe>({
+  const { control, register, reset } = useForm<ExtendedRecipe>({
     defaultValues: recipe as ExtendedRecipe,
   });
+  const options = profiles.reduce(
+    (acc, profile) => {
+      acc[profile.id] = `${profile.name}`;
+      return acc;
+    },
+    {} as Record<string, string>
+  );
+  const handleChange = (id?: number) => {
+    //const { name, value } = e.currentTarget;
+    const profile = profiles.find((p) => p.id === id) ?? {};
+    reset({ ...profile, id: recipe?.id });
+    console.log({ name, profile });
+  };
 
   return (
     <Section
@@ -48,7 +62,8 @@ export const EquipmentForm = ({ recipe, profiles }: EquipmentFormProps) => {
         <div className="col-span-3 md:col-span-6">
           <Autocomplete
             {...register("equipmentProfileId")}
-            options={profiles}
+            options={options}
+            handleChange={handleChange}
             value={recipe?.equipmentProfileId ?? ""}
           />
         </div>
