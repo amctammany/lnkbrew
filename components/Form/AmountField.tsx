@@ -107,9 +107,11 @@ export const AmountField = ({
   };
 
   const handleSelect: ChangeEventHandler<HTMLSelectElement> = (e) => {
+    const oldUnit = rawConverters[amountType][currentUnit];
     const unit = e.currentTarget.value as UnitTypes;
     setCurrentUnit(unit);
-    const convertedValue = currentAmount / rawConverters[amountType][unit];
+    const convertedValue =
+      currentAmount / (oldUnit / rawConverters[amountType][unit]);
     //setBaseValue(convertedValue);
     onChange?.(convertedValue);
   };
