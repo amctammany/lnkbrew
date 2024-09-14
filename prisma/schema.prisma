@@ -99,13 +99,6 @@ enum TimeUnit {
   day
 }
 
-enum HopIngredientUsage {
-  Boil
-  Whirlpool
-  DryHop
-  Mash
-}
-
 enum UserVolumePreference {
   L
   gal
@@ -194,6 +187,7 @@ model Hop {
   styles            String[]
   //  HopIngredient     HopIngredient[]
   HopSensoryPanel   HopSensoryPanel[]
+  HopIngredient     HopIngredient[]
 }
 
 model HopSensoryPanel {
@@ -222,19 +216,20 @@ model HopSensoryPanel {
 
 model Fermentable {
   //id                    Int                     @id @default(autoincrement())
-  id           String  @id @unique @default(cuid())
-  name         String
-  slug         String  @unique
-  description  String?
-  notes        String?
-  manufacturer String?
-  country      String?
-  power        Int?
-  maxUsage     Float?
-  color        Float?
-  potential    Float?
-  stability    String?
+  id                    String                  @id @unique @default(cuid())
+  name                  String
+  slug                  String                  @unique
+  description           String?
+  notes                 String?
+  manufacturer          String?
+  country               String?
+  power                 Int?
+  maxUsage              Float?
+  color                 Float?
+  potential             Float?
+  stability             String?
   //  FermentableIngredient FermentableIngredient[]
+  FermentableIngredient FermentableIngredient[]
 }
 
 enum YeastForm {
@@ -405,29 +400,72 @@ model MashStep {
 }
 
 model Recipe {
-  id                 String            @unique @default(cuid())
-  createdAt          DateTime          @default(now())
+  id                 String                  @unique @default(cuid())
+  createdAt          DateTime                @default(now())
   name               String
   slug               String
   description        String?
   ownerUsername      String
   ownerEmail         String
-  owner              User              @relation(fields: [ownerUsername], references: [username])
+  owner              User                    @relation(fields: [ownerUsername], references: [username])
   forkedFrom         String?
-  origin             Recipe?           @relation("origin", fields: [forkedFrom], references: [id])
-  forks              Recipe[]          @relation("origin")
+  origin             Recipe?                 @relation("origin", fields: [forkedFrom], references: [id])
+  forks              Recipe[]                @relation("origin")
   styleIdentifier    String?
   styleId            Int?
-  style              Style?            @relation(fields: [styleId], references: [id])
+  style              Style?                  @relation(fields: [styleId], references: [id])
   equipmentProfileId Int?
-  equipmentProfile   EquipmentProfile? @relation(fields: [equipmentProfileId], references: [id])
-  batchVolume        Float?            @default(22)
-  boilVolume         Float?            @default(25)
-  preboilVolume      Float?            @default(25)
-  boilTime           Float?            @default(60)
-  brewEfficiency     Float?            @default(0.6)
-  mashEfficiency     Float?            @default(0.7)
+  equipmentProfile   EquipmentProfile?       @relation(fields: [equipmentProfileId], references: [id])
+  batchVolume        Float?                  @default(22)
+  boilVolume         Float?                  @default(25)
+  preboilVolume      Float?                  @default(25)
+  boilTime           Float?                  @default(60)
+  brewEfficiency     Float?                  @default(0.6)
+  mashEfficiency     Float?                  @default(0.7)
   boilOffRate        Float?
+  hops               HopIngredient[]
+  fermentables       FermentableIngredient[]
 
   @@id([ownerUsername, slug])
+}
+
+enum HopIngredientUsage {
+  Boil
+  Whirlpool
+  DryHop
+  Mash
+}
+
+model HopIngredient {
+  id           Int                @id @default(autoincrement())
+  recipeId     String
+  recipe       Recipe             @relation(fields: [recipeId], references: [id])
+  amount       Float
+  usage        HopIngredientUsage
+  amountType   MassUnit
+  duration     Float
+  durationType TimeUnit
+  hopId        String
+  hop          Hop                @relation(fields: [hopId], references: [id])
+  alpha        Float?
+}
+
+enum FermentableIngredientUsage {
+  Mash
+  Extract
+  Steep
+  Late
+}
+
+model FermentableIngredient {
+  id            Int                        @id @default(autoincrement())
+  recipeId      String
+  recipe        Recipe                     @relation(fields: [recipeId], references: [id])
+  usage         FermentableIngredientUsage
+  amount        Float
+  amountType    MassUnit
+  //duration      Float
+  //durationType  TimeUnit
+  fermentableId String
+  fermentable   Fermentable                @relation(fields: [fermentableId], references: [id])
 }
