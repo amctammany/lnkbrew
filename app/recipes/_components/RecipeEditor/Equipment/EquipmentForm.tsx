@@ -55,9 +55,9 @@ export const EquipmentForm = ({ recipe, profiles }: EquipmentFormProps) => {
         </IconButton>
       }
     >
-      <div className="grid gap-2 md:gap-4 grid-cols-3 md:grid-cols-6">
+      <div className="grid gap-2 md:gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
         <input type="hidden" {...register("id")} />
-        <div className="col-span-3 md:col-span-6">
+        <div className="col-span-2 md:col-span-3 lg:col-span-6">
           <Autocomplete
             {...register("equipmentProfileId")}
             options={options}
@@ -65,7 +65,7 @@ export const EquipmentForm = ({ recipe, profiles }: EquipmentFormProps) => {
             value={recipe?.equipmentProfileId ?? ""}
           />
         </div>
-        <div className="md:col-span-2">
+        <div className="lg:col-span-2">
           <Controller
             name="batchVolume"
             control={control}
@@ -81,7 +81,7 @@ export const EquipmentForm = ({ recipe, profiles }: EquipmentFormProps) => {
             )}
           />
         </div>
-        <div className="md:col-span-2">
+        <div className="lg:col-span-2">
           <Controller
             name="boilTime"
             control={control}
@@ -97,7 +97,7 @@ export const EquipmentForm = ({ recipe, profiles }: EquipmentFormProps) => {
             )}
           />
         </div>
-        <div className="md:col-span-2">
+        <div className="lg:col-span-2">
           <Controller
             name="boilVolume"
             control={control}
@@ -113,7 +113,7 @@ export const EquipmentForm = ({ recipe, profiles }: EquipmentFormProps) => {
             )}
           />
         </div>
-        <div className="md:col-span-2">
+        <div className="lg:col-span-2">
           <Controller
             name="mashEfficiency"
             control={control}
@@ -129,7 +129,7 @@ export const EquipmentForm = ({ recipe, profiles }: EquipmentFormProps) => {
             )}
           />
         </div>
-        <div className="md:col-span-2">
+        <div className="lg:col-span-2">
           <Controller
             name="brewEfficiency"
             control={control}
