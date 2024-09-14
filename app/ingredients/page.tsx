@@ -19,7 +19,7 @@ export default async function Page() {
 
   if (!session) return redirect("/");
   const user = await prisma.user.findFirst({
-    where: { email: session?.user?.email },
+    where: { username: session?.user?.username },
     include: {
       //ingredients: { select: { name: true, id: true, styleIdentifer: true } },
     },

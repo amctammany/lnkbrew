@@ -29,7 +29,7 @@ export default async function Page() {
   const mashProfiles = await getMashProfileOptions();
   const equipmentProfiles = await getEquipmentProfileOptions();
   const user = await prisma.user.findFirst({
-    where: { email: session?.user?.email },
+    where: { username: session?.user?.username },
     include: {
       UserPreferences: true,
       //recipes: { select: { name: true, id: true, styleIdentifer: true } },
