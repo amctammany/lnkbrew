@@ -1,9 +1,11 @@
 "use client";
 import { IconButton } from "@/components/Button";
 import { AmountField, Autocomplete, Form, ID, Select } from "@/components/Form";
+import { DeleteIcon } from "@/components/Icon/DeleteIcon";
 import { EditIcon } from "@/components/Icon/EditIcon";
 import { SaveIcon } from "@/components/Icon/SaveIcon";
 import { Section } from "@/components/Section";
+import { Toolbar } from "@/components/Toolbar";
 import { ExtendedFermentableIngredient, ExtendedRecipe } from "@/types/Recipe";
 import {
   Fermentable,
@@ -12,6 +14,23 @@ import {
 } from "@prisma/client";
 import { Controller, useForm } from "react-hook-form";
 
+type FermentableIngredientFooterProps = {};
+const FermentableIngredientFooter = ({}: FermentableIngredientFooterProps) => {
+  return (
+    <Toolbar>
+      <IconButton
+        variant="warning"
+        Icon={DeleteIcon}
+        onClick={() => console.log("remove")}
+      >
+        Remove
+      </IconButton>
+      <IconButton type="submit" Icon={SaveIcon}>
+        Save
+      </IconButton>
+    </Toolbar>
+  );
+};
 export const FermentableIngredientFormContainer = ({
   children,
   action,
@@ -55,6 +74,7 @@ export const FermentableIngredientForm = ({
           Save
         </IconButton>
       }
+      footer={<FermentableIngredientFooter />}
     >
       <div className="grid gap-2 md:gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
         <input type="hidden" {...register("id")} />

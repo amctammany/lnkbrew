@@ -9,9 +9,11 @@ import {
   NumberField,
   Select,
 } from "@/components/Form";
+import { DeleteIcon } from "@/components/Icon/DeleteIcon";
 import { EditIcon } from "@/components/Icon/EditIcon";
 import { SaveIcon } from "@/components/Icon/SaveIcon";
 import { Section } from "@/components/Section";
+import { Toolbar } from "@/components/Toolbar";
 import { ExtendedRecipe } from "@/types/Recipe";
 import {
   Hop,
@@ -21,6 +23,23 @@ import {
   TimeUnit,
 } from "@prisma/client";
 import { Controller, useForm } from "react-hook-form";
+type HopIngredientFooterProps = {};
+const HopIngredientFooter = ({}: HopIngredientFooterProps) => {
+  return (
+    <Toolbar>
+      <IconButton
+        variant="warning"
+        Icon={DeleteIcon}
+        onClick={() => console.log("remove")}
+      >
+        Remove
+      </IconButton>
+      <IconButton type="submit" Icon={SaveIcon}>
+        Save
+      </IconButton>
+    </Toolbar>
+  );
+};
 
 export const HopIngredientFormContainer = ({
   children,
@@ -75,6 +94,7 @@ export const HopIngredientForm = ({
     <Section
       Icon={EditIcon}
       header="Hops"
+      footer={<HopIngredientFooter />}
       actions={
         <IconButton type="submit" Icon={SaveIcon}>
           Save
