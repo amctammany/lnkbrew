@@ -1,7 +1,7 @@
 // Replace your-renderer with the renderer you are using (e.g., react, vue3, etc.)
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { Autocomplete, Option } from "./Autocomplete";
+import { Autocomplete } from "./Autocomplete";
 const options: Record<number, string> = Object.fromEntries(
   Object.entries([
     "hey",

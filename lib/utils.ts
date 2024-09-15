@@ -1,4 +1,4 @@
-import { ID } from "@/components/Form";
+import { ID } from "@/types/App";
 import { ExtendedRecipe } from "@/types/Recipe";
 import { Recipe } from "@prisma/client";
 import { memo } from "react";

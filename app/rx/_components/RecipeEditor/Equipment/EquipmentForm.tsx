@@ -1,9 +1,10 @@
 "use client";
 import { IconButton } from "@/components/Button";
-import { AmountField, Autocomplete, Form, ID } from "@/components/Form";
+import { AmountField, Autocomplete, Form } from "@/components/Form";
 import { EditIcon } from "@/components/Icon/EditIcon";
 import { SaveIcon } from "@/components/Icon/SaveIcon";
 import { Section } from "@/components/Section";
+import { ID } from "@/types/App";
 import { ExtendedRecipe } from "@/types/Recipe";
 import { EquipmentProfile } from "@prisma/client";
 import { Controller, useForm } from "react-hook-form";

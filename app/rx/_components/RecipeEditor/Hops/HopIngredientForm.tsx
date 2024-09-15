@@ -4,7 +4,6 @@ import {
   AmountField,
   Autocomplete,
   Form,
-  ID,
   Label,
   NumberField,
   Select,
@@ -14,6 +13,7 @@ import { EditIcon } from "@/components/Icon/EditIcon";
 import { SaveIcon } from "@/components/Icon/SaveIcon";
 import { Section } from "@/components/Section";
 import { Toolbar } from "@/components/Toolbar";
+import { ID } from "@/types/App";
 import { ExtendedRecipe } from "@/types/Recipe";
 import {
   Hop,

@@ -15,8 +15,7 @@ import clsx from "clsx";
 import { type SchemaFieldError } from "@/lib/validateSchema";
 //import { XMarkIcon } from "@heroicons/react/20/solid";
 import { CloseIcon } from "../Icon/CloseIcon";
-export type ID = string | number;
-export type Option<T = string, I = ID> = [T, I];
+import { ID, Option } from "@/types/App";
 export type AutocompleteProps = VariantProps<typeof autocompleteStyles> &
   ComponentProps<"input"> & {
     value?: ID | null;
