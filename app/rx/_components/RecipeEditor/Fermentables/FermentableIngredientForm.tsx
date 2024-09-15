@@ -14,18 +14,15 @@ import {
   FermentableIngredientUsage,
 } from "@prisma/client";
 import { Controller, useForm } from "react-hook-form";
+import RemoveFermentableIngredientButton from "./RemoveFermentableIngredientButton";
 
-type FermentableIngredientFooterProps = {};
-const FermentableIngredientFooter = ({}: FermentableIngredientFooterProps) => {
+type FermentableIngredientFooterProps = { id?: number };
+const FermentableIngredientFooter = ({
+  id,
+}: FermentableIngredientFooterProps) => {
   return (
     <Toolbar>
-      <IconButton
-        variant="warning"
-        Icon={DeleteIcon}
-        onClick={() => console.log("remove")}
-      >
-        Remove
-      </IconButton>
+      <RemoveFermentableIngredientButton id={id} />
       <IconButton type="submit" Icon={SaveIcon}>
         Save
       </IconButton>
@@ -75,7 +72,7 @@ export const FermentableIngredientForm = ({
           Save
         </IconButton>
       }
-      footer={<FermentableIngredientFooter />}
+      footer={<FermentableIngredientFooter id={src?.id} />}
     >
       <div className="grid gap-2 md:gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
         <input type="hidden" {...register("id")} />

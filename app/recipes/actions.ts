@@ -149,7 +149,7 @@ export async function removeHopIngredientById(id: number) {
   //const { id } = removeIngredientSchema.parse(formData);
   const res = await prisma.hopIngredient.delete({
     where: { id },
-    include: { recipe: true },
+    //include: { recipe: true },
   });
   redirect(getRecipeUrl(res.recipeId));
   //return updateRecipeVitals(res.recipeId);
@@ -201,6 +201,16 @@ export async function updateFermentableIngredient(formData: FormData) {
     where: { id: data.id },
     include: { recipe: true },
     data,
+  });
+  redirect(getRecipeUrl(res.recipeId));
+  //return updateRecipeVitals(res.recipeId);
+  //redirect(`/recipes/${res.recipeId}/edit`);
+}
+export async function removeFermentableIngredientById(id: number) {
+  //const { id } = removeIngredientSchema.parse(formData);
+  const res = await prisma.fermentableIngredient.delete({
+    where: { id },
+    //include: { recipe: true },
   });
   redirect(getRecipeUrl(res.recipeId));
   //return updateRecipeVitals(res.recipeId);
