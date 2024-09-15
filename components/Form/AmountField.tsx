@@ -13,6 +13,7 @@ import { Label } from "./Label";
 import { ChangeEventHandler, ComponentProps, useEffect, useState } from "react";
 import { ControllerRenderProps } from "react-hook-form";
 import { cva } from "class-variance-authority";
+import { LbOzField } from "./LbOzField";
 
 export const amountFieldStyles = cva("input", {
   variants: {
@@ -71,25 +72,25 @@ export type AmountFieldProps = {
   isDirty?: boolean;
 } & InputProps &
   Partial<ControllerRenderProps>;
-export const AmountField = ({
-  className,
-  disabled,
-  label,
-  step,
-  error,
-  inputSize,
-  name,
-  variant,
-  amountType,
-  amountUnit,
-  value,
-  isDirty,
+export const AmountField = (props: AmountFieldProps) => {
+  const {
+    className,
+    disabled,
+    label,
+    step,
+    error,
+    inputSize,
+    name,
+    variant,
+    amountType,
+    amountUnit,
+    value,
+    isDirty,
 
-  ref,
-  onChange,
-  onBlur,
-  ...props
-}: AmountFieldProps) => {
+    ref,
+    onChange,
+    onBlur,
+  } = props;
   //const [baseValue, setBaseValue] = useState<number>(value);
   const [currentUnit, setCurrentUnit] = useState<UnitTypes>(
     amountUnit ?? (getConversionOptions(amountType)[0][1] as UnitTypes)
@@ -123,6 +124,7 @@ export const AmountField = ({
     );
   }, [amountType, currentUnit, value, name]);
   //console.log({ baseValue, value, currentAmount, amountType, currentUnit });
+  const AmtInput = currentUnit === "LbOz" ? LbOzField : Input;
   return (
     <Label className={clsx("", className)} label={label || name} error={error}>
       <div className={clsx("flex")}>
@@ -133,7 +135,8 @@ export const AmountField = ({
           ref={ref}
           //onChange={changeHidden}
         />
-        <input
+
+        <AmtInput
           disabled={disabled || false}
           className={clsx(
             inputStyles({

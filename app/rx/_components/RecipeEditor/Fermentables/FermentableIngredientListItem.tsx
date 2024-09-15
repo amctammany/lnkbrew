@@ -2,6 +2,7 @@ import { getRecipe } from "@/app/recipes/queries";
 import { ListItem } from "@/components/List/ListItem";
 import { ListItemIcon } from "@/components/List/ListItemIcon";
 import { ListItemText } from "@/components/List/ListItemText";
+import AmountProp from "@/components/Prop/AmountProp";
 import { getRecipeUrl } from "@/lib/utils";
 import { ExtendedFermentableIngredient } from "@/types/Recipe";
 //import { FermentableIngredient } from "@prisma/client";
@@ -18,14 +19,12 @@ export const FermentableIngredientListItem = ({
       href={getRecipeUrl(src?.recipeId, "fermentables", src.id)}
       //href={`/fermentableIngredients/${fermentableIngredient.id}`}
     >
-      <ListItemIcon variant="icon">
-        <div className="text-lg ">{src.usage}</div>
+      <ListItemIcon>
+        <AmountProp unitType="fermentableMass">{src.amount}</AmountProp>
       </ListItemIcon>
-      <ListItemText
-        className="flex-grow"
-        primary={src.fermentable.name}
-        secondary={src.amount}
-      />
+      <ListItemText className="flex-grow">
+        <div className="flex-grow">{src.fermentable.name}</div>
+      </ListItemText>
     </ListItem>
   );
 };
