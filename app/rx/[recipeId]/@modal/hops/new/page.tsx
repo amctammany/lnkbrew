@@ -37,7 +37,6 @@ export default async function RecipeEditorNewHopPage({
     <HopsModal
       action={addHopIngredientToRecipe}
       src={{ recipeId: recipe?.id } as ExtendedHopIngredient}
-      recipe={recipe}
       hops={hops}
     />
   );

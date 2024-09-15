@@ -6,6 +6,7 @@ import { StyleContainer } from "./Style";
 import { EquipmentSection } from "./Equipment/EquipmentSection";
 import { FermentablesSection } from "./Fermentables/FermentablesSection";
 import { ExtendedRecipe } from "@/types/Recipe";
+import { HopsSection } from "./Hops/HopsSection";
 
 export type RecipeEditorProps = {
   recipe: ExtendedRecipe;
@@ -20,10 +21,11 @@ function RecipeEditor({ recipe, path }: RecipeEditorProps) {
         footer={<span>{path?.join(" - ")}</span>}
       >
         <div className="grid grid-cols-2 md:grid-cols-3 gap-2 m-2">
-          <GeneralContainer recipe={recipe} path={path} />
-          <StyleContainer recipe={recipe} path={path} />
+          <GeneralContainer recipe={recipe} />
+          <StyleContainer recipe={recipe} />
           <EquipmentSection recipe={recipe} />
           <FermentablesSection recipe={recipe} />
+          <HopsSection recipe={recipe} />
         </div>
       </Section>
     </div>

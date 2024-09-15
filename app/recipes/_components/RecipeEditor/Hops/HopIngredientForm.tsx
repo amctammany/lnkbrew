@@ -5,7 +5,12 @@ import { EditIcon } from "@/components/Icon/EditIcon";
 import { SaveIcon } from "@/components/Icon/SaveIcon";
 import { Section } from "@/components/Section";
 import { ExtendedRecipe } from "@/types/Recipe";
-import { Hop, HopIngredient } from "@prisma/client";
+import {
+  Hop,
+  HopIngredient,
+  HopIngredientUsage,
+  HopUsage,
+} from "@prisma/client";
 import { Controller, useForm } from "react-hook-form";
 
 export const HopIngredientFormContainer = ({
@@ -19,11 +24,11 @@ export const HopIngredientFormContainer = ({
 };
 export type HopIngredientFormProps = {
   src?: HopIngredient;
-  recipe?: ExtendedRecipe | null;
+  //recipe?: ExtendedRecipe | null;
   hops: Hop[];
 };
 export const HopIngredientForm = ({
-  recipe,
+  //recipe,
   src,
   hops,
 }: HopIngredientFormProps) => {
@@ -38,8 +43,19 @@ export const HopIngredientForm = ({
     {} as Record<string, string>
   );
   const handleChange = (id?: ID) => {
-    const profile = hops.find((p) => p.id === id) ?? {};
-    reset({ ...profile, recipeId: recipe?.id });
+    const {
+      id: hopId,
+      usage,
+      alpha,
+      ...hop
+    } = hops.find((p) => p.id === id) ?? {
+      id: undefined,
+    };
+    if (hop)
+      reset({
+        alpha,
+        hopId,
+      });
   };
 
   return (

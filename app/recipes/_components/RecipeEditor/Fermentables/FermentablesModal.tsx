@@ -9,26 +9,25 @@ import {
 import { Fermentable } from "@prisma/client";
 
 export type FermentablesModalProps = {
-  recipe: ExtendedRecipe;
+  //recipe: ExtendedRecipe;
   action?: any;
-  src?: ExtendedFermentableIngredient;
+  src: ExtendedFermentableIngredient;
   fermentables: Fermentable[];
 };
 export const FermentablesModal = ({
-  recipe,
+  //recipe,
   fermentables,
   src,
   action,
 }: FermentablesModalProps) => {
   return (
     <FermentableIngredientFormContainer action={action}>
-      <RoutedModal returnUrl={getRecipeUrl(recipe.id)} hidden={false}>
+      <RoutedModal returnUrl={getRecipeUrl(src.recipeId)} hidden={false}>
         <FermentableIngredientForm
-          recipe={recipe}
+          //recipe={recipe}
           src={src}
           fermentables={fermentables}
         />
-        ;
       </RoutedModal>
     </FermentableIngredientFormContainer>
   );

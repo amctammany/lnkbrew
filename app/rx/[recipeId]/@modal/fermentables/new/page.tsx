@@ -40,7 +40,6 @@ export default async function RecipeEditorNewFermentablePage({
     <FermentablesModal
       action={addFermentableIngredientToRecipe}
       src={{ recipeId: recipe.id } as ExtendedFermentableIngredient}
-      recipe={recipe}
       fermentables={fermentables}
     />
   );

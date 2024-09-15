@@ -35,12 +35,13 @@ export default async function RecipeEditorFermentablesPage({
     //console.error("Unauthorized User");
     redirect(`/recipes/${recipe?.id}`);
   }
+  if (!src) throw new Error("no source");
 
   return (
     <FermentablesModal
       action={updateFermentableIngredient}
       src={src}
-      recipe={recipe}
+      //recipe={recipe}
       fermentables={fermentables}
     />
   );

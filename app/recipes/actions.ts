@@ -109,11 +109,11 @@ const hopIngredientSchema = zfd.formData({
   id: zfd.numeric(z.number().optional()),
   recipeId: zfd.text(z.string()),
   hopId: zfd.text(z.string()),
-  amount: zfd.numeric(z.number().gte(0)),
+  amount: zfd.numeric(z.number().gte(0).default(1)),
   alpha: zfd.numeric(z.number().min(0).optional()),
   usage: z.nativeEnum(HopIngredientUsage).default(HopIngredientUsage.Boil),
   amountType: z.nativeEnum(MassUnit).default(MassUnit.Oz),
-  duration: zfd.numeric(z.number().min(0)),
+  duration: zfd.numeric(z.number().min(0).default(60)),
   durationType: z.nativeEnum(TimeUnit).default(TimeUnit.min),
 });
 export async function addHopIngredientToRecipe(formData: FormData) {

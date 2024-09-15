@@ -32,13 +32,7 @@ export default async function RecipeEditorHopsPage({
     //console.error("Unauthorized User");
     redirect(`/recipes/${recipe?.id}`);
   }
+  if (!src) throw new Error("no source");
 
-  return (
-    <HopsModal
-      action={updateHopIngredient}
-      src={src}
-      recipe={recipe}
-      hops={hops}
-    />
-  );
+  return <HopsModal action={updateHopIngredient} src={src} hops={hops} />;
 }

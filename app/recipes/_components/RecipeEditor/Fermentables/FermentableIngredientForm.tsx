@@ -19,11 +19,11 @@ export const FermentableIngredientFormContainer = ({
 };
 export type FermentableIngredientFormProps = {
   src?: ExtendedFermentableIngredient;
-  recipe?: ExtendedRecipe | null;
+  //recipe?: ExtendedRecipe | null;
   fermentables: Fermentable[];
 };
 export const FermentableIngredientForm = ({
-  recipe,
+  //recipe,
   src,
   fermentables,
 }: FermentableIngredientFormProps) => {
@@ -39,7 +39,7 @@ export const FermentableIngredientForm = ({
   );
   const handleChange = (id?: ID) => {
     const { id: _id, ...ferm } = fermentables.find((p) => p.id === id) ?? {};
-    reset({ ...ferm, fermentableId: _id, recipeId: recipe?.id });
+    reset({ ...ferm, fermentableId: _id });
   };
 
   return (

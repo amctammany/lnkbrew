@@ -9,9 +9,10 @@ import AmountProp from "@/components/Prop/AmountProp";
 import { AddIcon } from "@/components/Icon/AddIcon";
 import { List } from "@/components/List/List";
 import { HopIngredientListItem } from "./HopIngredientListItem";
+import { getRecipeUrl } from "@/lib/utils";
 
 interface HopsSectionProps {
-  recipe?: ExtendedRecipe | null;
+  recipe: ExtendedRecipe;
 }
 
 export const HopsSection: FC<HopsSectionProps> = ({ recipe }) => {
@@ -23,7 +24,7 @@ export const HopsSection: FC<HopsSectionProps> = ({ recipe }) => {
       actions={
         <>
           <IconButtonLink
-            href={`/recipes/${recipe?.ownerUsername}/${recipe?.slug}/edit/hops/new`}
+            href={getRecipeUrl(recipe.id, "hops", "new")}
             Icon={AddIcon}
           />
         </>

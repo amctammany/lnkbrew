@@ -8,16 +8,16 @@ import HopIngredientForm, {
 //import HopsForm, { HopsFormContainer } from "./HopsForm";
 
 export type HopsModalProps = {
-  recipe: ExtendedRecipe;
-  src?: ExtendedHopIngredient;
+  //recipe: ExtendedRecipe;
+  src: ExtendedHopIngredient;
   action?: any;
   hops?: any;
 };
-export const HopsModal = ({ recipe, hops, action, src }: HopsModalProps) => {
+export const HopsModal = ({ hops, action, src }: HopsModalProps) => {
   return (
     <HopIngredientFormContainer action={action}>
-      <RoutedModal returnUrl={getRecipeUrl(recipe.id)} hidden={false}>
-        <HopIngredientForm recipe={recipe} src={src} hops={hops} />;
+      <RoutedModal returnUrl={getRecipeUrl(src.recipeId)} hidden={false}>
+        <HopIngredientForm src={src} hops={hops} />
       </RoutedModal>
     </HopIngredientFormContainer>
   );
