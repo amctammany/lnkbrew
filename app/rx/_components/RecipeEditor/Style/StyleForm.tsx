@@ -44,6 +44,7 @@ export const StyleForm = ({ recipe, styles }: StyleFormProps) => {
         <input type="hidden" {...register("name")} />
         <Autocomplete
           {...register("styleId")}
+          className="w-full"
           options={styles}
           value={recipe?.styleId ?? ""}
         />

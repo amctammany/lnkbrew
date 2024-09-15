@@ -58,17 +58,15 @@ export function NumberField({
       label={label !== null ? label || name : ""}
       error={error}
     >
-      <div className="grid">
-        <Input
-          //className="flex-grow"
-          type="number"
-          name={name}
-          error={error}
-          variant={variant}
-          inputSize={inputSize}
-          {...props}
-        />
-      </div>
+      <Input
+        className="w-full"
+        type="number"
+        name={name}
+        error={error}
+        variant={variant}
+        inputSize={inputSize}
+        {...props}
+      />
     </Label>
   );
 }

@@ -20,7 +20,7 @@ function RecipeEditor({ recipe, path }: RecipeEditorProps) {
         header="Recipe Editor"
         footer={<span>{path?.join(" - ")}</span>}
       >
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-2 m-2">
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-2 m-2">
           <GeneralContainer recipe={recipe} />
           <StyleContainer recipe={recipe} />
           <EquipmentSection recipe={recipe} />

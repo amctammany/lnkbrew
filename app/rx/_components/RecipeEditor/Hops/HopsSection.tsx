@@ -31,7 +31,9 @@ export const HopsSection: FC<HopsSectionProps> = ({ recipe }) => {
       }
     >
       <List>
-        {recipe?.hops.map((f) => <HopIngredientListItem key={f.id} src={f} />)}
+        {recipe?.hops.map((f) => (
+          <HopIngredientListItem key={`hop-${f.id}`} src={f} />
+        ))}
       </List>
     </Section>
   );

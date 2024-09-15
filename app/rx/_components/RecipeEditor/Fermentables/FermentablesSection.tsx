@@ -34,7 +34,7 @@ export const FermentablesSection: FC<FermentablesSectionProps> = ({
     >
       <List>
         {recipe?.fermentables.map((f) => (
-          <FermentableIngredientListItem key={f.id} src={f} />
+          <FermentableIngredientListItem key={`fermentable-${f.id}`} src={f} />
         ))}
       </List>
     </Section>

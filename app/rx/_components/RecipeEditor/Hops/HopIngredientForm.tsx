@@ -154,7 +154,7 @@ export const HopIngredientForm = ({
                 value={field.value ?? 0}
                 step={0.01}
                 label="Alpha Acids"
-                amountType="percent"
+                amountType="percentage"
               />
             )}
           />
@@ -170,7 +170,7 @@ export const HopIngredientForm = ({
                 value={field.value ?? 0}
                 step={0.01}
                 label="Beta Acids"
-                amountType="percent"
+                amountType="percentage"
               />
             )}
           />
