@@ -7,7 +7,6 @@ import RecipeEditor from "@/app/rx/_components/RecipeEditor/RecipeEditor";
 type RecipeEditorPageProps = {
   params: {
     recipeId: string;
-    path?: string[];
   };
 };
 
@@ -17,11 +16,11 @@ type RecipeEditorPageProps = {
 //};
 //}
 //export async function generateStaticParams() {
-  //return []
+//return []
 //}
 //export const dynamic = 'force-static'
 export default async function RecipeEditorPage({
-  params: { recipeId, path },
+  params: { recipeId },
 }: RecipeEditorPageProps) {
   const session = await auth();
   //if (!session?.user?.email) redirect("/api/auth/signin");
@@ -33,5 +32,5 @@ export default async function RecipeEditorPage({
   }
 
   //const r = await updateRecipeVitals(recipe.id);
-  return <RecipeEditor recipe={recipe} path={path} />;
+  return <RecipeEditor recipe={recipe} />;
 }
