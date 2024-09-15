@@ -4,9 +4,10 @@ import { Prop } from "@/components/Prop";
 import { IconButtonLink } from "@/components/Button";
 import { RecipeIcon } from "@/components/Icon/RecipeIcon";
 import { ExtendedRecipe } from "@/types/Recipe";
+import { getRecipeUrl } from "@/lib/utils";
 
 interface StyleSectionProps {
-  recipe?: ExtendedRecipe | null;
+  recipe: ExtendedRecipe;
 }
 
 export const StyleSection: FC<StyleSectionProps> = ({ recipe }) => {
@@ -18,7 +19,7 @@ export const StyleSection: FC<StyleSectionProps> = ({ recipe }) => {
       actions={
         <>
           <IconButtonLink
-            href={`/recipes/${recipe?.ownerUsername}/${recipe?.slug}/edit/style`}
+            href={getRecipeUrl(recipe.id, "style")}
             Icon={RecipeIcon}
           >
             ?

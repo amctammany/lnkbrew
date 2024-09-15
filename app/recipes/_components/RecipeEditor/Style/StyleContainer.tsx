@@ -9,7 +9,7 @@ import { StyleSection } from "./StyleSection";
 import { ExtendedRecipe } from "@/types/Recipe";
 
 interface StyleContainerProps {
-  recipe?: ExtendedRecipe | null;
+  recipe: ExtendedRecipe;
   path?: string[];
   massUnit?: UserMassPreference;
 }

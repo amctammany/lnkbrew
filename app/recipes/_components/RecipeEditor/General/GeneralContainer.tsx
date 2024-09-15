@@ -9,7 +9,7 @@ import { GeneralSection } from "./GeneralSection";
 import { ExtendedRecipe } from "@/types/Recipe";
 
 interface GeneralContainerProps {
-  recipe?: ExtendedRecipe | null;
+  recipe: ExtendedRecipe;
   path?: string[];
   massUnit?: UserMassPreference;
 }

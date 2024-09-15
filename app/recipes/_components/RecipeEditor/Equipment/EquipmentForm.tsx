@@ -52,6 +52,7 @@ export const EquipmentForm = ({ recipe, profiles }: EquipmentFormProps) => {
         <div className="col-span-2 md:col-span-3 lg:col-span-6">
           <Autocomplete
             {...register("equipmentProfileId")}
+            isNumeric
             options={options}
             handleChange={handleChange}
             value={recipe?.equipmentProfileId ?? ""}

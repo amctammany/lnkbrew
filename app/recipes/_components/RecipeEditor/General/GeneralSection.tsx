@@ -4,9 +4,10 @@ import { Prop } from "@/components/Prop";
 import { IconButtonLink } from "@/components/Button";
 import { RecipeIcon } from "@/components/Icon/RecipeIcon";
 import { ExtendedRecipe } from "@/types/Recipe";
+import { getRecipeUrl } from "@/lib/utils";
 
 interface GeneralSectionProps {
-  recipe?: ExtendedRecipe | null;
+  recipe: ExtendedRecipe;
 }
 
 export const GeneralSection: FC<GeneralSectionProps> = ({ recipe }) => {
@@ -18,7 +19,7 @@ export const GeneralSection: FC<GeneralSectionProps> = ({ recipe }) => {
       actions={
         <>
           <IconButtonLink
-            href={`/recipes/${recipe?.ownerUsername}/${recipe?.slug}/edit/general`}
+            href={getRecipeUrl(recipe.id, "general")}
             Icon={RecipeIcon}
           >
             ?

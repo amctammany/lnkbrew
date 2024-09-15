@@ -6,9 +6,10 @@ import { RecipeIcon } from "@/components/Icon/RecipeIcon";
 import { ExtendedRecipe } from "@/types/Recipe";
 import { EditIcon } from "@/components/Icon/EditIcon";
 import AmountProp from "@/components/Prop/AmountProp";
+import { getRecipeUrl } from "@/lib/utils";
 
 interface EquipmentSectionProps {
-  recipe?: ExtendedRecipe | null;
+  recipe: ExtendedRecipe;
 }
 
 export const EquipmentSection: FC<EquipmentSectionProps> = ({ recipe }) => {
@@ -20,7 +21,7 @@ export const EquipmentSection: FC<EquipmentSectionProps> = ({ recipe }) => {
       actions={
         <>
           <IconButtonLink
-            href={`/recipes/${recipe?.ownerUsername}/${recipe?.slug}/edit/equipment`}
+            href={getRecipeUrl(recipe.id, "equipment")}
             Icon={EditIcon}
           />
         </>
