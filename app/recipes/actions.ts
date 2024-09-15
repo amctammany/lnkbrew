@@ -23,6 +23,7 @@ import {
   FermentableIngredientUsage,
 } from "@prisma/client";
 import { getRecipeUrl } from "@/lib/utils";
+import { ID } from "@/types/App";
 
 const recipeSchema = zfd.formData({
   //id: zfd.numeric(z.number()),
@@ -144,6 +145,17 @@ export async function updateHopIngredient(formData: FormData) {
   //return updateRecipeVitals(res.recipeId);
   //redirect(`/recipes/${res.recipeId}/edit`);
 }
+export async function removeHopIngredientById(id: number) {
+  //const { id } = removeIngredientSchema.parse(formData);
+  const res = await prisma.hopIngredient.delete({
+    where: { id },
+    include: { recipe: true },
+  });
+  redirect(getRecipeUrl(res.recipeId));
+  //return updateRecipeVitals(res.recipeId);
+  //redirect(`/recipes/${res.recipeId}/edit`);
+}
+
 export async function removeHopIngredient(formData: FormData) {
   const { id } = removeIngredientSchema.parse(formData);
   const res = await prisma.hopIngredient.delete({

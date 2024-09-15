@@ -11,6 +11,7 @@ import {
 import { DeleteIcon } from "@/components/Icon/DeleteIcon";
 import { EditIcon } from "@/components/Icon/EditIcon";
 import { SaveIcon } from "@/components/Icon/SaveIcon";
+import { RemoveButton } from "@/components/RemoveButton/RemoveButton";
 import { Section } from "@/components/Section";
 import { Toolbar } from "@/components/Toolbar";
 import { ID } from "@/types/App";
@@ -23,17 +24,12 @@ import {
   TimeUnit,
 } from "@prisma/client";
 import { Controller, useForm } from "react-hook-form";
-type HopIngredientFooterProps = {};
-const HopIngredientFooter = ({}: HopIngredientFooterProps) => {
+import RemoveHopIngredientButton from "./RemoveHopIngredientButton";
+type HopIngredientFooterProps = { id?: number };
+const HopIngredientFooter = ({ id }: HopIngredientFooterProps) => {
   return (
     <Toolbar>
-      <IconButton
-        variant="warning"
-        Icon={DeleteIcon}
-        onClick={() => console.log("remove")}
-      >
-        Remove
-      </IconButton>
+      <RemoveHopIngredientButton id={id} />
       <IconButton type="submit" Icon={SaveIcon}>
         Save
       </IconButton>
@@ -94,7 +90,7 @@ export const HopIngredientForm = ({
     <Section
       Icon={EditIcon}
       header="Hops"
-      footer={<HopIngredientFooter />}
+      footer={<HopIngredientFooter id={src?.id} />}
       actions={
         <IconButton type="submit" Icon={SaveIcon}>
           Save
