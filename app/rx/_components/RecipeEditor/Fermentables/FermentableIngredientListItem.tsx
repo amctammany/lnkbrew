@@ -19,7 +19,7 @@ export const FermentableIngredientListItem = ({
       //href={`/fermentableIngredients/${fermentableIngredient.id}`}
     >
       <ListItemIcon variant="icon">
-        <div className="text-lg ">{src.id}</div>
+        <div className="text-lg ">{src.usage}</div>
       </ListItemIcon>
       <ListItemText
         className="flex-grow"

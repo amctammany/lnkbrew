@@ -12,7 +12,7 @@ export const HopIngredientListItem = ({ src }: HopIngredientListItemProps) => {
   return (
     <ListItem border="none" href={getRecipeUrl(src.recipeId, "hops", src.id)}>
       <ListItemIcon variant="icon">
-        <div className="text-lg ">{src.id}</div>
+        <div className="text-lg ">{src.usage}</div>
       </ListItemIcon>
       <ListItemText
         className="flex-grow"
