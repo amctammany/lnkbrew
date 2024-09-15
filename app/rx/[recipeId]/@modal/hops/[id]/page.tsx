@@ -23,14 +23,14 @@ export default async function RecipeEditorHopsPage({
   params: { recipeId, id },
 }: RecipeEditorHopsPageProps) {
   const session = await auth();
-  if (!session?.user?.email) redirect("/api/auth/signin");
+  //if (!session?.user?.email) redirect("/api/auth/signin");
   const recipe = await getExtendedRecipe({ id: recipeId });
   const hops = await getHops();
   const src = recipe.hops.find((h) => h.id === parseInt(id));
 
   if (recipe?.ownerEmail !== session?.user.email) {
     //console.error("Unauthorized User");
-    redirect(`/recipes/${recipe?.id}`);
+    //redirect(`/recipes/${recipe?.id}`);
   }
   if (!src) throw new Error("no source");
 
