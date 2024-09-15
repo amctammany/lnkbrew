@@ -132,7 +132,7 @@ export async function addHopIngredientToRecipe(formData: FormData) {
 }
 export async function updateHopIngredient(formData: FormData) {
   const { errors, ...data } = validateSchema(formData, hopIngredientSchema);
-  //if (errors) return { errors };
+  if (errors) return { errors };
   if (errors) return Promise.resolve({ errors });
   //const data = hopIngredientSchema.parse(formData);
   const res = await prisma.hopIngredient.update({

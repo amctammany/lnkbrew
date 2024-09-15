@@ -1,6 +1,14 @@
 "use client";
 import { IconButton } from "@/components/Button";
-import { AmountField, Autocomplete, Form, ID } from "@/components/Form";
+import {
+  AmountField,
+  Autocomplete,
+  Form,
+  ID,
+  Label,
+  NumberField,
+  Select,
+} from "@/components/Form";
 import { EditIcon } from "@/components/Icon/EditIcon";
 import { SaveIcon } from "@/components/Icon/SaveIcon";
 import { Section } from "@/components/Section";
@@ -10,6 +18,7 @@ import {
   HopIngredient,
   HopIngredientUsage,
   HopUsage,
+  TimeUnit,
 } from "@prisma/client";
 import { Controller, useForm } from "react-hook-form";
 
@@ -32,7 +41,9 @@ export const HopIngredientForm = ({
   src,
   hops,
 }: HopIngredientFormProps) => {
-  const { control, register, reset } = useForm<HopIngredient>({
+  const { control, register, reset } = useForm<
+    HopIngredient & { year?: number; beta?: number | null }
+  >({
     defaultValues: src,
   });
   const options = hops.reduce(
@@ -47,6 +58,7 @@ export const HopIngredientForm = ({
       id: hopId,
       usage,
       alpha,
+      beta,
       ...hop
     } = hops.find((p) => p.id === id) ?? {
       id: undefined,
@@ -55,6 +67,7 @@ export const HopIngredientForm = ({
       reset({
         alpha,
         hopId,
+        beta,
       });
   };
 
@@ -78,6 +91,77 @@ export const HopIngredientForm = ({
             handleChange={handleChange}
             value={src?.hopId}
           />
+        </div>
+        <div className="lg:col-span-2">
+          <Controller
+            name="amount"
+            control={control}
+            defaultValue={0}
+            render={({ field }) => (
+              <AmountField
+                {...field}
+                value={field.value ?? 0}
+                step={0.01}
+                label="Amount"
+                amountType="hopMass"
+              />
+            )}
+          />
+        </div>
+        <div className="lg:col-span-2">
+          <Controller
+            name="duration"
+            control={control}
+            defaultValue={0}
+            render={({ field }) => (
+              <AmountField
+                {...field}
+                value={field.value ?? 0}
+                step={0.01}
+                label="Duration"
+                amountType="time"
+              />
+            )}
+          />
+        </div>
+        <div className="lg:col-span-2">
+          <Select {...register("usage")} options={HopIngredientUsage} />
+        </div>
+        <div className="lg:col-span-2">
+          <Controller
+            name="alpha"
+            control={control}
+            defaultValue={0}
+            render={({ field }) => (
+              <AmountField
+                {...field}
+                value={field.value ?? 0}
+                step={0.01}
+                label="Alpha Acids"
+                amountType="percent"
+              />
+            )}
+          />
+        </div>
+        <div className="lg:col-span-2">
+          <Controller
+            name="beta"
+            control={control}
+            defaultValue={0}
+            render={({ field }) => (
+              <AmountField
+                {...field}
+                value={field.value ?? 0}
+                step={0.01}
+                label="Beta Acids"
+                amountType="percent"
+              />
+            )}
+          />
+        </div>
+
+        <div className="lg:col-span-2">
+          <NumberField label="Year" {...register("year")} />
         </div>
       </div>
     </Section>

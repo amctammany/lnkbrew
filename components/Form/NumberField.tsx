@@ -16,7 +16,8 @@ export type NumberFieldProps = {
   //onBlur?: (e: SyntheticEvent) => void;
   //value?: any;
   //ref: any;
-} & InputProps;
+} & InputProps &
+  VariantProps<typeof numberFieldStyles>;
 
 const numberFieldStyles = cva("input ", {
   variants: {
@@ -41,6 +42,8 @@ const numberFieldStyles = cva("input ", {
 export function NumberField({
   name,
   label,
+  variant,
+  size,
   className,
   inputSize,
   error,
@@ -48,23 +51,24 @@ export function NumberField({
 }: NumberFieldProps) {
   return (
     <Label
-      className={className}
+      //className={clsx(numberFieldStyles({ variant, size }))}
+      variant={variant}
       inputSize={inputSize}
+      className={className}
       label={label !== null ? label || name : ""}
       error={error}
     >
-      <NumberFieldRaw
-        //step={step || 1}
-        name={name}
-        inputSize={inputSize}
-        error={error}
-        //defaultValue={defaultValue}
-        //onChange={onChange}
-        //onBlur={onBlur}
-        //value={value}
-        //ref={ref}
-        {...props}
-      />
+      <div className="grid">
+        <Input
+          //className="flex-grow"
+          type="number"
+          name={name}
+          error={error}
+          variant={variant}
+          inputSize={inputSize}
+          {...props}
+        />
+      </div>
     </Label>
   );
 }

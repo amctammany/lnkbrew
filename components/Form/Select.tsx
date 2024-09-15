@@ -12,7 +12,7 @@ type ErrorType = {
 };
 export type SelectProps = {
   name: string;
-  label?: string;
+  label?: string | React.ReactNode;
   error?: SchemaFieldError;
   defaultValue?: any;
   disabled?: boolean;
