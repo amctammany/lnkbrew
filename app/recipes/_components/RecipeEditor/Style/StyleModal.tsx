@@ -9,10 +9,11 @@ import { ExtendedRecipe } from "@/types/Recipe";
 import { Modal } from "@/components/Modal/Modal";
 import { RoutedModal } from "@/components/Modal/RoutedModal";
 import StyleForm, { StyleFormContainer } from "./StyleForm";
+import { getRecipeUrl } from "@/lib/utils";
 
 interface StyleProfileModalProps {
   massUnit?: UserMassPreference;
-  recipe?: ExtendedRecipe | null;
+  recipe: ExtendedRecipe;
   modalType?: string;
   styles?: any;
 }
@@ -29,7 +30,7 @@ export const StyleModal: FC<StyleProfileModalProps> = ({
     <StyleFormContainer>
       <RoutedModal
         title="Edit Style"
-        returnUrl={`/recipes/${recipe?.ownerUsername}/${recipe?.slug}/edit`}
+        returnUrl={getRecipeUrl(recipe.id)}
         //close={closeModal}
         hidden={modalType !== "style"}
       >

@@ -15,14 +15,16 @@ import clsx from "clsx";
 import { type SchemaFieldError } from "@/lib/validateSchema";
 //import { XMarkIcon } from "@heroicons/react/20/solid";
 import { CloseIcon } from "../Icon/CloseIcon";
-export type Option<T = string, ID = number> = [T, ID];
+export type ID = string | number;
+export type Option<T = string, I = ID> = [T, I];
 export type AutocompleteProps = VariantProps<typeof autocompleteStyles> &
   ComponentProps<"input"> & {
-    value?: number | string | null;
+    value?: ID | null;
     error?: SchemaFieldError;
     label?: string;
-    options: Record<number, string>;
-    handleChange?: (id?: number) => void;
+    isNumeric?: boolean;
+    options: Record<ID, string>;
+    handleChange?: (id?: ID) => void;
     //options: Option[];
   };
 const optionStyles = cva(["px-4 py-2 hover:bg-slate-300 hover:text-white"], {
@@ -80,11 +82,15 @@ export function Autocomplete({
   variant,
   size,
   className,
+  isNumeric = false,
   ref,
 }: AutocompleteProps) {
   const options: Option[] = useMemo(
-    () => Object.entries(ops).map(([k, v]) => [v, parseInt(k)]),
-    [ops]
+    () =>
+      Array.isArray(ops)
+        ? ops
+        : Object.entries(ops).map(([k, v]) => [v, isNumeric ? parseInt(k) : k]),
+    [ops, isNumeric]
   );
   const [query, setQuery] = useState(
     value !== undefined ? options.find((op) => op[1] === value)?.[0] : ""
@@ -113,7 +119,7 @@ export function Autocomplete({
     setActiveOption(-1);
     e.preventDefault();
   };
-  const changeValue = (val?: number) => {
+  const changeValue = (val?: ID) => {
     if (val === undefined) return;
     setHidden(val);
     if (handleChange) handleChange(val);
@@ -132,7 +138,8 @@ export function Autocomplete({
     }
   };
   const onOptionClick: MouseEventHandler<HTMLLIElement> = (e) => {
-    const id = parseInt(e.currentTarget.dataset.id || "");
+    const _id = e.currentTarget.dataset.id || "";
+    const id = isNumeric ? parseInt(_id) : _id;
     const label = e.currentTarget.innerText;
     setQuery(label);
     setDisplayOptions(false);

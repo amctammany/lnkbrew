@@ -1,4 +1,6 @@
+import { ID } from "@/components/Form";
 import { ExtendedRecipe } from "@/types/Recipe";
+import { Recipe } from "@prisma/client";
 import { memo } from "react";
 export const genericMemo: <
   T extends keyof JSX.IntrinsicElements | React.JSXElementConstructor<any>,
@@ -26,6 +28,9 @@ export const debounce = <F extends (...args: any[]) => any>(
 
   return debounced as (...args: Parameters<F>) => ReturnType<F>;
 };
-export function getRecipeUrl(recipe: ExtendedRecipe, edit = false) {
-  return `/recipes/${recipe.ownerUsername}/${recipe.slug}/${edit ? "edit" : ""}`;
+export function getRecipeUrl1(recipe: Recipe, ...path: ID[]) {
+  return `/recipes/${recipe.ownerUsername}/${recipe.slug}/edit/${path.join("/")}`;
+}
+export function getRecipeUrl(recipeId: string, ...path: ID[]) {
+  return `/rx/${recipeId}/${path.join("/")}`;
 }

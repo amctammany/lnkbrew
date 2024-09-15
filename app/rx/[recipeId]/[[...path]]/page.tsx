@@ -6,8 +6,7 @@ import RecipeEditor from "@/app/recipes/_components/RecipeEditor/RecipeEditor";
 //import { updateRecipeVitals } from "../actions";
 type RecipeEditorPageProps = {
   params: {
-    username: string;
-    slug: string;
+    recipeId: string;
     path?: string[];
   };
 };
@@ -19,11 +18,11 @@ type RecipeEditorPageProps = {
 //}
 
 export default async function RecipeEditorPage({
-  params: { username, slug, path },
+  params: { recipeId, path },
 }: RecipeEditorPageProps) {
   const session = await auth();
   if (!session?.user?.email) redirect("/api/auth/signin");
-  const recipe = await getExtendedRecipe({ ownerUsername: username, slug });
+  const recipe = await getExtendedRecipe({ id: recipeId });
 
   if (recipe?.ownerEmail !== session?.user.email) {
     //console.error("Unauthorized User");

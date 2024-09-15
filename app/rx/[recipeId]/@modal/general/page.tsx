@@ -12,8 +12,7 @@ import { getRecipeUrl } from "@/lib/utils";
 //import { updateRecipeVitals } from "../actions";
 type RecipeEditorGeneralPageProps = {
   params: {
-    username: string;
-    slug: string;
+    recipeId: string;
     //path?: string[];
   };
 };
@@ -25,11 +24,11 @@ type RecipeEditorGeneralPageProps = {
 //}
 
 export default async function RecipeEditorGeneralPage({
-  params: { username, slug },
+  params: { recipeId },
 }: RecipeEditorGeneralPageProps) {
   const session = await auth();
   if (!session?.user?.email) redirect("/api/auth/signin");
-  const recipe = await getExtendedRecipe({ ownerUsername: username, slug });
+  const recipe = await getExtendedRecipe({ id: recipeId });
 
   if (recipe?.ownerEmail !== session?.user.email) {
     //console.error("Unauthorized User");
@@ -37,7 +36,7 @@ export default async function RecipeEditorGeneralPage({
   }
   return (
     <GeneralFormContainer>
-      <RoutedModal returnUrl={getRecipeUrl(recipe, true)} hidden={false}>
+      <RoutedModal returnUrl={getRecipeUrl(recipeId)} hidden={false}>
         <GeneralForm recipe={recipe} />;
       </RoutedModal>
     </GeneralFormContainer>

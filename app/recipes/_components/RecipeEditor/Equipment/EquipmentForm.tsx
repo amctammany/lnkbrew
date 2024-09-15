@@ -1,6 +1,6 @@
 "use client";
 import { IconButton } from "@/components/Button";
-import { AmountField, Autocomplete, Form } from "@/components/Form";
+import { AmountField, Autocomplete, Form, ID } from "@/components/Form";
 import { EditIcon } from "@/components/Icon/EditIcon";
 import { SaveIcon } from "@/components/Icon/SaveIcon";
 import { Section } from "@/components/Section";
@@ -32,7 +32,7 @@ export const EquipmentForm = ({ recipe, profiles }: EquipmentFormProps) => {
     },
     {} as Record<string, string>
   );
-  const handleChange = (id?: number) => {
+  const handleChange = (id?: ID) => {
     const profile = profiles.find((p) => p.id === id) ?? {};
     reset({ ...profile, id: recipe?.id });
   };

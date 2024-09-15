@@ -10,8 +10,7 @@ import {
 //import { updateRecipeVitals } from "../actions";
 type RecipeEditorEquipmentPageProps = {
   params: {
-    username: string;
-    slug: string;
+    recipeId: string;
     //path?: string[];
   };
 };
@@ -23,11 +22,11 @@ type RecipeEditorEquipmentPageProps = {
 //}
 
 export default async function RecipeEditorEquipmentPage({
-  params: { username, slug },
+  params: { recipeId },
 }: RecipeEditorEquipmentPageProps) {
   const session = await auth();
   if (!session?.user?.email) redirect("/api/auth/signin");
-  const recipe = await getExtendedRecipe({ ownerUsername: username, slug });
+  const recipe = await getExtendedRecipe({ id: recipeId });
   const profiles = await getEquipmentProfiles();
 
   if (recipe?.ownerEmail !== session?.user.email) {

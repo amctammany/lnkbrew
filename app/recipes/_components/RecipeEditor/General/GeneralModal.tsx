@@ -9,10 +9,11 @@ import { ExtendedRecipe } from "@/types/Recipe";
 import { Modal } from "@/components/Modal/Modal";
 import { RoutedModal } from "@/components/Modal/RoutedModal";
 import GeneralForm, { GeneralFormContainer } from "./GeneralForm";
+import { getRecipeUrl } from "@/lib/utils";
 
 interface GeneralProfileModalProps {
   massUnit?: UserMassPreference;
-  recipe?: ExtendedRecipe | null;
+  recipe: ExtendedRecipe;
   modalType?: string;
 }
 
@@ -27,7 +28,7 @@ export const GeneralModal: FC<GeneralProfileModalProps> = ({
     <GeneralFormContainer>
       <RoutedModal
         title="Edit General"
-        returnUrl={`/recipes/${recipe?.ownerUsername}/${recipe?.slug}/edit`}
+        returnUrl={getRecipeUrl(recipe.id)}
         //close={closeModal}
         hidden={modalType !== "general"}
       >

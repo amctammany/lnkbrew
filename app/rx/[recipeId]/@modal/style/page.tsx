@@ -16,8 +16,7 @@ import { updateRecipe } from "@/app/recipes/actions";
 //import { updateRecipeVitals } from "../actions";
 type RecipeEditorStylePageProps = {
   params: {
-    username: string;
-    slug: string;
+    recipeId: string;
   };
 };
 
@@ -28,14 +27,11 @@ type RecipeEditorStylePageProps = {
 //}
 
 export default async function RecipeEditorStylePage({
-  params: { username, slug },
+  params: { recipeId },
 }: RecipeEditorStylePageProps) {
   const session = await auth();
   if (!session?.user?.email) redirect("/api/auth/signin");
-  const recipe = await getExtendedRecipe({
-    ownerUsername: username,
-    slug,
-  });
+  const recipe = await getExtendedRecipe({ id: recipeId });
 
   if (recipe?.ownerEmail !== session?.user.email) {
     //console.error("Unauthorized User");
@@ -47,7 +43,7 @@ export default async function RecipeEditorStylePage({
   //const r = await updateRecipeVitals(recipe.id);
   return (
     <StyleFormContainer action={updateRecipe}>
-      <RoutedModal returnUrl={getRecipeUrl(recipe, true)} hidden={false}>
+      <RoutedModal returnUrl={getRecipeUrl(recipeId)} hidden={false}>
         <StyleForm recipe={recipe} styles={styles} />;
       </RoutedModal>
     </StyleFormContainer>

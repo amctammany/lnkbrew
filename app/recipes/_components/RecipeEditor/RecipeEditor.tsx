@@ -4,9 +4,11 @@ import React from "react";
 import { GeneralContainer } from "./General";
 import { StyleContainer } from "./Style";
 import { EquipmentSection } from "./Equipment/EquipmentSection";
+import { FermentablesSection } from "./Fermentables/FermentablesSection";
+import { ExtendedRecipe } from "@/types/Recipe";
 
 export type RecipeEditorProps = {
-  recipe?: Recipe | null;
+  recipe: ExtendedRecipe;
   path?: string[];
 };
 function RecipeEditor({ recipe, path }: RecipeEditorProps) {
@@ -21,6 +23,7 @@ function RecipeEditor({ recipe, path }: RecipeEditorProps) {
           <GeneralContainer recipe={recipe} path={path} />
           <StyleContainer recipe={recipe} path={path} />
           <EquipmentSection recipe={recipe} />
+          <FermentablesSection recipe={recipe} />
         </div>
       </Section>
     </div>
