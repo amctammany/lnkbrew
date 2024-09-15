@@ -468,4 +468,6 @@ model FermentableIngredient {
   //durationType  TimeUnit
   fermentableId String
   fermentable   Fermentable                @relation(fields: [fermentableId], references: [id])
+  color         Float?
+  potential     Float?
 }

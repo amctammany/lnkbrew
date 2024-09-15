@@ -1,11 +1,15 @@
 "use client";
 import { IconButton } from "@/components/Button";
-import { AmountField, Autocomplete, Form, ID } from "@/components/Form";
+import { AmountField, Autocomplete, Form, ID, Select } from "@/components/Form";
 import { EditIcon } from "@/components/Icon/EditIcon";
 import { SaveIcon } from "@/components/Icon/SaveIcon";
 import { Section } from "@/components/Section";
 import { ExtendedFermentableIngredient, ExtendedRecipe } from "@/types/Recipe";
-import { Fermentable, FermentableIngredient } from "@prisma/client";
+import {
+  Fermentable,
+  FermentableIngredient,
+  FermentableIngredientUsage,
+} from "@prisma/client";
 import { Controller, useForm } from "react-hook-form";
 
 export const FermentableIngredientFormContainer = ({
@@ -62,6 +66,57 @@ export const FermentableIngredientForm = ({
             options={options}
             handleChange={handleChange}
             value={src?.fermentableId ?? undefined}
+          />
+        </div>
+        <div className="lg:col-span-2">
+          <Controller
+            name="amount"
+            control={control}
+            defaultValue={0}
+            render={({ field }) => (
+              <AmountField
+                {...field}
+                value={field.value ?? 0}
+                step={0.01}
+                label="Amount"
+                amountType="fermentableMass"
+              />
+            )}
+          />
+        </div>
+        <div className="lg:col-span-2">
+          <Select {...register("usage")} options={FermentableIngredientUsage} />
+        </div>
+        <div className="lg:col-span-2">
+          <Controller
+            name="color"
+            control={control}
+            defaultValue={0}
+            render={({ field }) => (
+              <AmountField
+                {...field}
+                value={field.value ?? 0}
+                step={0.01}
+                label="Color"
+                amountType="color"
+              />
+            )}
+          />
+        </div>
+        <div className="lg:col-span-2">
+          <Controller
+            name="potential"
+            control={control}
+            defaultValue={0}
+            render={({ field }) => (
+              <AmountField
+                {...field}
+                value={field.value ?? 0}
+                step={0.01}
+                label="Potential"
+                amountType="potential"
+              />
+            )}
           />
         </div>
       </div>

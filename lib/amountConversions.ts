@@ -20,6 +20,7 @@ export type AmountType =
   | "percentage"
   | "time"
   | "mass"
+  | "potential"
   | "hopMass"
   | "fermentableMass"
   | "volume"
@@ -97,6 +98,7 @@ export type UnitTypes =
   | "g/mL";
 export const rawConverters: Record<AmountType, any> = {
   unit: { unit: 1 },
+  potential: { ppg: 1 },
   flow: flowConverters,
   concentration: concentrationConverters,
   color: colorConverters,
@@ -112,6 +114,7 @@ export const rawConverters: Record<AmountType, any> = {
 };
 
 export const converters: Record<AmountType, any> = {
+  potential: () => (v: number) => v,
   unit: () => (v: number) => v,
   flow: () => (v: number) => v,
   color: (type: UserColorPreference = "L") => colorConverters[type],
@@ -139,6 +142,7 @@ const conversionOptions: Record<AmountType, Record<string, string>> = {
   volume: UserVolumePreference,
   gravity: UserGravityPreference,
   temperature: UserTemperaturePreference,
+  potential: { ppg: "ppg" },
   percent: { "%": "%" },
   percentage: { "%": "%" },
 };
@@ -148,6 +152,7 @@ export function getConversionOptions(amountType: AmountType) {
 export function getConverterUnits(prefs: Partial<UserPreferences>) {
   return {
     color: prefs.colorUnit === "L" ? "°L" : prefs.colorUnit,
+    potential: "ppg",
     unit: undefined,
     flow: "gal/min",
     percent: "%",
@@ -164,6 +169,7 @@ export function getConverterUnits(prefs: Partial<UserPreferences>) {
 }
 export function getConverters(prefs: Partial<UserPreferences>) {
   return {
+    potential: (v: number) => v,
     unit: (v: number) => v,
     flow: (v: number) => v,
     concentration: converters.concentration,
