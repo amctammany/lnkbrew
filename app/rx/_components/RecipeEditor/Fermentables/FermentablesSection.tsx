@@ -27,6 +27,7 @@ export const FermentablesSection: FC<FermentablesSectionProps> = ({
         <>
           <IconButtonLink
             href={getRecipeUrl(recipe.id, "fermentables", "new")}
+            scroll={false}
             Icon={AddIcon}
           />
         </>

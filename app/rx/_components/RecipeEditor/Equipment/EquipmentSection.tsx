@@ -22,6 +22,7 @@ export const EquipmentSection: FC<EquipmentSectionProps> = ({ recipe }) => {
         <>
           <IconButtonLink
             href={getRecipeUrl(recipe.id, "equipment")}
+            scroll={false}
             Icon={EditIcon}
           />
         </>

@@ -24,6 +24,7 @@ export const HopsSection: FC<HopsSectionProps> = ({ recipe }) => {
       actions={
         <>
           <IconButtonLink
+            scroll={false}
             href={getRecipeUrl(recipe.id, "hops", "new")}
             Icon={AddIcon}
           />

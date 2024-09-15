@@ -5,6 +5,7 @@ import { IconButtonLink } from "@/components/Button";
 import { RecipeIcon } from "@/components/Icon/RecipeIcon";
 import { ExtendedRecipe } from "@/types/Recipe";
 import { getRecipeUrl } from "@/lib/utils";
+import { EditIcon } from "@/components/Icon/EditIcon";
 
 interface StyleSectionProps {
   recipe: ExtendedRecipe;
@@ -20,7 +21,8 @@ export const StyleSection: FC<StyleSectionProps> = ({ recipe }) => {
         <>
           <IconButtonLink
             href={getRecipeUrl(recipe.id, "style")}
-            Icon={RecipeIcon}
+            scroll={false}
+            Icon={EditIcon}
           >
             ?
           </IconButtonLink>
