@@ -1,13 +1,11 @@
-import { prisma } from "@/lib/client";
 import { auth } from "@/app/auth";
 import { redirect } from "next/navigation";
 import { getExtendedRecipe } from "@/app/recipes/queries";
-import RecipeEditor from "@/app/recipes/_components/RecipeEditor/RecipeEditor";
 import GeneralForm, {
   GeneralFormContainer,
-} from "@/app/recipes/_components/RecipeEditor/General/GeneralForm";
+} from "@/app/rx/_components/RecipeEditor/General/GeneralForm";
 import { RoutedModal } from "@/components/Modal/RoutedModal";
-import { ExtendedRecipe } from "@/types/Recipe";
+//import { ExtendedRecipe } from "@/types/Recipe";
 import { getRecipeUrl } from "@/lib/utils";
 //import { updateRecipeVitals } from "../actions";
 type RecipeEditorGeneralPageProps = {

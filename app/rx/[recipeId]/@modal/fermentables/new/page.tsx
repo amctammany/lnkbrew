@@ -5,7 +5,7 @@ import {
   addFermentableIngredientToRecipe,
   updateRecipe,
 } from "@/app/recipes/actions";
-import { FermentablesModal } from "@/app/recipes/_components/RecipeEditor/Fermentables/FermentablesModal";
+import { FermentablesModal } from "@/app/rx/_components/RecipeEditor/Fermentables/FermentablesModal";
 import { getFermentables } from "@/app/ingredients/fermentables/queries";
 import { ExtendedFermentableIngredient } from "@/types/Recipe";
 //import { updateRecipeVitals } from "../actions";

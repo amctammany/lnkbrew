@@ -2,16 +2,14 @@ import { prisma } from "@/lib/client";
 import { auth } from "@/app/auth";
 import { redirect } from "next/navigation";
 import { getExtendedRecipe } from "@/app/recipes/queries";
-import RecipeEditor from "@/app/recipes/_components/RecipeEditor/RecipeEditor";
-import GeneralForm from "@/app/recipes/_components/RecipeEditor/General/GeneralForm";
 import { RoutedModal } from "@/components/Modal/RoutedModal";
 import { ExtendedRecipe } from "@/types/Recipe";
 import { getRecipeUrl } from "@/lib/utils";
 import StyleForm, {
   StyleFormContainer,
-} from "@/app/recipes/_components/RecipeEditor/Style/StyleForm";
+} from "@/app/rx/_components/RecipeEditor/Style/StyleForm";
 import { getStyleOptions } from "@/app/styles/queries";
-import StyleModal from "@/app/recipes/_components/RecipeEditor/Style/StyleModal";
+import StyleModal from "@/app/rx/_components/RecipeEditor/Style/StyleModal";
 import { updateRecipe } from "@/app/recipes/actions";
 //import { updateRecipeVitals } from "../actions";
 type RecipeEditorStylePageProps = {

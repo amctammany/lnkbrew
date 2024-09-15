@@ -2,7 +2,7 @@ import { auth } from "@/app/auth";
 import { redirect } from "next/navigation";
 import { getExtendedRecipe } from "@/app/recipes/queries";
 import { updateRecipe } from "@/app/recipes/actions";
-import { EquipmentModal } from "@/app/recipes/_components/RecipeEditor/Equipment/EquipmentModal";
+import { EquipmentModal } from "@/app/rx/_components/RecipeEditor/Equipment/EquipmentModal";
 import {
   getEquipmentProfileOptions,
   getEquipmentProfiles,

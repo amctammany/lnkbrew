@@ -2,7 +2,7 @@ import { auth } from "@/app/auth";
 import { redirect } from "next/navigation";
 import { getExtendedRecipe } from "@/app/recipes/queries";
 import { addHopIngredientToRecipe, updateRecipe } from "@/app/recipes/actions";
-import { HopsModal } from "@/app/recipes/_components/RecipeEditor/Hops/HopsModal";
+import { HopsModal } from "@/app/rx/_components/RecipeEditor/Hops/HopsModal";
 import { getHops } from "@/app/ingredients/hops/queries";
 import { ExtendedHopIngredient } from "@/types/Recipe";
 //import { updateRecipeVitals } from "../actions";

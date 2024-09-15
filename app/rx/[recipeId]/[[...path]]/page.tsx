@@ -2,7 +2,7 @@ import { prisma } from "@/lib/client";
 import { auth } from "@/app/auth";
 import { redirect } from "next/navigation";
 import { getExtendedRecipe } from "@/app/recipes/queries";
-import RecipeEditor from "@/app/recipes/_components/RecipeEditor/RecipeEditor";
+import RecipeEditor from "@/app/rx/_components/RecipeEditor/RecipeEditor";
 //import { updateRecipeVitals } from "../actions";
 type RecipeEditorPageProps = {
   params: {
