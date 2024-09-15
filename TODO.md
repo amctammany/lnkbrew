@@ -7,6 +7,7 @@ TODO
 * Style vitals section should use Ranges with global limits
 * Form history => Undo / Redo
 * Toolbar actions should shrink into drop down
+* Account Creation should include username
 
 Comparision Tool
 ----

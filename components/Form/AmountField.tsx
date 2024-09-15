@@ -116,7 +116,11 @@ export const AmountField = ({
     onChange?.(convertedValue);
   };
   useEffect(() => {
-    setCurrentAmount(value / (rawConverters[amountType][currentUnit] ?? 1));
+    setCurrentAmount(
+      (rawConverters[amountType][
+        getConversionOptions(amountType)[0][1] as UnitTypes
+      ] ?? 1) * value
+    );
   }, [amountType, currentUnit, value, name]);
   //console.log({ baseValue, value, currentAmount, amountType, currentUnit });
   return (
