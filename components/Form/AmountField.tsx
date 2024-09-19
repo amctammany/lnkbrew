@@ -156,12 +156,14 @@ export const AmountField = (props: AmountFieldProps) => {
           //ref={ref}
           //{...amountTypeProps}
         />
-        <AmountType
-          value={currentUnit}
-          options={getConversionOptions(amountType)}
-          onChange={handleSelect}
-          className="flex-shrink grid items-center align-middle justify-center"
-        />
+        {amountUnit === undefined && (
+          <AmountType
+            value={currentUnit}
+            options={getConversionOptions(amountType)}
+            onChange={handleSelect}
+            className="flex-shrink grid items-center align-middle justify-center"
+          />
+        )}
       </div>
     </Label>
   );
