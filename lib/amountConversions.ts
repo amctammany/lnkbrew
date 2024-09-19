@@ -112,9 +112,9 @@ export const rawConverters: Record<AmountType, any> = {
   percent: percentConverters,
   percentage: percentageConverters,
 };
-export type ConverterClass = {
-  to: (v: number) => number;
-  from: (v: number) => number;
+export type ConverterClass<S = number> = {
+  to: (v: number) => S;
+  from: (v: S) => number;
 };
 function makeClassConverter(src: Converter): ConverterClass {
   if (Array.isArray(src)) {

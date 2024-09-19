@@ -124,14 +124,6 @@ export const AmountField = (props: AmountFieldProps) => {
   return (
     <Label className={clsx("", className)} label={label || name} error={error}>
       <div className={clsx("flex")}>
-        <input
-          type="hidden"
-          name={name}
-          value={value}
-          ref={ref}
-          //onChange={changeHidden}
-        />
-
         {currentUnit === "LbOz" ? (
           <LbOzField
             amountType={amountType}
@@ -145,33 +137,43 @@ export const AmountField = (props: AmountFieldProps) => {
             )}
             type="number"
             step={step || 1}
-            //name={name}
-            //ref={ref}
+            name={name}
+            ref={ref}
             //{...props}
-            onChange={handleChange}
+            onChange={onChange}
             onBlur={onBlur}
             value={currentAmount}
             //ref={ref}
           />
         ) : (
-          <Input
-            disabled={disabled || false}
-            className={clsx(
-              inputStyles({
-                variant: error ? "error" : variant,
-                inputSize,
-              }),
-              "flex-grow w-full"
-            )}
-            type="number"
-            step={step || 1}
-            //name={name}
-            //ref={ref}
-            //{...props}
-            onChange={handleChange}
-            onBlur={onBlur}
-            value={currentAmount}
-          />
+          <>
+            <input
+              type="hidden"
+              name={name}
+              value={value}
+              ref={ref}
+              //onChange={changeHidden}
+            />
+
+            <Input
+              disabled={disabled || false}
+              className={clsx(
+                inputStyles({
+                  variant: error ? "error" : variant,
+                  inputSize,
+                }),
+                "flex-grow w-full"
+              )}
+              type="number"
+              step={step || 1}
+              //name={name}
+              //ref={ref}
+              //{...props}
+              onChange={handleChange}
+              onBlur={onBlur}
+              value={currentAmount}
+            />
+          </>
         )}
         <AmountType
           value={currentUnit}

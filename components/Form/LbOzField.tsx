@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AmountFieldProps, amountFieldStyles } from "./AmountField";
 import clsx from "clsx";
 import { Input, inputStyles } from "./Input";
@@ -29,14 +29,19 @@ export function LbOzField({
       newValue = lbs + v / 16;
       setOzs(v);
     }
-    if (onChange) {
-      onChange({
-        ...e,
-        currentTarget: { ...e.currentTarget, name, value: newValue },
-      });
-    }
+    //if (onChange) {
+    //onChange({
+    //...e,
+    //currentTarget: { ...e.currentTarget, name, value: newValue },
+    //});
+    //}
   };
 
+  useEffect(() => {
+    const v = Math.floor(lbs / 454) + (ozs % 454) / 0.035274;
+
+    onChange?.(v);
+  }, [onChange, lbs, ozs]);
   const v = lbs + ozs / 16;
   return (
     <div className={clsx("grid grid-cols-2 gap-3", className)}>
@@ -45,7 +50,7 @@ export function LbOzField({
           disabled={disabled || false}
           className={inputStyles({
             variant: error ? "error" : variant,
-            inputSize,
+            inputSize: "full",
           })}
           type="number"
           step={1}
@@ -61,7 +66,7 @@ export function LbOzField({
           disabled={disabled || false}
           className={inputStyles({
             variant: error ? "error" : variant,
-            inputSize,
+            inputSize: "full",
           })}
           type="number"
           step={0.01}
