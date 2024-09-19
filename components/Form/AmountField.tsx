@@ -97,13 +97,13 @@ export const AmountField = (props: AmountFieldProps) => {
     amountUnit ?? (getConversionOptions(amountType)[0][1] as UnitTypes)
   );
   const [currentAmount, setCurrentAmount] = useState<number>(
-    classConverters[amountType][currentUnit].to(value)
+    classConverters[amountType][amountUnit ?? currentUnit]?.to(value) ?? value
   );
   const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     const amt = parseFloat(e.currentTarget.value);
     setCurrentAmount(amt);
     //console.log(rawConverters[amountType]);
-    const convertedValue = classConverters[amountType][currentUnit].from(amt); //* amt;
+    const convertedValue = classConverters[amountType][currentUnit].to(amt); //* amt;
     //setBaseValue(convertedValue);
     onChange?.(convertedValue);
   };
@@ -114,14 +114,13 @@ export const AmountField = (props: AmountFieldProps) => {
     setCurrentUnit(unit);
     //const convertedValue =
     //setBaseValue(convertedValue);
-    const a = oldUnit.from(classConverters[amountType][unit].to(currentAmount));
-    setCurrentAmount?.(a);
+    //const a = oldUnit.from(classConverters[amountType][unit].to(currentAmount));
+    onChange?.(classConverters[amountType][unit].from(currentAmount));
   };
   useEffect(() => {
-    setCurrentAmount(classConverters[amountType][currentUnit].to(value));
+    //setCurrentAmount(classConverters[amountType][currentUnit].to(value));
   }, [amountType, currentUnit, value, name]);
   //console.log({ baseValue, value, currentAmount, amountType, currentUnit });
-  const AmtInput = currentUnit === "LbOz" ? LbOzField : Input;
   return (
     <Label className={clsx("", className)} label={label || name} error={error}>
       <div className={clsx("flex")}>
@@ -133,26 +132,47 @@ export const AmountField = (props: AmountFieldProps) => {
           //onChange={changeHidden}
         />
 
-        <AmtInput
-          disabled={disabled || false}
-          className={clsx(
-            inputStyles({
-              variant: error ? "error" : variant,
-              inputSize,
-            }),
-            "flex-grow w-full"
-          )}
-          type="number"
-          step={step || 1}
-          //name={name}
-          //ref={ref}
-          {...props}
-          onChange={handleChange}
-          onBlur={onBlur}
-          value={currentAmount}
-          //ref={ref}
-          //{...amountTypeProps}
-        />
+        {currentUnit === "LbOz" ? (
+          <LbOzField
+            amountType={amountType}
+            disabled={disabled || false}
+            className={clsx(
+              inputStyles({
+                variant: error ? "error" : variant,
+                inputSize,
+              }),
+              "flex-grow w-full"
+            )}
+            type="number"
+            step={step || 1}
+            //name={name}
+            //ref={ref}
+            //{...props}
+            onChange={handleChange}
+            onBlur={onBlur}
+            value={currentAmount}
+            //ref={ref}
+          />
+        ) : (
+          <Input
+            disabled={disabled || false}
+            className={clsx(
+              inputStyles({
+                variant: error ? "error" : variant,
+                inputSize,
+              }),
+              "flex-grow w-full"
+            )}
+            type="number"
+            step={step || 1}
+            //name={name}
+            //ref={ref}
+            //{...props}
+            onChange={handleChange}
+            onBlur={onBlur}
+            value={currentAmount}
+          />
+        )}
         <AmountType
           value={currentUnit}
           options={getConversionOptions(amountType)}
