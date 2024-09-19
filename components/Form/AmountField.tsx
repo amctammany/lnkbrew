@@ -3,6 +3,7 @@ import clsx from "clsx";
 import {
   UnitTypes,
   AmountType as _AmountType,
+  classConverters,
   converters,
   getConversionOptions,
   getConverters,
@@ -96,32 +97,28 @@ export const AmountField = (props: AmountFieldProps) => {
     amountUnit ?? (getConversionOptions(amountType)[0][1] as UnitTypes)
   );
   const [currentAmount, setCurrentAmount] = useState<number>(
-    (rawConverters[amountType][currentUnit] ?? 1) * value
+    classConverters[amountType][currentUnit].to(value)
   );
   const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     const amt = parseFloat(e.currentTarget.value);
     setCurrentAmount(amt);
     //console.log(rawConverters[amountType]);
-    const convertedValue = amt / rawConverters[amountType][currentUnit]; //* amt;
+    const convertedValue = classConverters[amountType][currentUnit].from(amt); //* amt;
     //setBaseValue(convertedValue);
     onChange?.(convertedValue);
   };
 
   const handleSelect: ChangeEventHandler<HTMLSelectElement> = (e) => {
-    const oldUnit = rawConverters[amountType][currentUnit];
+    const oldUnit = classConverters[amountType][currentUnit];
     const unit = e.currentTarget.value as UnitTypes;
     setCurrentUnit(unit);
-    const convertedValue =
-      currentAmount / (oldUnit / rawConverters[amountType][unit]);
+    //const convertedValue =
     //setBaseValue(convertedValue);
-    onChange?.(convertedValue);
+    const a = oldUnit.from(classConverters[amountType][unit].to(currentAmount));
+    setCurrentAmount?.(a);
   };
   useEffect(() => {
-    setCurrentAmount(
-      (rawConverters[amountType][
-        getConversionOptions(amountType)[0][1] as UnitTypes
-      ] ?? 1) * value
-    );
+    setCurrentAmount(classConverters[amountType][currentUnit].to(value));
   }, [amountType, currentUnit, value, name]);
   //console.log({ baseValue, value, currentAmount, amountType, currentUnit });
   const AmtInput = currentUnit === "LbOz" ? LbOzField : Input;
@@ -156,14 +153,12 @@ export const AmountField = (props: AmountFieldProps) => {
           //ref={ref}
           //{...amountTypeProps}
         />
-        {amountUnit === undefined && (
-          <AmountType
-            value={currentUnit}
-            options={getConversionOptions(amountType)}
-            onChange={handleSelect}
-            className="flex-shrink grid items-center align-middle justify-center"
-          />
-        )}
+        <AmountType
+          value={currentUnit}
+          options={getConversionOptions(amountType)}
+          onChange={handleSelect}
+          className="flex-shrink grid items-center align-middle justify-center"
+        />
       </div>
     </Label>
   );

@@ -57,7 +57,11 @@ export const HopIngredientForm = ({
   hops,
 }: HopIngredientFormProps) => {
   const { control, register, reset } = useForm<
-    HopIngredient & { year?: number; beta?: number | null }
+    HopIngredient & {
+      year?: number;
+      beta?: number | null;
+      temperature?: number;
+    }
   >({
     defaultValues: src,
   });
@@ -140,6 +144,23 @@ export const HopIngredientForm = ({
             )}
           />
         </div>
+        <div className="lg:col-span-2">
+          <Controller
+            name="temperature"
+            control={control}
+            defaultValue={0}
+            render={({ field }) => (
+              <AmountField
+                {...field}
+                value={field.value ?? 0}
+                step={0.01}
+                label="Temperature"
+                amountType="temperature"
+              />
+            )}
+          />
+        </div>
+
         <div className="lg:col-span-2">
           <Select {...register("usage")} options={HopIngredientUsage} />
         </div>

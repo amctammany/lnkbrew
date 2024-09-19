@@ -8,8 +8,8 @@ import {
   UserVolumePreference,
 } from "@prisma/client";
 //import { AmountType } from "../Form/AmtField";
-export type Converter<S = number, T = any> =
-  | [(value: S) => T, (value: S) => T]
+export type Converter<S = number, T = number> =
+  | [(value: S) => T, (value: T) => S]
   | S;
 export type MassConverter<T = MassValue> = (value: number) => T;
 export type AmountType =
@@ -32,7 +32,7 @@ const gramToOunce: MassConverter<number> = (v) => v * 0.035274;
 type MassValue = number | [number, number];
 export const massConverters: Record<
   UserMassPreference,
-  Converter<MassValue>
+  Converter<MassValue, MassValue>
 > = {
   g: 1, //(value) => value,
   Kg: 1 / 1000, //(v) => v / 1000,
@@ -112,6 +112,32 @@ export const rawConverters: Record<AmountType, any> = {
   percent: percentConverters,
   percentage: percentageConverters,
 };
+export type ConverterClass = {
+  to: (v: number) => number;
+  from: (v: number) => number;
+};
+function makeClassConverter(src: Converter): ConverterClass {
+  if (Array.isArray(src)) {
+    return { to: src[0], from: src[1] };
+  }
+  return { to: (v: number) => v * src, from: (v: number) => v / src };
+}
+function makeClassConverters(src: Record<UnitTypes, Converter>) {
+  return Object.entries(src).reduce(
+    (acc, [k, v]) => {
+      acc[k as UnitTypes] = makeClassConverter(v);
+      return acc;
+    },
+    {} as Record<UnitTypes, ConverterClass>
+  );
+}
+export const classConverters = Object.entries(rawConverters).reduce(
+  (acc, [k, raw]) => {
+    acc[k as AmountType] = makeClassConverters(raw);
+    return acc;
+  },
+  {} as Record<AmountType, Record<UnitTypes, ConverterClass>>
+);
 
 export const converters: Record<AmountType, any> = {
   potential: () => (v: number) => v,
