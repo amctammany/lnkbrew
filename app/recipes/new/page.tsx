@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/client";
 import { auth } from "@/app/auth";
 import { redirect } from "next/navigation";
+import { getRecipeUrl } from "@/lib/utils";
 //import { updateRecipeVitals } from "../actions";
 type RecipeCreatorProps = {};
 
@@ -26,6 +27,6 @@ export default async function RecipeCreator({}: RecipeCreatorProps) {
     },
   });
   //const r = await updateRecipeVitals(recipe.id);
-  return redirect(`/recipes/${recipe.ownerUsername}/${recipe.slug}/edit`);
+  return redirect(getRecipeUrl(recipe.id));
 }
 TypeError;

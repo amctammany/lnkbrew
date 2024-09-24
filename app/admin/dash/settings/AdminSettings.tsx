@@ -23,7 +23,7 @@ import { Radio } from "@/components/Form/Radio";
 import RadioGroup from "@/components/Form/RadioGroup";
 
 type AdminSettingsProps = {
-  src?: UserPreferences | null;
+  src: UserPreferences;
   action: any;
   mashProfiles: any;
   waterProfiles: any;
@@ -38,6 +38,7 @@ export function AdminSettings({
   waterProfiles,
   equipmentProfiles,
 }: AdminSettingsProps) {
+  console.log(src);
   const {
     register,
     control,
@@ -51,7 +52,7 @@ export function AdminSettings({
       rangeHigh?: number;
     }
   >({
-    defaultValues: src || {},
+    defaultValues: src,
   });
   const onSubmit = async (data: FormData) => {
     const res = await action(data);
@@ -81,50 +82,50 @@ export function AdminSettings({
               <input type="hidden" {...register("userId")} />
               <RadioGroup
                 variant="inline"
-                {...register("volumeUnit")}
+                {...register("volume")}
                 label="Volume Unit"
-                error={errors.volumeUnit}
+                error={errors.volume}
                 options={UserVolumePreference}
               />
               <RadioGroup
                 variant="inline"
-                {...register("colorUnit")}
+                {...register("color")}
                 label="Color Unit"
-                error={errors.colorUnit}
+                error={errors.color}
                 options={UserColorPreference}
               />
               <RadioGroup
                 variant="inline"
-                {...register("timeUnit")}
+                {...register("time")}
                 label="Time Unit"
-                error={errors.timeUnit}
+                error={errors.time}
                 options={TimeUnit}
               />
               <Select
                 variant="inline"
                 label="Hop Mass Unit"
-                {...register("hopMassUnit")}
+                {...register("hopMass")}
                 options={UserMassPreference}
               />
               <Select
                 variant="inline"
-                {...register("fermentableMassUnit")}
+                {...register("fermentableMass")}
                 label="Fermentable Mass Unit"
-                error={errors?.fermentableMassUnit}
+                error={errors?.fermentableMass}
                 options={UserMassPreference}
               />
               <RadioGroup
                 variant="inline"
                 label="Temperature Unit"
-                error={errors?.temperatureUnit}
+                error={errors?.temperature}
                 options={UserTemperaturePreference}
-                {...register("temperatureUnit")}
+                {...register("temperature")}
               />
               <RadioGroup
                 variant="inline"
-                {...register("gravityUnit")}
+                {...register("gravity")}
                 label="Gravity Unit"
-                error={errors?.gravityUnit}
+                error={errors?.gravity}
                 options={UserGravityPreference}
               />
             </div>

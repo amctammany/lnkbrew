@@ -60,13 +60,25 @@ export async function updateUser(formData: FormData) {
 const preferenceSchema = zfd.formData({
   userId: zfd.text(),
   //range: zfd.numeric().array().length(2),
-  colorUnit: zfd.text(z.nativeEnum(UserColorPreference)),
-  timeUnit: zfd.text(z.nativeEnum(TimeUnit)),
-  volumeUnit: zfd.text(z.nativeEnum(UserVolumePreference)),
-  hopMassUnit: zfd.text(z.nativeEnum(UserMassPreference)),
-  fermentableMassUnit: zfd.text(z.nativeEnum(UserMassPreference)),
-  gravityUnit: zfd.text(z.nativeEnum(UserGravityPreference)),
-  temperatureUnit: zfd.text(z.nativeEnum(UserTemperaturePreference)),
+  color: zfd.text(
+    z.nativeEnum(UserColorPreference).default(UserColorPreference.SRM)
+  ),
+  time: zfd.text(z.nativeEnum(TimeUnit).default(TimeUnit.min)),
+  volume: zfd.text(
+    z.nativeEnum(UserVolumePreference).default(UserVolumePreference.gal)
+  ),
+  hopMass: zfd.text(
+    z.nativeEnum(UserMassPreference).default(UserMassPreference.Oz)
+  ),
+  fermentableMass: zfd.text(
+    z.nativeEnum(UserMassPreference).default(UserMassPreference.Lb)
+  ),
+  gravity: zfd.text(
+    z.nativeEnum(UserGravityPreference).default(UserGravityPreference.SG)
+  ),
+  temperature: zfd.text(
+    z.nativeEnum(UserTemperaturePreference).default(UserTemperaturePreference.F)
+  ),
   equipmentProfileId: zfd.numeric(z.number().optional()),
   mashProfileId: zfd.numeric(z.number().optional()),
   sourceWaterProfileId: zfd.numeric(z.number().optional()),
@@ -152,15 +164,17 @@ export async function updateUserFavorite(
   revalidateTag("userPreferences");
 }
 export async function updateUserPreferences(formData: FormData) {
-  //const r = preferenceSchema.parse(formData);
+  const r = preferenceSchema.parse(formData);
+  console.log(r);
   const { errors, userId, ...data } = validateSchema(
     formData,
     preferenceSchema
   );
   if (errors && errors.length) {
     //console.error(errors);
-    return { errors };
+    return Promise.resolve({ errors });
   }
+  console.log({ userId, data });
   const update = {
     ...data,
   };

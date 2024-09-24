@@ -98,7 +98,7 @@ export const FermentableIngredientForm = ({
                 step={0.01}
                 label="Amount"
                 amountType="fermentableMass"
-                amountUnit="LbOz"
+                //amountUnit="LbOz"
               />
             )}
           />

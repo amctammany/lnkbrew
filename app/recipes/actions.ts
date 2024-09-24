@@ -199,7 +199,7 @@ export async function updateFermentableIngredient(formData: FormData) {
   if (errors) return Promise.resolve({ errors });
   const res = await prisma.fermentableIngredient.update({
     where: { id: data.id },
-    include: { recipe: true },
+    //include: { recipe: true },
     data,
   });
   redirect(getRecipeUrl(res.recipeId));

@@ -11,10 +11,17 @@ import {
 } from "@/lib/amountConversions";
 import { Input, InputProps, inputStyles } from "./Input";
 import { Label } from "./Label";
-import { ChangeEventHandler, ComponentProps, useEffect, useState } from "react";
+import {
+  ChangeEventHandler,
+  ComponentProps,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { ControllerRenderProps } from "react-hook-form";
 import { cva } from "class-variance-authority";
 import { LbOzField } from "./LbOzField";
+import { UserContext } from "@/app/UserProvider";
 
 export const amountFieldStyles = cva("input", {
   variants: {
@@ -43,10 +50,15 @@ export type AmountTypeProps = ComponentProps<"select"> & {
 };
 
 function AmountType({ type, value, options, ...props }: AmountTypeProps) {
+  const selected = options?.findIndex(
+    (o) => o[0].toString() === value?.toString()
+  );
+  console.log(options, selected, value);
   return options?.length! > 1 ? (
     <select
       {...props}
       onSelect={props.onChange}
+      value={value}
       className={clsx(
         "h-full border border-black border-l-0 text-center align-middle justify-center",
         props.className
@@ -92,18 +104,23 @@ export const AmountField = (props: AmountFieldProps) => {
     onChange,
     onBlur,
   } = props;
+  const userPrefs = useContext(UserContext);
+  const unitType = userPrefs[amountType] as UnitTypes;
+  //console.log(userPrefs, amountType, unitType);
+  const converters = getConverters(userPrefs);
+  //
   //const [baseValue, setBaseValue] = useState<number>(value);
   const [currentUnit, setCurrentUnit] = useState<UnitTypes>(
     amountUnit ?? (getConversionOptions(amountType)[0][1] as UnitTypes)
   );
   const [currentAmount, setCurrentAmount] = useState<number>(
-    classConverters[amountType][amountUnit ?? currentUnit]?.to(value) ?? value
+    classConverters[amountType][currentUnit]?.from(value) ?? value
   );
   const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     const amt = parseFloat(e.currentTarget.value);
     setCurrentAmount(amt);
     //console.log(rawConverters[amountType]);
-    const convertedValue = classConverters[amountType][currentUnit].to(amt); //* amt;
+    const convertedValue = classConverters[amountType][currentUnit].from(amt); //* amt;
     //setBaseValue(convertedValue);
     onChange?.(convertedValue);
   };
@@ -118,8 +135,9 @@ export const AmountField = (props: AmountFieldProps) => {
     onChange?.(classConverters[amountType][unit].from(currentAmount));
   };
   useEffect(() => {
-    //setCurrentAmount(classConverters[amountType][currentUnit].to(value));
-  }, [amountType, currentUnit, value, name]);
+    setCurrentAmount(classConverters[amountType]?.[unitType]?.to(value));
+    setCurrentUnit(unitType);
+  }, [unitType, amountType, value, setCurrentUnit]);
   //console.log({ baseValue, value, currentAmount, amountType, currentUnit });
   return (
     <Label className={clsx("", className)} label={label || name} error={error}>

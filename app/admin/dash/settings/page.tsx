@@ -35,9 +35,10 @@ export default async function Page() {
       //recipes: { select: { name: true, id: true, styleIdentifer: true } },
     },
   });
+  console.log(session);
   return (
     <AdminSettings
-      src={user?.UserPreferences || ({ userId: user?.id } as any)}
+      src={user?.UserPreferences ?? ({ userId: user?.id } as any)}
       action={updateUserPreferences}
       waterProfiles={waterProfiles}
       mashProfiles={mashProfiles}

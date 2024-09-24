@@ -20,7 +20,7 @@ export const FermentableIngredientListItem = ({
       //href={`/fermentableIngredients/${fermentableIngredient.id}`}
     >
       <ListItemIcon>
-        <AmountProp unitType="fermentableMass">{src.amount}</AmountProp>
+        <AmountProp unitType="fermentableMass" value={src.amount} />
       </ListItemIcon>
       <ListItemText className="flex-grow">
         <div className="flex-grow">{src.fermentable.name}</div>

@@ -15,6 +15,14 @@ import { toggleUserFavorite } from "./admin/actions";
 
 export type UserContextType = Partial<UserPreferences> & {
   toggleUserFavorite?: typeof toggleUserFavorite;
+  flow?: any;
+  concentration?: any;
+  percent?: any;
+  mass?: any;
+  unit?: any;
+  volume?: any;
+  percentage?: any;
+  potential?: any;
 }; // Omit<UserPreferences, "userId"> | null;
 export const UserContext = createContext<UserContextType>({});
 
@@ -24,15 +32,23 @@ export default function UserProvider({
   children: React.ReactNode;
 }) {
   const session = useSession();
-  const { userId, ...prefs } = session.data?.user.UserPreferences ?? {
+  const { userId, ...prefs } = {
     userId: undefined,
-    colorUnit: UserColorPreference.L,
-    timeUnit: TimeUnit.min,
-    temperatureUnit: UserTemperaturePreference.F,
-    volumeUnit: UserVolumePreference.gal,
-    gravityUnit: UserGravityPreference.SG,
-    hopMassUnit: UserMassPreference.Oz,
-    fermentableMassUnit: UserMassPreference.LbOz,
+    mass: UserMassPreference.g,
+    color: UserColorPreference.L,
+    flow: "gal/min",
+    concentration: "ppm",
+    percent: "%",
+    percentage: "%",
+    potential: "ppg",
+    time: TimeUnit.min,
+    unit: "each",
+    temperature: UserTemperaturePreference.F,
+    volume: UserVolumePreference.gal,
+    gravity: UserGravityPreference.SG,
+    hopMass: UserMassPreference.Oz,
+    fermentableMass: UserMassPreference.LbOz,
+    ...(session.data?.user.UserPreferences ?? {}),
   };
   const val = {
     userId,
@@ -41,12 +57,12 @@ export default function UserProvider({
       userId: string | undefined,
       profileType: Exclude<
         keyof UserPreferences,
-        | "gravityUnit"
-        | "temperatureUnit"
-        | "userId"
-        | "volumeUnit"
-        | "hopMassUnit"
-        | "fermentableMassUnit"
+        //| "gravity"
+        //| "temperature"
+        "userId"
+        //| "volume"
+        //| "hopMass"
+        //| "fermentableMass"
       >,
       profileId: number | null
     ) => {
@@ -55,6 +71,7 @@ export default function UserProvider({
     },
   };
 
+  //
   //const ctx: UserContextType = prefs;
   return <UserContext value={val}>{children}</UserContext>;
 }
