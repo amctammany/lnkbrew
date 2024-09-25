@@ -11,6 +11,9 @@ const navLinkStyles = cva(["flex text-center font-bold "], {
         "text-red-500 hover:text-slate-400 hover:fill-slate-400 fill-red-500",
       ],
       default: ["text-white hover:text-slate-400 hover:fill-slate-400 "],
+      sidenav: [
+        "text-black hover:text-white hover:fill-white border border-black px-0 py-2 text-lg",
+      ],
       subnav: ["text-black hover:text-white hover:fill-white"],
       danger: ["text-red-400 hover:text-red-700 hover:underline"],
     },

@@ -24,7 +24,7 @@ export default function AdminLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <SubNav body={children}>
+    <SubNav body={children} className="h-full">
       <NavLink variant="subnav" href="/admin/dash/home" className="flex-grow">
         <Label text="Dashboard">
           <DashboardIcon />
@@ -45,11 +45,6 @@ export default function AdminLayout({
         className="flex-grow"
       >
         <Label text="Settings">
-          <SettingsIcon />
-        </Label>
-      </NavLink>
-      <NavLink variant="danger" href="/admin/dash/units" className="flex-grow">
-        <Label text="Units">
           <SettingsIcon />
         </Label>
       </NavLink>

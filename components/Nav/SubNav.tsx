@@ -9,8 +9,9 @@ import ClientBreadcrumbs from "../Breadcrumbs/ClientBreadcrumbs";
 export type SubNavProps = {
   body?: React.ReactNode;
   children?: React.ReactNode;
+  className?: string;
 };
-export const SubNav = ({ body, children }: SubNavProps) => {
+export const SubNav = ({ body, children, className }: SubNavProps) => {
   return (
     <>
       <nav className="flex items-center md:justify-between flex-wrap md:flex-nowrap px-5 md:py-0 bg-orange-200 ">
@@ -19,7 +20,7 @@ export const SubNav = ({ body, children }: SubNavProps) => {
         </div>
       </nav>
 
-      <Body>{body}</Body>
+      <Body className={className}>{body}</Body>
     </>
   );
 };
