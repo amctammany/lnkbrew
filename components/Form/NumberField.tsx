@@ -47,11 +47,13 @@ export function NumberField({
   className,
   inputSize,
   error,
+  suffix,
   ...props
 }: NumberFieldProps) {
   return (
     <Label
-      //className={clsx(numberFieldStyles({ variant, size }))}
+      //classname={clsx(numberFieldStyles({ variant, size }))}
+      suffix={suffix}
       variant={variant}
       inputSize={inputSize}
       className={className}

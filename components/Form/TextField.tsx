@@ -26,6 +26,7 @@ export function TextField({
   error,
   className,
   label,
+  suffix,
   variant,
   size,
   inputSize = "full",
@@ -34,6 +35,7 @@ export function TextField({
   return (
     <Label
       variant={variant}
+      suffix={suffix}
       inputSize={inputSize}
       error={error}
       className={className}

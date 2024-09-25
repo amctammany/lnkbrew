@@ -18,9 +18,9 @@ export const HopIngredientListItem = ({ src }: HopIngredientListItemProps) => {
       border="none"
       href={getRecipeUrl(src.recipeId, "hops", src.id)}
     >
-      <ListItemIcon>
+      <ListItemText>
         <Prop unit={src.amountType} value={src.amount} />
-      </ListItemIcon>
+      </ListItemText>
       <ListItemText
         className="col-span-6 w-full"
         //primary={src.hop.name}

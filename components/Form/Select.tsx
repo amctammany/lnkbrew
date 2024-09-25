@@ -26,7 +26,7 @@ export type SelectProps = {
   ref?: any;
 } & VariantProps<typeof selectStyles> &
   ComponentProps<"select">;
-const selectStyles = cva("", {
+const selectStyles = cva("w-full", {
   variants: {
     variant: {
       default: [
@@ -63,9 +63,9 @@ export function Select({
   variant,
   className,
   ...props
-  //size,
-  //ref,
-}: SelectProps) {
+}: //size,
+//ref,
+SelectProps) {
   const opts = options
     ? Object.entries(options).map(([k, v]) => (
         <option key={k} value={k}>

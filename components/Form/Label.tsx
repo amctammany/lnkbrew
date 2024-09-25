@@ -7,9 +7,10 @@ export type LabelProps = {
   children?: React.ReactNode;
   error?: SchemaFieldError;
   label?: string | React.ReactNode;
+  suffix?: string | React.ReactNode;
 } & VariantProps<typeof labelStyles> &
   ComponentProps<"label">;
-const labelStyles = cva([""], {
+const labelStyles = cva(["w-full"], {
   variants: {
     variant: {
       default: ["mx-0 mb-2 p-2 block"],
@@ -59,6 +60,7 @@ export const Label = ({
   children,
   error,
   label,
+  suffix,
   variant,
   inputSize,
   className,
@@ -78,7 +80,18 @@ export const Label = ({
       >
         {label}
       </span>
-      {children}
+      <div className="flex w-full">
+        {children}
+
+        <div
+          className={clsx(
+            "flex-shrink grid items-center align-middle justify-center border-black border border-l-0",
+            { hidden: !suffix }
+          )}
+        >
+          <span className="my-auto block text-sm px-2 font-bold">{suffix}</span>
+        </div>
+      </div>
       <span
         className={errorStyles({
           variant: error ? "error" : variant,

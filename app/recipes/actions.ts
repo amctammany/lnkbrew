@@ -113,6 +113,7 @@ const hopIngredientSchema = zfd.formData({
   hopId: zfd.text(z.string()),
   amount: zfd.numeric(z.number().gte(0).default(1)),
   alpha: zfd.numeric(z.number().min(0).optional()),
+  temperature: zfd.numeric(z.number().min(0).optional()),
   usage: z.nativeEnum(HopIngredientUsage).default(HopIngredientUsage.Boil),
   amountType: z.nativeEnum(MassUnit).default(MassUnit.Oz),
   duration: zfd.numeric(z.number().min(0).default(60)),

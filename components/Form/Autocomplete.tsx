@@ -20,7 +20,8 @@ export type AutocompleteProps = VariantProps<typeof autocompleteStyles> &
   ComponentProps<"input"> & {
     value?: ID | null;
     error?: SchemaFieldError;
-    label?: string;
+    label?: string | React.ReactNode;
+    suffix?: string | React.ReactNode;
     isNumeric?: boolean;
     options: Record<ID, string>;
     handleChange?: (id?: ID) => void;
@@ -70,6 +71,7 @@ const autocompleteStyles = cva("input overflow-hidden", {
 export function Autocomplete({
   name,
   label,
+  suffix,
   options: ops,
   disabled,
   defaultValue,
@@ -153,7 +155,12 @@ export function Autocomplete({
         onChange={onChange}
         ref={ref}
       />
-      <Label error={error} className="relative m-0" label={label || name}>
+      <Label
+        error={error}
+        className="relative m-0"
+        label={label || name}
+        suffix={suffix}
+      >
         <input
           type="text"
           disabled={disabled}

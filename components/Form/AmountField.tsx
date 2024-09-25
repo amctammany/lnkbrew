@@ -148,7 +148,7 @@ export const AmountField = (props: AmountFieldProps) => {
   //console.log({ baseValue, value, currentAmount, amountType, currentUnit });
   return (
     <Label className={clsx("", className)} label={label || name} error={error}>
-      <div className={clsx("flex")}>
+      <div className={clsx("flex w-full")}>
         <>
           <input
             type="hidden"

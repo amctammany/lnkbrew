@@ -15,12 +15,7 @@ export const Prop = ({
   className,
 }: PropProps) => {
   return (
-    <div
-      className={clsx(
-        "relative sm:grid sm:grid-cols-3 p-2 border-b-4",
-        className
-      )}
-    >
+    <div className={clsx("relative sm:grid sm:grid-cols-3 p-2 ", className)}>
       <h4
         className={clsx("capitalize text-black text-md font-bold", {
           hidden: !label,
@@ -28,7 +23,7 @@ export const Prop = ({
       >
         {label}
       </h4>
-      <div className="sm:col-span-2 indent-2">
+      <div className="sm:col-span-2 md:indent-2">
         {children ?? (
           <>
             <span className="pr-1">{value}</span>

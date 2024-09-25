@@ -21,9 +21,9 @@ export const FermentableIngredientListItem = ({
       innerClassName="grid grid-cols-8"
       //href={`/fermentableIngredients/${fermentableIngredient.id}`}
     >
-      <ListItemIcon className="w-full">
+      <ListItemText className="w-full">
         <Prop className="text-sm" value={src.amount} unit={src.amountType} />
-      </ListItemIcon>
+      </ListItemText>
       <ListItemText
         className="col-span-6 w-full"
         secondary={<span>Type: t; Color: {src.color}</span>}

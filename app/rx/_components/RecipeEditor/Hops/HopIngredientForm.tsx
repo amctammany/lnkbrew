@@ -25,6 +25,8 @@ import {
 } from "@prisma/client";
 import { Controller, useForm } from "react-hook-form";
 import RemoveHopIngredientButton from "./RemoveHopIngredientButton";
+import { TypedAmountField } from "@/components/Form/TypedAmountField";
+import clsx from "clsx";
 type HopIngredientFooterProps = { recipeId?: string; id?: number };
 const HopIngredientFooter = ({ recipeId, id }: HopIngredientFooterProps) => {
   return (
@@ -110,37 +112,25 @@ export const HopIngredientForm = ({
           />
         </div>
         <div className="lg:col-span-2">
-          <Controller
-            name="amount"
-            control={control}
-            defaultValue={0}
-            render={({ field }) => (
-              <AmountField
-                {...field}
-                value={field.value ?? 0}
-                step={0.01}
-                label="Amount"
-                amountType="hopMass"
-              />
-            )}
+          <TypedAmountField
+            label="Amount"
+            amountType="hopMass"
+            fieldProps={register("amount")}
+            unitProps={register("amountType")}
           />
         </div>
         <div className="lg:col-span-2">
-          <Controller
-            name="duration"
-            control={control}
-            defaultValue={0}
-            render={({ field }) => (
-              <AmountField
-                {...field}
-                value={field.value ?? 0}
-                step={0.01}
-                label="Duration"
-                amountType="time"
-              />
-            )}
+          <TypedAmountField
+            label="Duration"
+            amountType="time"
+            fieldProps={register("duration")}
+            unitProps={register("durationType")}
           />
         </div>
+        <div className="lg:col-span-2">
+          <Select {...register("usage")} options={HopIngredientUsage} />
+        </div>
+
         <div className="lg:col-span-2">
           <Controller
             name="temperature"
@@ -158,39 +148,20 @@ export const HopIngredientForm = ({
           />
         </div>
 
-        <div className="lg:col-span-2">
-          <Select {...register("usage")} options={HopIngredientUsage} />
-        </div>
-        <div className="lg:col-span-2">
-          <Controller
-            name="alpha"
-            control={control}
-            defaultValue={0}
-            render={({ field }) => (
-              <AmountField
-                {...field}
-                value={field.value ?? 0}
-                step={0.01}
-                label="Alpha Acids"
-                amountType="percentage"
-              />
-            )}
+        <div className="flex lg:col-span-2">
+          <NumberField
+            label="Alpha Acids"
+            {...register("alpha")}
+            step={0.01}
+            suffix="%"
           />
         </div>
         <div className="lg:col-span-2">
-          <Controller
-            name="beta"
-            control={control}
-            defaultValue={0}
-            render={({ field }) => (
-              <AmountField
-                {...field}
-                value={field.value ?? 0}
-                step={0.01}
-                label="Beta Acids"
-                amountType="percentage"
-              />
-            )}
+          <NumberField
+            label="Beta Acids"
+            {...register("beta")}
+            step={0.01}
+            suffix="%"
           />
         </div>
 

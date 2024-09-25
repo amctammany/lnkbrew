@@ -156,7 +156,7 @@ export const TypedAmountField = function <T extends FieldValues>(
   //console.log({ baseValue, value, currentAmount, amountType, currentUnit });
   return (
     <Label className={clsx("", className)} label={label || name} error={error}>
-      <div className={clsx("flex")}>
+      <div className={clsx("flex w-full")}>
         <>
           <Input
             //disabled={disabled || false}

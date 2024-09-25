@@ -6,6 +6,7 @@ import clsx from "clsx";
 export type InputProps = {
   name?: string;
   label?: string | React.ReactNode;
+  suffix?: string | React.ReactNode;
   defaultValue?: any;
   disabled?: boolean;
   error?: SchemaFieldError;
