@@ -116,8 +116,10 @@ export const EquipmentForm = ({ recipe, profiles }: EquipmentFormProps) => {
         <div className="lg:col-span-2">
           <NumberField
             {...register("mashEfficiency", {
-              setValueAs: (v) =>
-                (typeof v === "number" ? v : parseFloat(v || "0")) * 100,
+              valueAsNumber: true,
+              //setValueAs: (v) =>
+              //(typeof v === "number" ? v : parseFloat(v || "0")) / 100,
+              //},
             })}
             scaleFactor={100}
             step={0.01}
@@ -129,8 +131,11 @@ export const EquipmentForm = ({ recipe, profiles }: EquipmentFormProps) => {
         <div className="lg:col-span-2">
           <NumberField
             {...register("brewEfficiency", {
-              setValueAs: (v) =>
-                (typeof v === "number" ? v : parseFloat(v || "0")) * 100,
+              //setValueAs: (v) =>
+              //(typeof v === "number" ? v : parseFloat(v || "0")) / 100,
+              valueAsNumber: true,
+              //setValueAs: (v) => v / 100,
+              //(typeof v === "number" ? v : parseFloat(v || "0")) / 100,
             })}
             scaleFactor={100}
             step={0.01}

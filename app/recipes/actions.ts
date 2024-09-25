@@ -38,8 +38,8 @@ const recipeSchema = zfd.formData({
   equipmentProfileId: zfd.numeric(z.number().optional()),
   boilTime: zfd.numeric(z.number().min(0).optional()),
   batchVolume: zfd.numeric(z.number().min(0).optional()),
-  mashEfficiency: zfd.numeric(z.number().min(0).optional()),
-  brewEfficiency: zfd.numeric(z.number().min(0).optional()),
+  mashEfficiency: zfd.numeric(z.number().min(0).optional().default(65)),
+  brewEfficiency: zfd.numeric(z.number().min(0).optional().default(60)),
   calcium: zfd.numeric(z.number().optional()),
   magnesium: zfd.numeric(z.number().optional()),
   sodium: zfd.numeric(z.number().optional()),
@@ -66,6 +66,8 @@ export async function removeRecipe(formData: FormData) {
 export async function updateRecipe(formData: FormData) {
   const {
     id,
+    //mashEfficiency,
+    //brewEfficiency,
     mashProfileId,
     waterProfileId,
     equipmentProfileId,
@@ -85,6 +87,8 @@ export async function updateRecipe(formData: FormData) {
     },
     data: {
       ...data,
+      //mashEfficiency: mashEfficiency / 100,
+      //brewEfficiency: brewEfficiency / 100,
       ...(data.name
         ? { name: data.name, slug: slugify(data.name, { lower: true }) }
         : {}),
