@@ -25,11 +25,11 @@ import {
 } from "@prisma/client";
 import { Controller, useForm } from "react-hook-form";
 import RemoveHopIngredientButton from "./RemoveHopIngredientButton";
-type HopIngredientFooterProps = { id?: number };
-const HopIngredientFooter = ({ id }: HopIngredientFooterProps) => {
+type HopIngredientFooterProps = { recipeId?: string; id?: number };
+const HopIngredientFooter = ({ recipeId, id }: HopIngredientFooterProps) => {
   return (
     <Toolbar>
-      <RemoveHopIngredientButton id={id} />
+      <RemoveHopIngredientButton id={id} recipeId={recipeId} />
       <IconButton type="submit" Icon={SaveIcon}>
         Save
       </IconButton>
