@@ -19,6 +19,7 @@ import { ExtendedRecipe } from "@/types/Recipe";
 import {
   Hop,
   HopIngredient,
+  HopIngredientType,
   HopIngredientUsage,
   HopUsage,
   TimeUnit,
@@ -62,7 +63,7 @@ export const HopIngredientForm = ({
     HopIngredient & {
       year?: number;
       beta?: number | null;
-      temperature?: number;
+      //temperature?: number;
     }
   >({
     defaultValues: src,
@@ -129,6 +130,9 @@ export const HopIngredientForm = ({
         </div>
         <div className="lg:col-span-2">
           <Select {...register("usage")} options={HopIngredientUsage} />
+        </div>
+        <div className="lg:col-span-2">
+          <Select {...register("type")} options={HopIngredientType} />
         </div>
 
         <div className="lg:col-span-2">

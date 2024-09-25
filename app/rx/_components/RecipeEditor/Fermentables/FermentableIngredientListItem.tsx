@@ -18,21 +18,21 @@ export const FermentableIngredientListItem = ({
     <ListItem
       border="none"
       href={getRecipeUrl(src?.recipeId, "fermentables", src.id)}
-      innerClassName="grid grid-cols-8"
+      innerClassName="grid grid-cols-5 lg:grid-cols-8"
       //href={`/fermentableIngredients/${fermentableIngredient.id}`}
     >
-      <ListItemText className="w-full">
+      <ListItemText className="w-full text-center">
         <Prop className="text-sm" value={src.amount} unit={src.amountType} />
       </ListItemText>
       <ListItemText
-        className="col-span-6 w-full"
+        className="col-span-3 lg:col-span-6 w-full"
         secondary={<span>Type: t; Color: {src.color}</span>}
       >
         <div className="flex-grow">{src.fermentable.name}</div>
       </ListItemText>
-      <div className="grid text-right">
-        <span>%</span>
-      </div>
+      <ListItemText>
+        <Prop className="text-sm" value="" unit="%" />
+      </ListItemText>
     </ListItem>
   );
 };

@@ -436,6 +436,13 @@ enum HopIngredientUsage {
   Mash
 }
 
+enum HopIngredientType {
+  Pellet
+  Cryo
+  Whole
+  Extract
+}
+
 model HopIngredient {
   id           Int                @default(autoincrement())
   recipeId     String
@@ -443,6 +450,8 @@ model HopIngredient {
   amount       Float
   usage        HopIngredientUsage
   amountType   MassUnit
+  temperature  Float?
+  type         HopIngredientType
   duration     Float
   durationType TimeUnit
   hopId        String

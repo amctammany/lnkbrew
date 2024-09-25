@@ -21,6 +21,7 @@ import {
   MassUnit,
   TimeUnit,
   FermentableIngredientUsage,
+  HopIngredientType,
 } from "@prisma/client";
 import { getRecipeUrl } from "@/lib/utils";
 import { ID } from "@/types/App";
@@ -115,6 +116,7 @@ const hopIngredientSchema = zfd.formData({
   alpha: zfd.numeric(z.number().min(0).optional()),
   temperature: zfd.numeric(z.number().min(0).optional()),
   usage: z.nativeEnum(HopIngredientUsage).default(HopIngredientUsage.Boil),
+  type: z.nativeEnum(HopIngredientType).default(HopIngredientType.Pellet),
   amountType: z.nativeEnum(MassUnit).default(MassUnit.Oz),
   duration: zfd.numeric(z.number().min(0).default(60)),
   durationType: z.nativeEnum(TimeUnit).default(TimeUnit.min),
