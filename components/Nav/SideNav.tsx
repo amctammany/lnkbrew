@@ -7,30 +7,27 @@ import { cva, VariantProps } from "class-variance-authority";
 import clsx from "clsx";
 //import clsx from "clsx";
 //import NavLink from "./NavLink";
-
 export type SideNavProps = {
   body?: React.ReactNode;
   children?: React.ReactNode;
   className?: string;
 } & VariantProps<typeof sideNavStyles>;
-const sideNavStyles = cva(
-  ["md:flex-nowrap md:py-0 h-full min-h-40", "bg-blue-500"],
-  {
-    variants: {
-      variant: {
-        default: [""],
-      },
-      color: {
-        default: [""],
-        orange: ["bg-orange-200"],
-      },
+const sideNavStyles = cva(["md:flex-nowrap md:py-0 h-full min-h-40"], {
+  variants: {
+    variant: {
+      default: ["bg-white"],
+      warning: ["bg-warning-200"],
     },
-    defaultVariants: {
-      variant: "default",
-      color: "default",
+    color: {
+      default: [""],
+      orange: ["bg-orange-200"],
     },
-  }
-);
+  },
+  defaultVariants: {
+    variant: "default",
+    color: "default",
+  },
+});
 export const SideNav = ({
   body,
   children,
