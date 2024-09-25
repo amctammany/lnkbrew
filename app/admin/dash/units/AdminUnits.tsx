@@ -2,6 +2,7 @@
 //import { User } from "@prisma/client";
 import {
   TimeUnit,
+  UnitPreferences,
   UserColorPreference,
   UserGravityPreference,
   UserMassPreference,
@@ -22,13 +23,13 @@ import { Toolbar } from "@/components/Toolbar";
 import { Radio } from "@/components/Form/Radio";
 import RadioGroup from "@/components/Form/RadioGroup";
 
-type AdminSettingsProps = {
-  src: UserPreferences;
+type AdminUnitsProps = {
+  src: UnitPreferences;
   action: any;
 };
 //const equipmentProfiles = ["equ1", "eq2"];
 //const mashProfiles = ["equ1", "eq2"];
-export function AdminSettings({ src, action }: AdminSettingsProps) {
+export function AdminUnits({ src, action }: AdminUnitsProps) {
   const {
     register,
     control,
@@ -36,10 +37,10 @@ export function AdminSettings({ src, action }: AdminSettingsProps) {
     setError,
     getValues,
   } = useForm<
-    UserPreferences & {
-      range: { min: number; max: number }; //[number, number];
-      rangeLoaw?: number;
-      rangeHigh?: number;
+    UnitPreferences & {
+      //range: { min: number; max: number }; //[number, number];
+      //rangeLoaw?: number;
+      //rangeHigh?: number;
     }
   >({
     defaultValues: src,
@@ -55,11 +56,7 @@ export function AdminSettings({ src, action }: AdminSettingsProps) {
     //await trigger();
   };
 
-  return <div>Admin Settings</div>;
-}
-
-export default AdminSettings;
-/**(
+  return (
     <Form action={action}>
       <Section
         header={"Admin Settings"}
@@ -73,7 +70,7 @@ export default AdminSettings;
         <div className="grid md:grid-cols-2 gap-2 md:gap-4 m-4">
           <Section header="Units">
             <div>
-              <input type="hidden" {...register("userId")} />
+              <input type="hidden" {...register("id")} />
               <RadioGroup
                 variant="inline"
                 {...register("volume")}
@@ -124,48 +121,17 @@ export default AdminSettings;
               />
             </div>
           </Section>
-          <Section header="Default Profiles">
-            <Autocomplete
-              //required
-              error={errors?.sourceWaterProfileId}
-              {...register("sourceWaterProfileId")}
-              label="Source Water"
-              value={src?.sourceWaterProfileId ?? undefined}
-              options={waterProfiles}
-            />
-            <Autocomplete
-              //required
-              error={errors?.targetWaterProfileId}
-              label="Target Water"
-              {...register("targetWaterProfileId")}
-              value={src?.targetWaterProfileId ?? undefined}
-              options={waterProfiles}
-            />
-
-            <Autocomplete
-              //required
-              error={errors?.equipmentProfileId}
-              {...register("equipmentProfileId")}
-              value={src?.equipmentProfileId ?? undefined}
-              label="Equipment Profile"
-              options={equipmentProfiles}
-            />
-            <Autocomplete
-              //required
-              error={errors?.mashProfileId}
-              {...register("mashProfileId")}
-              label="Mash Profile"
-              value={src?.mashProfileId ?? undefined}
-              options={mashProfiles}
-            />
-          </Section>
           <Toolbar className="md:col-span-2">
             <Submit>Save</Submit>
           </Toolbar>
         </div>
       </Section>
     </Form>
-  )
+  );
+}
+
+export default AdminUnits;
+/**
         <Select {...register("mashProfileId")} options={mashProfiles} />
         <Select {...register("sourceWaterProfileId")} options={waterProfiles} />
         <Select {...register("targetWaterProfileId")} options={waterProfiles} />

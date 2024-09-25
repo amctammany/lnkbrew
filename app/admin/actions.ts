@@ -57,8 +57,31 @@ export async function updateUser(formData: FormData) {
   }
   */
 }
+const unitPreferenceSchema = zfd.formData({
+  id: zfd.text(z.string().optional()),
+  color: zfd.text(
+    z.nativeEnum(UserColorPreference).default(UserColorPreference.SRM)
+  ),
+  time: zfd.text(z.nativeEnum(TimeUnit).default(TimeUnit.min)),
+  volume: zfd.text(
+    z.nativeEnum(UserVolumePreference).default(UserVolumePreference.gal)
+  ),
+  hopMass: zfd.text(
+    z.nativeEnum(UserMassPreference).default(UserMassPreference.Oz)
+  ),
+  fermentableMass: zfd.text(
+    z.nativeEnum(UserMassPreference).default(UserMassPreference.Lb)
+  ),
+  gravity: zfd.text(
+    z.nativeEnum(UserGravityPreference).default(UserGravityPreference.SG)
+  ),
+  temperature: zfd.text(
+    z.nativeEnum(UserTemperaturePreference).default(UserTemperaturePreference.F)
+  ),
+});
 const preferenceSchema = zfd.formData({
   userId: zfd.text(),
+  userPreferenceId: zfd.text(z.string().optional()),
   //range: zfd.numeric().array().length(2),
   color: zfd.text(
     z.nativeEnum(UserColorPreference).default(UserColorPreference.SRM)
@@ -138,36 +161,89 @@ export async function updateUserFavorite(
         data.equipmentProfileId === null
           ? undefined
           : data.equipmentProfileId === undefined
-            ? { disconnect: true }
-            : { connect: { id: data.equipmentProfileId } },
+          ? { disconnect: true }
+          : { connect: { id: data.equipmentProfileId } },
       defaultTargetWater:
         data.targetWaterProfileId === null
           ? undefined
           : data.targetWaterProfileId === undefined
-            ? { disconnect: true }
-            : { connect: { id: data.targetWaterProfileId } },
+          ? { disconnect: true }
+          : { connect: { id: data.targetWaterProfileId } },
       defaultSourceWater:
         data.sourceWaterProfileId === null
           ? undefined
           : data.sourceWaterProfileId === undefined
-            ? { disconnect: true }
-            : { connect: { id: data.sourceWaterProfileId } },
+          ? { disconnect: true }
+          : { connect: { id: data.sourceWaterProfileId } },
       defaultMashProfile:
         data.mashProfileId === null
           ? undefined
           : data.mashProfileId === undefined
-            ? { disconnect: true }
-            : { connect: { id: data.mashProfileId } },
+          ? { disconnect: true }
+          : { connect: { id: data.mashProfileId } },
     },
   });
 
   revalidateTag("userPreferences");
 }
 export async function updateUserPreferences(formData: FormData) {
-  const r = preferenceSchema.parse(formData);
-  const { errors, userId, ...data } = validateSchema(
+  //const r = preferenceSchema.parse(formData);
+  const { errors, userId, userPreferenceId, ...data } = validateSchema(
     formData,
     preferenceSchema
+  );
+  if (errors && errors.length) {
+    //console.error(errors);
+    return Promise.resolve({ errors });
+  }
+  const {
+    color,
+    time,
+    hopMass,
+    fermentableMass,
+    gravity,
+    temperature,
+    volume,
+    ...rest
+  } = data || {};
+  const update = {
+    ...rest,
+  };
+  const unitPrefs = {
+    //id: userPreferenceId,
+    color,
+    time,
+    hopMass,
+    fermentableMass,
+    gravity,
+    volume,
+    temperature,
+  };
+  const res = await prisma.userPreferences.update({
+    where: {
+      userId,
+    },
+
+    //update,
+    data: {
+      //...update,
+      //userId,
+      UnitPreferences: {
+        upsert: {
+          where: { id: userPreferenceId },
+          create: unitPrefs,
+          update: { ...unitPrefs, id: userPreferenceId },
+        },
+      },
+    },
+  });
+  return redirect("/admin");
+}
+export async function updateUnitPreferences(formData: FormData) {
+  //const r = unitPreferenceSchema.parse(formData);
+  const { errors, id, ...data } = validateSchema(
+    formData,
+    unitPreferenceSchema
   );
   if (errors && errors.length) {
     //console.error(errors);
@@ -176,15 +252,15 @@ export async function updateUserPreferences(formData: FormData) {
   const update = {
     ...data,
   };
-  const res = await prisma.userPreferences.upsert({
+  const res = await prisma.unitPreferences.upsert({
     where: {
-      userId,
+      id,
     },
 
     update,
     create: {
+      id,
       ...update,
-      userId,
     },
   });
   return redirect("/admin");

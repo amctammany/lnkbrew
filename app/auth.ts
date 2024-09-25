@@ -49,7 +49,7 @@ export const AuthOptions: NextAuthConfig = {
         where: {
           id: token.id as string,
         },
-        include: { UserPreferences: true },
+        include: { UserPreferences: { include: { UnitPreferences: true } } },
       });
       if (currentUser) {
         token.user = currentUser;

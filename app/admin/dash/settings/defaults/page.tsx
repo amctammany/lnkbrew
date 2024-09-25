@@ -1,8 +1,8 @@
 import { auth } from "@/app/auth";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/client";
-import { AdminSettings } from "./AdminSettings";
-import { updateUserPreferences } from "../../actions";
+import { AdminSettingsDefaults } from "./AdminSettingsDefaults";
+import { updateUserPreferences } from "@/app/admin/actions";
 import {
   getWaterProfileOptions,
   getWaterProfiles,
@@ -25,9 +25,9 @@ export default async function Page() {
   const session = await auth();
 
   if (!session) return redirect("/");
-  //const waterProfiles = await getWaterProfileOptions();
-  //const mashProfiles = await getMashProfileOptions();
-  //const equipmentProfiles = await getEquipmentProfileOptions();
+  const waterProfiles = await getWaterProfileOptions();
+  const mashProfiles = await getMashProfileOptions();
+  const equipmentProfiles = await getEquipmentProfileOptions();
   const user = await prisma.user.findFirst({
     where: { username: session?.user?.username },
     include: {
@@ -36,12 +36,12 @@ export default async function Page() {
     },
   });
   return (
-    <AdminSettings
+    <AdminSettingsDefaults
       src={user?.UserPreferences ?? ({ userId: user?.id } as any)}
       action={updateUserPreferences}
-      //waterProfiles={waterProfiles}
-      //mashProfiles={mashProfiles}
-      //equipmentProfiles={equipmentProfiles}
+      waterProfiles={waterProfiles}
+      mashProfiles={mashProfiles}
+      equipmentProfiles={equipmentProfiles}
     />
   );
 }

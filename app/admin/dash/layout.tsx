@@ -48,6 +48,11 @@ export default function AdminLayout({
           <SettingsIcon />
         </Label>
       </NavLink>
+      <NavLink variant="danger" href="/admin/dash/units" className="flex-grow">
+        <Label text="Units">
+          <SettingsIcon />
+        </Label>
+      </NavLink>
       <NavLink variant="danger" href="/api/auth/signout" className="flex-grow">
         <Label text="Logout">
           <LogoutIcon />
