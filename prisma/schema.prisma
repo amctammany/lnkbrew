@@ -63,6 +63,8 @@ model User {
   EquipmentProfile EquipmentProfile[]
   MashProfile      MashProfile[]
   Recipe           Recipe[]
+  recipeCounter    Int?               @default(0)
+  batchCounter     Int?               @default(0)
 }
 
 model UserPreferences {

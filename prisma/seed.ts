@@ -120,8 +120,8 @@ async function main() {
       batchVolume: 3.4,
       preboilVolume: 4.5,
       boilVolume: 4.5,
-      mashEfficiency: 0.68,
-      brewEfficiency: 0.5,
+      mashEfficiency: 68,
+      brewEfficiency: 5,
       boilTime: 60,
       forks: {
         create: {
@@ -135,8 +135,8 @@ async function main() {
           batchVolume: 6.4,
           preboilVolume: 4.5,
           boilVolume: 4.5,
-          mashEfficiency: 0.72,
-          brewEfficiency: 0.62,
+          mashEfficiency: 72,
+          brewEfficiency: 62,
           boilTime: 60,
         },
       },
@@ -155,8 +155,8 @@ async function main() {
       batchVolume: 2.4,
       preboilVolume: 2.5,
       boilVolume: 2.5,
-      mashEfficiency: 0.68,
-      brewEfficiency: 0.5,
+      mashEfficiency: 68,
+      brewEfficiency: 5,
       boilTime: 60,
     },
   });

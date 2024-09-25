@@ -22,9 +22,15 @@ export default async function RecipeCreator({}: RecipeCreatorProps) {
       //equipmentProfileId: session?.preferences.equipmentProfileId,
       //waterProfileId: session?.preferences.sourceWaterProfileId,
 
-      name: "New Recipe",
-      slug: "new-recipe",
+      name: `Recipe-${session?.user.recipeCounter}`,
+      slug: `recipe-${session?.user.recipeCounter}`,
     },
+  });
+  const user = await prisma.user.update({
+    where: {
+      username: recipe.ownerUsername,
+    },
+    data: { recipeCounter: session?.user.recipeCounter + 1 },
   });
   //const r = await updateRecipeVitals(recipe.id);
   return redirect(getRecipeUrl(recipe.id));

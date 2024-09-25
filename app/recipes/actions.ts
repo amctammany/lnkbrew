@@ -38,8 +38,12 @@ const recipeSchema = zfd.formData({
   equipmentProfileId: zfd.numeric(z.number().optional()),
   boilTime: zfd.numeric(z.number().min(0).optional()),
   batchVolume: zfd.numeric(z.number().min(0).optional()),
-  mashEfficiency: zfd.numeric(z.number().min(0).optional().default(65)),
-  brewEfficiency: zfd.numeric(z.number().min(0).optional().default(60)),
+  mashEfficiency: zfd.numeric(
+    z.number().min(0).max(100).optional().default(65)
+  ),
+  brewEfficiency: zfd.numeric(
+    z.number().min(0).max(100).optional().default(60)
+  ),
   calcium: zfd.numeric(z.number().optional()),
   magnesium: zfd.numeric(z.number().optional()),
   sodium: zfd.numeric(z.number().optional()),

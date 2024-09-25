@@ -14,6 +14,8 @@ declare module "next-auth" {
       /** The user's postal address. */
       UserPreferences: UserPreferences;
       username: string;
+      recipeCounter: number;
+      batchCounter: number;
       /**
        * By default, TypeScript merges new interface properties and overwrites existing ones.
        * In this case, the default session user properties will be overwritten,
