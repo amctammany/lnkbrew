@@ -33,7 +33,7 @@ export const ListItemIcon = ({
 }: ListItemIconProps) => {
   return (
     <div className={clsx(listItemIconStyles({ variant }), className)}>
-      <div className="my-auto">{children}</div>
+      {children}
     </div>
   );
 };

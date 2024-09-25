@@ -8,11 +8,12 @@ export type ListItemProps = VariantProps<typeof listItemStyles> &
   ComponentProps<"div"> & {
     children?: React.ReactNode;
     href?: string;
+    innerClassName?: string;
     //secondaryAction?: any;
     //actions?: React.ReactNode | React.ReactNode[];
     scroll?: boolean;
   };
-const listItemInnerStyles = cva(["flex px-0 py-0 items-center flex-grow"], {
+const listItemInnerStyles = cva(["px-0 py-0 items-center flex-grow"], {
   variants: {
     variant: {
       default: ["hover:bg-primary-500/10"],
@@ -24,32 +25,29 @@ const listItemInnerStyles = cva(["flex px-0 py-0 items-center flex-grow"], {
   },
 });
 
-const listItemStyles = cva(
-  ["group relative box-border justify-start flex flex-row w-full"],
-  {
-    variants: {
-      variant: {
-        default: ["hover:bg-primary-500/10"],
-        warning: ["group-hover:bg-warning-500/10"],
-        //default: [""],
-        //warning: [""],
-      },
-      border: {
-        none: [""],
-        black: [
-          "border-2 border-spacing-2 [&:not(:last-of-type)]:border-b-0 border-black",
-        ],
-        red: [
-          "border-2 border-spacing-2 [&:not(:last-of-type)]:border-b-0 border-red",
-        ],
-      },
+const listItemStyles = cva(["group relative box-border justify-start w-full"], {
+  variants: {
+    variant: {
+      default: ["hover:bg-primary-500/10"],
+      warning: ["group-hover:bg-warning-500/10"],
+      //default: [""],
+      //warning: [""],
     },
-    defaultVariants: {
-      variant: "default",
-      border: "black",
+    border: {
+      none: [""],
+      black: [
+        "border-2 border-spacing-2 [&:not(:last-of-type)]:border-b-0 border-black",
+      ],
+      red: [
+        "border-2 border-spacing-2 [&:not(:last-of-type)]:border-b-0 border-red",
+      ],
     },
-  }
-);
+  },
+  defaultVariants: {
+    variant: "default",
+    border: "black",
+  },
+});
 
 export const ListItem = ({
   href,
@@ -59,9 +57,10 @@ export const ListItem = ({
   children,
   variant,
   border,
+  innerClassName,
   className,
 }: ListItemProps) => {
-  const cn = clsx(listItemInnerStyles({ variant }), className);
+  const cn = clsx(listItemInnerStyles({ variant }), innerClassName);
   const child = href ? (
     <Link
       //{...props}
@@ -75,5 +74,9 @@ export const ListItem = ({
     <div className={cn}>{children}</div>
   );
 
-  return <li className={listItemStyles({ variant, border })}>{child}</li>;
+  return (
+    <li className={clsx(listItemStyles({ variant, border }), className)}>
+      {child}
+    </li>
+  );
 };

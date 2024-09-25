@@ -21,7 +21,13 @@ export const Prop = ({
         className
       )}
     >
-      <h4 className="capitalize text-black text-md font-bold">{label}</h4>
+      <h4
+        className={clsx("capitalize text-black text-md font-bold", {
+          hidden: !label,
+        })}
+      >
+        {label}
+      </h4>
       <div className="sm:col-span-2 indent-2">
         {children ?? (
           <>
