@@ -9,7 +9,7 @@ export type RadioGroupProps = { options?: Record<string, any> } & VariantProps<
 > &
   InputProps;
 const radioGroupStyles = cva(
-  "grid grid-flow-col auto-cols-auto border border-black",
+  "grid grid-flow-col auto-cols-auto border border-black w-full",
   {
     variants: {
       variant: {

@@ -80,7 +80,7 @@ export function AdminSettings({
             <div>
               <input type="hidden" {...register("userId")} />
               <RadioGroup
-                variant="inline"
+                //variant="inline"
                 {...register("volume")}
                 label="Volume Unit"
                 error={errors.volume}
