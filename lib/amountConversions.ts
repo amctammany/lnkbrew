@@ -62,14 +62,14 @@ export const timeConverters: Record<TimeUnit, Converter> = {
 };
 
 export const gravityConverters: Record<UserGravityPreference, Converter> = {
-  P: 1,
+  P: [(v) => v, (v) => v],
   SG: [
     (v) => 1 + v / (258.6 - (v / 258.2) * 227.1),
     (v) => 1 + v / (258.6 - (v / 258.2) * 227.1),
   ],
 };
 export const colorConverters: Record<UserColorPreference, Converter> = {
-  L: 1,
+  L: [(v) => v, (v) => v],
   SRM: [(v) => v * 1.35 - 0.6, (v) => (v + 0.6) / 1.35],
 };
 export const percentConverters: Record<string, Converter> = {
@@ -94,6 +94,7 @@ export type UnitTypes =
   | UserGravityPreference
   | UserTemperaturePreference
   | "°Lintner"
+  | "°L"
   | "PPG"
   | "g/mL";
 export const rawConverters: Record<AmountType, any> = {

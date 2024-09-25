@@ -64,7 +64,7 @@ function AmountType({ type, value, options, ...props }: AmountTypeProps) {
       )}
     >
       {options?.map(([k, v]) => (
-        <option key={k} value={v}>
+        <option key={k} value={k}>
           {k}
         </option>
       ))}
@@ -131,26 +131,34 @@ export const AmountField = (props: AmountFieldProps) => {
     const oldUnit = classConverters[amountType][currentUnit];
     const unit = e.currentTarget.value as UnitTypes;
     setCurrentUnit(unit);
+    //console.log(unit);
     //const convertedValue =
     //setBaseValue(convertedValue);
     //const a = oldUnit.from(classConverters[amountType][unit].to(currentAmount));
-    onChange?.(classConverters[amountType][unit].from(currentAmount));
+    //onChange?.(classConverters[amountType][unit].from(currentAmount));
   };
   useEffect(() => {
     //setCurrentAmount(classConverters[amountType]?.[currentUnit]?.to(value));
     setCurrentUnit(unitType);
   }, [unitType]);
   useEffect(() => {
-    //setCurrentAmount(classConverters[amountType]?.[currentUnit]?.to(value));
+    setCurrentAmount(classConverters[amountType]?.[currentUnit]?.to(value));
     //setCurrentUnit(unitType);
-  }, [currentUnit, amountType, value]);
+  }, [isDirty, value, amountType, currentUnit]);
   //console.log({ baseValue, value, currentAmount, amountType, currentUnit });
   return (
     <Label className={clsx("", className)} label={label || name} error={error}>
       <div className={clsx("flex")}>
-        {currentUnit === "LbOz" ? (
-          <LbOzField
-            amountType={amountType}
+        <>
+          <input
+            type="hidden"
+            name={name}
+            value={value}
+            ref={ref}
+            //onChange={changeHidden}
+          />
+
+          <Input
             disabled={disabled || false}
             className={clsx(
               inputStyles({
@@ -161,44 +169,14 @@ export const AmountField = (props: AmountFieldProps) => {
             )}
             type="number"
             step={step || 1}
-            name={name}
-            ref={ref}
-            //{...props}
-            onChange={onChange}
-            onBlur={onBlur}
-            value={currentAmount}
+            //name={name}
             //ref={ref}
+            //{...props}
+            onChange={handleChange}
+            onBlur={onBlur}
+            value={currentAmount ?? 0}
           />
-        ) : (
-          <>
-            <input
-              type="hidden"
-              name={name}
-              value={value}
-              ref={ref}
-              //onChange={changeHidden}
-            />
-
-            <Input
-              disabled={disabled || false}
-              className={clsx(
-                inputStyles({
-                  variant: error ? "error" : variant,
-                  inputSize,
-                }),
-                "flex-grow w-full"
-              )}
-              type="number"
-              step={step || 1}
-              //name={name}
-              //ref={ref}
-              //{...props}
-              onChange={handleChange}
-              onBlur={onBlur}
-              value={currentAmount}
-            />
-          </>
-        )}
+        </>
         <AmountType
           value={currentUnit}
           options={getConversionOptions(amountType)}

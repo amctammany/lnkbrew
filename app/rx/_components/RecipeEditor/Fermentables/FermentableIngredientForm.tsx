@@ -58,6 +58,7 @@ export const FermentableIngredientForm = ({
   }, {} as Record<string, string>);
   const handleChange = (id?: ID) => {
     const { id: _id, ...ferm } = fermentables.find((p) => p.id === id) ?? {};
+    console.log(ferm);
     reset({ ...ferm, fermentableId: _id });
   };
 

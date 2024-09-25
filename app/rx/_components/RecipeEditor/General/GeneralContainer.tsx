@@ -10,14 +10,14 @@ import { ExtendedRecipe } from "@/types/Recipe";
 
 interface GeneralContainerProps {
   recipe: ExtendedRecipe;
-  path?: string[];
-  massUnit?: UserMassPreference;
+  //path?: string[];
+  //massUnit?: UserMassPreference;
 }
 
 export const GeneralContainer: FC<GeneralContainerProps> = ({
   recipe,
-  massUnit,
-  path,
+  //massUnit,
+  //path,
 }) => {
   //const recipe = await getExtendedRecipe({ id: recipeId });
   //const [modalType, modalId] = path ?? [undefined, undefined];

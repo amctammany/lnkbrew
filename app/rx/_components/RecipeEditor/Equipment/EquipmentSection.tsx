@@ -1,3 +1,4 @@
+"use client";
 import React, { FC } from "react";
 import { Section } from "@/components/Section/Section";
 import { Prop } from "@/components/Prop";
