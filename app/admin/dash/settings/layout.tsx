@@ -5,6 +5,7 @@ import { SettingsIcon } from "@/components/Icon/SettingsIcon";
 import { Label } from "@/components/Label";
 import { SideNavLink } from "@/components/Nav";
 import { SideNav } from "@/components/Nav/SideNav";
+import SideNavDropdown from "@/components/Nav/SideNavDropdown";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -19,6 +20,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           <ProfileIcon />
         </Label>
       </SideNavLink>
+      <SideNavDropdown label="Dropdown" className="flex-grow">
+        <SideNavLink href="/admin/dash/settings/defaults" className="flex-grow">
+          <Label text="Defaults">
+            <ProfileIcon />
+          </Label>
+        </SideNavLink>
+      </SideNavDropdown>
     </SideNav>
   );
 }
