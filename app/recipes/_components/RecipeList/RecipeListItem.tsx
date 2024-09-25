@@ -10,7 +10,7 @@ export type RecipeListItemProps = {
 export const RecipeListItem = ({ recipe }: RecipeListItemProps) => {
   return (
     <ListItem key={recipe?.id} href={`/rx/${recipe?.id}`}>
-      <ListItemIcon>
+      <ListItemIcon variant="icon">
         <RecipeIcon />
       </ListItemIcon>
       <ListItemText primary={recipe?.name} secondary={recipe?.description!} />

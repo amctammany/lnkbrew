@@ -13,7 +13,7 @@ export type ListItemProps = VariantProps<typeof listItemStyles> &
     //actions?: React.ReactNode | React.ReactNode[];
     scroll?: boolean;
   };
-const listItemInnerStyles = cva(["px-0 py-0 items-center flex-grow"], {
+const listItemInnerStyles = cva(["px-0 py-0 flex items-center flex-grow"], {
   variants: {
     variant: {
       default: ["hover:bg-primary-500/10"],
@@ -28,7 +28,7 @@ const listItemInnerStyles = cva(["px-0 py-0 items-center flex-grow"], {
 const listItemStyles = cva(["group relative box-border justify-start w-full"], {
   variants: {
     variant: {
-      default: ["hover:bg-primary-500/10"],
+      default: ["hover:bg-primary-500/10 p-2"],
       warning: ["group-hover:bg-warning-500/10"],
       //default: [""],
       //warning: [""],

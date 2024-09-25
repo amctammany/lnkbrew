@@ -1,4 +1,12 @@
-import { ComponentProps, SyntheticEvent, forwardRef } from "react";
+"use client";
+import {
+  ComponentProps,
+  SyntheticEvent,
+  forwardRef,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { Label } from "./Label";
 import { VariantProps, cva } from "class-variance-authority";
 import { SchemaFieldError } from "@/lib/validateSchema";
@@ -11,6 +19,7 @@ export type NumberFieldProps = {
   //defaultValue?: any;
   //error?: SchemaFieldError;
   step?: number;
+  scaleFactor?: number;
   //disabled?: oolean;
   //onChange?: (e: SyntheticEvent) => void;
   //onBlur?: (e: SyntheticEvent) => void;
@@ -48,8 +57,17 @@ export function NumberField({
   inputSize,
   error,
   suffix,
+  defaultValue,
+  value,
+  scaleFactor = 1,
   ...props
 }: NumberFieldProps) {
+  const [val, setVal] = useState(value * scaleFactor);
+  useEffect(() => {
+    const v = typeof value === "number" ? value : parseFloat(value ?? 1);
+    console.log(value, scaleFactor);
+    setVal(v * scaleFactor);
+  }, [value, scaleFactor]);
   return (
     <Label
       //classname={clsx(numberFieldStyles({ variant, size }))}
@@ -67,6 +85,7 @@ export function NumberField({
         error={error}
         variant={variant}
         inputSize={inputSize}
+        value={value}
         {...props}
       />
     </Label>

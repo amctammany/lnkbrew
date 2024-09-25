@@ -1,7 +1,12 @@
 "use client";
 import { UserContext } from "@/app/UserProvider";
 import { IconButton } from "@/components/Button";
-import { AmountField, Autocomplete, Form } from "@/components/Form";
+import {
+  AmountField,
+  Autocomplete,
+  Form,
+  NumberField,
+} from "@/components/Form";
 import { EditIcon } from "@/components/Icon/EditIcon";
 import { SaveIcon } from "@/components/Icon/SaveIcon";
 import { Section } from "@/components/Section";
@@ -109,35 +114,28 @@ export const EquipmentForm = ({ recipe, profiles }: EquipmentFormProps) => {
           />
         </div>
         <div className="lg:col-span-2">
-          <Controller
-            name="mashEfficiency"
-            control={control}
-            defaultValue={70}
-            render={({ field }) => (
-              <AmountField
-                {...field}
-                step={0.1}
-                value={field.value ?? 0}
-                label="Mash Efficiency"
-                amountType="percent"
-              />
-            )}
+          <NumberField
+            {...register("mashEfficiency", {
+              setValueAs: (v) =>
+                (typeof v === "number" ? v : parseFloat(v || "0")) * 100,
+            })}
+            scaleFactor={100}
+            step={0.01}
+            label="Mash Efficiency"
+            suffix="%"
           />
         </div>
+
         <div className="lg:col-span-2">
-          <Controller
-            name="brewEfficiency"
-            control={control}
-            defaultValue={60}
-            render={({ field }) => (
-              <AmountField
-                {...field}
-                step={0.1}
-                value={field.value ?? 0}
-                label="Brew Efficiency"
-                amountType="percent"
-              />
-            )}
+          <NumberField
+            {...register("brewEfficiency", {
+              setValueAs: (v) =>
+                (typeof v === "number" ? v : parseFloat(v || "0")) * 100,
+            })}
+            scaleFactor={100}
+            step={0.01}
+            label="Brew Efficiency"
+            suffix="%"
           />
         </div>
       </div>
