@@ -2,6 +2,7 @@ import { ListItem } from "@/components/List/ListItem";
 import { ListItemActions } from "@/components/List/ListItemActions";
 import { ListItemIcon } from "@/components/List/ListItemIcon";
 import { ListItemText } from "@/components/List/ListItemText";
+import { Prop } from "@/components/Prop";
 import AmountProp from "@/components/Prop/AmountProp";
 import { getRecipeUrl } from "@/lib/utils";
 import { ExtendedHopIngredient } from "@/types/Recipe";
@@ -12,22 +13,25 @@ export type HopIngredientListItemProps = {
 };
 export const HopIngredientListItem = ({ src }: HopIngredientListItemProps) => {
   return (
-    <ListItem border="none" href={getRecipeUrl(src.recipeId, "hops", src.id)}>
+    <ListItem
+      innerClassName="grid grid-cols-8"
+      border="none"
+      href={getRecipeUrl(src.recipeId, "hops", src.id)}
+    >
       <ListItemIcon>
-        <AmountProp unitType="hopMass">{src.amount}</AmountProp>
+        <Prop unit={src.amountType} value={src.amount} />
       </ListItemIcon>
       <ListItemText
-      //primary={src.hop.name}
-      //secondary={src.amount}
+        className="col-span-6 w-full"
+        //primary={src.hop.name}
+        secondary={<span>IBU: {0}</span>}
       >
         <div className="flex-grow">
           {src.hop.name} <i>{src.hop.alpha}%</i>
         </div>
-        <div className="inline-flex">
-          <AmountProp className="w-full" unitType="time">
-            {src.duration}
-          </AmountProp>
-        </div>
+      </ListItemText>
+      <ListItemText>
+        <Prop className="w-full" unit={src.durationType} value={src.duration} />
       </ListItemText>
     </ListItem>
   );
