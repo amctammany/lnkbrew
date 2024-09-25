@@ -8,11 +8,33 @@ const listItemTextStyles = cva(["grid m-auto py-1 px-2 flex-auto"], {
       default: [""],
       warning: ["bg-warning-500"],
     },
+    size: {
+      default: [""],
+      small: [""],
+    },
   },
   defaultVariants: {
     variant: "default",
+    size: "default",
   },
 });
+const listItemTextPrimaryStyles = cva(["block witespace-nowrap"], {
+  variants: {
+    size: {
+      default: [""],
+      small: ["text-sm"],
+    },
+    variant: {
+      default: [""],
+      warning: ["bg-warning-500"],
+    },
+  },
+  defaultVariants: {
+    variant: "default",
+    size: "default",
+  },
+});
+
 export type ListItemTextProps = VariantProps<typeof listItemTextStyles> &
   ComponentProps<"div"> & {
     primary?: string | React.ReactNode;
@@ -23,12 +45,13 @@ export const ListItemText = ({
   children,
   primary,
   secondary,
+  size,
   variant,
   className,
 }: ListItemTextProps) => {
   return (
-    <div className={clsx(listItemTextStyles({ variant }), className)}>
-      <div className="block text-lg witespace-nowrap">
+    <div className={clsx(listItemTextStyles({ variant, size }), className)}>
+      <div className={listItemTextPrimaryStyles({ variant, size })}>
         {primary || children}
       </div>
       {secondary && (

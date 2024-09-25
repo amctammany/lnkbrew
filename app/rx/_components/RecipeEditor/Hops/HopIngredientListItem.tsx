@@ -18,19 +18,17 @@ export const HopIngredientListItem = ({ src }: HopIngredientListItemProps) => {
       border="none"
       href={getRecipeUrl(src.recipeId, "hops", src.id)}
     >
-      <ListItemText className="w-full text-center">
-        <Prop className="text-sm" unit={src.amountType} value={src.amount} />
+      <ListItemText size="small" className="w-full text-center">
+        <Prop unit={src.amountType} value={src.amount} />
       </ListItemText>
       <ListItemText
         className="col-span-3 lg:col-span-6 w-full"
-        //primary={src.hop.name}
+        primary={src.hop.name}
         secondary={<span>IBU: {0}</span>}
-      >
-        <div className="flex-grow">{src.hop.name}</div>
-      </ListItemText>
-      <ListItemText>
+      />
+      <ListItemText size="small">
         <Prop
-          className="text-sm w-full"
+          //className="text-sm "
           unit={src.durationType}
           value={src.duration}
         />
