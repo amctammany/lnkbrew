@@ -451,7 +451,7 @@ model HopIngredient {
   usage        HopIngredientUsage
   amountType   MassUnit
   temperature  Float?
-  type         HopIngredientType
+  type         HopIngredientType  @default(Pellet)
   duration     Float
   durationType TimeUnit
   hopId        String
