@@ -19,6 +19,7 @@ export const Temperature: Story = {
     value: 2,
     amountType: "temperature",
     amountUnit: "F",
+    // eslint-disable-next-line no-console
     onChange: (v) => console.log(v),
   },
 };

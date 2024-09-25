@@ -38,7 +38,6 @@ export function AdminSettings({
   waterProfiles,
   equipmentProfiles,
 }: AdminSettingsProps) {
-  console.log(src);
   const {
     register,
     control,

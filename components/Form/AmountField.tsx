@@ -50,10 +50,9 @@ export type AmountTypeProps = ComponentProps<"select"> & {
 };
 
 function AmountType({ type, value, options, ...props }: AmountTypeProps) {
-  const selected = options?.findIndex(
-    (o) => o[0].toString() === value?.toString()
-  );
-  console.log(options, selected, value);
+  //const selected = options?.findIndex(
+  //(o) => o[0].toString() === value?.toString()
+  //);
   return options?.length! > 1 ? (
     <select
       {...props}

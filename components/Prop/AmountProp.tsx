@@ -30,7 +30,6 @@ export function AmountProp({
   const unit1 = userPrefs[unitType];
   const converters = getConverters(userPrefs);
   const converter = converters[unitType]; //[unit ?? Object.keys(converters[unitType])[0]]; //unitType ? converters[unitType] : (v: any) => v;
-  console.log(unitType, unit1, converter);
 
   const convertedValue =
     typeof converter === "function"

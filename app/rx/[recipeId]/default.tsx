@@ -1,8 +1,8 @@
+import { ExtendedRecipe } from "@/types/Recipe";
 import RecipeEditor from "../_components/RecipeEditor/RecipeEditor";
 
-export default function Default({ params }: { params: { path?: any } }) {
+export default function Default() {
   //return null;
-  console.log(params);
-  const recipe = {} as any;
-  return <RecipeEditor recipe={recipe} path={params.path} />;
+  const recipe = {} as ExtendedRecipe;
+  return <RecipeEditor recipe={recipe} />;
 }

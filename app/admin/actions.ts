@@ -165,7 +165,6 @@ export async function updateUserFavorite(
 }
 export async function updateUserPreferences(formData: FormData) {
   const r = preferenceSchema.parse(formData);
-  console.log(r);
   const { errors, userId, ...data } = validateSchema(
     formData,
     preferenceSchema
@@ -174,7 +173,6 @@ export async function updateUserPreferences(formData: FormData) {
     //console.error(errors);
     return Promise.resolve({ errors });
   }
-  console.log({ userId, data });
   const update = {
     ...data,
   };
