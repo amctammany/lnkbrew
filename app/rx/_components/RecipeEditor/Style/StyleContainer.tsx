@@ -14,7 +14,7 @@ interface StyleContainerProps {
   massUnit?: UserMassPreference;
 }
 
-export const StyleContainer: FC<StyleContainerProps> = async ({
+export const StyleContainer: FC<StyleContainerProps> = ({
   recipe,
   massUnit,
   path,

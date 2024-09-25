@@ -14,13 +14,13 @@ interface GeneralContainerProps {
   massUnit?: UserMassPreference;
 }
 
-export const GeneralContainer: FC<GeneralContainerProps> = async ({
+export const GeneralContainer: FC<GeneralContainerProps> = ({
   recipe,
   massUnit,
   path,
 }) => {
   //const recipe = await getExtendedRecipe({ id: recipeId });
-  const [modalType, modalId] = path ?? [undefined, undefined];
+  //const [modalType, modalId] = path ?? [undefined, undefined];
   return (
     <div className="md:col-span-2">
       <GeneralSection recipe={recipe} />
