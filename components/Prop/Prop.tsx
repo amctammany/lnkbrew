@@ -8,20 +8,27 @@ export type PropProps = VariantProps<typeof propStyles> & {
   className?: string;
   children?: React.ReactNode;
 };
-const propStyles = cva(["relative flex gap-2 sm:grid sm:grid-cols-2 p-2 "], {
-  variants: {
-    variant: {
-      default: ["border-b-2"],
+const propStyles = cva(
+  [
+    "relative flex gap-2",
+    "p-2",
+    //" sm:grid sm:grid-flow-row sm:grid-cols-2 md:grid-cols-3 p-2 lg:grid-cols-4",
+  ],
+  {
+    variants: {
+      variant: {
+        default: ["border-b-2"],
+      },
     },
-  },
-  defaultVariants: {
-    variant: "default",
-  },
-});
-const propLabelStyles = cva(["capitalize text-black text-md font-bold"], {
+    defaultVariants: {
+      variant: "default",
+    },
+  }
+);
+const propLabelStyles = cva(["block capitalize text-black text-md font-bold"], {
   variants: {
     variant: {
-      default: [],
+      default: ["whitespace-nowrap flex-shrink"],
     },
   },
   defaultVariants: {
@@ -29,16 +36,22 @@ const propLabelStyles = cva(["capitalize text-black text-md font-bold"], {
   },
 });
 
-const propInnerStyles = cva(["sm:col-span-2 md:indent-2 my-auto"], {
-  variants: {
-    variant: {
-      default: ["w-full text-right md:text-center"],
+const propInnerStyles = cva(
+  [
+    //"sm:col-span-1 md:col-span-2 lg:col-span-3 md:indent-2 my-auto",
+    "flex-grow",
+  ],
+  {
+    variants: {
+      variant: {
+        default: ["w-full text-right "],
+      },
     },
-  },
-  defaultVariants: {
-    variant: "default",
-  },
-});
+    defaultVariants: {
+      variant: "default",
+    },
+  }
+);
 
 export const Prop = ({
   label,
@@ -59,10 +72,10 @@ export const Prop = ({
       </h4>
       <div className={propInnerStyles({ variant })}>
         {children ?? (
-          <div className="w-full my-auto">
+          <>
             <span className="pr-1">{value}</span>
             <span>{unit}</span>
-          </div>
+          </>
         )}
       </div>
     </div>
