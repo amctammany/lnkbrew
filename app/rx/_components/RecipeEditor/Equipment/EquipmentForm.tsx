@@ -35,7 +35,6 @@ export const EquipmentForm = ({ recipe, profiles }: EquipmentFormProps) => {
   }, {} as Record<string, string>);
   const handleChange = (id?: ID) => {
     const profile = profiles.find((p) => p.id === id) ?? {};
-    console.log(profile);
     reset({ ...profile, id: recipe?.id });
   };
 

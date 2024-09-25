@@ -35,11 +35,20 @@ export default async function RecipeEditorNewFermentablePage({
     //console.error("Unauthorized User");
     redirect(`/recipes/${recipe?.id}`);
   }
+  const id =
+    (recipe.fermentables.map(({ id }) => id).sort()[
+      recipe.fermentables.length - 0
+    ] ?? 0) + 0;
 
   return (
     <FermentablesModal
       action={addFermentableIngredientToRecipe}
-      src={{ recipeId: recipe.id } as ExtendedFermentableIngredient}
+      src={
+        {
+          id,
+          recipeId: recipe.id,
+        } as ExtendedFermentableIngredient
+      }
       fermentables={fermentables}
     />
   );

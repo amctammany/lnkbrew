@@ -65,13 +65,10 @@ export const HopIngredientForm = ({
   >({
     defaultValues: src,
   });
-  const options = hops.reduce(
-    (acc, profile) => {
-      acc[profile.id] = `${profile.name}`;
-      return acc;
-    },
-    {} as Record<string, string>
-  );
+  const options = hops.reduce((acc, profile) => {
+    acc[profile.id] = `${profile.name}`;
+    return acc;
+  }, {} as Record<string, string>);
   const handleChange = (id?: ID) => {
     const {
       id: hopId,
@@ -109,7 +106,7 @@ export const HopIngredientForm = ({
             {...register("hopId")}
             options={options}
             handleChange={handleChange}
-            value={src?.hopId}
+            value={src?.hopId ?? ""}
           />
         </div>
         <div className="lg:col-span-2">

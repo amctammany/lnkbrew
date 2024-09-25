@@ -32,11 +32,13 @@ export default async function RecipeEditorNewHopPage({
     //console.error("Unauthorized User");
     redirect(`/recipes/${recipe?.id}`);
   }
+  const id =
+    (recipe.hops.map(({ id }) => id).sort()[recipe.hops.length - 1] ?? 0) + 1;
 
   return (
     <HopsModal
       action={addHopIngredientToRecipe}
-      src={{ recipeId: recipe?.id } as ExtendedHopIngredient}
+      src={{ id, recipeId } as ExtendedHopIngredient}
       hops={hops}
     />
   );

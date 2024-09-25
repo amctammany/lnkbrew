@@ -17,13 +17,14 @@ import { Controller, useForm } from "react-hook-form";
 import RemoveFermentableIngredientButton from "./RemoveFermentableIngredientButton";
 import { TypedAmountField } from "@/components/Form/TypedAmountField";
 
-type FermentableIngredientFooterProps = { id?: number };
+type FermentableIngredientFooterProps = { id?: number; recipeId?: string };
 const FermentableIngredientFooter = ({
+  recipeId,
   id,
 }: FermentableIngredientFooterProps) => {
   return (
     <Toolbar>
-      <RemoveFermentableIngredientButton id={id} />
+      <RemoveFermentableIngredientButton recipeId={recipeId} id={id} />
       <IconButton type="submit" Icon={SaveIcon}>
         Save
       </IconButton>
@@ -58,7 +59,6 @@ export const FermentableIngredientForm = ({
   }, {} as Record<string, string>);
   const handleChange = (id?: ID) => {
     const { id: _id, ...ferm } = fermentables.find((p) => p.id === id) ?? {};
-    console.log(ferm);
     reset({ ...ferm, fermentableId: _id });
   };
 
@@ -71,7 +71,9 @@ export const FermentableIngredientForm = ({
           Save
         </IconButton>
       }
-      footer={<FermentableIngredientFooter id={src?.id} />}
+      footer={
+        <FermentableIngredientFooter recipeId={src?.recipeId} id={src?.id} />
+      }
     >
       <div className="grid gap-2 md:gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
         <input type="hidden" {...register("id")} />
@@ -82,11 +84,11 @@ export const FermentableIngredientForm = ({
             //isNumeric
             options={options}
             handleChange={handleChange}
-            value={src?.fermentableId ?? undefined}
+            value={src?.fermentableId ?? ""}
           />
         </div>
 
-        <div className="lg:col-span-2">
+        <div className="lg:col-span-3">
           <TypedAmountField
             label="Amount"
             amountType="fermentableMass"
@@ -94,7 +96,7 @@ export const FermentableIngredientForm = ({
             unitProps={register("amountType")}
           />
         </div>
-        <div className="lg:col-span-2">
+        <div className="lg:col-span-3">
           <Select {...register("usage")} options={FermentableIngredientUsage} />
         </div>
         <div className="lg:col-span-2">
@@ -105,7 +107,7 @@ export const FermentableIngredientForm = ({
             render={({ field }) => (
               <AmountField
                 {...field}
-                value={field.value ?? 0}
+                value={field.value ?? 1}
                 step={0.01}
                 label="Color"
                 amountType="color"

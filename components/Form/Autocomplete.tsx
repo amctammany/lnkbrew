@@ -159,7 +159,7 @@ export function Autocomplete({
           disabled={disabled}
           className={autocompleteStyles({ size, variant })}
           //className="block w-full disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none"
-          value={query?.toString()}
+          value={query?.toString() ?? ""}
           onKeyDown={onKeyDown}
           onBlur={onBlur}
           onChange={handleChangeListener}

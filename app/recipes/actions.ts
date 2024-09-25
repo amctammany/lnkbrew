@@ -52,6 +52,7 @@ const removeSchema = zfd.formData({
 
 const removeIngredientSchema = zfd.formData({
   id: zfd.numeric(z.number()),
+  recipeId: zfd.text(z.string()),
 });
 export async function removeRecipe(formData: FormData) {
   const { id } = removeSchema.parse(formData);
@@ -107,7 +108,7 @@ export async function updateRecipe(formData: FormData) {
   redirect(getRecipeUrl(res.id));
 }
 const hopIngredientSchema = zfd.formData({
-  id: zfd.numeric(z.number().optional()),
+  id: zfd.numeric(z.number()),
   recipeId: zfd.text(z.string()),
   hopId: zfd.text(z.string()),
   amount: zfd.numeric(z.number().gte(0).default(1)),
@@ -132,12 +133,14 @@ export async function addHopIngredientToRecipe(formData: FormData) {
   //redirect(`/recipes/${res.recipeId}/edit`);
 }
 export async function updateHopIngredient(formData: FormData) {
-  const { errors, ...data } = validateSchema(formData, hopIngredientSchema);
-  if (errors) return { errors };
+  const { errors, id, recipeId, ...data } = validateSchema(
+    formData,
+    hopIngredientSchema
+  );
   if (errors) return Promise.resolve({ errors });
   //const data = hopIngredientSchema.parse(formData);
   const res = await prisma.hopIngredient.update({
-    where: { id: data.id },
+    where: { recipeId_id: { id, recipeId } },
     data,
     include: { recipe: true },
   });
@@ -145,10 +148,10 @@ export async function updateHopIngredient(formData: FormData) {
   //return updateRecipeVitals(res.recipeId);
   //redirect(`/recipes/${res.recipeId}/edit`);
 }
-export async function removeHopIngredientById(id: number) {
+export async function removeHopIngredientById(recipeId: string, id: number) {
   //const { id } = removeIngredientSchema.parse(formData);
   const res = await prisma.hopIngredient.delete({
-    where: { id },
+    where: { recipeId_id: { id, recipeId } },
     //include: { recipe: true },
   });
   redirect(getRecipeUrl(res.recipeId));
@@ -157,9 +160,9 @@ export async function removeHopIngredientById(id: number) {
 }
 
 export async function removeHopIngredient(formData: FormData) {
-  const { id } = removeIngredientSchema.parse(formData);
+  const { id, recipeId } = removeIngredientSchema.parse(formData);
   const res = await prisma.hopIngredient.delete({
-    where: { id },
+    where: { recipeId_id: { id, recipeId } },
     include: { recipe: true },
   });
   redirect(getRecipeUrl(res.recipeId));
@@ -168,7 +171,7 @@ export async function removeHopIngredient(formData: FormData) {
 }
 
 const fermentableIngredientSchema = zfd.formData({
-  id: zfd.numeric(z.number().optional()),
+  id: zfd.numeric(z.number()),
   recipeId: zfd.text(z.string()),
   fermentableId: zfd.text(z.string()),
   usage: z
@@ -176,6 +179,8 @@ const fermentableIngredientSchema = zfd.formData({
     .default(FermentableIngredientUsage.Mash),
   amount: zfd.numeric(z.number().gt(0).default(1)),
   amountType: z.nativeEnum(MassUnit).default(MassUnit.Lb),
+  color: zfd.numeric(z.number().gt(0).default(1)),
+  potential: zfd.numeric(z.number().gt(0).default(1)),
 });
 export async function addFermentableIngredientToRecipe(formData: FormData) {
   const { errors, ...data } = validateSchema(
@@ -192,13 +197,13 @@ export async function addFermentableIngredientToRecipe(formData: FormData) {
   //redirect(`/recipes/${res.recipeId}/edit`);
 }
 export async function updateFermentableIngredient(formData: FormData) {
-  const { errors, ...data } = validateSchema(
+  const { errors, recipeId, id, ...data } = validateSchema(
     formData,
     fermentableIngredientSchema
   );
   if (errors) return Promise.resolve({ errors });
   const res = await prisma.fermentableIngredient.update({
-    where: { id: data.id },
+    where: { recipeId_id: { id, recipeId } },
     //include: { recipe: true },
     data,
   });
@@ -206,10 +211,13 @@ export async function updateFermentableIngredient(formData: FormData) {
   //return updateRecipeVitals(res.recipeId);
   //redirect(`/recipes/${res.recipeId}/edit`);
 }
-export async function removeFermentableIngredientById(id: number) {
+export async function removeFermentableIngredientById(
+  recipeId: string,
+  id: number
+) {
   //const { id } = removeIngredientSchema.parse(formData);
   const res = await prisma.fermentableIngredient.delete({
-    where: { id },
+    where: { recipeId_id: { id, recipeId } },
     //include: { recipe: true },
   });
   redirect(getRecipeUrl(res.recipeId));
@@ -217,9 +225,9 @@ export async function removeFermentableIngredientById(id: number) {
   //redirect(`/recipes/${res.recipeId}/edit`);
 }
 export async function removeFermentableIngredient(formData: FormData) {
-  const { id } = removeIngredientSchema.parse(formData);
+  const { id, recipeId } = removeIngredientSchema.parse(formData);
   const res = await prisma.fermentableIngredient.delete({
-    where: { id },
+    where: { recipeId_id: { id, recipeId } },
     include: { recipe: true },
   });
   redirect(getRecipeUrl(res.recipeId));

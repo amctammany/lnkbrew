@@ -437,7 +437,7 @@ enum HopIngredientUsage {
 }
 
 model HopIngredient {
-  id           Int                @id @default(autoincrement())
+  id           Int                @default(autoincrement())
   recipeId     String
   recipe       Recipe             @relation(fields: [recipeId], references: [id])
   amount       Float
@@ -448,6 +448,8 @@ model HopIngredient {
   hopId        String
   hop          Hop                @relation(fields: [hopId], references: [id])
   alpha        Float?
+
+  @@id([recipeId, id])
 }
 
 enum FermentableIngredientUsage {
@@ -458,7 +460,7 @@ enum FermentableIngredientUsage {
 }
 
 model FermentableIngredient {
-  id            Int                        @id @default(autoincrement())
+  id            Int                        @default(autoincrement())
   recipeId      String
   recipe        Recipe                     @relation(fields: [recipeId], references: [id])
   usage         FermentableIngredientUsage
@@ -470,4 +472,6 @@ model FermentableIngredient {
   fermentable   Fermentable                @relation(fields: [fermentableId], references: [id])
   color         Float?
   potential     Float?
+
+  @@id([recipeId, id])
 }
