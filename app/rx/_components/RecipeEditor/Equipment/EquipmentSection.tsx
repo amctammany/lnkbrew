@@ -29,37 +29,43 @@ export const EquipmentSection: FC<EquipmentSectionProps> = ({ recipe }) => {
         </>
       }
     >
-      <Prop label="Profile Name" value={recipe?.equipmentProfile?.name} />
-      <AmountProp
-        label="Batch Volume"
-        value={recipe?.batchVolume}
-        unitType="volume"
-      />
-      <AmountProp
-        label="Boil Volume"
-        value={recipe?.boilVolume}
-        unitType="volume"
-        precision={0}
-      />
-      <AmountProp
-        label="Boil Time"
-        value={recipe?.boilTime}
-        unitType="time"
-        precision={0}
-      />
+      <div className="grid grid-cols-2">
+        <Prop
+          className="col-span-2"
+          label="Profile Name"
+          value={recipe?.equipmentProfile?.name}
+        />
+        <AmountProp
+          label="Batch Volume"
+          value={recipe?.batchVolume}
+          unitType="volume"
+        />
+        <AmountProp
+          label="Boil Volume"
+          value={recipe?.boilVolume}
+          unitType="volume"
+          precision={0}
+        />
+        <AmountProp
+          label="Boil Time"
+          value={recipe?.boilTime}
+          unitType="time"
+          precision={0}
+        />
 
-      <AmountProp
-        label="Mash Efficiency"
-        value={recipe?.mashEfficiency}
-        unitType="percent"
-        precision={0}
-      />
-      <AmountProp
-        label="Brew Efficiency"
-        value={recipe?.brewEfficiency}
-        unitType="percent"
-        precision={0}
-      />
+        <AmountProp
+          label="Mash Efficiency"
+          value={recipe?.mashEfficiency}
+          unitType="percent"
+          precision={0}
+        />
+        <AmountProp
+          label="Brew Efficiency"
+          value={recipe?.brewEfficiency}
+          unitType="percent"
+          precision={0}
+        />
+      </div>
     </Section>
   );
 };
