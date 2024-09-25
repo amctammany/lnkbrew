@@ -123,13 +123,10 @@ function makeClassConverter(src: Converter): ConverterClass {
   return { to: (v: number) => v * src, from: (v: number) => v / src };
 }
 function makeClassConverters(src: Record<UnitTypes, Converter>) {
-  return Object.entries(src).reduce(
-    (acc, [k, v]) => {
-      acc[k as UnitTypes] = makeClassConverter(v);
-      return acc;
-    },
-    {} as Record<UnitTypes, ConverterClass>
-  );
+  return Object.entries(src).reduce((acc, [k, v]) => {
+    acc[k as UnitTypes] = makeClassConverter(v);
+    return acc;
+  }, {} as Record<UnitTypes, ConverterClass>);
 }
 export const classConverters = Object.entries(rawConverters).reduce(
   (acc, [k, raw]) => {

@@ -42,7 +42,7 @@ export function AmountProp({
       ? converter(value ?? children)
       : (value ?? (children || "0")) * converter
   );
-  const [currentUnit, setCurrentUnit] = useState();
+  const [currentUnit, setCurrentUnit] = useState(unit);
   useEffect(() => {
     setCurrentAmount(
       typeof converter === "function"

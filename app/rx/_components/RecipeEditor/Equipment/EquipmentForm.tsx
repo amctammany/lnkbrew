@@ -1,4 +1,5 @@
 "use client";
+import { UserContext } from "@/app/UserProvider";
 import { IconButton } from "@/components/Button";
 import { AmountField, Autocomplete, Form } from "@/components/Form";
 import { EditIcon } from "@/components/Icon/EditIcon";
@@ -7,6 +8,7 @@ import { Section } from "@/components/Section";
 import { ID } from "@/types/App";
 import { ExtendedRecipe } from "@/types/Recipe";
 import { EquipmentProfile } from "@prisma/client";
+import { useContext } from "react";
 import { Controller, useForm } from "react-hook-form";
 
 export const EquipmentFormContainer = ({
@@ -23,16 +25,14 @@ export type EquipmentFormProps = {
   profiles: EquipmentProfile[];
 };
 export const EquipmentForm = ({ recipe, profiles }: EquipmentFormProps) => {
+  const userPrefs = useContext(UserContext);
   const { control, register, reset } = useForm<ExtendedRecipe>({
     defaultValues: recipe as ExtendedRecipe,
   });
-  const options = profiles.reduce(
-    (acc, profile) => {
-      acc[profile.id] = `${profile.name}`;
-      return acc;
-    },
-    {} as Record<string, string>
-  );
+  const options = profiles.reduce((acc, profile) => {
+    acc[profile.id] = `${profile.name}`;
+    return acc;
+  }, {} as Record<string, string>);
   const handleChange = (id?: ID) => {
     const profile = profiles.find((p) => p.id === id) ?? {};
     reset({ ...profile, id: recipe?.id });
@@ -71,6 +71,7 @@ export const EquipmentForm = ({ recipe, profiles }: EquipmentFormProps) => {
                 step={0.01}
                 label="Batch Volume"
                 amountType="volume"
+                amountUnit={userPrefs.volume}
               />
             )}
           />

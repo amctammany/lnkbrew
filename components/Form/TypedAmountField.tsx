@@ -18,10 +18,17 @@ import {
   useEffect,
   useState,
 } from "react";
-import { ControllerRenderProps } from "react-hook-form";
+import {
+  ControllerRenderProps,
+  FieldValue,
+  FieldValues,
+  UseFormRegister,
+  UseFormRegisterReturn,
+} from "react-hook-form";
 import { cva } from "class-variance-authority";
 import { LbOzField } from "./LbOzField";
 import { UserContext } from "@/app/UserProvider";
+import { NumberField } from "./NumberField";
 
 export const amountFieldStyles = cva("input", {
   variants: {
@@ -78,17 +85,23 @@ function AmountType({ type, value, options, ...props }: AmountTypeProps) {
   );
 }
 
-export type AmountFieldProps = {
+export type TypedAmountFieldProps<T extends FieldValues> = {
   amountType: _AmountType;
   amountUnit?: UnitTypes;
-  precision?: number;
   isDirty?: boolean;
-} & InputProps &
-  Partial<ControllerRenderProps>;
-export const AmountField = (props: AmountFieldProps) => {
+  fieldProps: UseFormRegisterReturn<
+    T[keyof T] extends string ? T[keyof T] : never
+  >;
+  unitProps: UseFormRegisterReturn<
+    T[keyof T] extends string ? T[keyof T] : never
+  >;
+} & InputProps;
+//Partial<ControllerRenderProps>;
+export const TypedAmountField = function <T extends FieldValues>(
+  props: TypedAmountFieldProps<T>
+) {
   const {
     className,
-    precision = 1,
     disabled,
     label,
     step,
@@ -100,23 +113,23 @@ export const AmountField = (props: AmountFieldProps) => {
     amountUnit,
     value,
     isDirty,
-
+    fieldProps,
+    unitProps,
     ref,
     onChange,
     onBlur,
   } = props;
-  const userPrefs = useContext(UserContext);
-  const unitType = userPrefs[amountType] as UnitTypes;
+  //const userPrefs = useContext(UserContext);
+  //const unitType = userPrefs[amountType] as UnitTypes;
   //console.log(userPrefs, amountType, unitType);
-  const converters = getConverters(userPrefs);
-  const converter = converters[amountType];
+  //const converters = getConverters(userPrefs);
   //
   //const [baseValue, setBaseValue] = useState<number>(value);
   const [currentUnit, setCurrentUnit] = useState<UnitTypes>(
     amountUnit ?? (getConversionOptions(amountType)[0][1] as UnitTypes)
   );
   const [currentAmount, setCurrentAmount] = useState<number>(
-    classConverters[amountType][currentUnit]?.to(value) ?? value
+    classConverters[amountType][currentUnit]?.from(value) ?? value
   );
   const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     const amt = parseFloat(e.currentTarget.value);
@@ -124,7 +137,7 @@ export const AmountField = (props: AmountFieldProps) => {
     //console.log(rawConverters[amountType]);
     const convertedValue = classConverters[amountType][currentUnit].from(amt); //* amt;
     //setBaseValue(convertedValue);
-    onChange?.(convertedValue.toFixed(precision));
+    //onChange?.(convertedValue);
   };
 
   const handleSelect: ChangeEventHandler<HTMLSelectElement> = (e) => {
@@ -134,24 +147,19 @@ export const AmountField = (props: AmountFieldProps) => {
     //const convertedValue =
     //setBaseValue(convertedValue);
     //const a = oldUnit.from(classConverters[amountType][unit].to(currentAmount));
-    onChange?.(classConverters[amountType][unit].from(currentAmount));
+    //onChange?.(classConverters[amountType][unit].from(currentAmount));
   };
-  useEffect(() => {
-    //setCurrentAmount(classConverters[amountType]?.[currentUnit]?.to(value));
-    setCurrentUnit(unitType);
-  }, [unitType]);
-  useEffect(() => {
-    //setCurrentAmount(classConverters[amountType]?.[currentUnit]?.to(value));
-    //setCurrentUnit(unitType);
-  }, [currentUnit, amountType, value]);
+  //useEffect(() => {
+  //setCurrentAmount(classConverters[amountType]?.[unitType]?.to(value));
+  //setCurrentUnit(unitType);
+  //}, [unitType, amountType, value, setCurrentUnit]);
   //console.log({ baseValue, value, currentAmount, amountType, currentUnit });
   return (
     <Label className={clsx("", className)} label={label || name} error={error}>
       <div className={clsx("flex")}>
-        {currentUnit === "LbOz" ? (
-          <LbOzField
-            amountType={amountType}
-            disabled={disabled || false}
+        <>
+          <Input
+            //disabled={disabled || false}
             className={clsx(
               inputStyles({
                 variant: error ? "error" : variant,
@@ -159,51 +167,15 @@ export const AmountField = (props: AmountFieldProps) => {
               }),
               "flex-grow w-full"
             )}
-            type="number"
-            step={step || 1}
-            name={name}
-            ref={ref}
-            //{...props}
-            onChange={onChange}
-            onBlur={onBlur}
-            value={currentAmount}
-            //ref={ref}
+            {...fieldProps}
           />
-        ) : (
-          <>
-            <input
-              type="hidden"
-              name={name}
-              value={value}
-              ref={ref}
-              //onChange={changeHidden}
-            />
-
-            <Input
-              disabled={disabled || false}
-              className={clsx(
-                inputStyles({
-                  variant: error ? "error" : variant,
-                  inputSize,
-                }),
-                "flex-grow w-full"
-              )}
-              type="number"
-              step={step || 1}
-              //name={name}
-              //ref={ref}
-              //{...props}
-              onChange={handleChange}
-              onBlur={onBlur}
-              value={currentAmount}
-            />
-          </>
-        )}
+        </>
         <AmountType
-          value={currentUnit}
+          //value={currentUnit}
           options={getConversionOptions(amountType)}
-          onChange={handleSelect}
+          //onChange={handleSelect}
           className="flex-shrink grid items-center align-middle justify-center"
+          {...unitProps}
         />
       </div>
     </Label>

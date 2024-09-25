@@ -15,6 +15,7 @@ import {
 } from "@prisma/client";
 import { Controller, useForm } from "react-hook-form";
 import RemoveFermentableIngredientButton from "./RemoveFermentableIngredientButton";
+import { TypedAmountField } from "@/components/Form/TypedAmountField";
 
 type FermentableIngredientFooterProps = { id?: number };
 const FermentableIngredientFooter = ({
@@ -51,13 +52,10 @@ export const FermentableIngredientForm = ({
   const { control, register, reset } = useForm<FermentableIngredient>({
     defaultValues: src,
   });
-  const options = fermentables.reduce(
-    (acc, profile) => {
-      acc[profile.id] = `${profile.name}`;
-      return acc;
-    },
-    {} as Record<string, string>
-  );
+  const options = fermentables.reduce((acc, profile) => {
+    acc[profile.id] = `${profile.name}`;
+    return acc;
+  }, {} as Record<string, string>);
   const handleChange = (id?: ID) => {
     const { id: _id, ...ferm } = fermentables.find((p) => p.id === id) ?? {};
     reset({ ...ferm, fermentableId: _id });
@@ -86,21 +84,13 @@ export const FermentableIngredientForm = ({
             value={src?.fermentableId ?? undefined}
           />
         </div>
+
         <div className="lg:col-span-2">
-          <Controller
-            name="amount"
-            control={control}
-            defaultValue={0}
-            render={({ field }) => (
-              <AmountField
-                {...field}
-                value={field.value ?? 0}
-                step={0.01}
-                label="Amount"
-                amountType="fermentableMass"
-                //amountUnit="LbOz"
-              />
-            )}
+          <TypedAmountField
+            label="Amount"
+            amountType="fermentableMass"
+            fieldProps={register("amount")}
+            unitProps={register("amountType")}
           />
         </div>
         <div className="lg:col-span-2">
@@ -143,3 +133,22 @@ export const FermentableIngredientForm = ({
   );
 };
 export default FermentableIngredientForm;
+/**
+ *        <div className="lg:col-span-2">
+          <Controller
+            name="amount"
+            control={control}
+            defaultValue={0}
+            render={({ field }) => (
+              <AmountField
+                {...field}
+                value={field.value ?? 0}
+                step={0.01}
+                label="Amount"
+                amountType="fermentableMass"
+                //amountUnit="LbOz"
+              />
+            )}
+          />
+        </div>
+ */

@@ -2,6 +2,7 @@ import { getRecipe } from "@/app/recipes/queries";
 import { ListItem } from "@/components/List/ListItem";
 import { ListItemIcon } from "@/components/List/ListItemIcon";
 import { ListItemText } from "@/components/List/ListItemText";
+import { Prop } from "@/components/Prop";
 import AmountProp from "@/components/Prop/AmountProp";
 import { getRecipeUrl } from "@/lib/utils";
 import { ExtendedFermentableIngredient } from "@/types/Recipe";
@@ -20,7 +21,7 @@ export const FermentableIngredientListItem = ({
       //href={`/fermentableIngredients/${fermentableIngredient.id}`}
     >
       <ListItemIcon>
-        <AmountProp unitType="fermentableMass" value={src.amount} />
+        <Prop value={src.amount} unit={src.amountType} />
       </ListItemIcon>
       <ListItemText className="flex-grow">
         <div className="flex-grow">{src.fermentable.name}</div>
