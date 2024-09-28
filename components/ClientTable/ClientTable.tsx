@@ -1,3 +1,4 @@
+"use client";
 import { VariantProps, cva } from "class-variance-authority";
 import React, { HTMLProps, useMemo, useState } from "react";
 import { Table, TableProps } from "../Table";
@@ -181,7 +182,7 @@ export function ClientTable<T extends Record<string, any>>({
               name="query"
               value={globalFilter ?? ""}
               onChange={({ target: { value } }) =>
-                setGlobalFilter(String(value))
+                setGlobalFilter(String(value) ?? "")
               }
               className="p-0 font-lg border-block"
               placeholder="Search all columns..."
@@ -226,7 +227,11 @@ export function ClientTable<T extends Record<string, any>>({
 
           <Button onClick={handleReset}>Clear</Button>
           <ButtonLink
-            href={`${baseUrl}?${new URLSearchParams(table.getSelectedRowModel().rows.map((r) => ["hop", r.getValue("slug")]))}`}
+            href={`${baseUrl}?${new URLSearchParams(
+              table
+                .getSelectedRowModel()
+                .rows.map((r) => ["hop", r.getValue("slug")])
+            )}`}
           >
             Compare
           </ButtonLink>

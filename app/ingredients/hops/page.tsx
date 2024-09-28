@@ -13,5 +13,6 @@ export default async function HopsIndex({
   searchParams: { sort, direction },
 }: HopsIndexProps) {
   const hops = await getHops();
+  if (!hops) return null;
   return <HopsTable hops={hops} sort={sort} direction={direction} />;
 }
