@@ -1,6 +1,6 @@
 "use client";
 import { VariantProps, cva } from "class-variance-authority";
-import React, { HTMLProps, useMemo, useState } from "react";
+import React, { HTMLProps, useLayoutEffect, useMemo, useState } from "react";
 import { Table, TableProps } from "../Table";
 import clsx from "clsx";
 import { ClientSection, Section } from "../Section";
@@ -99,6 +99,16 @@ export function ClientTable<T extends Record<string, any>>({
   baseUrl,
   className,
 }: ClientTableProps<T>) {
+  const [isMounted, setIsMounted] = useState(false);
+
+  // Fix error on react table, when the table is not mounted
+  useLayoutEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  // react table hook, and other codes...
+
+  // Fix error on react table, when the table is not mounted
   const [globalFilter, setGlobalFilter] = useState("");
   const [columnFilters, setColumnFilters] = useState<ColumnFilter[]>([]);
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
@@ -170,6 +180,7 @@ export function ClientTable<T extends Record<string, any>>({
     },
     [table]
   );
+  if (!isMounted) return null;
 
   return (
     <div className={clsx(clientTableStyles({ variant }), className)}>
