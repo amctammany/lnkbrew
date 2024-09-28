@@ -65,10 +65,9 @@ export const SideNavCollapse = ({
   title,
   size,
 }: SideNavCollapseProps) => {
-  const isSmall = useMediaQuery("(max-width: 640px)");
+  const isSmall = useMediaQuery("(max-width: 641px)");
   const [open, setOpen] = useState(!isSmall);
 
-  console.log(isSmall);
   const handler = useCallback(() => {
     if (!isSmall) return;
     setOpen((o) => !o);

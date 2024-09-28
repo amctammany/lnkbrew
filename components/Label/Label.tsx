@@ -5,6 +5,7 @@ export type LabelProps = VariantProps<typeof labelStyles> & {
   suffix?: React.ReactNode;
   children?: React.ReactNode;
   text?: string | React.ReactNode;
+  textClassName?: string;
   className?: string;
   onClick?: React.MouseEventHandler<HTMLDivElement>;
 };
@@ -49,6 +50,7 @@ export const Label = ({
   onClick,
   children,
   suffix,
+  textClassName,
   className,
 }: LabelProps) => {
   return (
@@ -59,7 +61,9 @@ export const Label = ({
       {children}
       {text && (
         <>
-          <span className="block m-auto ml-2">{text}</span>
+          <span className={clsx("block m-auto ml-2", textClassName)}>
+            {text}
+          </span>
           <span className={labelTooltipStyles({ variant })}>{text}</span>
         </>
       )}

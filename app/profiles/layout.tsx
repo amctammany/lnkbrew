@@ -31,7 +31,7 @@ export default function ProfileLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <SideNav body={children}>
+    <SideNav body={children} title="Profiles">
       <ProfileLink
         Icon={WaterProfileIcon}
         variant="sidenav"

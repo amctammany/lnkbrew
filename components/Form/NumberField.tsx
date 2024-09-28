@@ -65,7 +65,7 @@ export function NumberField({
   const [val, setVal] = useState(value * scaleFactor);
   useEffect(() => {
     const v = typeof value === "number" ? value : parseFloat(value ?? 1);
-    console.log(value, scaleFactor);
+    //console.log(value, scaleFactor);
     setVal(v * scaleFactor);
   }, [value, scaleFactor]);
   return (
