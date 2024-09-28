@@ -34,7 +34,7 @@ const sideNavCollapseStyles = cva(
       },
       size: {
         small: ["p-0"],
-        default: ["py-2 px-1"],
+        default: ["py-0 px-0"],
       },
       open: {
         open: [""],
@@ -62,7 +62,7 @@ export const SideNavCollapse = ({
   title,
   size,
 }: SideNavCollapseProps) => {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const handler = useCallback(() => setOpen((o) => false), [setOpen]);
   const ref = useClickAway<HTMLDivElement>(handler);
   //const pathname = usePathname();
