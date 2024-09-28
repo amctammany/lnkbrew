@@ -2,7 +2,7 @@
 import { VariantProps, cva } from "class-variance-authority";
 import clsx from "clsx";
 import { IconButton } from "../Button";
-import { useCallback, useMemo, useState } from "react";
+import { Fragment, useCallback, useMemo, useState } from "react";
 import { useClickAway } from "@/lib/useClickAway";
 import { MaximizeIcon } from "../Icon/MaximizeIcon";
 import { MinimizeIcon } from "../Icon/MinimizeIcon";
@@ -26,7 +26,9 @@ const containerStyles = cva(["bg-slae-800 flex-grow"], {
   },
 });
 const sideNavCollapseStyles = cva(
-  ["group/sidenav text-center font-bold relative z-20"],
+  [
+    "group/sidenav text-center font-bold relative z-20 md:col-span-1 lg:col-span-2",
+  ],
   {
     variants: {
       variant: {
@@ -63,7 +65,7 @@ export const SideNavCollapse = ({
   size,
 }: SideNavCollapseProps) => {
   const [open, setOpen] = useState(false);
-  const handler = useCallback(() => setOpen((o) => false), [setOpen]);
+  const handler = useCallback(() => setOpen((o) => (!!o ? !o : o)), [setOpen]);
   const ref = useClickAway<HTMLDivElement>(handler);
   //const pathname = usePathname();
   //const active = href === pathname.slice(0, href.length) ? "active" : variant;
@@ -76,28 +78,26 @@ export const SideNavCollapse = ({
     className
   );
   return (
-    <div ref={ref} className={c}>
-      <div className="flex flex-grow items-center w-full">
-        <SideNavLink label={title} onClick={handleToggle} className="flex-grow">
-          <MaximizeIcon className={clsx({ hidden: !open, block: open })} />
-          <MinimizeIcon className={clsx({ hidden: open, block: !open })} />
+    <div className={c} ref={ref}>
+      <div className="flex flex-grow items-center w-full border-b-2 border-black">
+        <SideNavLink
+          variant="title"
+          label={title}
+          onClick={handleToggle}
+          className="flex-grow"
+        >
+          <div className="block md:hidden">
+            <MaximizeIcon className={clsx({ hidden: !open, block: open })} />
+            <MinimizeIcon className={clsx({ hidden: open, block: !open })} />
+          </div>
         </SideNavLink>
       </div>
       <div
         className={clsx(
-          containerStyles({ variant, open: open ? "open" : "closed" }),
-          "sm:hidden"
+          containerStyles({ variant, open: open ? "open" : "closed" })
+          //"sm:hidden"
         )}
         onClick={handleToggle as any}
-      >
-        {children}
-      </div>
-      <div
-        className={clsx(
-          containerStyles({ variant, open: "open" }),
-          "hidden sm:block"
-        )}
-        //onClick={handleToggle as any}
       >
         {children}
       </div>

@@ -13,6 +13,7 @@ const sideNavLinkStyles = cva(
     variants: {
       variant: {
         default: [""],
+        title: ["font-bold text-lg "],
         blue: [],
         danger: ["text-warning-500"],
         dropdown: ["flex-row-reverse px-0 text-gray-900 bg-gray-200"],

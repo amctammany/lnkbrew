@@ -71,7 +71,9 @@ export const SideNav = ({
           </ul>
         </nav>
       </SideNavCollapse>
-      <Body className="col-span-3 lg:col-span-7 bg-paper p-0">{body}</Body>
+      <Body className="col-span-3 lg:col-span-6 xl:col-span-7 bg-paper p-0">
+        {body}
+      </Body>
     </div>
   );
 };
