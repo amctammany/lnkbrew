@@ -65,7 +65,8 @@ export const SideNavLink = ({
       </Link>
     ) : (
       <Label
-        variant="subnav"
+        //variant="subnav"
+        order="reverse"
         onClick={onClick}
         text={label || href}
         className={""}

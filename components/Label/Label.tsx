@@ -27,7 +27,7 @@ const labelStyles = cva(["group/label flex mx-auto relative"], {
 });
 const labelTooltipStyles = cva(
   [
-    "group-hover:opacity-100 transition-opacity bg-gray-800 p-2 text-sm text-gray-100 rounded-md absolute left-1/2 -translate-x-1/2 translate-y-1/2 opacity-0 my-2 mx-auto",
+    "group-hover/label:opacity-100 transition-opacity bg-gray-800 p-2 text-sm text-gray-100 rounded-md absolute left-1/2 -translate-x-1/2 translate-y-1/2 opacity-0 my-2 mx-auto",
   ],
   {
     variants: {

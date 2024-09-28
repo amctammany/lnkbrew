@@ -15,7 +15,7 @@ export default function RecipeLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <SideNav body={children}>
+    <SideNav title="Recipes" body={children}>
       <SideNavLink href="/recipes/library" label="Library"></SideNavLink>
     </SideNav>
   );

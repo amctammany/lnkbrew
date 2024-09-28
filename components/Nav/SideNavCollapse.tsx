@@ -6,6 +6,7 @@ import { useCallback, useMemo, useState } from "react";
 import { useClickAway } from "@/lib/useClickAway";
 import { MaximizeIcon } from "../Icon/MaximizeIcon";
 import { MinimizeIcon } from "../Icon/MinimizeIcon";
+import SideNavLink from "./SideNavLink";
 //import Link from "next/link";
 //import { usePathname } from "next/sideNavigation";
 
@@ -62,7 +63,7 @@ export const SideNavCollapse = ({
   size,
 }: SideNavCollapseProps) => {
   const [open, setOpen] = useState(true);
-  const handler = useCallback(() => setOpen(() => false), [setOpen]);
+  const handler = useCallback(() => setOpen((o) => false), [setOpen]);
   const ref = useClickAway<HTMLDivElement>(handler);
   //const pathname = usePathname();
   //const active = href === pathname.slice(0, href.length) ? "active" : variant;
@@ -75,19 +76,27 @@ export const SideNavCollapse = ({
     className
   );
   return (
-    <div className={c}>
+    <div ref={ref} className={c}>
       <div className="flex flex-grow items-center w-full">
-        <span className="flex-grow">{title}</span>
-        <IconButton
-          className="sm:hidden group-focus-within:bg-blue-400"
-          Icon={open ? MinimizeIcon : MaximizeIcon}
-          onClick={handleToggle}
-          //onTouchStart={handleToggle as any}
-        />
+        <SideNavLink label={title} onClick={handleToggle} className="flex-grow">
+          <MaximizeIcon className={clsx({ hidden: !open, block: open })} />
+          <MinimizeIcon className={clsx({ hidden: open, block: !open })} />
+        </SideNavLink>
       </div>
       <div
-        ref={ref}
-        className={containerStyles({ variant, open: open ? "open" : "closed" })}
+        className={clsx(
+          containerStyles({ variant, open: open ? "open" : "closed" }),
+          "sm:hidden"
+        )}
+        onClick={handleToggle as any}
+      >
+        {children}
+      </div>
+      <div
+        className={clsx(
+          containerStyles({ variant, open: "open" }),
+          "hidden sm:block"
+        )}
         //onClick={handleToggle as any}
       >
         {children}
