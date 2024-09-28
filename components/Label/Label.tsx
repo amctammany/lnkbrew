@@ -8,7 +8,7 @@ export type LabelProps = VariantProps<typeof labelStyles> & {
   className?: string;
   onClick?: React.MouseEventHandler<HTMLDivElement>;
 };
-const labelStyles = cva(["group flex mx-auto relative"], {
+const labelStyles = cva(["group/label flex mx-auto relative"], {
   variants: {
     variant: {
       default: "text-inherit",
@@ -59,7 +59,7 @@ export const Label = ({
       {children}
       {text && (
         <>
-          <span className="hidden sm:block m-auto ml-2">{text}</span>
+          <span className="block m-auto ml-2">{text}</span>
           <span className={labelTooltipStyles({ variant })}>{text}</span>
         </>
       )}

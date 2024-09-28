@@ -31,7 +31,7 @@ export default function IngredientLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <SideNav body={children}>
+    <SideNav body={children} title="Ingredients">
       <IngredientLink href="/ingredients/hops" text="Hops">
         <HopIcon />
       </IngredientLink>
