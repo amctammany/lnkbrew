@@ -42,8 +42,7 @@ const styles = cva(
 );
 const sideNavDropdownButtonStyles = cva(
   [
-    "relative flex w-full cursor-pointer items-center justify-between rounded-md  text-left focus:outline-none focus:shadow-outline",
-    //"flex flex-row items-center w-full px-4 py-2 mt-2",
+    "relative flex w-full text-sm  lg:text-lg cursor-pointer items-center justify-between rounded-md  text-left focus:outline-none focus:shadow-outline",
   ],
   {
     variants: {
@@ -53,11 +52,10 @@ const sideNavDropdownButtonStyles = cva(
       },
       active: {
         default: [
-          "text-gray-1000 text-sm font-semibold bg-transparent dark-mode:bg-transparent dark-mode:focus:text-white dark-mode:focus:bg-gray-600 focus:text-gray-900 focus:bg-gray-200 ",
+          "text-gray-1000 font-semibold bg-transparent dark-mode:bg-transparent dark-mode:focus:text-white dark-mode:focus:bg-gray-600 focus:text-gray-900 focus:bg-gray-200 ",
         ],
         active: [
-          "text-sm font-semibold bg-transparent dark-mode:bg-transparent  text-gray-900 bg-gray-200 ",
-          //"block px-4 py-2 mt-2 text-sm font-semibold text-gray-900 bg-gray-200 rounded-lg dark-mode:bg-gray-700 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline",
+          "text-sm font-semibold bg-transparent dark-mode:bg-transparent  ",
         ],
       },
     },

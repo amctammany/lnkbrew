@@ -7,7 +7,7 @@ import { Label } from "../Label";
 
 const sideNavLinkStyles = cva(
   [
-    "outline-none block px-4 py-2 mt-2 text-sm font-semibold text-gray-900 bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline",
+    "outline-none block px-4 py-2 mt-2 text-sm lg:text-lg font-semibold rounded-lg  focus:outline-none focus:shadow-outline",
   ],
   {
     variants: {
@@ -18,11 +18,10 @@ const sideNavLinkStyles = cva(
         dropdown: ["flex-row-reverse px-0 text-gray-900 bg-gray-200"],
       },
       active: {
-        default: [],
-        active: [
-          //"outline-none block px-4 py-2 mt-2 text-sm font-semibold text-gray-900 bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline",
-          //"block px-4 py-2 mt-2 text-sm font-semibold text-gray-900 bg-gray-200 rounded-lg dark-mode:bg-gray-700 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline",
+        default: [
+          "text-gray-900 bg-transparent dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200",
         ],
+        active: ["text-gray-200 bg-gray-400"],
       },
       size: {
         default: [],
@@ -61,7 +60,7 @@ export const SideNavLink = ({
   const c = clsx(sideNavLinkStyles({ size, variant, active }), className);
   const body =
     href !== "" ? (
-      <Link href={href} className={c}>
+      <Link href={href} className={""}>
         <Label text={label || href}>{children}</Label>
       </Link>
     ) : (
@@ -69,11 +68,11 @@ export const SideNavLink = ({
         variant="subnav"
         onClick={onClick}
         text={label || href}
-        className={c}
+        className={""}
       >
         {children}
       </Label>
     );
-  return <li className="">{body}</li>;
+  return <li className={c}>{body}</li>;
 };
 export default SideNavLink;
