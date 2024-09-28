@@ -2,6 +2,7 @@ import { cva, VariantProps } from "class-variance-authority";
 import clsx from "clsx";
 
 export type LabelProps = VariantProps<typeof labelStyles> & {
+  suffix?: React.ReactNode;
   children?: React.ReactNode;
   text?: string | React.ReactNode;
   className?: string;
@@ -47,6 +48,7 @@ export const Label = ({
   order,
   onClick,
   children,
+  suffix,
   className,
 }: LabelProps) => {
   return (
@@ -61,6 +63,7 @@ export const Label = ({
           <span className={labelTooltipStyles({ variant })}>{text}</span>
         </>
       )}
+      {suffix}
     </div>
   );
 };

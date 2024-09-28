@@ -42,8 +42,14 @@ export default function AdminLayout({
       >
         <ProfileIcon />
       </SideNavLink>
-      <SideNavDropdown label="Settings" className="flex-grow">
+      <SideNavDropdown
+        label="Settings"
+        href="/admin/dash/settings"
+        className="flex-grow"
+        Icon={<SettingsIcon />}
+      >
         <SideNavLink
+          variant="dropdown"
           href="/admin/dash/settings/units"
           className="flex-grow"
           label="Units"
@@ -53,6 +59,7 @@ export default function AdminLayout({
 
         <SideNavLink
           href="/admin/dash/settings/defaults"
+          variant="dropdown"
           className="flex-grow"
           label="Defaults"
         >
