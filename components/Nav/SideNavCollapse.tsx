@@ -27,9 +27,7 @@ const containerStyles = cva(["bg-slae-800 flex-grow"], {
   },
 });
 const sideNavCollapseStyles = cva(
-  [
-    "group/sidenav text-center font-bold relative z-20 md:col-span-1 lg:col-span-2",
-  ],
+  ["group/sidenav text-center font-bold relative md:col-span-1 lg:col-span-2"],
   {
     variants: {
       variant: {
@@ -70,7 +68,7 @@ export const SideNavCollapse = ({
 
   const handler = useCallback(() => {
     if (!isSmall) return;
-    setOpen((o) => !o);
+    setOpen(() => false);
   }, [isSmall]);
   const ref = useClickAway<HTMLDivElement>(handler);
   //const pathname = usePathname();
