@@ -2,9 +2,10 @@ import { GrainIcon } from "@/components/Icon/GrainIcon";
 import { HopIcon } from "@/components/Icon/HopIcon";
 import { YeastIcon } from "@/components/Icon/YeastIcon";
 import { Label } from "@/components/Label";
+import { SideNavLink } from "@/components/Nav";
 import { Body } from "@/components/Nav/Body";
 import NavLink from "@/components/Nav/NavLink";
-import { SubNav } from "@/components/Nav/SubNav";
+import { SideNav } from "@/components/Nav/SideNav";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -19,9 +20,9 @@ type IngredientLinkProps = {
 };
 const IngredientLink = ({ href, text, children }: IngredientLinkProps) => {
   return (
-    <NavLink variant="subnav" href={href} className="flex-grow">
-      <Label text={text}>{children}</Label>
-    </NavLink>
+    <SideNavLink href={href} className="flex-grow" label={text}>
+      {children}
+    </SideNavLink>
   );
 };
 export default function IngredientLayout({
@@ -30,7 +31,7 @@ export default function IngredientLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <SubNav body={children}>
+    <SideNav body={children}>
       <IngredientLink href="/ingredients/hops" text="Hops">
         <HopIcon />
       </IngredientLink>
@@ -41,6 +42,6 @@ export default function IngredientLayout({
       <IngredientLink href="/ingredients/yeasts" text="Yeasts">
         <YeastIcon />
       </IngredientLink>
-    </SubNav>
+    </SideNav>
   );
 }

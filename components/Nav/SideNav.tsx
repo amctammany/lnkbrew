@@ -55,7 +55,7 @@ export const SideNav = ({
   listClassName,
 }: SideNavProps) => {
   return (
-    <div className="grid grid-flow-col grid-cols-4 m-0">
+    <div className="grid grid-flow-col grid-cols-4  lg:grid-cols-8 m-0">
       <nav className={clsx(sideNavStyles({ variant, color }), className)}>
         <ul
           className={clsx(sideNavListStyles({ variant, color }), listClassName)}
@@ -64,7 +64,7 @@ export const SideNav = ({
         </ul>
       </nav>
 
-      <Body className="col-span-3 bg-paper p-4">{body}</Body>
+      <Body className="col-span-3 lg:col-span-7 bg-paper p-0">{body}</Body>
     </div>
   );
 };

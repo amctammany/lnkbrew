@@ -4,7 +4,8 @@ import { WaterProfileIcon } from "@/components/Icon/WaterProfileIcon";
 import { Label } from "@/components/Label";
 import { Body } from "@/components/Nav/Body";
 import { NavLink, NavLinkProps } from "@/components/Nav/NavLink";
-import { SubNav } from "@/components/Nav/SubNav";
+import { SideNav } from "@/components/Nav/SideNav";
+import SideNavLink from "@/components/Nav/SideNavLink";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -18,11 +19,9 @@ type ProfileLinkProps = NavLinkProps & {
 };
 const ProfileLink = ({ href, Icon, children }: ProfileLinkProps) => {
   return (
-    <NavLink variant="subnav" href={href} className="flex-grow">
-      <Label text={children?.toString()}>
-        <Icon className="m-0" />
-      </Label>
-    </NavLink>
+    <SideNavLink href={href} className="flex-grow" label={children}>
+      <Icon className="m-0" />
+    </SideNavLink>
   );
 };
 
@@ -32,28 +31,28 @@ export default function ProfileLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <SubNav body={children}>
+    <SideNav body={children}>
       <ProfileLink
         Icon={WaterProfileIcon}
-        variant="subnav"
+        variant="sidenav"
         href="/profiles/water"
       >
         Water
       </ProfileLink>
       <ProfileLink
         Icon={MashProfileIcon}
-        variant="subnav"
+        variant="sidenav"
         href="/profiles/mash"
       >
         Mash
       </ProfileLink>
       <ProfileLink
         Icon={EquipmentProfileIcon}
-        variant="subnav"
+        variant="sidenav"
         href="/profiles/equipment"
       >
         Equipment
       </ProfileLink>
-    </SubNav>
+    </SideNav>
   );
 }

@@ -10,7 +10,7 @@ export type BoxProps = {
 export const Box = ({ href, children, Icon }: BoxProps) => {
   return (
     <Link
-      className="text-center text-2xl bg-slate-500 hover:bg-slate-200 p-3 border border-black flex"
+      className="text-center text-2xl bg-slate-500 hover:bg-slate-200 p-3 border border-black flex items-center"
       href={href}
     >
       <Label text={children?.toString()}>
