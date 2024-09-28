@@ -7,6 +7,7 @@ import { useClickAway } from "@/lib/useClickAway";
 import { MaximizeIcon } from "../Icon/MaximizeIcon";
 import { MinimizeIcon } from "../Icon/MinimizeIcon";
 import SideNavLink from "./SideNavLink";
+import { useMediaQuery } from "@/hooks";
 //import Link from "next/link";
 //import { usePathname } from "next/sideNavigation";
 
@@ -64,12 +65,19 @@ export const SideNavCollapse = ({
   title,
   size,
 }: SideNavCollapseProps) => {
-  const [open, setOpen] = useState(false);
-  const handler = useCallback(() => setOpen((o) => (!!o ? !o : o)), [setOpen]);
+  const isSmall = useMediaQuery("(max-width: 640px)");
+  const [open, setOpen] = useState(!isSmall);
+
+  console.log(isSmall);
+  const handler = useCallback(() => {
+    if (!isSmall) return;
+    setOpen((o) => !o);
+  }, [isSmall]);
   const ref = useClickAway<HTMLDivElement>(handler);
   //const pathname = usePathname();
   //const active = href === pathname.slice(0, href.length) ? "active" : variant;
   const handleToggle: React.MouseEventHandler<HTMLDivElement> = (e) => {
+    if (!isSmall) return;
     setOpen((o) => !o);
   };
 
