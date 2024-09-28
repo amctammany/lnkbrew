@@ -18,9 +18,31 @@ export type SideNavDropdownProps = {
   children?: React.ReactNode;
   className?: string;
 } & VariantProps<typeof sideNavDropdownStyles>;
+const styles = cva(
+  [
+    "outline-none block px-4 py-2 mt-2 text-sm font-semibold rounded-lg dark-mode:bg-transparent dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:text-gray-200 focus:text-gray-900 focus:bg-gray-200 focus:outline-none focus:shadow-outline",
+  ],
+  {
+    variants: {
+      variant: {
+        default: [],
+        warning: [],
+      },
+      active: {
+        default: [
+          "hover:text-gray-900 hover:bg-gray-200 bg-transparent text-gray-900  ",
+        ],
+        active: ["text-gray-900 bg-gray-200"],
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+    },
+  }
+);
 const sideNavDropdownButtonStyles = cva(
   [
-    "relative flex w-full cursor-pointer items-center justify-between rounded-md  text-left text-gray-1000 text-sm font-semibold bg-transparent dark-mode:bg-transparent dark-mode:focus:text-white dark-mode:focus:bg-gray-600 focus:text-gray-900 focus:bg-gray-200 focus:outline-none focus:shadow-outline",
+    "relative flex w-full cursor-pointer items-center justify-between rounded-md  text-left focus:outline-none focus:shadow-outline",
     //"flex flex-row items-center w-full px-4 py-2 mt-2",
   ],
   {
@@ -30,9 +52,11 @@ const sideNavDropdownButtonStyles = cva(
         warning: [""],
       },
       active: {
-        default: [],
+        default: [
+          "text-gray-1000 text-sm font-semibold bg-transparent dark-mode:bg-transparent dark-mode:focus:text-white dark-mode:focus:bg-gray-600 focus:text-gray-900 focus:bg-gray-200 ",
+        ],
         active: [
-          "bg-red-200",
+          "text-sm font-semibold bg-transparent dark-mode:bg-transparent  text-gray-900 bg-gray-200 ",
           //"block px-4 py-2 mt-2 text-sm font-semibold text-gray-900 bg-gray-200 rounded-lg dark-mode:bg-gray-700 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline",
         ],
       },
@@ -77,7 +101,7 @@ export const SideNavDropdown = ({
   const [isOpen, setIsOpen] = useState(open);
   return (
     <>
-      <li className="outline-none block px-4 py-2 mt-2 hover:text-gray-900 hover:bg-gray-200 text-sm font-semibold text-gray-900  bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:text-gray-200 focus:text-gray-900 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
+      <li className={styles({ variant, active })}>
         <Label
           className={sideNavDropdownButtonStyles({ variant, active })}
           onClick={() => setIsOpen((o) => !o)}
