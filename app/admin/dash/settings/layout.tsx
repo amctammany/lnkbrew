@@ -10,21 +10,27 @@ import SideNavDropdown from "@/components/Nav/SideNavDropdown";
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <SideNav body={children}>
-      <SideNavLink href="/admin/dash/settings/units" className="flex-grow">
-        <Label text="Units">
+      <SideNavLink
+        href="/admin/dash/profile"
+        className="flex-grow"
+        label="Profile"
+      >
+        <ProfileIcon />
+      </SideNavLink>
+      <SideNavDropdown label="Settings" className="flex-grow">
+        <SideNavLink
+          href="/admin/dash/settings/units"
+          className="flex-grow"
+          label="Units"
+        >
           <DashboardIcon />
-        </Label>
-      </SideNavLink>
-      <SideNavLink href="/admin/dash/settings/defaults" className="flex-grow">
-        <Label text="Defaults">
+        </SideNavLink>
+        <SideNavLink
+          href="/admin/dash/settings/defaults"
+          className="flex-grow"
+          label="Defaults"
+        >
           <ProfileIcon />
-        </Label>
-      </SideNavLink>
-      <SideNavDropdown label="Dropdown" className="flex-grow">
-        <SideNavLink href="/admin/dash/settings/defaults" className="flex-grow">
-          <Label text="Defaults">
-            <ProfileIcon />
-          </Label>
         </SideNavLink>
       </SideNavDropdown>
     </SideNav>

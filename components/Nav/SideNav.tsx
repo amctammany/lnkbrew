@@ -11,8 +11,9 @@ export type SideNavProps = {
   body?: React.ReactNode;
   children?: React.ReactNode;
   className?: string;
+  listClassName?: string;
 } & VariantProps<typeof sideNavStyles>;
-const sideNavStyles = cva(["md:flex-nowrap md:py-0 h-full min-h-40"], {
+const sideNavStyles = cva(["md:flex-nowrap md:py-0 h-full min-h-screen"], {
   variants: {
     variant: {
       default: ["bg-white"],
@@ -28,22 +29,46 @@ const sideNavStyles = cva(["md:flex-nowrap md:py-0 h-full min-h-40"], {
     color: "default",
   },
 });
+const sideNavListStyles = cva(["px-1 mb-8 last-of-type:mb-0"], {
+  variants: {
+    variant: {
+      default: ["bg-white"],
+      warning: ["bg-warning-200"],
+    },
+    color: {
+      default: [""],
+      orange: ["bg-orange-200"],
+    },
+  },
+  defaultVariants: {
+    variant: "default",
+    color: "default",
+  },
+});
+
 export const SideNav = ({
   body,
   children,
   variant,
   color,
   className,
+  listClassName,
 }: SideNavProps) => {
   return (
     <div className="grid grid-flow-col grid-cols-4 m-0">
       <nav className={clsx(sideNavStyles({ variant, color }), className)}>
-        <div className="grid grid-flow-row font-medium p-2 md:p-0  md:pace-x-8">
+        <ul
+          className={clsx(sideNavListStyles({ variant, color }), listClassName)}
+        >
           <Suspense fallback={<Loading />}>{children}</Suspense>
-        </div>
+        </ul>
       </nav>
 
       <Body className="col-span-3 bg-paper p-4">{body}</Body>
     </div>
   );
 };
+/*
+        <div className="grid grid-flow-row font-medium p-2 md:p-0  md:pace-x-8">
+        </div>
+ */
