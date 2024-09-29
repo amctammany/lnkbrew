@@ -95,6 +95,7 @@ export const updateMashProfile = async (
       name,
     })
   );
+  console.log(mapSteps);
   const owner = userId
     ? {
         connect: { id: userId },

@@ -420,9 +420,9 @@ model MashStep {
   id          Int          @id @default(autoincrement())
   type        MashStepType @default(temperature)
   name        String?
-  temperature Int
-  time        Int
-  rampTime    Int          @default(0)
+  temperature Float
+  time        Float
+  rampTime    Float        @default(0)
 
   MashProfile   MashProfile? @relation(fields: [mashProfileId], references: [id])
   mashProfileId Int?
