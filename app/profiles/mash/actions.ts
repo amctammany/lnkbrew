@@ -5,6 +5,7 @@ import {
   UnitTypes,
 } from "@/lib/amountConversions";
 import { prisma } from "@/lib/client";
+import { mapUnits, mashProfileStepMapping } from "@/lib/mapUnits";
 import { validateSchema } from "@/lib/validateSchema";
 import { TimeUnit, UnitPreferences } from "@prisma/client";
 import { redirect } from "next/navigation";
@@ -32,34 +33,26 @@ const mashSchema = zfd.formData({
     .default([]),
 });
 export const createMashProfile = async (
-  prefs: UnitPreferences,
+  prefs: Omit<UnitPreferences, "id">,
   formData: FormData
 ) => {
-  const { id, forkedFrom, steps, userId, ...data } = mashSchema.parse(formData);
+  const { id, forkedFrom, userId, ...data } = mashSchema.parse(formData);
   const origin = forkedFrom
     ? {
         connect: { id: forkedFrom ?? undefined },
       }
     : undefined;
-  const mapSteps = (steps ?? []).map(
-    ({ name, temperature, time, rampTime }) => ({
-      time: classConverters["time"][prefs.time as UnitTypes].from(time), //,(time),
-      temperature:
-        classConverters["temperature"][prefs.temperature as UnitTypes].from(
-          temperature
-        ), //,(time),
-      rampTime: classConverters["time"][prefs.time as UnitTypes].from(rampTime), //,(time),
-      name,
-    })
-  );
 
+  const steps = data.steps.map((step) =>
+    mapUnits(step, prefs, mashProfileStepMapping)
+  );
   const res = await prisma.mashProfile.create({
     data: {
       ...data,
       origin,
       slug: slugify(data.name, { lower: true }),
       steps: {
-        createMany: { data: mapSteps },
+        createMany: { data: steps },
       },
       owner: {
         connect: { id: userId ?? "" },
@@ -84,18 +77,9 @@ export const updateMashProfile = async (
       }
     : undefined;
   //const f= classConverters['color'].
-  const mapSteps = (steps ?? []).map(
-    ({ name, temperature, time, rampTime }) => ({
-      time: classConverters["time"][prefs.time as UnitTypes].from(time), //,(time),
-      temperature:
-        classConverters["temperature"][prefs.temperature as UnitTypes].from(
-          temperature
-        ), //,(time),
-      rampTime: classConverters["time"][prefs.time as UnitTypes].from(rampTime), //,(time),
-      name,
-    })
+  const sps = steps.map((step) =>
+    mapUnits(step, prefs, mashProfileStepMapping)
   );
-  console.log(mapSteps);
   const owner = userId
     ? {
         connect: { id: userId },
@@ -110,7 +94,7 @@ export const updateMashProfile = async (
         deleteMany: {
           mashProfileId: id,
         },
-        createMany: { data: mapSteps ?? [] },
+        createMany: { data: sps ?? [] },
       },
       owner,
       origin,

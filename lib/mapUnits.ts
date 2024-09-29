@@ -1,23 +1,27 @@
-import { UnitPreferences, EquipmentProfile } from "@prisma/client";
+import { UnitPreferences, EquipmentProfile, MashProfile } from "@prisma/client";
 import { AmountType, classConverters, UnitTypes } from "./amountConversions";
+import { ExtendedMashProfile } from "@/types/Profile";
 export type Mapping<T extends object> = {
   [Prop in keyof T]?: AmountType;
 };
-export const equipmentProfileMapping: Mapping<EquipmentProfile> =
-  //Record<
-  //keyof EquipmentProfile extends string ? string : never,
-  //Extract<keyof EquipmentProfile, Exclude<keyof UnitPreferences, "id">>,
-  //AmountType
-  {
-    boilTime: "time",
-    batchVolume: "volume",
-    boilOffRate: "flow",
-    trubLoss: "volume",
-    mashLoss: "volume",
-    fermenterLoss: "volume",
-    mashEfficiency: "percentage",
-    brewEfficiency: "percentage",
-  };
+export const mashProfileStepMapping: Mapping<
+  ExtendedMashProfile["steps"][number]
+> = {
+  time: "time",
+  rampTime: "time",
+  temperature: "temperature",
+};
+
+export const equipmentProfileMapping: Mapping<EquipmentProfile> = {
+  boilTime: "time",
+  batchVolume: "volume",
+  boilOffRate: "flow",
+  trubLoss: "volume",
+  mashLoss: "volume",
+  fermenterLoss: "volume",
+  mashEfficiency: "percentage",
+  brewEfficiency: "percentage",
+};
 
 export function mapUnits<T extends Record<string | number, unknown>>(
   src: T,

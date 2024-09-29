@@ -6,6 +6,7 @@ import Unauthorized from "@/app/admin/_components/Unauthorized";
 import { ExtendedMashProfile, MashProfileInput } from "@/types/Profile";
 import { createMashProfile, updateMashProfile } from "../../actions";
 import { UnitPreferences } from "@prisma/client";
+import { mapUnits, mashProfileStepMapping } from "@/lib/mapUnits";
 type MashProfileForkPageProps = {
   params: {
     slug: string;
@@ -28,9 +29,13 @@ export default async function MashProfileForkPage({
   const { id, name, ...mashProfile } = await getMashProfile(slug);
   //if (mashProfile?.owner?.id !== session?.user?.id)
   //return <Unauthorized returnUrl={`/profiles/mash/${slug}`} />;
+  const steps = mashProfile.steps.map((step) =>
+    mapUnits(step, session?.preferences, mashProfileStepMapping)
+  );
   const forkedProfile: MashProfileInput = {
     id: undefined,
     ...mashProfile,
+    steps,
     name: `${session?.user?.name}-${name}`,
     userId: session?.user?.id!,
     forkedFrom: id ?? null,
@@ -38,10 +43,7 @@ export default async function MashProfileForkPage({
   return (
     <MashProfileForm
       profile={forkedProfile}
-      action={createMashProfile.bind(
-        null,
-        session.user.UserPreferences as any //Omit<UnitPreferences, "id">
-      )}
+      action={createMashProfile.bind(null, session?.preferences)}
     />
   );
 }
