@@ -1,3 +1,4 @@
+import { UnitTypes } from "@/lib/amountConversions";
 import { prisma } from "@/lib/client";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { UnitPreferences, UserPreferences } from "@prisma/client";
@@ -9,7 +10,10 @@ declare module "next-auth" {
    * Returned by `auth`, `useSession`, `getSession` and received as a prop on the `SessionProvider` React Context
    */
   interface Session {
-    preferences: Omit<UnitPreferences, "id">;
+    preferences: Omit<UnitPreferences, "id"> & {
+      percent: "%";
+      percentage: "%";
+    };
     user: {
       /** The user's postal address. */
       UserPreferences: UserPreferences;
@@ -41,6 +45,8 @@ export const AuthOptions: NextAuthConfig = {
       session.preferences = ((token.user || {}) as any).UserPreferences
         ?.UnitPreferences as any;
 
+      session.preferences.percent = "%";
+      session.preferences.percentage = "%";
       session.user = token.user as any;
       session.user.username = (token.user as any).username;
       return session;

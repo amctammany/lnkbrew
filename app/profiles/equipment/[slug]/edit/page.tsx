@@ -3,6 +3,8 @@ import { EquipmentProfileForm } from "../../_components/EquipmentProfileForm";
 import { getEquipmentProfile } from "../../queries";
 import { redirect } from "next/navigation";
 import Unauthorized from "@/app/admin/_components/Unauthorized";
+import { updateEquipmentProfile } from "../../actions";
+import { equipmentProfileMapping, mapUnits } from "@/lib/mapUnits";
 type EquipmentProfileEditorPageProps = {
   params: {
     slug: string;
@@ -27,5 +29,17 @@ export default async function EquipmentProfileEditorPage({
   const equipmentProfile = await getEquipmentProfile(slug);
   if (equipmentProfile?.userId !== session?.user?.id)
     return <Unauthorized returnUrl={`/profiles/equipment/${slug}`} />;
-  return <EquipmentProfileForm profile={equipmentProfile} />;
+  const equip = mapUnits(
+    equipmentProfile,
+    session?.preferences,
+    equipmentProfileMapping,
+    "from"
+  );
+  return (
+    <EquipmentProfileForm
+      profile={equip}
+      prefs={session?.preferences}
+      action={updateEquipmentProfile.bind(null, session?.preferences)}
+    />
+  );
 }

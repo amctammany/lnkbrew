@@ -7,6 +7,7 @@ import {
   EquipmentProfileInput,
   ExtendedEquipmentProfile,
 } from "@/types/Profile";
+import { createEquipmentProfile } from "../../actions";
 type EquipmentProfileForkPageProps = {
   params: {
     slug: string;
@@ -39,5 +40,11 @@ export default async function EquipmentProfileForkPage({
     userId: session?.user?.id!,
     forkedFrom: id ?? null,
   };
-  return <EquipmentProfileForm profile={forkedProfile} />;
+  return (
+    <EquipmentProfileForm
+      profile={forkedProfile}
+      prefs={session?.preferences}
+      action={createEquipmentProfile.bind(null, session?.preferences)}
+    />
+  );
 }

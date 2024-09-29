@@ -84,10 +84,11 @@ export const concentrationConverters: Record<string, Converter> = {
   ppb: 1 / 1000,
 };
 export const flowConverters: Record<string, Converter> = {
-  "gal/hr": 1,
-  "gal/min": 1 / 60,
+  gpm: 1,
+  lpm: 1 / 60,
 };
 export type UnitTypes =
+  | TimeUnit
   | UserColorPreference
   | UserMassPreference
   | UserVolumePreference
@@ -95,8 +96,13 @@ export type UnitTypes =
   | UserTemperaturePreference
   | "°Lintner"
   | "°L"
+  | "%"
   | "PPG"
-  | "g/mL";
+  | "ppm"
+  | "ppb"
+  | "g/mL"
+  | "gpm"
+  | "lpm";
 export const rawConverters: Record<AmountType, any> = {
   unit: { unit: 1 },
   potential: { ppg: 1 },

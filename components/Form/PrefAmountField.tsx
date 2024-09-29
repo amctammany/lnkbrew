@@ -13,6 +13,7 @@ import { SchemaFieldError } from "@/lib/validateSchema";
 import { Input, inputStyles, InputProps } from "./Input";
 import clsx from "clsx";
 import { UnitPreferences, UserPreferences } from "@prisma/client";
+import { AmountType, UnitTypes } from "@/lib/amountConversions";
 
 export type PrefAmountFieldProps = {
   //name: string;
@@ -20,8 +21,21 @@ export type PrefAmountFieldProps = {
   //defaultValue?: any;
   //error?: SchemaFieldError;
   step?: number;
-  type: keyof Omit<UnitPreferences, "id">;
-  preferences?: Omit<UnitPreferences, "id">;
+  type:
+    | keyof Omit<UnitPreferences, "id">
+    | AmountType
+    | "mass"
+    | "potential"
+    | "unit"
+    | "percent"
+    | "percentage";
+  preferences?: Omit<UnitPreferences, "id"> & {
+    mass?: UnitTypes;
+    percent?: UnitTypes;
+    potential?: UnitTypes;
+    unit?: UnitTypes;
+    percentage?: UnitTypes;
+  };
   //disabled?: oolean;
   //onChange?: (e: SyntheticEvent) => void;
   //onBlur?: (e: SyntheticEvent) => void;
@@ -56,6 +70,9 @@ export function PrefAmountField({
   variant,
   size,
   preferences = {
+    percent: "%",
+    percentage: "%",
+    mass: "g",
     time: "min",
     flow: "gpm",
     concentration: "ppm",
