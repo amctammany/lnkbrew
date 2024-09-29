@@ -38,16 +38,20 @@ import { UpIcon } from "@/components/Icon/UpIcon";
 import { Label } from "@/components/Label";
 import { DownIcon } from "@/components/Icon/DownIcon";
 import { PrefAmountField } from "@/components/Form/PrefAmountField";
+import { act } from "react";
 //import { ExtendedMashProfile } from "@/types/Profile";
 
 export type MashProfileFormProps = {
+  action: any;
   profile: MashProfileInput | null;
   userPreferences?: Omit<UnitPreferences, "id">;
 };
 export const MashProfileForm = ({
+  action,
   profile,
   userPreferences,
 }: MashProfileFormProps) => {
+  console.log(profile);
   const { control, register, watch, trigger } = useForm<MashProfileInput>({
     defaultValues: profile ?? {},
   });
@@ -63,7 +67,7 @@ export const MashProfileForm = ({
     };
   });
 
-  const action = profile?.id ? updateMashProfile : createMashProfile;
+  //const action = profile?.id ? updateMashProfile : createMashProfile;
 
   const onSubmit = async (data: FormData) => {
     const valid = await trigger();
@@ -100,7 +104,7 @@ export const MashProfileForm = ({
   };
 
   return (
-    <Form action={onSubmit}>
+    <Form action={action}>
       <Section
         Icon={MashProfileIcon}
         header={profile?.name ?? "New Mash Profile"}

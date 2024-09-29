@@ -5,7 +5,7 @@ export type SchemaFieldError = FieldError & {
 };
 export function validateSchema<
   T extends ZodSchema,
-  S = ReturnType<T["parse"]>,
+  S = ReturnType<T["parse"]>
   //S extends any //<T> = ZodEffects<T>
 >(formData: FormData, schema: T): S & { errors?: Record<string, ZodIssue> } {
   try {
@@ -13,13 +13,10 @@ export function validateSchema<
     return data as z.infer<T>;
   } catch (e: any) {
     return {
-      errors: (e as ZodError).issues.reduce(
-        (acc, issue) => {
-          acc[issue.path.join(".")] = issue;
-          return acc;
-        },
-        {} as Record<string, ZodIssue>
-      ),
+      errors: (e as ZodError).issues?.reduce((acc, issue) => {
+        acc[issue.path.join(".")] = issue;
+        return acc;
+      }, {} as Record<string, ZodIssue>),
     } as S & { errors?: Record<string, ZodIssue> };
   }
 }

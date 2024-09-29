@@ -4,7 +4,8 @@ import { getMashProfile } from "../../queries";
 import { redirect } from "next/navigation";
 import Unauthorized from "@/app/admin/_components/Unauthorized";
 import { ExtendedMashProfile, MashProfileInput } from "@/types/Profile";
-import { createMashProfile } from "../../actions";
+import { createMashProfile, updateMashProfile } from "../../actions";
+import { UnitPreferences } from "@prisma/client";
 type MashProfileForkPageProps = {
   params: {
     slug: string;
@@ -34,5 +35,13 @@ export default async function MashProfileForkPage({
     userId: session?.user?.id!,
     forkedFrom: id ?? null,
   };
-  return <MashProfileForm profile={forkedProfile} />;
+  return (
+    <MashProfileForm
+      profile={forkedProfile}
+      action={updateMashProfile.bind(
+        null,
+        session.user.UserPreferences as any //Omit<UnitPreferences, "id">
+      )}
+    />
+  );
 }

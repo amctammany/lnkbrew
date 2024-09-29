@@ -17,12 +17,9 @@ export const getMashProfiles = cache(async () => {
 
 export const getMashProfileOptions = async () => {
   const profiles = await getMashProfiles();
-  const options = profiles.reduce(
-    (acc, profile) => {
-      acc[profile.id] = `${profile.name}`;
-      return acc;
-    },
-    {} as Record<string, string>
-  );
+  const options = profiles.reduce((acc, profile) => {
+    acc[profile.id] = `${profile.name}`;
+    return acc;
+  }, {} as Record<string, string>);
   return options;
 };

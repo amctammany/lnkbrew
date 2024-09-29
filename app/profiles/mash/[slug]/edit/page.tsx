@@ -4,6 +4,7 @@ import { getMashProfile } from "../../queries";
 import Unauthorized from "@/app/admin/_components/Unauthorized";
 import { auth } from "@/app/auth";
 import { MashProfileInput } from "@/types/Profile";
+import { updateMashProfile } from "../../actions";
 type MashProfileEditorPageProps = {
   params: {
     slug: string;
@@ -29,6 +30,7 @@ export default async function MashProfileEditorPage({
 
   return (
     <MashProfileForm
+      action={updateMashProfile.bind(null, session.user.UserPreferences as any)}
       profile={mashProfile as MashProfileInput}
       userPreferences={session?.user.UserPreferences}
     />
