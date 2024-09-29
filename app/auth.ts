@@ -39,7 +39,7 @@ export const AuthOptions: NextAuthConfig = {
   callbacks: {
     async session({ session, token, user }) {
       session.preferences = ((token.user || {}) as any).UserPreferences
-        .UnitPreferences as any;
+        ?.UnitPreferences as any;
 
       session.user = token.user as any;
       session.user.username = (token.user as any).username;
