@@ -148,45 +148,27 @@ export const MashProfileForm = ({ profile }: MashProfileFormProps) => {
                       options={MashStepType}
                     />
                   </div>
-                  <Controller
-                    name={`steps.${index}.temperature`}
-                    control={control}
-                    defaultValue={0}
-                    render={({ field }) => (
-                      <AmountField
-                        {...field}
-                        value={field.value ?? 0}
-                        label="Temperature"
-                        amountType="temperature"
-                      />
-                    )}
-                  />
-                  <Controller
-                    name={`steps.${index}.time`}
-                    control={control}
-                    defaultValue={0}
-                    render={({ field }) => (
-                      <AmountField
-                        {...field}
-                        value={field.value ?? 0}
-                        label="Time"
-                        amountType="time"
-                      />
-                    )}
-                  />
-                  <Controller
-                    name={`steps.${index}.rampTime`}
-                    control={control}
-                    defaultValue={0}
-                    render={({ field }) => (
-                      <AmountField
-                        {...field}
-                        value={field.value ?? 0}
-                        label="Ramp Time"
-                        amountType="time"
-                      />
-                    )}
-                  />
+                  <div>
+                    <NumberField
+                      {...register(`steps.${index}.temperature`)}
+                      label="Temperature"
+                      suffix="F"
+                    />
+                  </div>
+                  <div>
+                    <NumberField
+                      {...register(`steps.${index}.time`)}
+                      label="Time"
+                      suffix="min"
+                    />
+                  </div>
+                  <div>
+                    <NumberField
+                      {...register(`steps.${index}.rampTime`)}
+                      label="Ramp Time"
+                      suffix="min"
+                    />
+                  </div>
                 </div>
                 <div className="m-auto grid pt-3">
                   <Button

@@ -25,12 +25,15 @@ const mashSchema = zfd.formData({
 });
 export const createMashProfile = async (formData: FormData) => {
   const { id, forkedFrom, steps, userId, ...data } = mashSchema.parse(formData);
+  const origin = forkedFrom
+    ? {
+        connect: { id: forkedFrom ?? undefined },
+      }
+    : undefined;
   const res = await prisma.mashProfile.create({
     data: {
       ...data,
-      origin: {
-        connect: { id: forkedFrom ?? undefined },
-      },
+      origin,
       slug: slugify(data.name, { lower: true }),
       steps: {
         createMany: { data: steps },
@@ -45,6 +48,12 @@ export const createMashProfile = async (formData: FormData) => {
 };
 export const updateMashProfile = async (formData: FormData) => {
   const { steps, id, forkedFrom, userId, ...data } = mashSchema.parse(formData);
+  const origin = forkedFrom
+    ? {
+        connect: { id: forkedFrom },
+      }
+    : undefined;
+
   const res = await prisma.mashProfile.update({
     where: { id: id },
     data: {
@@ -59,9 +68,7 @@ export const updateMashProfile = async (formData: FormData) => {
       owner: {
         connect: { id: userId },
       },
-      origin: {
-        connect: { id: forkedFrom },
-      },
+      origin,
     },
     include: { steps: true, owner: true, origin: true },
   });

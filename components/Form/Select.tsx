@@ -57,7 +57,7 @@ export function Select({
   //disabled,
   //defaultValue,
   //value,
-  inputSize,
+  inputSize = "full",
   //onChange,
   //onBlur,
   variant,

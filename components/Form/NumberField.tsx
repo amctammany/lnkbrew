@@ -54,7 +54,7 @@ export function NumberField({
   variant,
   size,
   className,
-  inputSize,
+  inputSize = "full",
   error,
   suffix,
   defaultValue,
