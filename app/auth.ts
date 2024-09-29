@@ -1,6 +1,6 @@
 import { prisma } from "@/lib/client";
 import { PrismaAdapter } from "@auth/prisma-adapter";
-import { UserPreferences } from "@prisma/client";
+import { UnitPreferences, UserPreferences } from "@prisma/client";
 import NextAuth, { DefaultSession, NextAuthConfig } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 //import { NextResponse } from "next/server";
@@ -9,7 +9,7 @@ declare module "next-auth" {
    * Returned by `auth`, `useSession`, `getSession` and received as a prop on the `SessionProvider` React Context
    */
   interface Session {
-    preferences: UserPreferences;
+    preferences: Omit<UnitPreferences, "id">;
     user: {
       /** The user's postal address. */
       UserPreferences: UserPreferences;
@@ -38,7 +38,8 @@ export const AuthOptions: NextAuthConfig = {
   session: { strategy: "jwt" },
   callbacks: {
     async session({ session, token, user }) {
-      session.preferences = ((token.user || {}) as any).UserPreferences as any;
+      session.preferences = ((token.user || {}) as any).UserPreferences
+        .UnitPreferences as any;
 
       session.user = token.user as any;
       session.user.username = (token.user as any).username;

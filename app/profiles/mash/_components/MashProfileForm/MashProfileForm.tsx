@@ -51,7 +51,7 @@ export const MashProfileForm = ({
   profile,
   userPreferences,
 }: MashProfileFormProps) => {
-  console.log(profile);
+  console.log(userPreferences);
   const { control, register, watch, trigger } = useForm<MashProfileInput>({
     defaultValues: profile ?? {},
   });

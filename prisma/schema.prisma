@@ -70,6 +70,8 @@ model User {
 model UnitPreferences {
   id              String                    @id @default(cuid())
   color           UserColorPreference       @default(L)
+  flow            FlowUnit                  @default(gpm)
+  concentration   ConcentrationUnit         @default(ppm)
   time            TimeUnit                  @default(min)
   volume          UserVolumePreference      @default(gal)
   hopMass         UserMassPreference        @default(Oz)
@@ -108,6 +110,16 @@ enum MassUnit {
   Lb
   g
   Kg
+}
+
+enum FlowUnit {
+  gpm
+  lpm
+}
+
+enum ConcentrationUnit {
+  ppm
+  ppb
 }
 
 enum TimeUnit {

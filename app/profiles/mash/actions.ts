@@ -31,19 +31,28 @@ const mashSchema = zfd.formData({
     .optional()
     .default([]),
 });
-export const createMashProfile = async (formData: FormData) => {
+export const createMashProfile = async (
+  prefs: UnitPreferences,
+  formData: FormData
+) => {
   const { id, forkedFrom, steps, userId, ...data } = mashSchema.parse(formData);
   const origin = forkedFrom
     ? {
         connect: { id: forkedFrom ?? undefined },
       }
     : undefined;
-  const mapSteps = steps.map(({ name, temperature, time, rampTime }) => ({
-    time,
-    temperature,
-    rampTime,
-    name,
-  }));
+  const mapSteps = (steps ?? []).map(
+    ({ name, temperature, time, rampTime }) => ({
+      time: classConverters["time"][prefs.time as UnitTypes].from(time), //,(time),
+      temperature:
+        classConverters["temperature"][prefs.temperature as UnitTypes].from(
+          temperature
+        ), //,(time),
+      rampTime: classConverters["time"][prefs.time as UnitTypes].from(rampTime), //,(time),
+      name,
+    })
+  );
+
   const res = await prisma.mashProfile.create({
     data: {
       ...data,
@@ -61,7 +70,7 @@ export const createMashProfile = async (formData: FormData) => {
   redirect(`/profiles/mash/${res.slug}`);
 };
 export const updateMashProfile = async (
-  prefs: UnitPreferences,
+  prefs: Omit<UnitPreferences, "id">,
   formData: FormData
 ) => {
   const { steps, id, forkedFrom, userId, errors, ...data } = validateSchema(

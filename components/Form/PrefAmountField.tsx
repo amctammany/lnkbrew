@@ -57,6 +57,8 @@ export function PrefAmountField({
   size,
   preferences = {
     time: "min",
+    flow: "gpm",
+    concentration: "ppm",
     temperature: "F",
     color: "L",
     volume: "gal",

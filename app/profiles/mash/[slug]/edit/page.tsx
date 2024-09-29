@@ -5,6 +5,7 @@ import Unauthorized from "@/app/admin/_components/Unauthorized";
 import { auth } from "@/app/auth";
 import { MashProfileInput } from "@/types/Profile";
 import { updateMashProfile } from "../../actions";
+import { classConverters, UnitTypes } from "@/lib/amountConversions";
 type MashProfileEditorPageProps = {
   params: {
     slug: string;
@@ -27,12 +28,25 @@ export default async function MashProfileEditorPage({
   const mashProfile = await getMashProfile(slug);
   if (mashProfile?.userId !== session?.user?.id)
     return <Unauthorized returnUrl={`/profiles/mash/${slug}`} />;
+  const prefs = session.preferences;
+  const mapSteps = (mashProfile.steps ?? []).map(
+    ({ name, temperature, time, rampTime }) => ({
+      time: classConverters["time"][prefs.time as UnitTypes].to(time), //,(time),
+      temperature:
+        classConverters["temperature"][prefs.temperature as UnitTypes].to(
+          temperature
+        ), //,(time),
+      rampTime: classConverters["time"][prefs.time as UnitTypes].to(rampTime), //,(time),
+      name,
+    })
+  );
+  const mash = { ...mashProfile, steps: mapSteps };
 
   return (
     <MashProfileForm
-      action={updateMashProfile.bind(null, session.user.UserPreferences as any)}
-      profile={mashProfile as MashProfileInput}
-      userPreferences={session?.user.UserPreferences}
+      action={updateMashProfile.bind(null, session.preferences)}
+      profile={mash as MashProfileInput}
+      userPreferences={session?.preferences}
     />
   );
 }
