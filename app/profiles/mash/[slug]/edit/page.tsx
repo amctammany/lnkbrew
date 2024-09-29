@@ -27,5 +27,10 @@ export default async function MashProfileEditorPage({
   if (mashProfile?.userId !== session?.user?.id)
     return <Unauthorized returnUrl={`/profiles/mash/${slug}`} />;
 
-  return <MashProfileForm profile={mashProfile as MashProfileInput} />;
+  return (
+    <MashProfileForm
+      profile={mashProfile as MashProfileInput}
+      userPreferences={session?.user.UserPreferences}
+    />
+  );
 }

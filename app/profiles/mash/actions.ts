@@ -30,13 +30,19 @@ export const createMashProfile = async (formData: FormData) => {
         connect: { id: forkedFrom ?? undefined },
       }
     : undefined;
+  const mapSteps = steps.map(({ name, temperature, time, rampTime }) => ({
+    time,
+    temperature,
+    rampTime,
+    name,
+  }));
   const res = await prisma.mashProfile.create({
     data: {
       ...data,
       origin,
       slug: slugify(data.name, { lower: true }),
       steps: {
-        createMany: { data: steps },
+        createMany: { data: mapSteps },
       },
       owner: {
         connect: { id: userId ?? "" },
@@ -53,6 +59,12 @@ export const updateMashProfile = async (formData: FormData) => {
         connect: { id: forkedFrom },
       }
     : undefined;
+  const mapSteps = steps.map(({ name, temperature, time, rampTime }) => ({
+    time,
+    temperature,
+    rampTime,
+    name,
+  }));
 
   const res = await prisma.mashProfile.update({
     where: { id: id },
@@ -63,7 +75,7 @@ export const updateMashProfile = async (formData: FormData) => {
         deleteMany: {
           mashProfileId: id,
         },
-        createMany: { data: steps ?? [] },
+        createMany: { data: mapSteps ?? [] },
       },
       owner: {
         connect: { id: userId },

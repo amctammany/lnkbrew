@@ -22,7 +22,12 @@ import {
 import { Toolbar } from "@/components/Toolbar";
 import { IconButton } from "@/components/Button/IconButton";
 import { Section } from "@/components/Section";
-import { MashProfile, MashStepType, MashStep } from "@prisma/client";
+import {
+  MashProfile,
+  MashStepType,
+  MashStep,
+  UnitPreferences,
+} from "@prisma/client";
 import { Button } from "@/components/Button";
 import { ExtendedMashProfile, MashProfileInput } from "@/types/Profile";
 import { SaveIcon } from "@/components/Icon/SaveIcon";
@@ -32,12 +37,17 @@ import { MashProfileIcon } from "@/components/Icon/MashProfileIcon";
 import { UpIcon } from "@/components/Icon/UpIcon";
 import { Label } from "@/components/Label";
 import { DownIcon } from "@/components/Icon/DownIcon";
+import { PrefAmountField } from "@/components/Form/PrefAmountField";
 //import { ExtendedMashProfile } from "@/types/Profile";
 
 export type MashProfileFormProps = {
   profile: MashProfileInput | null;
+  userPreferences?: Omit<UnitPreferences, "id">;
 };
-export const MashProfileForm = ({ profile }: MashProfileFormProps) => {
+export const MashProfileForm = ({
+  profile,
+  userPreferences,
+}: MashProfileFormProps) => {
   const { control, register, watch, trigger } = useForm<MashProfileInput>({
     defaultValues: profile ?? {},
   });
@@ -149,24 +159,30 @@ export const MashProfileForm = ({ profile }: MashProfileFormProps) => {
                     />
                   </div>
                   <div>
-                    <NumberField
+                    <PrefAmountField
                       {...register(`steps.${index}.temperature`)}
+                      type="temperature"
                       label="Temperature"
-                      suffix="F"
+                      preferences={userPreferences}
+                      //suffix="F"
                     />
                   </div>
                   <div>
-                    <NumberField
+                    <PrefAmountField
                       {...register(`steps.${index}.time`)}
+                      type="time"
                       label="Time"
-                      suffix="min"
+                      preferences={userPreferences}
+                      //suffix="F"
                     />
                   </div>
                   <div>
-                    <NumberField
+                    <PrefAmountField
                       {...register(`steps.${index}.rampTime`)}
+                      type="time"
                       label="Ramp Time"
-                      suffix="min"
+                      preferences={userPreferences}
+                      //suffix="F"
                     />
                   </div>
                 </div>
