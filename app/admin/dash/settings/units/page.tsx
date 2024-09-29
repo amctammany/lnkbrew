@@ -23,9 +23,7 @@ export default async function Page() {
   });
   return (
     <AdminSettingsUnits
-      src={
-        user?.UserPreferences?.UnitPreferences ?? ({ userId: user?.id } as any)
-      }
+      src={user?.UserPreferences?.UnitPreferences ?? ({} as any)}
       action={updateUnitPreferences}
     />
   );

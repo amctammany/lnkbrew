@@ -38,7 +38,7 @@ export default async function MashProfileForkPage({
   return (
     <MashProfileForm
       profile={forkedProfile}
-      action={updateMashProfile.bind(
+      action={createMashProfile.bind(
         null,
         session.user.UserPreferences as any //Omit<UnitPreferences, "id">
       )}
