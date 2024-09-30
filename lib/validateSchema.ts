@@ -3,20 +3,38 @@ import { ZodError, ZodIssue, ZodSchema, z } from "zod";
 export type SchemaFieldError = FieldError & {
   extra?: string;
 };
+type H<T> =
+  | {
+      success: true;
+      data: T;
+      errors: never;
+    }
+  | { success: false; errors: Record<keyof T, ZodIssue>; data: never };
 export function validateSchema<
   T extends ZodSchema,
-  S = ReturnType<T["parse"]>
+  S extends H<T> = H<T>
+  //T["safeParse"]
+  //> & { errors: undefined }
   //S extends any //<T> = ZodEffects<T>
->(formData: FormData, schema: T): S & { errors?: Record<string, ZodIssue> } {
-  try {
-    const data = schema.parse(formData);
-    return data as z.infer<T>;
-  } catch (e: any) {
+>(formData: FormData, schema: T): S {
+  //try {
+  const valid = schema.safeParse(formData);
+  if (!valid.success) {
     return {
-      errors: (e as ZodError).issues?.reduce((acc, issue) => {
+      success: valid.success,
+      data: undefined,
+      errors: Object.entries(valid.error.issues)?.reduce((acc, [n, issue]) => {
         acc[issue.path.join(".")] = issue;
         return acc;
       }, {} as Record<string, ZodIssue>),
-    } as S & { errors?: Record<string, ZodIssue> };
+    } as S;
+  } else {
+    return {
+      success: valid.success,
+      data: valid.data,
+      errors: undefined,
+    } as S;
   }
+  //} catch (e: any) {
+  //}
 }

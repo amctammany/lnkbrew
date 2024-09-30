@@ -22,15 +22,15 @@ const schema = zfd.formData({
   username: zfd.text(),
   email: zfd.text(),
 });
-export async function updateUser(formData: FormData) {
+export async function updateUser(prev: any, formData: FormData) {
   //try {
   const v = validateSchema(formData, schema);
   //console.log(v);
   //if (v.errors) return v;
-  const { errors, id, ...data } = v;
+  const { errors, data } = v;
 
   //if (errors) return Promise.resolve({ errors });
-
+  const { id } = data || {};
   //const data = validateSchema(formData, schema); //  schema.parse(formData);
   //console.log(data);
   const res = await prisma.user.update({
