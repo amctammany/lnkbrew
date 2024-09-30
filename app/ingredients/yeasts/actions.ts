@@ -42,8 +42,8 @@ function parseYeast(data: YeastSchema) {
     slug: slugify(rest.name, { lower: true }),
   };
 }
-export const createYeast = async (formData: FormData) => {
-  const valid = validateSchema<YeastInput>(formData, schema);
+export const createYeast = async (prev: any, formData: FormData) => {
+  const valid = validateSchema(formData, schema);
   if (!valid.success) return Promise.resolve(valid);
   const data = parseYeast(valid.data);
   const res = await prisma.yeast.create({
@@ -52,7 +52,7 @@ export const createYeast = async (formData: FormData) => {
   redirect(`/ingredients/yeasts/${res.slug}`);
 };
 
-export const updateYeast = async (formData: FormData) => {
+export const updateYeast = async (prev: any, formData: FormData) => {
   const valid = validateSchema(formData, schema);
   if (!valid.success) return Promise.resolve(valid);
   const data = parseYeast(valid.data);

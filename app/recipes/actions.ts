@@ -69,8 +69,8 @@ export async function removeRecipe(formData: FormData) {
 }
 
 export async function updateRecipe(formData: FormData) {
-  const v = validateSchema<Recipe>(formData, recipeSchema);
-  if (v.errors) return v;
+  const v = validateSchema(formData, recipeSchema);
+  if (!v.success) return v;
   const {
     data: {
       id,

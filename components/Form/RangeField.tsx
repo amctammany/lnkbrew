@@ -112,11 +112,11 @@ export function RangeField({
     <Label inputSize={inputSize} label={label ?? ""} error={error}>
       <div className="flex w-full">
         <NumberFieldRaw
-          label={null}
+          //label={null}
           //name={`${name}[0]`}
           className="flex-shrink text-center"
           //variant="tiny"
-          inputSize={inputSize}
+          //inputSize={inputSize}
           value={minValue}
           onChange={handleMinChange}
         />
@@ -199,8 +199,8 @@ export function RangeField({
           className="flex-shrink text-center"
           //name={`${name}[1]`}
           //variant="tiny"
-          label={null}
-          inputSize={inputSize}
+          //label={null}
+          //inputSize={inputSize}
           value={maxValue}
           onChange={handleMaxChange}
         />

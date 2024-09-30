@@ -13,6 +13,7 @@ import { SaveIcon } from "@/components/Icon/SaveIcon";
 import { RangeValue } from "@/components/Range/RangeSlider";
 import { Section } from "@/components/Section";
 import { Toolbar } from "@/components/Toolbar";
+import { State } from "@/lib/validateSchema";
 import { HopInput } from "@/types/Ingredient";
 import { Hop, HopUsage } from "@prisma/client";
 import { useActionState } from "react";
@@ -23,16 +24,17 @@ export type HopEditorProps = {
   action: any;
 };
 export function HopEditor({ hop, action }: HopEditorProps) {
-  const [state, formAction] = useActionState(action, {
+  const [state, formAction] = useActionState<State<HopInput>>(action, {
     success: true,
-    data: hop,
+    data: hop!,
+    errors: undefined,
   });
   const { register, control, getValues } = useForm<HopInput>({
     defaultValues: hop || {},
   });
 
   return (
-    <Form action={action}>
+    <Form action={formAction}>
       <Section
         title={hop?.name ?? "New Hop"}
         Icon={HopIcon}
@@ -40,7 +42,12 @@ export function HopEditor({ hop, action }: HopEditorProps) {
       >
         <div className="p-4">
           <input type="hidden" {...register("id")} />
-          <TextField className="w-full" label="Name" {...register("name")} />
+          <TextField
+            className="w-full"
+            label="Name"
+            {...register("name")}
+            error={state?.errors?.name}
+          />
           <TextField
             className="w-full"
             label="Country"

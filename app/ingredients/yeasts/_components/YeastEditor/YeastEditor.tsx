@@ -14,6 +14,7 @@ import { YeastIcon } from "@/components/Icon/YeastIcon";
 import { RangeValue } from "@/components/Range/RangeSlider";
 import { Section } from "@/components/Section";
 import { Toolbar } from "@/components/Toolbar";
+import { State } from "@/lib/validateSchema";
 import { YeastInput } from "@/types/Ingredient";
 import {
   Yeast,
@@ -21,19 +22,36 @@ import {
   YeastFlocculation,
   YeastType,
 } from "@prisma/client";
+import { useActionState, useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
 
 export type YeastEditorProps = {
   yeast: Yeast | null;
-  action?: (formData: FormData) => void;
+  action?: any; // (formData: FormData) => void;
 };
 export function YeastEditor({ action, yeast }: YeastEditorProps) {
-  const { register, control, getValues } = useForm<YeastInput>({
-    defaultValues: yeast || {},
+  const [state, formAction] = useActionState<State<YeastInput>>(action, {
+    success: true,
+    data: yeast!,
+    errors: undefined,
   });
+  const { register, control, setError, reset, getValues } = useForm<YeastInput>(
+    {
+      defaultValues: yeast || {},
+    }
+  );
+
+  useEffect(() => {
+    //reset(state.data);
+    if (!state.success) {
+      Object.entries(state?.errors ?? []).map(([n, err]) => {
+        setError(err.path as any, err);
+      });
+    }
+  }, [state, setError, reset]);
 
   return (
-    <Form action={action}>
+    <Form action={formAction}>
       <Section
         title={yeast?.name ?? "New Yeast"}
         Icon={YeastIcon}

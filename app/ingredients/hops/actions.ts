@@ -71,7 +71,7 @@ function parseHop(data: T) {
     slug: slugify(rest.name, { lower: true }),
   } as any;
 }
-export const createHop = async (formData: FormData) => {
+export const createHop = async (prev: any, formData: FormData) => {
   const valid = validateSchema(formData, schema);
   if (!valid.success) return valid;
   //const f = validateSchema(formData, schema);
@@ -83,7 +83,7 @@ export const createHop = async (formData: FormData) => {
   });
   redirect(`/ingredients/hops/${res.slug}`);
 };
-export const updateHop = async (formData: FormData) => {
+export const updateHop = async (prev: any, formData: FormData) => {
   const valid = validateSchema(formData, schema);
   if (!valid.success) return valid;
   const hop = valid.data;

@@ -44,7 +44,7 @@ export const EquipmentProfileForm = ({
   action,
   prefs,
 }: EquipmentProfileFormProps) => {
-  const [state, formAction] = useActionState<State<EquipmentProfileInput, any>>(
+  const [state, formAction] = useActionState<State<EquipmentProfileInput>>(
     action,
     {
       success: true,

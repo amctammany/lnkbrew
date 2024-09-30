@@ -41,9 +41,8 @@ export const createEquipmentProfile = async (
   try {
     //console.log(prevState);
     //console.log(Object.fromEntries(formData.entries()));
-    const v = validateSchema<EquipmentProfileInput>(formData, equipmentSchema);
-    console.log(prefs, equipmentProfileMapping);
-    if (v.errors) return v;
+    const v = validateSchema(formData, equipmentSchema);
+    if (!v.success) return v;
     //const valid = equipmentSchema.parse(formData);
     //console.log(valid);
     //if (!valid.success) {
@@ -51,7 +50,7 @@ export const createEquipmentProfile = async (
     //}
     const { id, forkedFrom, userId, ...data } = v.data; // equipmentSchema.parse(formData);
     const r = mapUnits(data, prefs, equipmentProfileMapping);
-    console.log(r);
+    //console.log(r);
     const res = await prisma.equipmentProfile.create({
       data: {
         ...r,
@@ -71,7 +70,7 @@ export const createEquipmentProfile = async (
     redirect(`/profiles/equipment/${res.slug}`);
   } catch (e) {
     const f = e as ZodError;
-    console.log(f);
+    //console.log(f);
     return {
       //errors: validatedFields.error.flatten().fieldErrors
       errors: (f.issues || []).reduce((acc, issue) => {
@@ -86,8 +85,8 @@ export const updateEquipmentProfile = async (
   prevState: any,
   formData: FormData
 ) => {
-  const v = validateSchema<EquipmentProfileInput>(formData, equipmentSchema);
-  if (v.errors) return v;
+  const v = validateSchema(formData, equipmentSchema);
+  if (!v.success) return v;
   const {
     data: { id, ...data },
   } = v; // equipmentSchema.parse(formData);

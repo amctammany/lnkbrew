@@ -14,7 +14,7 @@ type SuccessRes<T extends {}> = {
   errors: never;
   data: T;
 };
-export type State<T extends object, I extends object> =
+export type State<I extends object> =
   | {
       success: false;
       errors?: Record<keyof I, SchemaFieldError>;
@@ -24,12 +24,12 @@ export type State<T extends object, I extends object> =
 
 type H<T extends {}> = SuccessRes<T> | ErrRes<T>;
 export function validateSchema<
-  T extends FieldValues,
+  //T extends FieldValues,
   S extends ZodSchema = ZodSchema,
   I extends {} = z.infer<S> //State<T> //T["safeParse"]
   //> & { errors: undefined }
   //S extends any //<T> = ZodEffects<T>
->(formData: FormData, schema: S): State<T, I> {
+>(formData: FormData, schema: S): State<I> {
   //try {
   const valid = schema.safeParse(formData);
   if (!valid.success) {
