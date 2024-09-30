@@ -63,12 +63,9 @@ export const WaterProfileForm = ({
     return action(state, data);
   };
   useEffect(() => {
-    console.log("state", state);
     reset(state.data);
     if (!state.success) {
       Object.entries(state?.errors ?? []).map(([n, err]) => {
-        console.log(err);
-
         setError(err.path.join(".") as any, err);
       });
     }
@@ -104,75 +101,44 @@ export const WaterProfileForm = ({
             <PrefAmountField
               {...register("calcium", { valueAsNumber: true })}
               error={state.errors?.calcium as any}
+              label={<Ca2 />}
               step={0.01}
               type="concentration"
             />
             <PrefAmountField
               {...register("magnesium", { valueAsNumber: true })}
-              error={state.errors?.calcium as any}
+              error={state.errors?.magnesium as any}
+              label={<MgSo4 />}
               step={0.01}
               type="concentration"
             />
-
-            <Controller
-              name="sodium"
-              control={control}
-              defaultValue={0}
-              render={({ field }) => (
-                <AmountField
-                  className="flex-grow"
-                  {...field}
-                  value={field.value ?? 0}
-                  label={<Na />}
-                  amountType="concentration"
-                  step={0.01}
-                />
-              )}
+            <PrefAmountField
+              {...register("sodium", { valueAsNumber: true })}
+              error={state.errors?.sodium as any}
+              label={<Na />}
+              step={0.01}
+              type="concentration"
             />
-            <Controller
-              name="chloride"
-              control={control}
-              defaultValue={0}
-              render={({ field }) => (
-                <AmountField
-                  className="flex-grow"
-                  {...field}
-                  value={field.value ?? 0}
-                  label={<Cl />}
-                  amountType="concentration"
-                  step={0.01}
-                />
-              )}
+            <PrefAmountField
+              {...register("chloride", { valueAsNumber: true })}
+              error={state.errors?.chloride as any}
+              label={<Cl />}
+              step={0.01}
+              type="concentration"
             />
-            <Controller
-              name="sulfate"
-              control={control}
-              defaultValue={0}
-              render={({ field }) => (
-                <AmountField
-                  className="flex-grow"
-                  {...field}
-                  value={field.value ?? 0}
-                  label={<SO4 />}
-                  amountType="concentration"
-                  step={0.01}
-                />
-              )}
+            <PrefAmountField
+              {...register("sulfate", { valueAsNumber: true })}
+              error={state.errors?.sulfate as any}
+              label={<SO4 />}
+              step={0.01}
+              type="concentration"
             />
-            <Controller
-              name="bicarbonate"
-              control={control}
-              defaultValue={0}
-              render={({ field }) => (
-                <AmountField
-                  className="flex-grow"
-                  {...field}
-                  value={field.value ?? 0}
-                  label={<HCO3 />}
-                  amountType="concentration"
-                  step={0.01}
-                />
-              )}
+            <PrefAmountField
+              {...register("bicarbonate", { valueAsNumber: true })}
+              error={state.errors?.bicarbonate as any}
+              label={<HCO3 />}
+              step={0.01}
+              type="concentration"
             />
           </div>
         </div>
