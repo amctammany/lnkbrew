@@ -3,6 +3,7 @@ import { WaterProfileForm } from "../../_components/WaterProfileForm";
 import { getWaterProfile } from "../../queries";
 import Unauthorized from "@/app/admin/_components/Unauthorized";
 import { auth } from "@/app/auth";
+import { updateWaterProfile } from "../../actions";
 type WaterProfileEditorPageProps = {
   params: {
     slug: string;
@@ -28,5 +29,7 @@ export default async function WaterProfileEditorPage({
   if (waterProfile?.userId !== session?.user?.id)
     return <Unauthorized returnUrl={`/profiles/water/${slug}`} />;
 
-  return <WaterProfileForm profile={waterProfile} />;
+  return (
+    <WaterProfileForm profile={waterProfile} action={updateWaterProfile} />
+  );
 }

@@ -25,25 +25,57 @@ import { SaveIcon } from "@/components/Icon/SaveIcon";
 import { WaterProfile } from "@prisma/client";
 import { ExtendedWaterProfile, WaterProfileInput } from "@/types/Profile";
 import { WaterProfileIcon } from "@/components/Icon/WaterProfileIcon";
+import { useActionState, useEffect } from "react";
+import { ZodIssue } from "zod";
+import { PrefAmountField } from "@/components/Form/PrefAmountField";
 //type WaterProfileInput = any;
+type State =
+  | {
+      success: false;
+      errors?: Record<keyof Omit<WaterProfileInput, "type">, ZodIssue>;
+      data?: any;
+    }
+  | { success: true; data: any; errors: undefined };
 
 export type WaterProfileFormProps = {
   profile: WaterProfileInput | null;
+  action: any;
 };
-export const WaterProfileForm = ({ profile }: WaterProfileFormProps) => {
-  const { control, register, trigger } = useForm<WaterProfileInput>({
-    defaultValues: profile!,
+export const WaterProfileForm = ({
+  action,
+  profile,
+}: WaterProfileFormProps) => {
+  const [state, formAction] = useActionState<State>(action, {
+    success: true,
+    errors: undefined,
+    data: profile!,
   });
-  const action = profile?.id ? updateWaterProfile : createWaterProfile;
+  const { control, register, setError, handleSubmit, reset, trigger } =
+    useForm<WaterProfileInput>({
+      defaultValues: profile!,
+      values: state?.data,
+    });
+  //const action = profile?.id ? updateWaterProfile : createWaterProfile;
 
   const onSubmit = async (data: FormData) => {
     const valid = await trigger();
     if (!valid) return;
-    return action(data);
+    return action(state, data);
   };
+  useEffect(() => {
+    console.log("state", state);
+    reset(state.data);
+    if (!state.success) {
+      Object.entries(state?.errors ?? []).map(([n, err]) => {
+        console.log(err);
+
+        setError(err.path.join(".") as any, err);
+      });
+    }
+  }, [state, setError, reset]);
 
   return (
-    <Form action={onSubmit}>
+    <Form action={formAction}>
       <Section
         Icon={WaterProfileIcon}
         header={profile?.name ?? "New Water Profile"}
@@ -54,6 +86,7 @@ export const WaterProfileForm = ({ profile }: WaterProfileFormProps) => {
         }
       >
         <div className="grid gap-2 md:gap-4 grid-cols-3 md:grid-cols-6">
+          {JSON.stringify(state)}
           <input type="hidden" {...register("id")} />
           <input type="hidden" {...register("userId")} />
           <input type="hidden" {...register("forkedFrom")} />
@@ -68,36 +101,19 @@ export const WaterProfileForm = ({ profile }: WaterProfileFormProps) => {
             <TextField {...register("description")} label="Description" />
           </div>
           <div className="col-span-3 md:col-span-6 grid grid-cols-3 lg:grid-cols-6">
-            <Controller
-              name="calcium"
-              control={control}
-              defaultValue={0}
-              render={({ field }) => (
-                <AmountField
-                  className="flex-grow"
-                  {...field}
-                  value={field.value ?? 0}
-                  label={<Ca2 />}
-                  amountType="concentration"
-                  step={0.01}
-                />
-              )}
+            <PrefAmountField
+              {...register("calcium", { valueAsNumber: true })}
+              error={state.errors?.calcium as any}
+              step={0.01}
+              type="concentration"
             />
-            <Controller
-              name="magnesium"
-              control={control}
-              defaultValue={0}
-              render={({ field }) => (
-                <AmountField
-                  className="flex-grow"
-                  {...field}
-                  value={field.value ?? 0}
-                  label={<MgSo4 />}
-                  amountType="concentration"
-                  step={0.01}
-                />
-              )}
+            <PrefAmountField
+              {...register("magnesium", { valueAsNumber: true })}
+              error={state.errors?.calcium as any}
+              step={0.01}
+              type="concentration"
             />
+
             <Controller
               name="sodium"
               control={control}

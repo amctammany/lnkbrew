@@ -2,7 +2,7 @@
 import { prisma } from "@/lib/client";
 import { redirect } from "next/navigation";
 import slugify from "slugify";
-import { z } from "zod";
+import { z, ZodIssue } from "zod";
 import { zfd } from "zod-form-data";
 
 const waterSchema = zfd.formData({
@@ -19,8 +19,18 @@ const waterSchema = zfd.formData({
   sulfate: zfd.numeric(z.number().min(0).default(0)),
   bicarbonate: zfd.numeric(z.number().min(0).default(0)),
 });
-export const createWaterProfile = async (formData: FormData) => {
-  const { id, userId, forkedFrom, ...data } = waterSchema.parse(formData);
+export const createWaterProfile = async (prev: any, formData: FormData) => {
+  const valid = await waterSchema.safeParseAsync(formData);
+  if (!valid.success)
+    return {
+      success: false,
+      errors: valid.error.issues?.reduce((acc, issue) => {
+        acc[issue.path.join(".")] = issue;
+        return acc;
+      }, {} as Record<string, ZodIssue>),
+    };
+
+  const { id, userId, forkedFrom, ...data } = valid.data;
   const res = await prisma.waterProfile.create({
     data: {
       ...data,
@@ -32,20 +42,33 @@ export const createWaterProfile = async (formData: FormData) => {
         connect: { id: forkedFrom ?? undefined },
       },
     },
-    include: {
-      origin: true,
-      owner: true,
-    },
+    //include: {
+    //origin: true,
+    //owner: true,
+    //},
   });
   redirect(`/profiles/water/${res.slug}`);
 };
-export const updateWaterProfile = async (formData: FormData) => {
-  const { id, userId, forkedFrom, ...data } = waterSchema.parse(formData);
+export const updateWaterProfile = async (prev: any, formData: FormData) => {
+  //console.log(prev, formData.entries());
+  const valid = await waterSchema.safeParseAsync(formData);
+  if (!valid.success)
+    return {
+      success: false,
+      data: prev.data,
+      errors: Object.entries(valid.error.issues)?.reduce((acc, [n, issue]) => {
+        acc[issue.path.join(".")] = issue;
+        return acc;
+      }, {} as Record<string, ZodIssue>),
+    };
+  const i = valid;
+
+  const { id, userId, forkedFrom, ...rest } = valid.data || {};
   const res = await prisma.waterProfile.update({
     where: { id },
     data: {
-      ...data,
-      slug: slugify(data.name, { lower: true }),
+      ...rest,
+      slug: slugify(valid.data?.name, { lower: true }),
       owner: {
         connect: { id: userId ?? undefined },
       },
@@ -53,10 +76,12 @@ export const updateWaterProfile = async (formData: FormData) => {
         connect: { id: forkedFrom ?? undefined },
       },
     },
-    include: {
-      origin: true,
-      owner: true,
-    },
+    //include: {
+    //origin: true,
+    //owner: true,
+    //},
   });
-  redirect(`/profiles/water/${res.slug}`);
+  return { success: true, data: res };
+
+  //redirect(`/profiles/water/${res.slug}`);
 };

@@ -4,6 +4,7 @@ import { getWaterProfile } from "../../queries";
 import { redirect } from "next/navigation";
 import Unauthorized from "@/app/admin/_components/Unauthorized";
 import { ExtendedWaterProfile } from "@/types/Profile";
+import { createWaterProfile } from "../../actions";
 type WaterProfileForkPageProps = {
   params: {
     slug: string;
@@ -32,5 +33,7 @@ export default async function WaterProfileForkPage({
     userId: session?.user?.id!,
     forkedFrom: id ?? null,
   };
-  return <WaterProfileForm profile={forkedProfile} />;
+  return (
+    <WaterProfileForm profile={forkedProfile} action={createWaterProfile} />
+  );
 }
