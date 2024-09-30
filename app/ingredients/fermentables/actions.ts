@@ -1,6 +1,7 @@
 "use server";
 //import { FermentableUsage } from "@prisma/client";
 import { prisma } from "@/lib/client";
+import { validateSchema } from "@/lib/validateSchema";
 import { redirect } from "next/navigation";
 import slugify from "slugify";
 import { z } from "zod";
@@ -18,8 +19,10 @@ const schema = zfd.formData({
   color: zfd.numeric(z.number().min(0).max(600).optional()),
   potential: zfd.numeric(z.number().min(0).max(2).optional()),
 });
-export const createFermentable = async (formData: FormData) => {
-  const data = schema.parse(formData);
+export const createFermentable = async (prev: any, formData: FormData) => {
+  const valid = validateSchema(formData, schema);
+  if (!valid.success) return valid;
+  const { data } = valid;
   const res = await prisma.fermentable.create({
     data: {
       ...data,
@@ -29,8 +32,10 @@ export const createFermentable = async (formData: FormData) => {
   redirect(`/ingredients/fermentables/${res.slug}`);
 };
 
-export const updateFermentable = async (formData: FormData) => {
-  const data = schema.parse(formData);
+export const updateFermentable = async (prev: any, formData: FormData) => {
+  const valid = validateSchema(formData, schema);
+  if (!valid.success) return valid;
+  const { data } = valid;
   const res = await prisma.fermentable.update({
     where: { id: data.id },
     data,

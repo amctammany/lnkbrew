@@ -5,23 +5,39 @@ import { GrainIcon } from "@/components/Icon/GrainIcon";
 import { SaveIcon } from "@/components/Icon/SaveIcon";
 import { Section } from "@/components/Section";
 import { Toolbar } from "@/components/Toolbar";
+import { State } from "@/lib/validateSchema";
 import { Fermentable } from "@prisma/client";
+import { useActionState, useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
 
 export type FermentableEditorProps = {
   fermentable: Fermentable | null;
-  action?: (formData: FormData) => void;
+  action: any; // (prev: any, formData: FormData) => void;
 };
 export function FermentableEditor({
   action,
   fermentable,
 }: FermentableEditorProps) {
-  const { register, control } = useForm<Fermentable>({
-    defaultValues: fermentable || {},
+  const [state, formAction] = useActionState<State<Fermentable>>(action, {
+    success: true,
+    data: fermentable!,
+    errors: undefined,
   });
 
+  const { register, control, setError } = useForm<Fermentable>({
+    defaultValues: fermentable || {},
+  });
+  useEffect(() => {
+    //reset(state.data);
+    if (!state.success) {
+      Object.entries(state?.errors ?? []).map(([n, err]) => {
+        setError(err.path as any, err);
+      });
+    }
+  }, [state, setError]);
+
   return (
-    <Form action={action}>
+    <Form action={formAction}>
       <Section
         title={fermentable?.name ?? "New Fermentable"}
         Icon={GrainIcon}

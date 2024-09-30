@@ -16,7 +16,7 @@ import { Toolbar } from "@/components/Toolbar";
 import { State } from "@/lib/validateSchema";
 import { HopInput } from "@/types/Ingredient";
 import { Hop, HopUsage } from "@prisma/client";
-import { useActionState } from "react";
+import { useActionState, useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
 
 export type HopEditorProps = {
@@ -29,9 +29,18 @@ export function HopEditor({ hop, action }: HopEditorProps) {
     data: hop!,
     errors: undefined,
   });
-  const { register, control, getValues } = useForm<HopInput>({
+  const { register, control, setError, getValues } = useForm<HopInput>({
     defaultValues: hop || {},
   });
+
+  useEffect(() => {
+    //reset(state.data);
+    if (!state.success) {
+      Object.entries(state?.errors ?? []).map(([n, err]) => {
+        setError(err.path as any, err);
+      });
+    }
+  }, [state, setError]);
 
   return (
     <Form action={formAction}>

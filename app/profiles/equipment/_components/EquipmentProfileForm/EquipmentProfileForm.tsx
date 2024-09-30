@@ -60,13 +60,12 @@ export const EquipmentProfileForm = ({
   //const action = profile?.id ? updateEquipmentProfile : createEquipmentProfile;
 
   useEffect(() => {
-    //reset(state.data);
     if (!state.success) {
       Object.entries(state?.errors ?? []).map(([n, err]) => {
         setError(err.path as any, err);
       });
     }
-  }, [state, setError, reset]);
+  }, [state, setError]);
 
   //const onSubmit = async (data: FormData) => {
   //const valid = await trigger();
