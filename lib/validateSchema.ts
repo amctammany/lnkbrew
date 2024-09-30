@@ -48,7 +48,7 @@ export function validateSchema<
         } as SchemaFieldError;
         //issue as unknown as SchemaFieldError;
         return acc;
-      }, {} as Record<keyof I, SchemaFieldError>),
+      }, {} as Record<any, SchemaFieldError>),
     };
   } else {
     return {

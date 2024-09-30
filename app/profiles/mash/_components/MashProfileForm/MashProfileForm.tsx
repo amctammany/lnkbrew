@@ -113,6 +113,7 @@ export const MashProfileForm = ({ action, profile }: MashProfileFormProps) => {
     return false;
   };
 
+  console.log(state);
   return (
     <Form action={formAction}>
       <Section
@@ -161,6 +162,11 @@ export const MashProfileForm = ({ action, profile }: MashProfileFormProps) => {
                         value: field.name,
                       })}
                       label="Name"
+                      error={
+                        state.errors?.[
+                          `steps.${index}.name` as keyof typeof state.errors
+                        ]
+                      }
                     />
                   </div>
                   <div>
@@ -170,7 +176,11 @@ export const MashProfileForm = ({ action, profile }: MashProfileFormProps) => {
                         value: field.type,
                       })}
                       options={MashStepType}
-                      //error={state.errors?.steps?.[index]).name}
+                      error={
+                        state.errors?.[
+                          `steps.${index}.type` as keyof typeof state.errors
+                        ]
+                      }
                     />
                   </div>
                   <div>
@@ -178,6 +188,11 @@ export const MashProfileForm = ({ action, profile }: MashProfileFormProps) => {
                       {...register(`steps.${index}.temperature`)}
                       type="temperature"
                       label="Temperature"
+                      error={
+                        state.errors?.[
+                          `steps.${index}.temperature` as keyof typeof state.errors
+                        ]
+                      }
                       //suffix="F"
                     />
                   </div>
@@ -186,6 +201,11 @@ export const MashProfileForm = ({ action, profile }: MashProfileFormProps) => {
                       {...register(`steps.${index}.time`)}
                       type="time"
                       label="Time"
+                      error={
+                        state.errors?.[
+                          `steps.${index}.time` as keyof typeof state.errors
+                        ]
+                      }
                       //suffix="F"
                     />
                   </div>
@@ -194,6 +214,11 @@ export const MashProfileForm = ({ action, profile }: MashProfileFormProps) => {
                       {...register(`steps.${index}.rampTime`)}
                       type="time"
                       label="Ramp Time"
+                      error={
+                        state.errors?.[
+                          `steps.${index}.rampTime` as keyof typeof state.errors
+                        ]
+                      }
                       //suffix="F"
                     />
                   </div>
