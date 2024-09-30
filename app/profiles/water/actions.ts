@@ -22,15 +22,8 @@ const waterSchema = zfd.formData({
   bicarbonate: zfd.numeric(z.number().min(0).default(0)),
 });
 export const createWaterProfile = async (prev: any, formData: FormData) => {
-  const valid = await waterSchema.safeParseAsync(formData);
-  if (!valid.success)
-    return {
-      success: false,
-      errors: valid.error.issues?.reduce((acc, issue) => {
-        acc[issue.path.join(".")] = issue;
-        return acc;
-      }, {} as Record<string, ZodIssue>),
-    };
+  const valid = validateSchema(formData, waterSchema);
+  if (!valid.success) return valid;
 
   const { id, userId, forkedFrom, ...data } = valid.data;
   const res = await prisma.waterProfile.create({
