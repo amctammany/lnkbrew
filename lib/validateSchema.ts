@@ -52,7 +52,7 @@ export function validateSchema<
   } else {
     return {
       success: valid.success,
-      data: valid.data as any,
+      data: valid.data,
       errors: undefined,
     };
   }

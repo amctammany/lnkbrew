@@ -15,13 +15,18 @@ import { Section } from "@/components/Section";
 import { Toolbar } from "@/components/Toolbar";
 import { HopInput } from "@/types/Ingredient";
 import { Hop, HopUsage } from "@prisma/client";
+import { useActionState } from "react";
 import { Controller, useForm } from "react-hook-form";
 
 export type HopEditorProps = {
   hop: Hop | null;
-  action?: (formData: FormData) => void;
+  action: any;
 };
 export function HopEditor({ hop, action }: HopEditorProps) {
+  const [state, formAction] = useActionState(action, {
+    success: true,
+    data: hop,
+  });
   const { register, control, getValues } = useForm<HopInput>({
     defaultValues: hop || {},
   });

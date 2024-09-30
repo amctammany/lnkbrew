@@ -13,6 +13,8 @@ const schema = zfd.formData({
   id: zfd.text(z.string().optional()),
   name: zfd.text(z.string()),
   description: zfd.text(z.string().optional()),
+  flavor: zfd.text(z.string().optional()),
+  characteristics: zfd.text(z.string().optional()),
   country: zfd.text(z.string().optional()),
   usage: z.nativeEnum(HopUsage).optional().default(HopUsage.dual),
   alphaRange: zfd.numeric(z.number()).array().length(2),
@@ -31,7 +33,6 @@ const schema = zfd.formData({
   myrceneRange: zfd.numeric().array().length(2),
   totalOil: zfd.numeric(z.number().min(0).max(40).optional()),
   totalOilRange: zfd.numeric().array().length(2),
-  flavor: zfd.text(z.string().optional()),
   purpose: zfd.text(z.string().optional()),
   notes: zfd.text(z.string().optional()),
 });
