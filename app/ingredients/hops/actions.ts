@@ -1,11 +1,13 @@
 "use server";
-import { HopUsage } from "@prisma/client";
+import { Hop, HopUsage } from "@prisma/client";
 import { prisma } from "@/lib/client";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import { zfd } from "zod-form-data";
 import slugify from "slugify";
 import { validateSchema } from "@/lib/validateSchema";
+import { ExtendedHop, HopInput } from "@/types/Ingredient";
+import { FieldValues } from "react-hook-form";
 
 const schema = zfd.formData({
   id: zfd.text(z.string().optional()),
@@ -33,8 +35,8 @@ const schema = zfd.formData({
   purpose: zfd.text(z.string().optional()),
   notes: zfd.text(z.string().optional()),
 });
-
-function parseHop(data: ReturnType<typeof schema.safeParse>["data"]) {
+type T = z.infer<typeof schema>;
+function parseHop(data: T) {
   //if (!data) return null;
   const {
     alphaRange,

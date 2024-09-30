@@ -150,11 +150,12 @@ export async function updateUserFavorite(
   userId: string | undefined,
   formData: FormData
 ) {
-  const { errors, data } = validateSchema(formData, favoriteSchema);
-  if (errors) {
-    //console.error(errors);
-    return { errors };
+  const valid = validateSchema(formData, favoriteSchema);
+  if (!valid.success) {
+    //console.error(errors){ errors };
+    return valid;
   }
+  const { data } = valid;
   const res = await prisma.userPreferences.update({
     where: {
       userId,
@@ -189,16 +190,18 @@ export async function updateUserFavorite(
 
   revalidateTag("userPreferences");
 }
-export async function updateUserPreferences(formData: FormData) {
+export async function updateUserPreferences(prev: any, formData: FormData) {
   //const r = preferenceSchema.parse(formData);
-  const {
-    errors,
-    data: { userId, userPreferenceId, ...data },
-  } = validateSchema(formData, preferenceSchema);
-  if (errors) {
+  const valid = validateSchema(formData, preferenceSchema);
+  if (!valid.success) {
     //console.error(errors);
-    return Promise.resolve({ success: false, errors });
+    return Promise.resolve({
+      success: false,
+      errors: valid.errors,
+      data: prev.data,
+    });
   }
+  const { userId, userPreferenceId, ...data } = valid.data!;
   const {
     color,
     time,
@@ -233,9 +236,9 @@ export async function updateUserPreferences(formData: FormData) {
       //userId,
       UnitPreferences: {
         upsert: {
-          where: { id: userPreferenceId },
+          where: { id: userPreferenceId! },
           create: unitPrefs,
-          update: { ...unitPrefs, id: userPreferenceId },
+          update: { ...unitPrefs, id: userPreferenceId! },
         },
       },
     },
@@ -245,14 +248,13 @@ export async function updateUserPreferences(formData: FormData) {
 export async function updateUnitPreferences(formData: FormData) {
   //const r = unitPreferenceSchema.parse(formData);
   const valid = validateSchema(formData, unitPreferenceSchema);
+  if (!valid.success) {
+    //console.error(errors);
+    return Promise.resolve(valid);
+  }
   const {
-    errors,
     data: { id, ...data },
   } = valid;
-  if (errors) {
-    //console.error(errors);
-    return Promise.resolve({ errors });
-  }
   const update = {
     ...data,
   };

@@ -6,6 +6,8 @@ import { z } from "zod";
 import { zfd } from "zod-form-data";
 import slugify from "slugify";
 import { validateSchema } from "@/lib/validateSchema";
+import { FieldValues } from "react-hook-form";
+import { YeastInput } from "@/types/Ingredient";
 
 const schema = zfd.formData({
   id: zfd.text(z.string().optional()),
@@ -28,8 +30,8 @@ const schema = zfd.formData({
   usage: zfd.text(z.string().optional()),
   notes: zfd.text(z.string().optional()),
 });
-
-function parseYeast(data: ReturnType<typeof schema.parse>) {
+type YeastSchema = z.infer<typeof schema>;
+function parseYeast(data: YeastSchema) {
   const { tempRange, attenuationRange, ...rest } = data;
   return {
     ...rest,
@@ -41,7 +43,7 @@ function parseYeast(data: ReturnType<typeof schema.parse>) {
   };
 }
 export const createYeast = async (formData: FormData) => {
-  const valid = validateSchema(formData, schema);
+  const valid = validateSchema<YeastInput>(formData, schema);
   if (!valid.success) return Promise.resolve(valid);
   const data = parseYeast(valid.data);
   const res = await prisma.yeast.create({

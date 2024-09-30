@@ -30,8 +30,9 @@ import {
   EquipmentProfileInput,
   ExtendedEquipmentProfile,
 } from "@/types/Profile";
-import { useActionState } from "react";
+import { useActionState, useEffect } from "react";
 import { PrefAmountField } from "@/components/Form/PrefAmountField";
+import { State } from "@/lib/validateSchema";
 
 export type EquipmentProfileFormProps = {
   profile: EquipmentProfileInput | null;
@@ -43,12 +44,29 @@ export const EquipmentProfileForm = ({
   action,
   prefs,
 }: EquipmentProfileFormProps) => {
-  const { control, register, trigger } = useForm<EquipmentProfileInput>({
-    defaultValues: profile!,
-  });
+  const [state, formAction] = useActionState<State<EquipmentProfileInput, any>>(
+    action,
+    {
+      success: true,
+      errors: undefined,
+      data: profile!,
+    }
+  );
+
+  const { control, reset, setError, register, trigger } =
+    useForm<EquipmentProfileInput>({
+      defaultValues: profile!,
+    });
   //const action = profile?.id ? updateEquipmentProfile : createEquipmentProfile;
 
-  const [state, formAction] = useActionState<any, FormData>(action, profile);
+  useEffect(() => {
+    //reset(state.data);
+    if (!state.success) {
+      Object.entries(state?.errors ?? []).map(([n, err]) => {
+        setError(err.path as any, err);
+      });
+    }
+  }, [state, setError, reset]);
 
   //const onSubmit = async (data: FormData) => {
   //const valid = await trigger();
@@ -60,7 +78,7 @@ export const EquipmentProfileForm = ({
         <IconButton type="submit" iconType="EditIcon">
           Save
         </IconButton>
-      </Toolbar>
+      </Toolbar>10
 *
    */
   return (
@@ -107,7 +125,7 @@ export const EquipmentProfileForm = ({
               {...register("boilOffRate")}
               label="Boil Off Rate"
               step={0.01}
-              error={state.errors?.boilOffRate}
+              error={state?.errors?.boilOffRate}
             />
             <PrefAmountField
               preferences={prefs}

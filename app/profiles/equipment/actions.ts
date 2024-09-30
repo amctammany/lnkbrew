@@ -13,7 +13,10 @@ import { ZodError, ZodIssue, z } from "zod";
 import { zfd } from "zod-form-data";
 import { EquipmentProfileForm } from "./_components/EquipmentProfileForm";
 import { equipmentProfileMapping, mapUnits } from "@/lib/mapUnits";
-import { ExtendedEquipmentProfile } from "@/types/Profile";
+import {
+  EquipmentProfileInput,
+  ExtendedEquipmentProfile,
+} from "@/types/Profile";
 const equipmentSchema = zfd.formData({
   id: zfd.numeric(z.number().optional()),
   name: zfd.text(),
@@ -38,7 +41,7 @@ export const createEquipmentProfile = async (
   try {
     //console.log(prevState);
     //console.log(Object.fromEntries(formData.entries()));
-    const v = validateSchema(formData, equipmentSchema);
+    const v = validateSchema<EquipmentProfileInput>(formData, equipmentSchema);
     console.log(prefs, equipmentProfileMapping);
     if (v.errors) return v;
     //const valid = equipmentSchema.parse(formData);
@@ -46,9 +49,7 @@ export const createEquipmentProfile = async (
     //if (!valid.success) {
     //return valid.error;
     //}
-    const {
-      data: { id, forkedFrom, userId, ...data },
-    } = v; // equipmentSchema.parse(formData);
+    const { id, forkedFrom, userId, ...data } = v.data; // equipmentSchema.parse(formData);
     const r = mapUnits(data, prefs, equipmentProfileMapping);
     console.log(r);
     const res = await prisma.equipmentProfile.create({
@@ -85,7 +86,7 @@ export const updateEquipmentProfile = async (
   prevState: any,
   formData: FormData
 ) => {
-  const v = validateSchema(formData, equipmentSchema);
+  const v = validateSchema<EquipmentProfileInput>(formData, equipmentSchema);
   if (v.errors) return v;
   const {
     data: { id, ...data },

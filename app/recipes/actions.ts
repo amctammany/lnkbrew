@@ -22,6 +22,7 @@ import {
   TimeUnit,
   FermentableIngredientUsage,
   HopIngredientType,
+  Recipe,
 } from "@prisma/client";
 import { getRecipeUrl } from "@/lib/utils";
 import { ID } from "@/types/App";
@@ -68,7 +69,8 @@ export async function removeRecipe(formData: FormData) {
 }
 
 export async function updateRecipe(formData: FormData) {
-  const v = validateSchema(formData, recipeSchema);
+  const v = validateSchema<Recipe>(formData, recipeSchema);
+  if (v.errors) return v;
   const {
     data: {
       id,
@@ -80,9 +82,7 @@ export async function updateRecipe(formData: FormData) {
       styleId,
       ...data
     },
-    errors,
   } = v;
-  if (errors) return v;
   //recipeSchema.parse(formData);
   //console.log({ id, styleIdentifer, data });
   const old = await prisma.recipe.findFirst({
@@ -136,10 +136,11 @@ const hopIngredientSchema = zfd.formData({
 });
 export async function addHopIngredientToRecipe(formData: FormData) {
   //const data = hopIngredientSchema.parse(formData);
-  const { errors, data } = validateSchema(formData, hopIngredientSchema);
-  if (errors) return Promise.resolve({ errors });
+  const valid = validateSchema(formData, hopIngredientSchema);
+
+  if (!valid.success) return Promise.resolve(valid);
   const res = await prisma.hopIngredient.create({
-    data,
+    data: valid.data,
     include: {
       recipe: true,
     },
@@ -149,11 +150,9 @@ export async function addHopIngredientToRecipe(formData: FormData) {
   //redirect(`/recipes/${res.recipeId}/edit`);
 }
 export async function updateHopIngredient(formData: FormData) {
-  const {
-    errors,
-    data: { id, recipeId, ...data },
-  } = validateSchema(formData, hopIngredientSchema);
-  if (errors) return Promise.resolve({ errors });
+  const valid = validateSchema(formData, hopIngredientSchema);
+  if (!valid.success) return Promise.resolve(valid);
+  const { id, recipeId, ...data } = valid.data;
   //const data = hopIngredientSchema.parse(formData);
   const res = await prisma.hopIngredient.update({
     where: { recipeId_id: { id, recipeId } },
@@ -199,13 +198,11 @@ const fermentableIngredientSchema = zfd.formData({
   potential: zfd.numeric(z.number().gt(0).default(1)),
 });
 export async function addFermentableIngredientToRecipe(formData: FormData) {
-  const { errors, data } = validateSchema(
-    formData,
-    fermentableIngredientSchema
-  );
-  if (errors) return Promise.resolve({ errors });
+  const valid = validateSchema(formData, fermentableIngredientSchema);
+
+  if (!valid.success) return Promise.resolve(valid);
   const res = await prisma.fermentableIngredient.create({
-    data,
+    data: valid.data,
     include: { recipe: true },
   });
   redirect(getRecipeUrl(res.recipeId));
@@ -213,11 +210,9 @@ export async function addFermentableIngredientToRecipe(formData: FormData) {
   //redirect(`/recipes/${res.recipeId}/edit`);
 }
 export async function updateFermentableIngredient(formData: FormData) {
-  const {
-    errors,
-    data: { recipeId, id, ...data },
-  } = validateSchema(formData, fermentableIngredientSchema);
-  if (errors) return Promise.resolve({ errors });
+  const valid = validateSchema(formData, fermentableIngredientSchema);
+  if (!valid.success) return Promise.resolve(valid);
+  const { recipeId, id, ...data } = valid.data;
   const res = await prisma.fermentableIngredient.update({
     where: { recipeId_id: { id, recipeId } },
     //include: { recipe: true },
