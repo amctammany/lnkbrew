@@ -41,8 +41,9 @@ function parseYeast(data: ReturnType<typeof schema.parse>) {
   };
 }
 export const createYeast = async (formData: FormData) => {
-  const yeast = validateSchema(formData, schema);
-  const data = parseYeast(yeast);
+  const valid = validateSchema(formData, schema);
+  if (!valid.success) return Promise.resolve(valid);
+  const data = parseYeast(valid.data);
   const res = await prisma.yeast.create({
     data,
   });
@@ -50,8 +51,9 @@ export const createYeast = async (formData: FormData) => {
 };
 
 export const updateYeast = async (formData: FormData) => {
-  const yeast = validateSchema(formData, schema);
-  const data = parseYeast(yeast);
+  const valid = validateSchema(formData, schema);
+  if (!valid.success) return Promise.resolve(valid);
+  const data = parseYeast(valid.data);
   const res = await prisma.yeast.update({
     where: { id: data.id },
     data,

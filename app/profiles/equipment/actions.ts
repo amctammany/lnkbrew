@@ -46,7 +46,9 @@ export const createEquipmentProfile = async (
     //if (!valid.success) {
     //return valid.error;
     //}
-    const { id, forkedFrom, userId, ...data } = v; // equipmentSchema.parse(formData);
+    const {
+      data: { id, forkedFrom, userId, ...data },
+    } = v; // equipmentSchema.parse(formData);
     const r = mapUnits(data, prefs, equipmentProfileMapping);
     console.log(r);
     const res = await prisma.equipmentProfile.create({
@@ -85,7 +87,9 @@ export const updateEquipmentProfile = async (
 ) => {
   const v = validateSchema(formData, equipmentSchema);
   if (v.errors) return v;
-  const { id, ...data } = v; // equipmentSchema.parse(formData);
+  const {
+    data: { id, ...data },
+  } = v; // equipmentSchema.parse(formData);
   const {
     id: _id,
     forkedFrom,

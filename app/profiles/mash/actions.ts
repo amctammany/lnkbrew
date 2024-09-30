@@ -36,7 +36,11 @@ export const createMashProfile = async (
   prefs: Omit<UnitPreferences, "id">,
   formData: FormData
 ) => {
-  const { id, forkedFrom, userId, ...data } = mashSchema.parse(formData);
+  const {
+    errors,
+    data: { id, forkedFrom, userId, ...data },
+  } = validateSchema(formData, mashSchema);
+
   const origin = forkedFrom
     ? {
         connect: { id: forkedFrom ?? undefined },
@@ -66,10 +70,10 @@ export const updateMashProfile = async (
   prefs: Omit<UnitPreferences, "id">,
   formData: FormData
 ) => {
-  const { steps, id, forkedFrom, userId, errors, ...data } = validateSchema(
-    formData,
-    mashSchema
-  );
+  const {
+    errors,
+    data: { steps, id, forkedFrom, userId, ...data },
+  } = validateSchema(formData, mashSchema);
   if (errors) return errors;
   const origin = forkedFrom
     ? {

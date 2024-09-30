@@ -16,10 +16,11 @@ type SuccessRes<T extends {}> = {
 type H<T extends {}> = SuccessRes<T> | ErrRes<T>;
 export function validateSchema<
   T extends ZodSchema,
-  S = H<T> //T["safeParse"]
+  A extends {} = z.infer<T>,
+  S = H<A> //T["safeParse"]
   //> & { errors: undefined }
   //S extends any //<T> = ZodEffects<T>
->(formData: FormData, schema: T) {
+>(formData: FormData, schema: T): S {
   //try {
   const valid = schema.safeParse(formData);
   if (!valid.success) {

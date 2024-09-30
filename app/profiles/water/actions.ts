@@ -56,7 +56,6 @@ export const updateWaterProfile = async (prev: any, formData: FormData) => {
   const valid = validateSchema(formData, waterSchema);
 
   if (valid.errors) return valid;
-
   const { id, userId, forkedFrom, ...rest } =
     valid.data || ({} as WaterProfileInput);
   const res = await prisma.waterProfile.update({
@@ -76,7 +75,7 @@ export const updateWaterProfile = async (prev: any, formData: FormData) => {
     //owner: true,
     //},
   });
-  //return { success: true, data: res };
+  return { success: true, data: res };
 
-  redirect(`/profiles/water/${res.slug}`);
+  //redirect(`/profiles/water/${res.slug}`);
 };

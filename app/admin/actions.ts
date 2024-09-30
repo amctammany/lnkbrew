@@ -32,7 +32,7 @@ export async function updateUser(prev: any, formData: FormData) {
     return Promise.resolve(v);
   }
 
-  const { id } = v.data;
+  const { id } = v.data as any;
   //const data = validateSchema(formData, schema); //  schema.parse(formData);
   //console.log(data);
   const res = await prisma.user.update({
@@ -150,8 +150,8 @@ export async function updateUserFavorite(
   userId: string | undefined,
   formData: FormData
 ) {
-  const { errors, ...data } = validateSchema(formData, favoriteSchema);
-  if (errors && errors.length) {
+  const { errors, data } = validateSchema(formData, favoriteSchema);
+  if (errors) {
     //console.error(errors);
     return { errors };
   }
@@ -191,13 +191,13 @@ export async function updateUserFavorite(
 }
 export async function updateUserPreferences(formData: FormData) {
   //const r = preferenceSchema.parse(formData);
-  const { errors, userId, userPreferenceId, ...data } = validateSchema(
-    formData,
-    preferenceSchema
-  );
-  if (errors && errors.length) {
+  const {
+    errors,
+    data: { userId, userPreferenceId, ...data },
+  } = validateSchema(formData, preferenceSchema);
+  if (errors) {
     //console.error(errors);
-    return Promise.resolve({ errors });
+    return Promise.resolve({ success: false, errors });
   }
   const {
     color,
@@ -244,11 +244,12 @@ export async function updateUserPreferences(formData: FormData) {
 }
 export async function updateUnitPreferences(formData: FormData) {
   //const r = unitPreferenceSchema.parse(formData);
-  const { errors, id, ...data } = validateSchema(
-    formData,
-    unitPreferenceSchema
-  );
-  if (errors && errors.length) {
+  const valid = validateSchema(formData, unitPreferenceSchema);
+  const {
+    errors,
+    data: { id, ...data },
+  } = valid;
+  if (errors) {
     //console.error(errors);
     return Promise.resolve({ errors });
   }

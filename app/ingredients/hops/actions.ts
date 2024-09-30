@@ -34,7 +34,8 @@ const schema = zfd.formData({
   notes: zfd.text(z.string().optional()),
 });
 
-function parseHop(data: ReturnType<typeof schema.parse>) {
+function parseHop(data: ReturnType<typeof schema.safeParse>["data"]) {
+  //if (!data) return null;
   const {
     alphaRange,
     betaRange,
@@ -45,7 +46,7 @@ function parseHop(data: ReturnType<typeof schema.parse>) {
     totalOilRange,
     humuleneRange,
     ...rest
-  } = data;
+  } = data || { name: "" };
   return {
     ...rest,
     alphaLow: alphaRange?.[0],
@@ -65,12 +66,14 @@ function parseHop(data: ReturnType<typeof schema.parse>) {
     myrceneLow: myrceneRange?.[0],
     myrceneHigh: myrceneRange?.[1],
     slug: slugify(rest.name, { lower: true }),
-  };
+  } as any;
 }
 export const createHop = async (formData: FormData) => {
-  const hop = validateSchema(formData, schema);
+  const valid = validateSchema(formData, schema);
+  if (!valid.success) return valid;
   //const f = validateSchema(formData, schema);
   //const d = schema.parse(formData);
+  const hop = valid.data;
   const data = parseHop(hop);
   const res = await prisma.hop.create({
     data,
@@ -78,7 +81,9 @@ export const createHop = async (formData: FormData) => {
   redirect(`/ingredients/hops/${res.slug}`);
 };
 export const updateHop = async (formData: FormData) => {
-  const hop = validateSchema(formData, schema);
+  const valid = validateSchema(formData, schema);
+  if (!valid.success) return valid;
+  const hop = valid.data;
   const data = parseHop(hop);
   const res = await prisma.hop.update({
     where: { id: data.id },
