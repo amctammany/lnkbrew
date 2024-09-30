@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { zfd } from "zod-form-data";
 import { z, ZodError, ZodIssue } from "zod";
 import {
+  User,
   UserPreferences,
   UserGravityPreference,
   UserMassPreference,
@@ -27,19 +28,21 @@ export async function updateUser(prev: any, formData: FormData) {
   const v = validateSchema(formData, schema);
   //console.log(v);
   //if (v.errors) return v;
-  const { errors, data } = v;
+  if (!v.success) {
+    return Promise.resolve(v);
+  }
 
-  //if (errors) return Promise.resolve({ errors });
-  const { id } = data || {};
+  const { id } = v.data;
   //const data = validateSchema(formData, schema); //  schema.parse(formData);
   //console.log(data);
   const res = await prisma.user.update({
     where: {
       id,
     },
-    data,
+    data: v.data,
   });
-  redirect("/admin/dash/profile");
+  return { success: true, data: res };
+  //redirect("/admin/dash/profile");
   /**
   } catch (e) {
     const f = e as ZodError;
