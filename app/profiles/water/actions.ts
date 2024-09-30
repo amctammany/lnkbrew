@@ -75,7 +75,7 @@ export const updateWaterProfile = async (prev: any, formData: FormData) => {
     //owner: true,
     //},
   });
-  return { success: true, data: res };
+  //return { success: true, data: res };
 
-  //redirect(`/profiles/water/${res.slug}`);
+  redirect(`/profiles/water/${res.slug}`);
 };
