@@ -38,7 +38,6 @@ export default async function EquipmentProfileEditorPage({
   return (
     <EquipmentProfileForm
       profile={equip}
-      prefs={session?.preferences}
       action={updateEquipmentProfile.bind(null, session?.preferences)}
     />
   );

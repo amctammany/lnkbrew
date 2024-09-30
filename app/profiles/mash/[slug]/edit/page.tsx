@@ -50,7 +50,6 @@ export default async function MashProfileEditorPage({
     <MashProfileForm
       action={updateMashProfile.bind(null, session.preferences)}
       profile={mash as MashProfileInput}
-      userPreferences={session?.preferences}
     />
   );
 }

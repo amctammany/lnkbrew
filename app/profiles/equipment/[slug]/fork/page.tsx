@@ -43,7 +43,6 @@ export default async function EquipmentProfileForkPage({
   return (
     <EquipmentProfileForm
       profile={forkedProfile}
-      prefs={session?.preferences}
       action={createEquipmentProfile.bind(null, session?.preferences)}
     />
   );

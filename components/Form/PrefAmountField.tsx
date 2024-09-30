@@ -1,12 +1,4 @@
 "use client";
-import {
-  ComponentProps,
-  SyntheticEvent,
-  forwardRef,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
 import { Label } from "./Label";
 import { VariantProps, cva } from "class-variance-authority";
 import { SchemaFieldError } from "@/lib/validateSchema";
@@ -14,6 +6,14 @@ import { Input, inputStyles, InputProps } from "./Input";
 import clsx from "clsx";
 import { UnitPreferences, UserPreferences } from "@prisma/client";
 import { AmountType, UnitTypes } from "@/lib/amountConversions";
+import { useSession } from "next-auth/react";
+type Preferences = Omit<UnitPreferences, "id"> & {
+  mass?: UnitTypes;
+  percent?: UnitTypes;
+  potential?: UnitTypes;
+  unit?: UnitTypes;
+  percentage?: UnitTypes;
+};
 
 export type PrefAmountFieldProps = {
   //name: string;
@@ -21,24 +21,7 @@ export type PrefAmountFieldProps = {
   //defaultValue?: any;
   //error?: SchemaFieldError;
   step?: number;
-  type:
-    | keyof Omit<UnitPreferences, "id">
-    | AmountType
-    | "mass"
-    | "potential"
-    | "unit"
-    | "percent"
-    | "percentage";
-  preferences?: Omit<UnitPreferences, "id"> & {
-    mass?: UnitTypes;
-    percent?: UnitTypes;
-    potential?: UnitTypes;
-    unit?: UnitTypes;
-    percentage?: UnitTypes;
-  };
-  //disabled?: oolean;
-  //onChange?: (e: SyntheticEvent) => void;
-  //onBlur?: (e: SyntheticEvent) => void;
+  type: keyof Preferences;
   //value?: any;
   //ref: any;
 } & InputProps &
@@ -69,20 +52,6 @@ export function PrefAmountField({
   label,
   variant,
   size,
-  preferences = {
-    percent: "%",
-    percentage: "%",
-    mass: "g",
-    time: "min",
-    flow: "gpm",
-    concentration: "ppm",
-    temperature: "F",
-    color: "L",
-    volume: "gal",
-    fermentableMass: "Lb",
-    hopMass: "Oz",
-    gravity: "SG",
-  },
   className,
   type,
   inputSize = "full",
@@ -92,7 +61,9 @@ export function PrefAmountField({
   value,
   ...props
 }: PrefAmountFieldProps) {
-  const unit = preferences[type];
+  const sesh = useSession();
+  const prefs = (sesh.data?.preferences || {}) as Preferences;
+  const unit = prefs[type];
   return (
     <Label
       //classname={clsx(prefAmountFieldStyles({ variant, size }))}
@@ -114,18 +85,5 @@ export function PrefAmountField({
         {...props}
       />
     </Label>
-  );
-}
-
-export function PrefAmountFieldRaw({
-  //className,
-  //size,
-  //variant,
-  type,
-  error,
-  ...props
-}: PrefAmountFieldProps) {
-  return (
-    <input type="number" onWheel={(e) => e.currentTarget.blur()} {...props} />
   );
 }

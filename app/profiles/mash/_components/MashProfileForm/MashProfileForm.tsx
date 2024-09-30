@@ -38,23 +38,25 @@ import { UpIcon } from "@/components/Icon/UpIcon";
 import { Label } from "@/components/Label";
 import { DownIcon } from "@/components/Icon/DownIcon";
 import { PrefAmountField } from "@/components/Form/PrefAmountField";
-import { act } from "react";
+import { act, useActionState, useEffect } from "react";
+import { State } from "@/lib/validateSchema";
 //import { ExtendedMashProfile } from "@/types/Profile";
 
 export type MashProfileFormProps = {
   action: any;
   profile: MashProfileInput | null;
-  userPreferences?: Omit<UnitPreferences, "id">;
 };
-export const MashProfileForm = ({
-  action,
-  profile,
-  userPreferences,
-}: MashProfileFormProps) => {
-  console.log(userPreferences);
-  const { control, register, watch, trigger } = useForm<MashProfileInput>({
-    defaultValues: profile ?? {},
+export const MashProfileForm = ({ action, profile }: MashProfileFormProps) => {
+  const [state, formAction] = useActionState<State<MashProfileInput>>(action, {
+    success: true,
+    data: profile!,
+    errors: undefined,
   });
+  const { control, register, watch, reset, setError, trigger } =
+    useForm<MashProfileInput>({
+      defaultValues: profile ?? {},
+      values: state.data,
+    });
   const { fields, remove, append, swap } = useFieldArray({
     control,
     name: "steps",
@@ -63,9 +65,17 @@ export const MashProfileForm = ({
   const controlledFields = fields.map((field, index) => {
     return {
       ...field,
-      ...watchFieldArray[index],
+      ...watchFieldArray?.[index],
     };
   });
+  useEffect(() => {
+    //reset(state.data);
+    if (!state.success) {
+      Object.entries(state?.errors ?? []).map(([n, err]) => {
+        setError(err.path as any, err);
+      });
+    }
+  }, [state, reset, setError]);
 
   //const action = profile?.id ? updateMashProfile : createMashProfile;
 
@@ -104,7 +114,7 @@ export const MashProfileForm = ({
   };
 
   return (
-    <Form action={action}>
+    <Form action={formAction}>
       <Section
         Icon={MashProfileIcon}
         header={profile?.name ?? "New Mash Profile"}
@@ -160,6 +170,7 @@ export const MashProfileForm = ({
                         value: field.type,
                       })}
                       options={MashStepType}
+                      //error={state.errors?.steps?.[index]).name}
                     />
                   </div>
                   <div>
@@ -167,7 +178,6 @@ export const MashProfileForm = ({
                       {...register(`steps.${index}.temperature`)}
                       type="temperature"
                       label="Temperature"
-                      preferences={userPreferences}
                       //suffix="F"
                     />
                   </div>
@@ -176,7 +186,6 @@ export const MashProfileForm = ({
                       {...register(`steps.${index}.time`)}
                       type="time"
                       label="Time"
-                      preferences={userPreferences}
                       //suffix="F"
                     />
                   </div>
@@ -185,7 +194,6 @@ export const MashProfileForm = ({
                       {...register(`steps.${index}.rampTime`)}
                       type="time"
                       label="Ramp Time"
-                      preferences={userPreferences}
                       //suffix="F"
                     />
                   </div>

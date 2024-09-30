@@ -35,10 +35,11 @@ export function validateSchema<
   if (!valid.success) {
     return {
       success: valid.success,
+      data: Object.fromEntries(formData.entries()) as any,
       errors: Object.entries(valid.error.issues)?.reduce((acc, [n, issue]) => {
         acc[
           issue.path
-            .map((a) => (typeof a === "number" ? a : parseFloat(a)))
+            .map((a) => (!Number.isNaN(a) ? a.toString() : a))
             .join(".") as keyof I
         ] = {
           ...issue,

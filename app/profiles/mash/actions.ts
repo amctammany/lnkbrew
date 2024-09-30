@@ -34,6 +34,7 @@ const mashSchema = zfd.formData({
 });
 export const createMashProfile = async (
   prefs: Omit<UnitPreferences, "id">,
+  pref: any,
   formData: FormData
 ) => {
   const valid = validateSchema(formData, mashSchema);
@@ -66,6 +67,7 @@ export const createMashProfile = async (
 };
 export const updateMashProfile = async (
   prefs: Omit<UnitPreferences, "id">,
+  prev: any,
   formData: FormData
 ) => {
   const valid = validateSchema(formData, mashSchema);

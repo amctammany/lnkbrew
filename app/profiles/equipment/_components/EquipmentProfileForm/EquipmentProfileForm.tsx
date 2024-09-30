@@ -37,12 +37,10 @@ import { State } from "@/lib/validateSchema";
 export type EquipmentProfileFormProps = {
   profile: EquipmentProfileInput | null;
   action: any; //(prefs: UnitPreferences, formData: FormData) => void;
-  prefs?: Omit<UnitPreferences, "id">;
 };
 export const EquipmentProfileForm = ({
   profile,
   action,
-  prefs,
 }: EquipmentProfileFormProps) => {
   const [state, formAction] = useActionState<State<EquipmentProfileInput>>(
     action,
@@ -60,12 +58,13 @@ export const EquipmentProfileForm = ({
   //const action = profile?.id ? updateEquipmentProfile : createEquipmentProfile;
 
   useEffect(() => {
+    reset(state.data);
     if (!state.success) {
       Object.entries(state?.errors ?? []).map(([n, err]) => {
         setError(err.path as any, err);
       });
     }
-  }, [state, setError]);
+  }, [state, setError, reset]);
 
   //const onSubmit = async (data: FormData) => {
   //const valid = await trigger();
@@ -103,7 +102,6 @@ export const EquipmentProfileForm = ({
           </div>
           <div className="col-span-3 lg:col-span-6 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6">
             <PrefAmountField
-              preferences={prefs}
               type="volume"
               {...register("batchVolume")}
               label="Batch Volume"
@@ -111,7 +109,6 @@ export const EquipmentProfileForm = ({
               error={state.errors?.batchVolume}
             />
             <PrefAmountField
-              preferences={prefs}
               type="time"
               {...register("boilTime")}
               label="Boil Time"
@@ -119,7 +116,6 @@ export const EquipmentProfileForm = ({
               error={state.errors?.boilTime}
             />
             <PrefAmountField
-              preferences={prefs}
               type="time"
               {...register("boilOffRate")}
               label="Boil Off Rate"
@@ -127,7 +123,6 @@ export const EquipmentProfileForm = ({
               error={state?.errors?.boilOffRate}
             />
             <PrefAmountField
-              preferences={prefs}
               type="volume"
               {...register("trubLoss")}
               label="Trub Loss"
@@ -136,7 +131,6 @@ export const EquipmentProfileForm = ({
             />
 
             <PrefAmountField
-              preferences={prefs}
               type="volume"
               {...register("fermenterLoss")}
               label="Fermenter Loss"
@@ -144,7 +138,6 @@ export const EquipmentProfileForm = ({
               error={state.errors?.fermenterLoss}
             />
             <PrefAmountField
-              preferences={prefs}
               type="volume"
               {...register("mashLoss")}
               label="Mash Loss"
