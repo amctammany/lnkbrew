@@ -1,5 +1,5 @@
 "use client";
-import { useClickAway } from "@/hooks";
+import { useClickAway, useMediaQuery } from "@/hooks";
 import { cva, VariantProps } from "class-variance-authority";
 import clsx from "clsx";
 import { useCallback, useState } from "react";
@@ -34,7 +34,7 @@ const containerStyles = cva(["relative flex flex-row "], {
   },
 });
 
-const collapseStyles = cva("flex  ", {
+const collapseStyles = cva("flex bg-primary-300 ", {
   variants: {
     variant: {
       default: [""],
@@ -70,7 +70,8 @@ export function SectionActionsCollapse({
   variant,
   className,
 }: SectionActionsCollapseProps) {
-  const [open, setOpen] = useState(false);
+  const isSmall = useMediaQuery("(max-width: 641px)");
+  const [open, setOpen] = useState(!isSmall);
   const handler = useCallback(() => setOpen(() => false), [setOpen]);
   const ref = useClickAway(handler);
   const handleToggle: React.MouseEventHandler<

@@ -52,14 +52,14 @@ export const WaterProfileDisplay = ({
             href={`/profiles/water/${profile?.slug}/fork`}
             Icon={ForkIcon}
           >
-            Fork
+            <span className="hidden md:block">Fork</span>
           </IconButtonLink>
 
           <IconButtonLink
             href={`/profiles/water/${profile?.slug}/edit`}
             Icon={EditIcon}
           >
-            Edit
+            <span className="hidden md:block">Edit</span>
           </IconButtonLink>
         </>
       }

@@ -34,7 +34,7 @@ export const IconButton = ({
 }: IconButtonProps) => {
   const body = (
     <div className={iconButtonStyles({ direction })}>
-      <Label text={children?.toString()} className="uppercase">
+      <Label text={children} className="uppercase">
         <Icon variant={iconVariant} size={iconSize} />
       </Label>
     </div>

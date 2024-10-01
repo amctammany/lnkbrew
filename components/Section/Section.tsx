@@ -31,7 +31,7 @@ const section = cva(["min-w-full bg-white "], {
   },
 });
 
-const sectionHeader = cva(["flex items-center "], {
+const sectionHeader = cva(["flex items-center overflow-x-scroll"], {
   variants: {
     variant: {
       primary: ["bg-primary-200"],
