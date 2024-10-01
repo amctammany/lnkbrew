@@ -38,7 +38,7 @@ const buttonStyles = cva(
       size: {
         default: ["rounded", "m-2", "px-2", "py-1"],
         button: ["rounded", "h-10", "w-32"],
-        tiny: ["p-1", "m-1", "text-xs"],
+        tiny: ["p-1", "m-1", "text-xs rounded"],
         tinyIcon: ["p-1", "m-1", "text-xs", "rounded-lg"],
         toolbar: ["px-2", "py-1", "mx-2", "text-xs"],
         icon: ["rounded-full", "w-20", "h-20", "p-2.5"],

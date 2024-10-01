@@ -58,11 +58,12 @@ export function FavButton({
   };
   return (
     <IconButton
+      //size="tiny"
       Icon={isActive ? SolidStarIcon : StarIcon}
       onClick={handleAction}
       className={className}
     >
-      {label ?? "fav"}
+      <span className="hidden md:block">{label ?? "fav"}</span>
     </IconButton>
   );
 }
