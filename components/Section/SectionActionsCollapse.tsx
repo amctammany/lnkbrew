@@ -13,7 +13,7 @@ export type SectionActionsCollapseProps = VariantProps<
   children?: React.ReactNode[] | React.ReactNode;
   className?: string;
 };
-const containerStyles = cva(["relative flex flex-row"], {
+const containerStyles = cva(["relative flex flex-row items-end"], {
   variants: {
     variant: {
       default: [],
@@ -34,7 +34,7 @@ const containerStyles = cva(["relative flex flex-row"], {
   },
 });
 
-const collapseStyles = cva("flex", {
+const collapseStyles = cva("flex  items-end", {
   variants: {
     variant: {
       default: [""],
@@ -45,8 +45,8 @@ const collapseStyles = cva("flex", {
       alert: [],
     },
     open: {
-      open: [""],
-      closed: [""],
+      open: ["flex-grow-0"],
+      closed: ["flex-shrink"],
     },
   },
   defaultVariants: {
@@ -95,7 +95,7 @@ export function SectionActionsCollapse({
       >
         {children}
       </div>
-      <div className="flex items-start">
+      <div className="flex items-end">
         <IconButton
           className="group-focus-within:bg-blue-400"
           Icon={open ? MinimizeIcon : MaximizeIcon}
