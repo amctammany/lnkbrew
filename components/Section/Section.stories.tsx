@@ -54,6 +54,8 @@ export const Warning: Story = {
     actions: (
       <>
         <Button>X</Button>
+        <Button>Y</Button>
+        <Button>Z</Button>
       </>
     ),
   },

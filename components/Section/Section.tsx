@@ -4,6 +4,7 @@ import { ComponentProps } from "react";
 import { IconNames } from "../Icon";
 //import { AppIcon} from "../AppIcon";
 import { Icon as IconClass } from "../Icon/Icon";
+import SectionActionsCollapse from "./SectionActionsCollapse";
 
 const section = cva(["min-w-full bg-white "], {
   variants: {
@@ -70,7 +71,32 @@ const sectionTitle = cva("h4", {
 
     size: {
       small: ["flex-grow", "m-0", "py-1", "px-2", "text-sm"],
-      default: ["flex-grow", "m-0", "py-1", "px-4", "text-lg", "font-bold"],
+      default: ["lg:flex-grow", "m-0", "py-1", "px-4", "text-lg", "font-bold"],
+    },
+  },
+  defaultVariants: {
+    collapsed: "default",
+    variant: "primary",
+    size: "default",
+  },
+});
+
+const sectionActions = cva("flex", {
+  variants: {
+    variant: {
+      primary: ["border-red-300"],
+      secondary: ["border-green-300"],
+      warning: ["text-black"],
+      alert: ["text-white"],
+    },
+    collapsed: {
+      default: [],
+      collapsed: [""],
+    },
+
+    size: {
+      small: ["flex-grow", "m-0", "py-1", "px-2", "text-sm"],
+      default: ["lg:flex-grow", "m-0", "py-1", "px-4", "text-lg", "font-bold"],
     },
   },
   defaultVariants: {
@@ -165,7 +191,9 @@ export const Section = ({
         <div className={sectionTitle({ size, variant, collapsed })}>
           {_title || title}
         </div>
-        <div className="flex">{actions}</div>
+        <SectionActionsCollapse variant={variant}>
+          {actions}
+        </SectionActionsCollapse>
       </div>
 
       <div className={sectionBody({ size, variant, collapsed })}>

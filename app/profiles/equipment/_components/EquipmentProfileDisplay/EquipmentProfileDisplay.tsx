@@ -29,9 +29,9 @@ export type EquipmentProfileDisplayProps = {
 };
 export const EquipmentProfileDisplay = ({
   profile,
-  //preferences,
-  //action,
-}: EquipmentProfileDisplayProps) => {
+}: //preferences,
+//action,
+EquipmentProfileDisplayProps) => {
   return (
     <Section
       Icon={EquipmentProfileIcon}
