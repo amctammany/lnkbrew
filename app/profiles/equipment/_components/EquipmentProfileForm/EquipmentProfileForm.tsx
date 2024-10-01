@@ -53,18 +53,19 @@ export const EquipmentProfileForm = ({
 
   const { control, reset, setError, register, trigger } =
     useForm<EquipmentProfileInput>({
-      defaultValues: profile!,
+      //defaultValues: profile!,
+      values: state.data,
     });
   //const action = profile?.id ? updateEquipmentProfile : createEquipmentProfile;
 
   useEffect(() => {
-    reset(state.data);
+    //reset(state.data);
     if (!state.success) {
       Object.entries(state?.errors ?? []).map(([n, err]) => {
         setError(err.path as any, err);
       });
     }
-  }, [state, setError, reset]);
+  }, [state, setError]);
 
   //const onSubmit = async (data: FormData) => {
   //const valid = await trigger();

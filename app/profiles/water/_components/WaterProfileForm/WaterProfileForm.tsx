@@ -52,7 +52,7 @@ export const WaterProfileForm = ({
   });
   const { control, register, setError, handleSubmit, reset, trigger } =
     useForm<WaterProfileInput>({
-      defaultValues: profile!,
+      //defaultValues: profile!,
       values: state?.data,
     });
   //const action = profile?.id ? updateWaterProfile : createWaterProfile;
@@ -63,13 +63,13 @@ export const WaterProfileForm = ({
     return action(state, data);
   };
   useEffect(() => {
-    reset(state.data);
+    //reset(state.data);
     if (!state.success) {
       Object.entries(state?.errors ?? []).map(([n, err]) => {
-        setError(err.path.join(".") as any, err);
+        setError(err.path as any, err);
       });
     }
-  }, [state, setError, reset]);
+  }, [state, setError]);
 
   return (
     <Form action={formAction}>

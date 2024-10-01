@@ -30,7 +30,8 @@ export function HopEditor({ hop, action }: HopEditorProps) {
     errors: undefined,
   });
   const { register, control, setError, getValues } = useForm<HopInput>({
-    defaultValues: hop || {},
+    //defaultValues: hop || {},
+    values: state.data,
   });
 
   useEffect(() => {

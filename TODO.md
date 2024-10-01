@@ -8,6 +8,8 @@ TODO
 * Form history => Undo / Redo
 * Toolbar actions should shrink into drop down
 * Account Creation should include username
+* Add better styling to Error messages
+* FIX rounding issue for amount conversions
 
 Comparision Tool
 ----

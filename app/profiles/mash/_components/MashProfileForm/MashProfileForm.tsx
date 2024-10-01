@@ -54,7 +54,7 @@ export const MashProfileForm = ({ action, profile }: MashProfileFormProps) => {
   });
   const { control, register, watch, reset, setError, trigger } =
     useForm<MashProfileInput>({
-      defaultValues: profile ?? {},
+      //defaultValues: profile ?? {},
       values: state.data,
     });
   const { fields, remove, append, swap } = useFieldArray({
@@ -75,7 +75,7 @@ export const MashProfileForm = ({ action, profile }: MashProfileFormProps) => {
         setError(err.path as any, err);
       });
     }
-  }, [state, reset, setError]);
+  }, [state, setError]);
 
   //const action = profile?.id ? updateMashProfile : createMashProfile;
 
