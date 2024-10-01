@@ -13,7 +13,7 @@ export type SectionActionsCollapseProps = VariantProps<
   children?: React.ReactNode[] | React.ReactNode;
   className?: string;
 };
-const containerStyles = cva(["relative flex flex-row items-end"], {
+const containerStyles = cva(["relative flex flex-row "], {
   variants: {
     variant: {
       default: [],
@@ -34,7 +34,7 @@ const containerStyles = cva(["relative flex flex-row items-end"], {
   },
 });
 
-const collapseStyles = cva("flex  items-end", {
+const collapseStyles = cva("flex  ", {
   variants: {
     variant: {
       default: [""],
