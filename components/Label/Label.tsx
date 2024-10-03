@@ -62,11 +62,7 @@ export const Label = ({
       {text && (
         <>
           <span
-            className={clsx(
-              "block m-auto ",
-              { "md:ml-2": !!text },
-              textClassName
-            )}
+            className={clsx("m-auto ", { "md:ml-2": !!text }, textClassName)}
           >
             {text}
           </span>

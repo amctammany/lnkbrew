@@ -17,8 +17,8 @@ const containerStyles = cva(["relative flex flex-row "], {
   variants: {
     variant: {
       default: [],
-      primary: ["bg-white "],
-      secondary: ["bg-white"],
+      primary: [" "],
+      secondary: [""],
       paper: ["bg-paper"],
       warning: [""],
       alert: [],
@@ -72,12 +72,16 @@ export function SectionActionsCollapse({
 }: SectionActionsCollapseProps) {
   const isSmall = useMediaQuery("(max-width: 641px)");
   const [open, setOpen] = useState(!isSmall);
-  const handler = useCallback(() => setOpen(() => false), [setOpen]);
+  const handler = useCallback(() => {
+    if (isSmall) {
+      setOpen(() => false);
+    }
+  }, [isSmall, setOpen]);
   const ref = useClickAway(handler);
   const handleToggle: React.MouseEventHandler<
     HTMLDivElement | HTMLButtonElement
   > = () => {
-    setOpen((o) => !o);
+    if (isSmall) setOpen((o) => !o);
   };
 
   return !children ? (
@@ -92,11 +96,11 @@ export function SectionActionsCollapse({
       <div
         ref={ref}
         className={containerStyles({ variant, open: open ? "open" : "closed" })}
-        onClick={handleToggle}
+        onClick={handler}
       >
         {children}
       </div>
-      <div className="flex items-end">
+      <div className={clsx("flex items-end", { hidden: !isSmall })}>
         <IconButton
           className="group-focus-within:bg-blue-400"
           Icon={open ? MinimizeIcon : MaximizeIcon}

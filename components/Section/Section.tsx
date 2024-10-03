@@ -31,7 +31,7 @@ const section = cva(["min-w-full bg-white "], {
   },
 });
 
-const sectionHeader = cva(["flex items-center overflow-x-scroll"], {
+const sectionHeader = cva(["flex items-center "], {
   variants: {
     variant: {
       primary: ["bg-primary-200"],
@@ -56,7 +56,7 @@ const sectionHeader = cva(["flex items-center overflow-x-scroll"], {
   },
 });
 
-const sectionTitle = cva("h4", {
+const sectionTitle = cva("truncate", {
   variants: {
     variant: {
       primary: ["border-red-300"],
@@ -71,7 +71,7 @@ const sectionTitle = cva("h4", {
 
     size: {
       small: ["flex-grow", "m-0", "py-1", "px-2", "text-sm"],
-      default: ["lg:flex-grow", "m-0", "py-1", "px-4", "text-lg", "font-bold"],
+      default: ["flex-grow", "m-0", "py-1", "px-4", "text-lg", "font-bold"],
     },
   },
   defaultVariants: {
@@ -81,31 +81,7 @@ const sectionTitle = cva("h4", {
   },
 });
 
-const sectionActions = cva("flex", {
-  variants: {
-    variant: {
-      primary: ["border-red-300"],
-      secondary: ["border-green-300"],
-      warning: ["text-black"],
-      alert: ["text-white"],
-    },
-    collapsed: {
-      default: [],
-      collapsed: [""],
-    },
-
-    size: {
-      small: ["flex-grow", "m-0", "py-1", "px-2", "text-sm"],
-      default: ["lg:flex-grow", "m-0", "py-1", "px-4", "text-lg", "font-bold"],
-    },
-  },
-  defaultVariants: {
-    collapsed: "default",
-    variant: "primary",
-    size: "default",
-  },
-});
-const sectionBody = cva([""], {
+const sectionBody = cva(["w-f"], {
   variants: {
     variant: {
       primary: ["bg-white "],

@@ -83,7 +83,6 @@ export const WaterProfileForm = ({
         }
       >
         <div className="grid gap-2 md:gap-4 grid-cols-3 md:grid-cols-6">
-          {JSON.stringify(state)}
           <input type="hidden" {...register("id")} />
           <input type="hidden" {...register("userId")} />
           <input type="hidden" {...register("forkedFrom")} />
