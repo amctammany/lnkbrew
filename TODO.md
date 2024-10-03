@@ -10,6 +10,8 @@ TODO
 * Account Creation should include username
 * Add better styling to Error messages
 * FIX rounding issue for amount conversions
+* Style client table for mobile first
+* Add virtualization for big table components
 
 Comparision Tool
 ----
