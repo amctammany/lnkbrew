@@ -204,7 +204,7 @@ export function ClientTable<T extends Record<string, any>>({
         <Section
           header={<FilterBar table={table} />}
           size="small"
-          variant="warning"
+          variant="inner"
           actions={
             <>
               <Button onClick={handleReset}>Clear</Button>

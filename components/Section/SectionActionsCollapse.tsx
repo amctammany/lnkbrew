@@ -6,6 +6,8 @@ import { useCallback, useState } from "react";
 import { IconButton } from "../Button";
 import { MinimizeIcon } from "../Icon/MinimizeIcon";
 import { MaximizeIcon } from "../Icon/MaximizeIcon";
+import ChevronDownIcon from "../Icon/ChevronDownIcon";
+import ChevronLeftIcon from "../Icon/ChevronLeftIcon";
 
 export type SectionActionsCollapseProps = VariantProps<
   typeof collapseStyles
@@ -22,6 +24,7 @@ const containerStyles = cva(["relative flex flex-row "], {
       paper: ["bg-paper"],
       warning: [""],
       alert: [],
+      inner: [""],
     },
     open: {
       open: ["block"],
@@ -43,6 +46,7 @@ const collapseStyles = cva("flex bg-primary-300 ", {
       paper: [""],
       warning: [""],
       alert: [],
+      inner: [""],
     },
     open: {
       open: ["flex-grow-0"],
@@ -104,7 +108,9 @@ export function SectionActionsCollapse({
         <IconButton
           name="Minimize"
           className="group-focus-within:bg-blue-400"
-          Icon={open ? MinimizeIcon : MaximizeIcon}
+          Icon={open ? ChevronDownIcon : ChevronLeftIcon}
+          iconSize="small"
+          //iconVariant="warning"
           onClick={handleToggle}
           //onTouchStart={handleToggle as any}
         />

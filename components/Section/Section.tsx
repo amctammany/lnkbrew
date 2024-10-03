@@ -13,6 +13,7 @@ const section = cva(["min-w-full bg-white "], {
       secondary: [""],
       warning: [""],
       alert: [""],
+      inner: [""],
     },
     collapsed: {
       default: [],
@@ -31,13 +32,14 @@ const section = cva(["min-w-full bg-white "], {
   },
 });
 
-const sectionHeader = cva(["flex items-center "], {
+const sectionHeader = cva(["flex items-center overflow-x-scroll"], {
   variants: {
     variant: {
       primary: ["bg-primary-200"],
       secondary: ["bg-secondary-200"],
       warning: ["bg-warning-200"],
       alert: ["bg-red-500"],
+      inner: ["overflow-x-scroll"],
     },
     collapsed: {
       default: [],
@@ -63,6 +65,7 @@ const sectionTitle = cva("truncate", {
       secondary: ["border-green-300"],
       warning: ["text-black"],
       alert: ["text-white"],
+      inner: [""],
     },
     collapsed: {
       default: [],
@@ -89,6 +92,7 @@ const sectionBody = cva(["w-f"], {
       paper: ["bg-paper"],
       warning: [""],
       alert: [],
+      inner: [""],
     },
     collapsed: {
       default: [],
@@ -113,6 +117,7 @@ const sectionFooter = cva(["m-0 p-0"], {
       paper: [""],
       warning: [""],
       alert: [],
+      inner: [""],
     },
     collapsed: {
       default: [],

@@ -8,6 +8,9 @@ import { MaximizeIcon } from "../Icon/MaximizeIcon";
 import { MinimizeIcon } from "../Icon/MinimizeIcon";
 import SideNavLink from "./SideNavLink";
 import { useMediaQuery } from "@/hooks";
+import ChevronUpIcon from "../Icon/ChevronUpIcon";
+import ChevronLeftIcon from "../Icon/ChevronLeftIcon";
+import ChevronDownIcon from "../Icon/ChevronDownIcon";
 //import Link from "next/link";
 //import { usePathname } from "next/sideNavigation";
 
@@ -92,8 +95,8 @@ export const SideNavCollapse = ({
           className="flex-grow"
         >
           <div className="block md:hidden">
-            <MaximizeIcon className={clsx({ hidden: !open, block: open })} />
-            <MinimizeIcon className={clsx({ hidden: open, block: !open })} />
+            <ChevronDownIcon className={clsx({ hidden: !open, block: open })} />
+            <ChevronLeftIcon className={clsx({ hidden: open, block: !open })} />
           </div>
         </SideNavLink>
       </div>
