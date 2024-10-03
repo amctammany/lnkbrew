@@ -29,9 +29,9 @@ export const EquipmentSection: FC<EquipmentSectionProps> = ({ recipe }) => {
         </>
       }
     >
-      <div className="grid grid-cols-2">
+      <div className="grid md:grid-cols-2 text-sm lg:text-lg">
         <Prop
-          className="col-span-2"
+          className="md:col-span-2"
           label="Profile Name"
           value={recipe?.equipmentProfile?.name}
         />

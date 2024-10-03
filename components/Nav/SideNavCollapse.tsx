@@ -1,16 +1,12 @@
 "use client";
 import { VariantProps, cva } from "class-variance-authority";
 import clsx from "clsx";
-import { IconButton } from "../Button";
 import { Fragment, useCallback, useMemo, useState } from "react";
 import { useClickAway } from "@/lib/useClickAway";
-import { MaximizeIcon } from "../Icon/MaximizeIcon";
-import { MinimizeIcon } from "../Icon/MinimizeIcon";
 import SideNavLink from "./SideNavLink";
 import { useMediaQuery } from "@/hooks";
-import ChevronUpIcon from "../Icon/ChevronUpIcon";
-import ChevronLeftIcon from "../Icon/ChevronLeftIcon";
 import ChevronDownIcon from "../Icon/ChevronDownIcon";
+import ChevronRightIcon from "../Icon/ChevronRightIcon";
 //import Link from "next/link";
 //import { usePathname } from "next/sideNavigation";
 
@@ -67,7 +63,7 @@ export const SideNavCollapse = ({
   size,
 }: SideNavCollapseProps) => {
   const isSmall = useMediaQuery("(max-width: 641px)");
-  const [open, setOpen] = useState(!isSmall);
+  const [open, setOpen] = useState(false);
 
   const handler = useCallback(() => {
     if (!isSmall) return;
@@ -96,7 +92,9 @@ export const SideNavCollapse = ({
         >
           <div className="block md:hidden">
             <ChevronDownIcon className={clsx({ hidden: !open, block: open })} />
-            <ChevronLeftIcon className={clsx({ hidden: open, block: !open })} />
+            <ChevronRightIcon
+              className={clsx({ hidden: open, block: !open })}
+            />
           </div>
         </SideNavLink>
       </div>

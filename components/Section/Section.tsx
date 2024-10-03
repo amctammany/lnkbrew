@@ -6,7 +6,7 @@ import { IconNames } from "../Icon";
 import { Icon as IconClass } from "../Icon/Icon";
 import SectionActionsCollapse from "./SectionActionsCollapse";
 
-const section = cva(["min-w-full bg-white "], {
+const section = cva(["mn-w-full bg-white "], {
   variants: {
     variant: {
       primary: [""],
@@ -32,7 +32,7 @@ const section = cva(["min-w-full bg-white "], {
   },
 });
 
-const sectionHeader = cva(["flex items-center overflow-x-scroll"], {
+const sectionHeader = cva(["flex items-center "], {
   variants: {
     variant: {
       primary: ["bg-primary-200"],
@@ -146,6 +146,7 @@ export type SectionProps = VariantProps<typeof section> &
     header?: string | React.ReactNode;
     icon?: IconNames | React.ReactNode;
     Icon?: typeof IconClass;
+    collapsible?: boolean;
     actions?: React.ReactNode | React.ReactNode[];
     children?: React.ReactNode | React.ReactNode[];
     footer?: React.ReactNode | React.ReactNode[];
@@ -157,6 +158,7 @@ export const Section = ({
   actions,
   children,
   collapsed,
+  collapsible,
   footer,
   size,
   variant,
@@ -172,7 +174,7 @@ export const Section = ({
         <div className={sectionTitle({ size, variant, collapsed })}>
           {_title || title}
         </div>
-        <SectionActionsCollapse variant={variant}>
+        <SectionActionsCollapse collapsible={collapsible} variant={variant}>
           {actions}
         </SectionActionsCollapse>
       </div>

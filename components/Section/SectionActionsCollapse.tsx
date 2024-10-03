@@ -13,6 +13,7 @@ export type SectionActionsCollapseProps = VariantProps<
   typeof collapseStyles
 > & {
   children?: React.ReactNode[] | React.ReactNode;
+  collapsible?: boolean;
   className?: string;
 };
 const containerStyles = cva(["relative flex flex-row "], {
@@ -72,6 +73,7 @@ const collapseStyles = cva("flex bg-primary-300 ", {
 export function SectionActionsCollapse({
   children,
   variant,
+  collapsible = false,
   className,
 }: SectionActionsCollapseProps) {
   const isSmall = useMediaQuery("(max-width: 641px)");
@@ -88,6 +90,17 @@ export function SectionActionsCollapse({
     if (isSmall) setOpen((o) => !o);
   };
 
+  if (!collapsible) {
+    return (
+      <div
+        //ref={ref}
+        className={containerStyles({ variant, open: open ? "open" : "closed" })}
+        //onClick={handler}
+      >
+        {children}
+      </div>
+    );
+  }
   return !children ? (
     <></>
   ) : (

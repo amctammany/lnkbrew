@@ -36,6 +36,7 @@ EquipmentProfileDisplayProps) => {
     <Section
       Icon={EquipmentProfileIcon}
       header={profile?.name}
+      collapsible
       actions={
         <>
           <FavButton
