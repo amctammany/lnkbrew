@@ -102,6 +102,7 @@ export function SectionActionsCollapse({
       </div>
       <div className={clsx("flex items-end", { hidden: !isSmall })}>
         <IconButton
+          name="Minimize"
           className="group-focus-within:bg-blue-400"
           Icon={open ? MinimizeIcon : MaximizeIcon}
           onClick={handleToggle}
