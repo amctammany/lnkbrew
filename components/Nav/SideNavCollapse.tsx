@@ -66,7 +66,7 @@ export const SideNavCollapse = ({
   size,
 }: SideNavCollapseProps) => {
   const isSmall = useMediaQuery("(max-width: 641px)");
-  const [open, setOpen] = useState(!isSmall);
+  const [open, setOpen] = useState(false);
   const pathname = usePathname();
   useEffect(() => {
     if (pathname) setOpen(false);
@@ -77,10 +77,8 @@ export const SideNavCollapse = ({
     setOpen(() => false);
   }, [isSmall]);
   const ref = useClickAway<HTMLDivElement>(handler);
-  //const pathname = usePathname();
-  //const active = href === pathname.slice(0, href.length) ? "active" : variant;
   const handleToggle: React.MouseEventHandler<HTMLDivElement> = (e) => {
-    //console.log(e.currentTarget);
+    console.log(e.nativeEvent.target);
     if (!isSmall) return;
     setOpen((o) => !o);
   };
@@ -111,7 +109,7 @@ export const SideNavCollapse = ({
           containerStyles({ variant, open: open ? "open" : "closed" })
           //"sm:hidden"
         )}
-        //onClick={handleToggle}
+        onClick={handleToggle}
       >
         {children}
       </div>
