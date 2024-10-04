@@ -75,7 +75,7 @@ export function PrefAmountField({
         error={error}
         variant={variant}
         inputSize={inputSize}
-        value={value}
+        value={value?.toFixed(2)}
         {...props}
       />
     </Label>

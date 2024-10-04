@@ -19,10 +19,14 @@ export const equipmentProfileMapping: Mapping<EquipmentProfile> = {
   trubLoss: "volume",
   mashLoss: "volume",
   fermenterLoss: "volume",
-  mashEfficiency: "percentage",
-  brewEfficiency: "percentage",
+  mashEfficiency: "percent",
+  brewEfficiency: "percent",
 };
-
+function toFixed(num: number, fixed: number) {
+  fixed = fixed || 0;
+  fixed = Math.pow(10, fixed);
+  return Math.floor(num * fixed) / fixed;
+}
 export function mapUnits<T extends Record<string | number, unknown>>(
   src: T,
   prefs: {
@@ -38,8 +42,9 @@ export function mapUnits<T extends Record<string | number, unknown>>(
     (acc, k) => {
       const map = mapping[k] as AmountType;
       if (typeof acc[k] === "number")
-        acc[k as any] = classConverters[map][prefs[map] as UnitTypes][method](
-          acc[k]
+        acc[k as any] = toFixed(
+          classConverters[map][prefs[map] as UnitTypes][method](acc[k]),
+          2
         ); // [prefs[k]];
       //time: classConverters["time"][prefs.time as UnitTypes].to(time), //,(time),
       return acc;

@@ -111,7 +111,7 @@ export const EquipmentProfileForm = ({
             />
             <PrefAmountField
               type="time"
-              {...register("boilTime")}
+              {...register("boilTime", { valueAsNumber: true })}
               label="Boil Time"
               step={0.01}
               error={state.errors?.boilTime}
@@ -148,14 +148,14 @@ export const EquipmentProfileForm = ({
 
             <PrefAmountField
               type="percent"
-              {...register("brewEfficiency")}
+              {...register("brewEfficiency", { valueAsNumber: true })}
               suffix="%"
               step={0.01}
               label="Brew Efficiency"
             />
             <PrefAmountField
               type="percent"
-              {...register("mashEfficiency")}
+              {...register("mashEfficiency", { valueAsNumber: true })}
               suffix="%"
               step={0.01}
               label="Mash Efficiency"

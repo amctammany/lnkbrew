@@ -49,7 +49,7 @@ export const createEquipmentProfile = async (
     //return valid.error;
     //}
     const { id, forkedFrom, userId, ...data } = v.data; // equipmentSchema.parse(formData);
-    const r = mapUnits(data, prefs, equipmentProfileMapping);
+    const r = mapUnits(data, prefs, equipmentProfileMapping, "to");
     //console.log(r);
     const res = await prisma.equipmentProfile.create({
       data: {
@@ -90,6 +90,7 @@ export const updateEquipmentProfile = async (
   const {
     data: { id, ...data },
   } = v; // equipmentSchema.parse(formData);
+  console.log(prefs, data);
   const {
     id: _id,
     forkedFrom,
@@ -99,8 +100,9 @@ export const updateEquipmentProfile = async (
     data as ExtendedEquipmentProfile,
     prefs,
     equipmentProfileMapping,
-    "from"
+    "to"
   );
+  console.log(r);
   const res = await prisma.equipmentProfile.update({
     where: { id },
     data: {

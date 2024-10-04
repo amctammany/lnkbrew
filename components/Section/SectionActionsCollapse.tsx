@@ -77,7 +77,7 @@ export function SectionActionsCollapse({
   className,
 }: SectionActionsCollapseProps) {
   const isSmall = useMediaQuery("(max-width: 641px)");
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(!isSmall);
   const handler = useCallback(() => {
     if (isSmall) {
       setOpen(() => false);

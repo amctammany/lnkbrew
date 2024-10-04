@@ -82,48 +82,42 @@ EquipmentProfileDisplayProps) => {
         <PrefAmountProp
           label="Batch Volume"
           type="volume"
-          value={profile?.batchVolume ?? 0}
+          value={profile?.batchVolume}
         />
         <PrefAmountProp
           label="Boil Time"
           type="time"
-          value={profile?.boilTime as any}
+          value={profile?.boilTime}
         />
         <PrefAmountProp
           label="Boil Off Rate"
           type="flow"
-          value={profile.boilOffRate as number}
+          value={profile.boilOffRate}
         />
-        <AmountProp
-          value={profile?.boilOffRate}
-          label="Boil Off Rate"
-          unitType="flow"
-          //unit="gal/hr"
-        />
-        <AmountProp
+        <PrefAmountProp
           label="Trub Loss"
-          unitType="volume"
-          value={profile?.trubLoss}
+          type="volume"
+          value={profile.trubLoss}
         />
-        <AmountProp
+        <PrefAmountProp
           label="Fermenter Loss"
-          unitType="volume"
-          value={profile?.fermenterLoss}
+          type="volume"
+          value={profile.fermenterLoss}
         />
-        <AmountProp
+        <PrefAmountProp
           label="Mash Loss"
-          unitType="volume"
-          value={profile?.mashLoss}
+          type="volume"
+          value={profile.mashLoss}
         />
-        <AmountProp
+        <PrefAmountProp
           label="Mash Efficiency"
-          unitType="percent"
-          value={profile?.mashEfficiency}
+          type="percent"
+          value={profile.mashEfficiency}
         />
-        <AmountProp
+        <PrefAmountProp
           label="Brew Efficiency"
-          unitType="percent"
-          value={profile?.brewEfficiency}
+          type="percentage"
+          value={profile.brewEfficiency}
         />
       </div>
     </Section>

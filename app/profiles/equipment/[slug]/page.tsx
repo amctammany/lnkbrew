@@ -22,7 +22,6 @@ export default async function EquipmentProfileDisplayPage({
 }: EquipmentProfileDisplayPageProps) {
   const equipmentProfile = await getEquipmentProfile(slug);
   const session = await auth();
-  console.log(session?.preferences);
   const equip = mapUnits(
     equipmentProfile,
     session?.preferences || {},

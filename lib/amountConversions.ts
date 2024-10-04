@@ -44,9 +44,9 @@ export const massConverters: Record<
   Oz: 0.035274, //gramToOunce,
 };
 export const volumeConverters: Record<UserVolumePreference, Converter> = {
-  gal: 1, //(v) => v * 0.264172,
-  L: 1 / 3.78541, //(v) => v,
-  bbl: 31,
+  L: 1,
+  gal: 1 / 3.78, //(v) => v * 0.264172,
+  bbl: 1 / (31 * 3.78),
 };
 export const temperatureConverters: Record<
   UserTemperaturePreference,
@@ -73,7 +73,7 @@ export const colorConverters: Record<UserColorPreference, Converter> = {
   SRM: [(v) => v * 1.35 - 0.6, (v) => (v + 0.6) / 1.35],
 };
 export const percentConverters: Record<string, Converter> = {
-  "%": 100,
+  "%": 1 / 100,
 };
 export const percentageConverters: Record<string, Converter> = {
   "%": 1,
@@ -156,7 +156,7 @@ export const converters: Record<AmountType, any> = {
   temperature: (type: UserTemperaturePreference = "F") =>
     temperatureConverters[type],
   gravity: (type: UserGravityPreference = "SG") => gravityConverters[type],
-  percent: (v: number) => v * 100,
+  percent: (v: number) => v / 100,
   percentage: (v: number) => v * 1,
   concentration: (v: number) => v * 1,
 };

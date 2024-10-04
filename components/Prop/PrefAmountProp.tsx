@@ -10,7 +10,7 @@ import { useSession } from "next-auth/react";
 import { UnitPrefs } from "@/types/User";
 import Prop from "./Prop";
 
-export type PrefAmountPropProps = InputProps &
+export type PrefAmountPropProps = Omit<InputProps, "value"> &
   VariantProps<typeof prefAmountPropStyles> & {
     //name: string;
     //label?: string;
