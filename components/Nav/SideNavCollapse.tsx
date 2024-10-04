@@ -26,7 +26,7 @@ const containerStyles = cva(["bg-slae-800 flex-grow"], {
   },
 });
 const sideNavCollapseStyles = cva(
-  ["group/sidenav text-center font-bold relative md:col-span-1 lg:col-span-2"],
+  ["group/sidenav font-bold relative md:col-span-1 lg:col-span-2"],
   {
     variants: {
       variant: {
@@ -63,17 +63,18 @@ export const SideNavCollapse = ({
   size,
 }: SideNavCollapseProps) => {
   const isSmall = useMediaQuery("(max-width: 641px)");
-  const [open, setOpen] = useState(isSmall);
+  const [open, setOpen] = useState(!isSmall);
 
   const handler = useCallback(() => {
-    //if (!isSmall) return;
+    if (!isSmall) return;
     setOpen(() => false);
   }, [isSmall]);
   const ref = useClickAway<HTMLDivElement>(handler);
   //const pathname = usePathname();
   //const active = href === pathname.slice(0, href.length) ? "active" : variant;
   const handleToggle: React.MouseEventHandler<HTMLDivElement> = (e) => {
-    //if (!isSmall) return;
+    console.log(e.currentTarget);
+    if (!isSmall) return;
     setOpen((o) => !o);
   };
 
@@ -103,7 +104,7 @@ export const SideNavCollapse = ({
           containerStyles({ variant, open: open ? "open" : "closed" })
           //"sm:hidden"
         )}
-        onClick={handleToggle}
+        //onClick={handleToggle}
       >
         {children}
       </div>

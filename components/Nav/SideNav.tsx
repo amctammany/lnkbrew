@@ -81,3 +81,4 @@ export const SideNav = ({
         <div className="grid grid-flow-row font-medium p-2 md:p-0  md:pace-x-8">
         </div>
  */
+export default SideNav;

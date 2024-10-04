@@ -1,7 +1,14 @@
 import { auth } from "@/app/auth";
+import { IconButton, IconButtonLink } from "@/components/Button";
+import { AddIcon } from "@/components/Icon/AddIcon";
+import { DashboardIcon } from "@/components/Icon/DashboardIcon";
+import { LogoutIcon } from "@/components/Icon/LogoutIcon";
 //import { AppIcon } from "@/components/AppIcon";
 import { StarIcon } from "@/components/Icon/StarIcon";
+import { Label } from "@/components/Label";
 import NavLink from "@/components/Nav/NavLink";
+import { UserIcon } from "@heroicons/react/24/outline";
+import Link from "next/link";
 //import Link from "next/link";
 export type AdminNavProps = {};
 
@@ -12,13 +19,22 @@ export async function AdminNav({}: AdminNavProps) {
   const session = await auth();
   const body = session ? (
     <>
-      <NavLink className="font-extrabold" href="/admin/dash/home">
+      <IconButtonLink
+        Icon={DashboardIcon}
+        href="/admin/dash/home"
+        //prefetch={false}
+        className={"flex-grow flex text-center font-bold  "}
+      >
         Admin
-      </NavLink>
+      </IconButtonLink>
     </>
   ) : (
     <div className="">
-      <NavLink href="/admin/login">Sign In</NavLink>
+      <Link href="/admin/login" prefetch={false} className={"flex-grow"}>
+        <Label text="Sign In" textClassName="hidden md:block">
+          <AddIcon />
+        </Label>
+      </Link>
     </div>
   );
   return <>{body}</>;

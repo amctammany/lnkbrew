@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import NavLink from "@/components/Nav/NavLink";
-import { Nav } from "@/components/Nav/Nav";
+import SideNavLink from "@/components/Nav/SideNavLink";
+import { SideNav } from "@/components/Nav/SideNav";
 import UserProvider from "./UserProvider";
 import { SessionProvider } from "next-auth/react";
+import { Nav, NavLink } from "@/components/Nav";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,16 +24,22 @@ export default function RootLayout({
       <body className={inter.className}>
         <Nav>
           <NavLink href="/recipes">Recipes</NavLink>
-          <NavLink href="/ingredients">Ingredients</NavLink>
-          <NavLink href="/styles">Styles</NavLink>
-          <NavLink href="/profiles">Profiles</NavLink>
         </Nav>
-
-        <main className="in-w-full items-center justify-between p-0 ">
-          <SessionProvider>
-            <UserProvider>{children}</UserProvider>
-          </SessionProvider>
-        </main>
+        <SideNav
+          title="LNK"
+          body={
+            <main className="in-w-full items-center justify-between p-0 ">
+              <SessionProvider>
+                <UserProvider>{children}</UserProvider>
+              </SessionProvider>
+            </main>
+          }
+        >
+          <SideNavLink href="/recipes">Recipes</SideNavLink>
+          <SideNavLink href="/ingredients">Ingredients</SideNavLink>
+          <SideNavLink href="/styles">Styles</SideNavLink>
+          <SideNavLink href="/profiles">Profiles</SideNavLink>
+        </SideNav>
       </body>
     </html>
   );

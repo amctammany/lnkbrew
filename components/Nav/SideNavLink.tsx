@@ -61,7 +61,7 @@ export const SideNavLink = ({
   const c = clsx(sideNavLinkStyles({ size, variant, active }), className);
   const body =
     href !== "" ? (
-      <Link href={href} prefetch={false} className={""}>
+      <Link href={href} prefetch={false} className={"flex-grow"}>
         <Label text={label || href}>{children}</Label>
       </Link>
     ) : (
