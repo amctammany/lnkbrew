@@ -10,7 +10,7 @@ import ChevronRightIcon from "../Icon/ChevronRightIcon";
 //import Link from "next/link";
 //import { usePathname } from "next/sideNavigation";
 
-const containerStyles = cva(["bg-slae-800 flex-grow"], {
+const containerStyles = cva(["bg-slae-800 min-h-screen flex-grow"], {
   variants: {
     variant: {
       default: [],
@@ -26,7 +26,9 @@ const containerStyles = cva(["bg-slae-800 flex-grow"], {
   },
 });
 const sideNavCollapseStyles = cva(
-  ["group/sidenav font-bold relative md:col-span-1 lg:col-span-2"],
+  [
+    "group/sidenav font-bold relative md:col-span-1 lg:col-span-2 border-r-4 border-black",
+  ],
   {
     variants: {
       variant: {

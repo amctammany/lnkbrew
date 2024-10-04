@@ -101,7 +101,7 @@ export const SideNavDropdown = ({
   const [isOpen, setIsOpen] = useState(open);
   return (
     <>
-      <li className={styles({ variant, active })}>
+      <li className={clsx(styles({ variant, active }), className)}>
         <Label
           className={sideNavDropdownButtonStyles({ variant, active })}
           onClick={() => setIsOpen((o) => !o)}
@@ -123,8 +123,8 @@ export const SideNavDropdown = ({
       <ul
         className={clsx(
           sideNavDropdownStyles({ variant }),
-          { hidden: !isOpen, block: isOpen },
-          className
+          { hidden: !isOpen, block: isOpen }
+          //className
         )}
       >
         {children}

@@ -88,9 +88,19 @@ export default function RootLayout({
               <WaterProfileIcon />
             </SideNavLink>
           </SideNavDropdown>
-          <SideNavDropdown Icon={<SettingsIcon />} href="/admin" label="Admin">
+
+          <div className="border-t-8 border-black"></div>
+          <SideNavDropdown
+            Icon={<SettingsIcon />}
+            href="/admin"
+            label="Admin"
+            className="mt-4"
+          >
             <SideNavLink href="/admin/dash/home" label="Dashboard">
               <DashboardIcon />
+            </SideNavLink>
+            <SideNavLink href="/admin/dash/profile" label="Profile">
+              <ProfileIcon />
             </SideNavLink>
             <SideNavDropdown
               Icon={<SettingsIcon />}
