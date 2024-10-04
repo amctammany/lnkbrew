@@ -1,12 +1,13 @@
 "use client";
 import { VariantProps, cva } from "class-variance-authority";
 import clsx from "clsx";
-import { Fragment, useCallback, useMemo, useState } from "react";
+import { Fragment, useCallback, useEffect, useMemo, useState } from "react";
 import { useClickAway } from "@/lib/useClickAway";
 import SideNavLink from "./SideNavLink";
 import { useMediaQuery } from "@/hooks";
 import ChevronDownIcon from "../Icon/ChevronDownIcon";
 import ChevronRightIcon from "../Icon/ChevronRightIcon";
+import { usePathname } from "next/navigation";
 //import Link from "next/link";
 //import { usePathname } from "next/sideNavigation";
 
@@ -66,6 +67,10 @@ export const SideNavCollapse = ({
 }: SideNavCollapseProps) => {
   const isSmall = useMediaQuery("(max-width: 641px)");
   const [open, setOpen] = useState(!isSmall);
+  const pathname = usePathname();
+  useEffect(() => {
+    if (pathname) setOpen(false);
+  }, [pathname]);
 
   const handler = useCallback(() => {
     if (!isSmall) return;
