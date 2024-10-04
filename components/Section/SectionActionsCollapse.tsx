@@ -28,8 +28,8 @@ const containerStyles = cva(["relative flex flex-row "], {
       inner: [""],
     },
     open: {
-      open: [""],
-      closed: [""],
+      open: ["block"],
+      closed: ["hidden"],
     },
   },
   defaultVariants: {
@@ -77,7 +77,7 @@ export function SectionActionsCollapse({
   className,
 }: SectionActionsCollapseProps) {
   const isSmall = useMediaQuery("(max-width: 641px)");
-  const [open, setOpen] = useState(!isSmall);
+  const [open, setOpen] = useState(false);
   const handler = useCallback(() => {
     if (isSmall) {
       setOpen(() => false);
@@ -90,7 +90,7 @@ export function SectionActionsCollapse({
     if (isSmall) setOpen((o) => !o);
   };
 
-  if (!collapsible || !isSmall) {
+  if (!collapsible) {
     return (
       <div
         //ref={ref}
