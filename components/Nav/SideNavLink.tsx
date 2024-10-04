@@ -72,7 +72,7 @@ export const SideNavLink = ({
         //order="reverse"
         onClick={onClick}
         text={label || href}
-        textClassName={"m-0"}
+        textClassName={"m-0 sidebarLabel"}
       >
         {children}
       </Label>
