@@ -33,7 +33,7 @@ export default async function EquipmentProfileEditorPage({
     equipmentProfile,
     session?.preferences,
     equipmentProfileMapping,
-    "from"
+    "to"
   );
   return (
     <EquipmentProfileForm

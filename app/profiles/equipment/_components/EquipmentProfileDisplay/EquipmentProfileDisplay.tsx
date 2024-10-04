@@ -25,14 +25,14 @@ const numberFieldNames: [keyof EquipmentProfile, string][] = [
 ];
 
 export type EquipmentProfileDisplayProps = {
-  profile?: ExtendedEquipmentProfile;
-  preferences: UnitPrefs;
+  profile: ExtendedEquipmentProfile;
+  //preferences: UnitPrefs;
   action?: any;
 };
 export const EquipmentProfileDisplay = ({
   profile,
-  preferences,
 }: //preferences,
+//preferences,
 //action,
 EquipmentProfileDisplayProps) => {
   return (
@@ -84,15 +84,15 @@ EquipmentProfileDisplayProps) => {
           type="volume"
           value={profile?.batchVolume ?? 0}
         />
-        <Prop
+        <PrefAmountProp
           label="Boil Time"
-          unit={preferences["time"]}
-          value={profile?.boilTime}
+          type="time"
+          value={profile?.boilTime as any}
         />
-        <Prop
+        <PrefAmountProp
           label="Boil Off Rate"
-          unit={preferences["flow"]}
-          value={profile?.boilOffRate}
+          type="flow"
+          value={profile.boilOffRate as number}
         />
         <AmountProp
           value={profile?.boilOffRate}

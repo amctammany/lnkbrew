@@ -8,6 +8,7 @@ import {
   ExtendedEquipmentProfile,
 } from "@/types/Profile";
 import { createEquipmentProfile } from "../../actions";
+import { equipmentProfileMapping, mapUnits } from "@/lib/mapUnits";
 type EquipmentProfileForkPageProps = {
   params: {
     slug: string;
@@ -40,9 +41,16 @@ export default async function EquipmentProfileForkPage({
     userId: session?.user?.id!,
     forkedFrom: id ?? null,
   };
+  const equip = mapUnits(
+    forkedProfile,
+    session?.preferences,
+    equipmentProfileMapping,
+    "to"
+  );
+
   return (
     <EquipmentProfileForm
-      profile={forkedProfile}
+      profile={equip}
       action={createEquipmentProfile.bind(null, session?.preferences)}
     />
   );

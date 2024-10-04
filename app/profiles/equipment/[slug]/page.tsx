@@ -22,6 +22,7 @@ export default async function EquipmentProfileDisplayPage({
 }: EquipmentProfileDisplayPageProps) {
   const equipmentProfile = await getEquipmentProfile(slug);
   const session = await auth();
+  console.log(session?.preferences);
   const equip = mapUnits(
     equipmentProfile,
     session?.preferences || {},
@@ -33,7 +34,7 @@ export default async function EquipmentProfileDisplayPage({
   return (
     <EquipmentProfileDisplay
       profile={equip}
-      preferences={session?.user?.UserPreferences ?? ({} as any)}
+      //preferences={session?.user?.UserPreferences ?? ({} as any)}
       //action={toggleUserFavorite}
     />
   );

@@ -99,7 +99,7 @@ export const updateEquipmentProfile = async (
     data as ExtendedEquipmentProfile,
     prefs,
     equipmentProfileMapping,
-    "to"
+    "from"
   );
   const res = await prisma.equipmentProfile.update({
     where: { id },

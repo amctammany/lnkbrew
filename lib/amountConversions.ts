@@ -44,9 +44,9 @@ export const massConverters: Record<
   Oz: 0.035274, //gramToOunce,
 };
 export const volumeConverters: Record<UserVolumePreference, Converter> = {
-  L: 1, //(v) => v,
-  gal: 0.264172, //(v) => v * 0.264172,
-  bbl: 0.008522, //(v) => v * 0.008522,
+  gal: 1, //(v) => v * 0.264172,
+  L: 1 / 3.78541, //(v) => v,
+  bbl: 31,
 };
 export const temperatureConverters: Record<
   UserTemperaturePreference,

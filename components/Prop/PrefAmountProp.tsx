@@ -18,7 +18,7 @@ export type PrefAmountPropProps = InputProps &
     //error?: SchemaPropError;
     step?: number;
     type: keyof UnitPrefs;
-    value?: string | number | null;
+    value?: any;
     //ref: any;
   };
 
@@ -61,12 +61,12 @@ export function PrefAmountProp({
   const unit = prefs[type];
   return (
     <Prop
+      {...props}
       label={label !== null ? label || name : ""}
-      value={value}
+      value={value.toFixed(2)}
       unit={unit}
       //variant={variant}
       className="w-full"
-      {...props}
     />
   );
 }
