@@ -61,9 +61,7 @@ export const Label = ({
       {children}
       {text && (
         <>
-          <span
-            className={clsx("m-auto ", { "md:ml-2": !!text }, textClassName)}
-          >
+          <span className={clsx("", { "md:ml-2": !!text }, textClassName)}>
             {text}
           </span>
           <span className={labelTooltipStyles({ variant })}>{text}</span>

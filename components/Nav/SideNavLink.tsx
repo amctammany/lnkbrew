@@ -62,7 +62,7 @@ export const SideNavLink = ({
   const body =
     href !== "" ? (
       <Link href={href} prefetch={false} className={"flex-grow m-0"}>
-        <Label text={label || href} textClassName={"m-0"}>
+        <Label text={label || href} textClassName={"m-0 w-full pl-1 md:pl-2"}>
           {children}
         </Label>
       </Link>
@@ -72,7 +72,7 @@ export const SideNavLink = ({
         //order="reverse"
         onClick={onClick}
         text={label || href}
-        textClassName={"m-0 sidebarLabel"}
+        textClassName={"m-0 w-full pl-1 md:pl-2"}
       >
         {children}
       </Label>

@@ -106,6 +106,7 @@ export const SideNavDropdown = ({
           className={sideNavDropdownButtonStyles({ variant, active })}
           onClick={() => setIsOpen((o) => !o)}
           text={label}
+          textClassName="w-full pl-2 md:pl-4"
           suffix={
             <>
               <ChevronLeftIcon

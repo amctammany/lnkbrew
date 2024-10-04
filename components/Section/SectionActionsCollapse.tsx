@@ -28,8 +28,8 @@ const containerStyles = cva(["relative flex flex-row "], {
       inner: [""],
     },
     open: {
-      open: ["block"],
-      closed: ["hidden"],
+      open: [""],
+      closed: [""],
     },
   },
   defaultVariants: {
@@ -90,7 +90,7 @@ export function SectionActionsCollapse({
     if (isSmall) setOpen((o) => !o);
   };
 
-  if (!collapsible) {
+  if (!collapsible || !isSmall) {
     return (
       <div
         //ref={ref}

@@ -66,11 +66,11 @@ export const SideNavCollapse = ({
   size,
 }: SideNavCollapseProps) => {
   const isSmall = useMediaQuery("(max-width: 641px)");
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(!isSmall);
   const pathname = usePathname();
   useEffect(() => {
-    if (pathname) setOpen(false);
-  }, [pathname]);
+    if (pathname && isSmall) setOpen(false);
+  }, [pathname, isSmall]);
 
   const handler = useCallback(() => {
     if (!isSmall) return;
