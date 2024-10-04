@@ -17,6 +17,7 @@ import { MashProfileIcon } from "@/components/Icon/MashProfileIcon";
 import { WaterProfileIcon } from "@/components/Icon/WaterProfileIcon";
 import { ProfileIcon } from "@/components/Icon/ProfileIcon";
 import { DashboardIcon } from "@/components/Icon/DashboardIcon";
+import ClientBreadcrumbs from "@/components/Breadcrumbs/ClientBreadcrumbs";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -37,7 +38,7 @@ export default function RootLayout({
           <NavLink href="/recipes">Recipes</NavLink>
         </Nav>
         <SideNav
-          title="LNK"
+          title={<ClientBreadcrumbs />}
           body={
             <main className="in-w-full items-center justify-between p-0 ">
               <SessionProvider>

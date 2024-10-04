@@ -31,13 +31,13 @@ export const Nav = ({ children }: NavProps) => {
             LNK Brewing
           </Link>
         </div>
-        <div className="flex-grow grid justify-items-end my-auto ">
-          <div className="text-right inline-flex h-8 bg-slate-200">
+        <div className="flex-grow grid items-center justify-items-end my-auto ">
+          <div className="text-right inline-flex h-8 flexgrow bg-slate-200">
             <SearchIcon
               size="medium"
               className="my-auto flex-shrink border-r-0 text-black font-bold mx-1"
             />
-            <input type="search" className="md:w-48" />
+            <input type="search" className="lex-grow md:w-48 w-9" width={8} />
           </div>
         </div>
         <div className="flex-shrink m-auto">

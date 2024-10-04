@@ -75,7 +75,7 @@ export const SideNavCollapse = ({
   //const pathname = usePathname();
   //const active = href === pathname.slice(0, href.length) ? "active" : variant;
   const handleToggle: React.MouseEventHandler<HTMLDivElement> = (e) => {
-    console.log(e.currentTarget);
+    //console.log(e.currentTarget);
     if (!isSmall) return;
     setOpen((o) => !o);
   };

@@ -44,7 +44,7 @@ const styles = cva(
 );
 const sideNavDropdownButtonStyles = cva(
   [
-    "relative flex w-full text-sm  lg:text-lg cursor-pointer justify-between rounded-md  text-left focus:outline-none focus:shadow-outline",
+    "group/dropdown relative flex w-full text-sm  lg:text-lg cursor-pointer justify-between rounded-md  text-left focus:outline-none focus:shadow-outline",
   ],
   {
     variants: {
