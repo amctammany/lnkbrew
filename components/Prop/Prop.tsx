@@ -2,7 +2,7 @@ import { cva, VariantProps } from "class-variance-authority";
 import clsx from "clsx";
 
 export type PropProps = VariantProps<typeof propStyles> & {
-  label?: string | null;
+  label?: React.ReactNode;
   value?: string | number | null;
   unit?: string | null;
   className?: string;

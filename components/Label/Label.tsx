@@ -15,6 +15,7 @@ const labelStyles = cva(["group/label flex mx-auto relative"], {
       default: "text-inherit",
       subnav: "text-blue-300",
       warning: "text-warning-500",
+      error: "text-error-200",
     },
     order: {
       default: "flex-row",
@@ -33,6 +34,7 @@ const labelTooltipStyles = cva(
   {
     variants: {
       variant: {
+        error: "text-error-200",
         default: [""],
         subnav: [""],
         warning: [""],

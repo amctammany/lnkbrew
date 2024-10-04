@@ -45,6 +45,7 @@ export const AuthOptions: NextAuthConfig = {
       session.preferences = ((token.user || {}) as any).UserPreferences
         ?.UnitPreferences as any;
 
+      session.preferences.flow = "gpm";
       session.preferences.percent = "%";
       session.preferences.percentage = "%";
       session.user = token.user as any;

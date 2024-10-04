@@ -1,27 +1,28 @@
 "use client";
-import { Label } from "./Label";
+import { Label } from "@/components/Label";
 import { VariantProps, cva } from "class-variance-authority";
-import { SchemaFieldError } from "@/lib/validateSchema";
-import { Input, inputStyles, InputProps } from "./Input";
+//import { SchemaPropError } from "@/lib/validateSchema";
+import { Input, inputStyles, InputProps } from "@/components/Form/Input";
 import clsx from "clsx";
 import { UnitPreferences, UserPreferences } from "@prisma/client";
 import { AmountType, UnitTypes } from "@/lib/amountConversions";
 import { useSession } from "next-auth/react";
 import { UnitPrefs } from "@/types/User";
+import Prop from "./Prop";
 
-export type PrefAmountFieldProps = {
-  //name: string;
-  //label?: string;
-  //defaultValue?: any;
-  //error?: SchemaFieldError;
-  step?: number;
-  type: keyof UnitPrefs;
-  //value?: any;
-  //ref: any;
-} & InputProps &
-  VariantProps<typeof prefAmountFieldStyles>;
+export type PrefAmountPropProps = InputProps &
+  VariantProps<typeof prefAmountPropStyles> & {
+    //name: string;
+    //label?: string;
+    //defaultValue?: any;
+    //error?: SchemaPropError;
+    step?: number;
+    type: keyof UnitPrefs;
+    value?: string | number | null;
+    //ref: any;
+  };
 
-const prefAmountFieldStyles = cva("input ", {
+const prefAmountPropStyles = cva("input ", {
   variants: {
     variant: {
       default: [
@@ -41,7 +42,7 @@ const prefAmountFieldStyles = cva("input ", {
   defaultVariants: { size: "default", variant: "default" },
 });
 
-export function PrefAmountField({
+export function PrefAmountProp({
   name,
   label,
   variant,
@@ -54,30 +55,18 @@ export function PrefAmountField({
   defaultValue,
   value,
   ...props
-}: PrefAmountFieldProps) {
+}: PrefAmountPropProps) {
   const sesh = useSession();
   const prefs = (sesh.data?.preferences || {}) as UnitPrefs;
   const unit = prefs[type];
   return (
-    <Label
-      //classname={clsx(prefAmountFieldStyles({ variant, size }))}
-      suffix={unit}
-      variant={variant}
-      inputSize={inputSize}
-      className={className}
+    <Prop
       label={label !== null ? label || name : ""}
-      error={error}
-    >
-      <Input
-        className="w-full"
-        type="number"
-        name={name}
-        error={error}
-        variant={variant}
-        inputSize={inputSize}
-        value={value}
-        {...props}
-      />
-    </Label>
+      value={value}
+      unit={unit}
+      //variant={variant}
+      className="w-full"
+      {...props}
+    />
   );
 }

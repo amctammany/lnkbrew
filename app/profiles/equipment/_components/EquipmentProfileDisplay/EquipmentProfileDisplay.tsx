@@ -6,9 +6,11 @@ import { ForkIcon } from "@/components/Icon/ForkIcon";
 import { StarIcon } from "@/components/Icon/StarIcon";
 import { Prop } from "@/components/Prop";
 import AmountProp from "@/components/Prop/AmountProp";
+import { PrefAmountProp } from "@/components/Prop/PrefAmountProp";
 import { Section } from "@/components/Section";
 import { Toolbar } from "@/components/Toolbar";
 import { ExtendedEquipmentProfile } from "@/types/Profile";
+import { UnitPrefs } from "@/types/User";
 import { EquipmentProfile, User, UserPreferences } from "@prisma/client";
 import React from "react";
 const numberFieldNames: [keyof EquipmentProfile, string][] = [
@@ -24,11 +26,12 @@ const numberFieldNames: [keyof EquipmentProfile, string][] = [
 
 export type EquipmentProfileDisplayProps = {
   profile?: ExtendedEquipmentProfile;
-  preferences?: UserPreferences;
+  preferences: UnitPrefs;
   action?: any;
 };
 export const EquipmentProfileDisplay = ({
   profile,
+  preferences,
 }: //preferences,
 //action,
 EquipmentProfileDisplayProps) => {
@@ -76,9 +79,21 @@ EquipmentProfileDisplayProps) => {
           value={profile?.batchVolume}
         />
 
-        <AmountProp label="Boil Time" unitType="time">
-          {profile?.boilTime}
-        </AmountProp>
+        <PrefAmountProp
+          label="Batch Volume"
+          type="volume"
+          value={profile?.batchVolume ?? 0}
+        />
+        <Prop
+          label="Boil Time"
+          unit={preferences["time"]}
+          value={profile?.boilTime}
+        />
+        <Prop
+          label="Boil Off Rate"
+          unit={preferences["flow"]}
+          value={profile?.boilOffRate}
+        />
         <AmountProp
           value={profile?.boilOffRate}
           label="Boil Off Rate"
