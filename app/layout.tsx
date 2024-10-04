@@ -16,6 +16,7 @@ import { EquipmentProfileIcon } from "@/components/Icon/EquipmentProfileIcon";
 import { MashProfileIcon } from "@/components/Icon/MashProfileIcon";
 import { WaterProfileIcon } from "@/components/Icon/WaterProfileIcon";
 import { ProfileIcon } from "@/components/Icon/ProfileIcon";
+import { DashboardIcon } from "@/components/Icon/DashboardIcon";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -86,6 +87,26 @@ export default function RootLayout({
             <SideNavLink href="/profiles/water" label="Water">
               <WaterProfileIcon />
             </SideNavLink>
+          </SideNavDropdown>
+          <SideNavDropdown Icon={<SettingsIcon />} href="/admin" label="Admin">
+            <SideNavLink href="/admin/dash/home" label="Dashboard">
+              <DashboardIcon />
+            </SideNavLink>
+            <SideNavDropdown
+              Icon={<SettingsIcon />}
+              href="/admin/dash/settings"
+              label="Settings"
+            >
+              <SideNavLink href="/admin/dash/settings/units" label="Units">
+                <SettingsIcon />
+              </SideNavLink>
+              <SideNavLink
+                href="/admin/dash/settings/defaults"
+                label="Defaults"
+              >
+                <SettingsIcon />
+              </SideNavLink>
+            </SideNavDropdown>
           </SideNavDropdown>
         </SideNav>
       </body>
