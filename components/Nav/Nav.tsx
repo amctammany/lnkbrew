@@ -15,7 +15,7 @@ export type NavProps = {
 export const Nav = ({ children }: NavProps) => {
   return (
     <nav className="flex items-center md:justify-between flex-wrap md:flex-nowrap px-5 md:py-2 bg-slate-700">
-      <div className="flex flex-grow items-start ">
+      <div className="flex flex-grow items-end ">
         <div className="flex-grow md:flex-none m-auto py-1 md:py-2 px-0 md:px-1 ">
           <Link
             href="/"
@@ -31,22 +31,20 @@ export const Nav = ({ children }: NavProps) => {
             LNK Brewing
           </Link>
         </div>
-        <div className="flex-grow m-auto inline-flex h-full bg-slate-200">
-          <SearchIcon
-            size="medium"
-            className="my-auto flex-shrink border-r-0 text-black font-bold mx-1"
-          />
-          <input type="search" className="flex-grow w-full md:w-32" />
+        <div className="flex-grow grid justify-items-end my-auto ">
+          <div className="text-right inline-flex h-8 bg-slate-200">
+            <SearchIcon
+              size="medium"
+              className="my-auto flex-shrink border-r-0 text-black font-bold mx-1"
+            />
+            <input type="search" className="md:w-48" />
+          </div>
         </div>
         <div className="flex-shrink m-auto">
-          <AdminNav />
+          <Suspense fallback={<Loading />}>
+            <AdminNav />
+          </Suspense>
         </div>
-      </div>
-
-      <div className="hidden sm:block">
-        <Suspense fallback={<Loading />}>
-          <AdminNav />
-        </Suspense>
       </div>
     </nav>
   );
