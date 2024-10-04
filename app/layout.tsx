@@ -6,6 +6,16 @@ import { SideNav } from "@/components/Nav/SideNav";
 import UserProvider from "./UserProvider";
 import { SessionProvider } from "next-auth/react";
 import { Nav, NavLink } from "@/components/Nav";
+import SideNavDropdown from "@/components/Nav/SideNavDropdown";
+import { RecipeIcon } from "@/components/Icon/RecipeIcon";
+import { SettingsIcon } from "@/components/Icon/SettingsIcon";
+import { GrainIcon } from "@/components/Icon/GrainIcon";
+import { HopIcon } from "@/components/Icon/HopIcon";
+import { YeastIcon } from "@/components/Icon/YeastIcon";
+import { EquipmentProfileIcon } from "@/components/Icon/EquipmentProfileIcon";
+import { MashProfileIcon } from "@/components/Icon/MashProfileIcon";
+import { WaterProfileIcon } from "@/components/Icon/WaterProfileIcon";
+import { ProfileIcon } from "@/components/Icon/ProfileIcon";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -35,10 +45,48 @@ export default function RootLayout({
             </main>
           }
         >
-          <SideNavLink href="/recipes">Recipes</SideNavLink>
-          <SideNavLink href="/ingredients">Ingredients</SideNavLink>
-          <SideNavLink href="/styles">Styles</SideNavLink>
-          <SideNavLink href="/profiles">Profiles</SideNavLink>
+          <SideNavDropdown
+            Icon={<RecipeIcon />}
+            href="/recipes"
+            label="Recipes"
+          >
+            <SideNavLink href="/recipes/library" label="Library">
+              <SettingsIcon />
+            </SideNavLink>
+          </SideNavDropdown>
+          <SideNavDropdown
+            Icon={<SettingsIcon />}
+            href="/ingredients"
+            label="Ingredients"
+          >
+            <SideNavLink href="/ingredients/hops" label="Hops">
+              <HopIcon />
+            </SideNavLink>
+            <SideNavLink href="/ingredients/fermentables" label="Fermentables">
+              <GrainIcon />
+            </SideNavLink>
+            <SideNavLink href="/ingredients/yeasts" label="Yeasts">
+              <YeastIcon />
+            </SideNavLink>
+          </SideNavDropdown>
+          <SideNavLink href="/styles" label="Styles">
+            <RecipeIcon />
+          </SideNavLink>
+          <SideNavDropdown
+            Icon={<ProfileIcon />}
+            href="/profiles"
+            label="Profiles"
+          >
+            <SideNavLink href="/profiles/equipment" label="Equipment">
+              <EquipmentProfileIcon />
+            </SideNavLink>
+            <SideNavLink href="/profiles/mash" label="Mash">
+              <MashProfileIcon />
+            </SideNavLink>
+            <SideNavLink href="/profiles/water" label="Water">
+              <WaterProfileIcon />
+            </SideNavLink>
+          </SideNavDropdown>
         </SideNav>
       </body>
     </html>

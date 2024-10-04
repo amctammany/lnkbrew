@@ -9,6 +9,8 @@ import { MaximizeIcon } from "../Icon/MaximizeIcon";
 import { MinimizeIcon } from "../Icon/MinimizeIcon";
 import { Label } from "../Label";
 import { usePathname } from "next/navigation";
+import ChevronLeftIcon from "../Icon/ChevronLeftIcon";
+import ChevronDownIcon from "../Icon/ChevronDownIcon";
 //import clsx from "clsx";
 //import NavLink from "./NavLink";
 export type SideNavDropdownProps = {
@@ -42,7 +44,7 @@ const styles = cva(
 );
 const sideNavDropdownButtonStyles = cva(
   [
-    "relative flex w-full text-sm  lg:text-lg cursor-pointer items-center justify-between rounded-md  text-left focus:outline-none focus:shadow-outline",
+    "relative flex w-full text-sm  lg:text-lg cursor-pointer justify-between rounded-md  text-left focus:outline-none focus:shadow-outline",
   ],
   {
     variants: {
@@ -106,11 +108,11 @@ export const SideNavDropdown = ({
           text={label}
           suffix={
             <>
-              <MaximizeIcon
-                className={clsx({ hidden: !isOpen, block: isOpen })}
-              />
-              <MinimizeIcon
+              <ChevronLeftIcon
                 className={clsx({ hidden: isOpen, block: !isOpen })}
+              />
+              <ChevronDownIcon
+                className={clsx({ hidden: !isOpen, block: isOpen })}
               />
             </>
           }

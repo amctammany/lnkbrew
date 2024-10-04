@@ -61,8 +61,10 @@ export const SideNavLink = ({
   const c = clsx(sideNavLinkStyles({ size, variant, active }), className);
   const body =
     href !== "" ? (
-      <Link href={href} prefetch={false} className={"flex-grow"}>
-        <Label text={label || href}>{children}</Label>
+      <Link href={href} prefetch={false} className={"flex-grow m-0"}>
+        <Label text={label || href} textClassName={"m-0"}>
+          {children}
+        </Label>
       </Link>
     ) : (
       <Label
@@ -70,7 +72,7 @@ export const SideNavLink = ({
         //order="reverse"
         onClick={onClick}
         text={label || href}
-        className={""}
+        textClassName={"m-0"}
       >
         {children}
       </Label>
