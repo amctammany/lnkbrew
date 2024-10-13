@@ -8,6 +8,7 @@ import { ExtendedRecipe } from "@/types/Recipe";
 import { EditIcon } from "@/components/Icon/EditIcon";
 import AmountProp from "@/components/Prop/AmountProp";
 import { getRecipeUrl } from "@/lib/utils";
+import { PrefAmountProp } from "@/components/Prop/PrefAmountProp";
 
 interface EquipmentSectionProps {
   recipe: ExtendedRecipe;
@@ -35,31 +36,33 @@ export const EquipmentSection: FC<EquipmentSectionProps> = ({ recipe }) => {
           label="Profile Name"
           value={recipe?.equipmentProfile?.name}
         />
-        <AmountProp
+        <PrefAmountProp
           label="Batch Volume"
           value={recipe?.batchVolume}
-          unitType="volume"
+          type="volume"
         />
-        <AmountProp
+        <PrefAmountProp
           label="Boil Volume"
           value={recipe?.boilVolume}
-          unitType="volume"
-          precision={0}
+          type="volume"
         />
-        <AmountProp
+        <PrefAmountProp
           label="Boil Time"
           value={recipe?.boilTime}
-          unitType="time"
-          precision={0}
+          type="time"
         />
 
-        <Prop
+        <PrefAmountProp
           label="Mash Efficiency"
           value={recipe?.mashEfficiency}
-          unit="%"
+          type="percentage"
           //precision={0}
         />
-        <Prop label="Brew Efficiency" value={recipe?.brewEfficiency} unit="%" />
+        <PrefAmountProp
+          label="Brew Efficiency"
+          value={recipe?.brewEfficiency}
+          type="percentage"
+        />
       </div>
     </Section>
   );

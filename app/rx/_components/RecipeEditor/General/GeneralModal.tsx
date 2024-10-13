@@ -10,6 +10,7 @@ import { Modal } from "@/components/Modal/Modal";
 import { RoutedModal } from "@/components/Modal/RoutedModal";
 import GeneralForm, { GeneralFormContainer } from "./GeneralForm";
 import { getRecipeUrl } from "@/lib/utils";
+import { updateRecipeGeneral } from "@/app/rx/actions";
 
 interface GeneralProfileModalProps {
   massUnit?: UserMassPreference;
@@ -32,7 +33,7 @@ export const GeneralModal: FC<GeneralProfileModalProps> = ({
         //close={closeModal}
         hidden={modalType !== "general"}
       >
-        <GeneralForm recipe={recipe} />
+        <GeneralForm action={updateRecipeGeneral} recipe={recipe} />
       </RoutedModal>
     </GeneralFormContainer>
     //)

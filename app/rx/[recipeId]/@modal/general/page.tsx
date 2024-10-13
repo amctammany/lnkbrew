@@ -7,6 +7,7 @@ import GeneralForm, {
 import { RoutedModal } from "@/components/Modal/RoutedModal";
 //import { ExtendedRecipe } from "@/types/Recipe";
 import { getRecipeUrl } from "@/lib/utils";
+import { updateRecipeGeneral } from "@/app/rx/actions";
 //import { updateRecipeVitals } from "../actions";
 type RecipeEditorGeneralPageProps = {
   params: {
@@ -33,10 +34,8 @@ export default async function RecipeEditorGeneralPage({
     redirect(`/recipes/${recipe?.id}`);
   }
   return (
-    <GeneralFormContainer>
-      <RoutedModal returnUrl={getRecipeUrl(recipeId)} hidden={false}>
-        <GeneralForm recipe={recipe} />;
-      </RoutedModal>
-    </GeneralFormContainer>
+    <RoutedModal returnUrl={getRecipeUrl(recipeId)} hidden={false}>
+      <GeneralForm action={updateRecipeGeneral} recipe={recipe} />;
+    </RoutedModal>
   );
 }

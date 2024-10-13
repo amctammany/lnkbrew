@@ -429,31 +429,36 @@ model MashStep {
 }
 
 model Recipe {
-  id                 String                  @unique @default(cuid())
-  createdAt          DateTime                @default(now())
+  id                 String            @unique @default(cuid())
+  createdAt          DateTime          @default(now())
   name               String
   slug               String
   description        String?
   ownerUsername      String
   ownerEmail         String
-  owner              User                    @relation(fields: [ownerUsername], references: [username])
+  owner              User              @relation(fields: [ownerUsername], references: [username])
   forkedFrom         String?
-  origin             Recipe?                 @relation("origin", fields: [forkedFrom], references: [id])
-  forks              Recipe[]                @relation("origin")
+  origin             Recipe?           @relation("origin", fields: [forkedFrom], references: [id])
+  forks              Recipe[]          @relation("origin")
   styleIdentifier    String?
   styleId            Int?
-  style              Style?                  @relation(fields: [styleId], references: [id])
+  style              Style?            @relation(fields: [styleId], references: [id])
   equipmentProfileId Int?
-  equipmentProfile   EquipmentProfile?       @relation(fields: [equipmentProfileId], references: [id])
-  batchVolume        Float?                  @default(22)
-  boilVolume         Float?                  @default(25)
-  preboilVolume      Float?                  @default(25)
-  boilTime           Float?                  @default(60)
-  brewEfficiency     Float?                  @default(0.6)
-  mashEfficiency     Float?                  @default(0.7)
-  boilOffRate        Float?
-  hops               HopIngredient[]
-  fermentables       FermentableIngredient[]
+  equipmentProfile   EquipmentProfile? @relation(fields: [equipmentProfileId], references: [id])
+  batchVolume        Float?            @default(22)
+  boilVolume         Float?            @default(25)
+  preboilVolume      Float?            @default(25)
+  boilTime           Float?            @default(60)
+  brewEfficiency     Float?            @default(0.6)
+  mashEfficiency     Float?            @default(0.7)
+  boilOffRate        Float?            @default(2)
+  trubLoss           Float?            @default(0)
+  mashLoss           Float?            @default(0)
+  fermenterLoss      Float?            @default(0)
+  grainAbsorption    Float?            @default(0.5)
+
+  hops         HopIngredient[]
+  fermentables FermentableIngredient[]
 
   @@id([ownerUsername, slug])
 }

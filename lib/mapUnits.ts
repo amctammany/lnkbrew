@@ -1,8 +1,9 @@
 import { UnitPreferences, EquipmentProfile, MashProfile } from "@prisma/client";
 import { AmountType, classConverters, UnitTypes } from "./amountConversions";
 import { ExtendedMashProfile } from "@/types/Profile";
+import { ExtendedRecipe } from "@/types/Recipe";
 export type Mapping<T extends object> = {
-  [Prop in keyof T]?: AmountType;
+  [Prop in keyof T]?: AmountType | null;
 };
 export const mashProfileStepMapping: Mapping<
   ExtendedMashProfile["steps"][number]
@@ -12,9 +13,22 @@ export const mashProfileStepMapping: Mapping<
   temperature: "temperature",
 };
 
+export const recipeMapping: Mapping<ExtendedRecipe> = {
+  boilTime: "time",
+  batchVolume: "volume",
+  preboilVolume: "volume",
+  boilOffRate: "flow",
+  trubLoss: "volume",
+  mashLoss: "volume",
+  fermenterLoss: "volume",
+  mashEfficiency: "percent",
+  brewEfficiency: "percent",
+};
+
 export const equipmentProfileMapping: Mapping<EquipmentProfile> = {
   boilTime: "time",
   batchVolume: "volume",
+  preboilVolume: "volume",
   boilOffRate: "flow",
   trubLoss: "volume",
   mashLoss: "volume",
@@ -36,16 +50,17 @@ export function mapUnits<T extends Record<string | number, unknown>>(
     //>, //Partial<Omit<UnitPreferences, "id">>,
   },
   mapping: Mapping<T>,
-  method: "to" | "from" = "to"
+  method: "to" | "from" = "to",
+  fixed = 0
 ) {
   return (Object.keys(mapping) as (keyof T)[]).reduce(
     (acc, k) => {
       const map = mapping[k] as AmountType;
       if (typeof acc[k] === "number")
         acc[k as any] = classConverters[map][prefs[map] as UnitTypes][method](
-          acc[k]
+          fixed > 0 ? toFixed(acc[k], fixed) : acc[k]
         );
-        //4 // [prefs[k]];
+      //4 // [prefs[k]];
       //time: classConverters["time"][prefs.time as UnitTypes].to(time), //,(time),
       return acc;
     },

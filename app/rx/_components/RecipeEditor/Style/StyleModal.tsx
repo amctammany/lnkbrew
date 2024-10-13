@@ -10,6 +10,7 @@ import { Modal } from "@/components/Modal/Modal";
 import { RoutedModal } from "@/components/Modal/RoutedModal";
 import StyleForm, { StyleFormContainer } from "./StyleForm";
 import { getRecipeUrl } from "@/lib/utils";
+import { updateRecipeStyle } from "@/app/rx/actions";
 
 interface StyleProfileModalProps {
   massUnit?: UserMassPreference;
@@ -27,18 +28,16 @@ export const StyleModal: FC<StyleProfileModalProps> = ({
   //const { modalType, openModal, closeModal } = useRecipe();
   return (
     //modalType === "style" && (
-    <StyleFormContainer>
-      <RoutedModal
-        title="Edit Style"
-        returnUrl={getRecipeUrl(recipe.id)}
-        //close={closeModal}
-        hidden={modalType !== "style"}
-      >
-        <div>
-          <StyleForm recipe={recipe} styles={styles} />
-        </div>
-      </RoutedModal>
-    </StyleFormContainer>
+    <RoutedModal
+      title="Edit Style"
+      returnUrl={getRecipeUrl(recipe.id)}
+      //close={closeModal}
+      hidden={modalType !== "style"}
+    >
+      <div>
+        <StyleForm action={updateRecipeStyle} recipe={recipe} styles={styles} />
+      </div>
+    </RoutedModal>
     //)
   );
 };

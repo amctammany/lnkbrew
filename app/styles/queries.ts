@@ -18,12 +18,9 @@ export const getStyles = cache(async () => {
 
 export const getStyleOptions = async () => {
   const styles = await getStyles();
-  const options = styles.reduce(
-    (acc, style) => {
-      acc[style.id] = `${style.identifier}: ${style.name}`;
-      return acc;
-    },
-    {} as Record<number, string>
-  );
+  const options = styles.reduce((acc, style) => {
+    acc[style.id] = `${style.identifier}: ${style.name}`;
+    return acc;
+  }, {} as Record<number, string>);
   return options;
 };

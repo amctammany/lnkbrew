@@ -11,6 +11,7 @@ import StyleForm, {
 import { getStyleOptions } from "@/app/styles/queries";
 import StyleModal from "@/app/rx/_components/RecipeEditor/Style/StyleModal";
 import { updateRecipe } from "@/app/recipes/actions";
+import { updateRecipeStyle } from "@/app/rx/actions";
 //import { updateRecipeVitals } from "../actions";
 type RecipeEditorStylePageProps = {
   params: {
@@ -36,14 +37,13 @@ export default async function RecipeEditorStylePage({
     redirect(`/recipes/${recipe?.id}`);
   }
   const styles = await getStyleOptions();
+  console.log(recipe);
 
   //return <StyleModal recipe={recipe} styles={styles} />;
   //const r = await updateRecipeVitals(recipe.id);
   return (
-    <StyleFormContainer action={updateRecipe}>
-      <RoutedModal returnUrl={getRecipeUrl(recipeId)} hidden={false}>
-        <StyleForm recipe={recipe} styles={styles} />;
-      </RoutedModal>
-    </StyleFormContainer>
+    <RoutedModal returnUrl={getRecipeUrl(recipeId)} hidden={false}>
+      <StyleForm action={updateRecipeStyle} recipe={recipe} styles={styles} />;
+    </RoutedModal>
   );
 }

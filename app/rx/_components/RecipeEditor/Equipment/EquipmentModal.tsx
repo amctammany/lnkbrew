@@ -15,10 +15,8 @@ export const EquipmentModal = ({
   action,
 }: EquipmentModalProps) => {
   return (
-    <EquipmentFormContainer action={action}>
-      <RoutedModal returnUrl={getRecipeUrl(recipe.id)} hidden={false}>
-        <EquipmentForm recipe={recipe} profiles={profiles} />;
-      </RoutedModal>
-    </EquipmentFormContainer>
+    <RoutedModal returnUrl={getRecipeUrl(recipe.id)} hidden={false}>
+      <EquipmentForm action={action} recipe={recipe} profiles={profiles} />
+    </RoutedModal>
   );
 };
