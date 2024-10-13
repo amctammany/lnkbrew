@@ -50,7 +50,7 @@ export default async function RecipeEditorEquipmentPage({
   return (
     <EquipmentModal
       action={updateRecipeEquipment.bind(null, session?.preferences)}
-      recipe={recipe}
+      recipe={equip}
       profiles={profiles}
     />
   );

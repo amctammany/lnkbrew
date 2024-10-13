@@ -34,7 +34,7 @@ export default async function RecipeEditorPage({
   }
   const rec = mapUnits(recipe, session?.preferences, recipeMapping, "from", 2);
 
-  console.log(rec);
+  //console.log(rec);
   //const r = await updateRecipeVitals(recipe.id);
-  return <RecipeEditor recipe={recipe} />;
+  return <RecipeEditor recipe={rec} />;
 }

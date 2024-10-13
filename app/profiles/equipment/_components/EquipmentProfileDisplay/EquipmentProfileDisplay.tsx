@@ -73,11 +73,6 @@ EquipmentProfileDisplayProps) => {
         <Prop label="Name">{profile?.name}</Prop>
         <Prop label="Owner">{profile?.owner?.name}</Prop>
         <Prop label="Description">{profile?.description}</Prop>
-        <AmountProp
-          label="Batch Volume"
-          unitType="volume"
-          value={profile?.batchVolume}
-        />
 
         <PrefAmountProp
           label="Batch Volume"

@@ -63,7 +63,7 @@ export function PrefAmountProp({
     <Prop
       {...props}
       label={label !== null ? label || name : ""}
-      value={value.toFixed(2)}
+      value={value}
       unit={unit}
       //variant={variant}
       className="w-full"

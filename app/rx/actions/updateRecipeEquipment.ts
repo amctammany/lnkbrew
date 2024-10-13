@@ -35,49 +35,45 @@ export async function updateRecipeEquipment(
     data: {
       id,
       equipmentProfileId,
-      //boilTime,
-      //preboilVolume,
-      //mashLoss,
-      //trubLoss,
-      //fermenterLoss,
-      //batchVolume,
-      //boilOffRate,
-      //mashEfficiency,
-      //brewEfficiency,
+      boilTime,
+      preboilVolume,
+      mashLoss,
+      trubLoss,
+      fermenterLoss,
+      batchVolume,
+      boilOffRate,
+      mashEfficiency,
+      brewEfficiency,
       ...data
     },
   } = v;
-  //const r = mapUnits(
-  //{
-  //batchVolume,
-  //preboilVolume,
-  //boilTime,
-  //mashLoss,
-  //trubLoss,
-  //fermenterLoss,
-  //boilOffRate,
-  //mashEfficiency,
-  //brewEfficiency,
-  //} as any,
-  //prefs,
-  //equipmentProfileMapping,
-  //"to"
-  //);
-  //console.log(r);
+  const r = mapUnits(
+    {
+      batchVolume,
+      preboilVolume,
+      boilTime,
+      mashLoss,
+      trubLoss,
+      fermenterLoss,
+      boilOffRate,
+      mashEfficiency,
+      brewEfficiency,
+    } as any,
+    prefs,
+    equipmentProfileMapping,
+    "to",
+    2
+  );
+  console.log(r);
   //recipeSchema.parse(formData);
   //console.log({ id, styleIdentifer, data });
-  const old = await prisma.recipe.findFirst({
-    where: {
-      id,
-    },
-  });
   const res = await prisma.recipe.update({
     where: {
       id,
     },
     data: {
       ...data,
-      //...r,
+      ...r,
       ...(equipmentProfileId
         ? { equipmentProfile: { connect: { id: equipmentProfileId } } }
         : {}),
