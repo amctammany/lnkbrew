@@ -42,10 +42,10 @@ export function mapUnits<T extends Record<string | number, unknown>>(
     (acc, k) => {
       const map = mapping[k] as AmountType;
       if (typeof acc[k] === "number")
-        acc[k as any] = toFixed(
-          classConverters[map][prefs[map] as UnitTypes][method](acc[k]),
-          2
-        ); // [prefs[k]];
+        acc[k as any] = classConverters[map][prefs[map] as UnitTypes][method](
+          acc[k]
+        );
+        //4 // [prefs[k]];
       //time: classConverters["time"][prefs.time as UnitTypes].to(time), //,(time),
       return acc;
     },

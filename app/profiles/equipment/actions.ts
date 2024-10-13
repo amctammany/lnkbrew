@@ -90,7 +90,6 @@ export const updateEquipmentProfile = async (
   const {
     data: { id, ...data },
   } = v; // equipmentSchema.parse(formData);
-  console.log(prefs, data);
   const {
     id: _id,
     forkedFrom,
@@ -102,7 +101,6 @@ export const updateEquipmentProfile = async (
     equipmentProfileMapping,
     "to"
   );
-  console.log(r);
   const res = await prisma.equipmentProfile.update({
     where: { id },
     data: {
