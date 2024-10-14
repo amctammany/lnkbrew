@@ -45,7 +45,8 @@ export default async function EquipmentProfileForkPage({
     forkedProfile,
     session?.preferences,
     equipmentProfileMapping,
-    "to"
+    "from",
+    2
   );
 
   return (

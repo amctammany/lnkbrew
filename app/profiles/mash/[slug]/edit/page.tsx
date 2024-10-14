@@ -33,17 +33,6 @@ export default async function MashProfileEditorPage({
   const steps = mashProfile.steps.map((step) =>
     mapUnits(step, prefs, mashProfileStepMapping, "from", 2)
   );
-  const mapSteps = (mashProfile.steps ?? []).map(
-    ({ name, temperature, time, rampTime }) => ({
-      time: classConverters["time"][prefs.time as UnitTypes].to(time), //,(time),
-      temperature:
-        classConverters["temperature"][prefs.temperature as UnitTypes].to(
-          temperature
-        ), //,(time),
-      rampTime: classConverters["time"][prefs.time as UnitTypes].to(rampTime), //,(time),
-      name,
-    })
-  );
   mashProfile.steps = steps;
   //const mash = { ...mashProfile, steps };
   const action = updateMashProfile.bind(null, session?.preferences);

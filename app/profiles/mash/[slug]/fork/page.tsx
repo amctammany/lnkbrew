@@ -30,7 +30,7 @@ export default async function MashProfileForkPage({
   //if (mashProfile?.owner?.id !== session?.user?.id)
   //return <Unauthorized returnUrl={`/profiles/mash/${slug}`} />;
   const steps = mashProfile.steps.map((step) =>
-    mapUnits(step, session?.preferences, mashProfileStepMapping)
+    mapUnits(step, session?.preferences, mashProfileStepMapping, "from", 2)
   );
   const forkedProfile: MashProfileInput = {
     id: undefined,
