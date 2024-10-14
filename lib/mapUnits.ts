@@ -3,13 +3,13 @@ import { AmountType, classConverters, UnitTypes } from "./amountConversions";
 import { ExtendedMashProfile } from "@/types/Profile";
 import { ExtendedRecipe } from "@/types/Recipe";
 export type Mapping<T extends object> = {
-  [Prop in keyof T]?: AmountType | null;
+  [Prop in keyof T]?: AmountType | [AmountType, UnitTypes] | null;
 };
 export const mashProfileStepMapping: Mapping<
   ExtendedMashProfile["steps"][number]
 > = {
-  time: "time",
-  rampTime: "time",
+  time: ["time", "min"],
+  rampTime: ["time", "min"],
   temperature: "temperature",
 };
 
@@ -55,11 +55,17 @@ export function mapUnits<T extends Record<string | number, unknown>>(
 ) {
   return (Object.keys(mapping) as (keyof T)[]).reduce(
     (acc, k) => {
-      const map = mapping[k] as AmountType;
+      const map = mapping[k];
       if (typeof acc[k] === "number") {
-        const def = classConverters[map][prefs[map] as UnitTypes][method](
-          acc[k]
-        );
+        let def: number;
+        if (Array.isArray(map)) {
+          const [amountType, unit] = map;
+          def = classConverters[amountType][unit][method](acc[k]);
+        } else {
+          def = classConverters[map as AmountType][
+            prefs[map as AmountType] as UnitTypes
+          ][method](acc[k]);
+        }
         acc[k as any] = fixed > 0 ? toFixed(def, fixed) : def;
       }
       //4 // [prefs[k]];

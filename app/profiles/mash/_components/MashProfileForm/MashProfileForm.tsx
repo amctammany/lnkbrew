@@ -57,7 +57,7 @@ export const MashProfileForm = ({ action, profile }: MashProfileFormProps) => {
       //defaultValues: profile ?? {},
       values: state.data,
     });
-  const { fields, remove, append, swap } = useFieldArray({
+  const { fields, replace, remove, append, swap } = useFieldArray({
     control,
     name: "steps",
   });
@@ -69,13 +69,16 @@ export const MashProfileForm = ({ action, profile }: MashProfileFormProps) => {
     };
   });
   useEffect(() => {
-    //reset(state.data);
+    if (state.data) {
+      reset(state.data);
+      replace(state.data?.steps);
+    }
     if (!state.success) {
       Object.entries(state?.errors ?? []).map(([n, err]) => {
         setError(err.path as any, err);
       });
     }
-  }, [state, setError]);
+  }, [state, reset, replace, setError]);
 
   //const action = profile?.id ? updateMashProfile : createMashProfile;
 
@@ -200,6 +203,7 @@ export const MashProfileForm = ({ action, profile }: MashProfileFormProps) => {
                       {...register(`steps.${index}.time`)}
                       type="time"
                       label="Time"
+                      unit="min"
                       error={
                         state.errors?.[
                           `steps.${index}.time` as keyof typeof state.errors
@@ -213,6 +217,7 @@ export const MashProfileForm = ({ action, profile }: MashProfileFormProps) => {
                       {...register(`steps.${index}.rampTime`)}
                       type="time"
                       label="Ramp Time"
+                      unit="min"
                       error={
                         state.errors?.[
                           `steps.${index}.rampTime` as keyof typeof state.errors

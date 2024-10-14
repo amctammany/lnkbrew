@@ -31,7 +31,7 @@ export default async function MashProfileEditorPage({
     return <Unauthorized returnUrl={`/profiles/mash/${slug}`} />;
   const prefs = session.preferences;
   const steps = mashProfile.steps.map((step) =>
-    mapUnits(step, prefs, mashProfileStepMapping)
+    mapUnits(step, prefs, mashProfileStepMapping, "from", 2)
   );
   const mapSteps = (mashProfile.steps ?? []).map(
     ({ name, temperature, time, rampTime }) => ({
@@ -44,12 +44,13 @@ export default async function MashProfileEditorPage({
       name,
     })
   );
-  const mash = { ...mashProfile, steps };
-
+  mashProfile.steps = steps;
+  //const mash = { ...mashProfile, steps };
+  const action = updateMashProfile.bind(null, session?.preferences);
   return (
     <MashProfileForm
-      action={updateMashProfile.bind(null, session.preferences)}
-      profile={mash as MashProfileInput}
+      action={action}
+      profile={mashProfile as MashProfileInput}
     />
   );
 }

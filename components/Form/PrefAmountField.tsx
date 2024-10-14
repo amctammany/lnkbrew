@@ -18,6 +18,7 @@ export type PrefAmountFieldProps = {
   type: keyof UnitPrefs;
   //value?: any;
   //ref: any;
+  unit?: UnitTypes;
 } & InputProps &
   VariantProps<typeof prefAmountFieldStyles>;
 
@@ -53,11 +54,12 @@ export function PrefAmountField({
   suffix,
   defaultValue,
   value,
+  unit: _unit,
   ...props
 }: PrefAmountFieldProps) {
   const sesh = useSession();
   const prefs = (sesh.data?.preferences || {}) as UnitPrefs;
-  const unit = prefs[type];
+  const unit = _unit ?? prefs[type];
   return (
     <Label
       //classname={clsx(prefAmountFieldStyles({ variant, size }))}

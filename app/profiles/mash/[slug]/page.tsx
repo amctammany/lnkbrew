@@ -7,6 +7,7 @@ import {
   classConverters,
   UnitTypes,
 } from "@/lib/amountConversions";
+import { mapUnits, mashProfileStepMapping } from "@/lib/mapUnits";
 type MashProfileDisplayPageProps = {
   params: {
     slug: string;
@@ -38,12 +39,21 @@ export default async function MashProfileDisplayPage({
   const session = await auth();
   const mashProfile = await getMashProfile(slug);
   const steps = mashProfile.steps.map((step) =>
-    mapPrefs(step, session?.preferences ?? ({} as UnitPreferences), {
-      temperature: "temperature",
-      time: "time",
-      rampTime: "time",
-    })
+    mapUnits(
+      step,
+      session?.preferences ?? {},
+      mashProfileStepMapping,
+      "from",
+      2
+    )
   );
+  //const steps = mashProfile.steps.map((step) =>
+  //mapPrefs(step, session?.preferences ?? ({} as UnitPreferences), {
+  //temperature: "temperature",
+  //time: "time",
+  //rampTime: "time",
+  //})
+  //);
   const newMash = { ...mashProfile, steps };
 
   return <MashProfileDisplay profile={newMash} />;

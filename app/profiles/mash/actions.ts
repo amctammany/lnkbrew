@@ -71,6 +71,7 @@ export const updateMashProfile = async (
   formData: FormData
 ) => {
   const valid = validateSchema(formData, mashSchema);
+  console.log(valid);
   if (!valid.success) return valid;
   const { steps, id, forkedFrom, userId, ...data } = valid.data;
   const origin = forkedFrom
@@ -80,7 +81,7 @@ export const updateMashProfile = async (
     : undefined;
   //const f= classConverters['color'].
   const sps = steps.map((step) =>
-    mapUnits(step, prefs, mashProfileStepMapping)
+    mapUnits(step, prefs, mashProfileStepMapping, "to")
   );
   const owner = userId
     ? {
@@ -101,7 +102,11 @@ export const updateMashProfile = async (
       owner,
       origin,
     },
-    include: { steps: true, owner: true, origin: true },
+    include: {
+      //steps: {
+      //select: { temperature: true, time: true, name: true, rampTime: true },
+      //},
+    },
   });
   redirect(`/profiles/mash/${res.slug}`);
 };
