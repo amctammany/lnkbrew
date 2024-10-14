@@ -1,4 +1,4 @@
-"use client";
+//"use client";
 import { ExtendedRecipe } from "@/types/Recipe";
 import { RoutedModal } from "@/components/Modal/RoutedModal";
 import { getRecipeUrl } from "@/lib/utils";

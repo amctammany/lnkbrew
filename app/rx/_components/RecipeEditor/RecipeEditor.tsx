@@ -1,12 +1,11 @@
 import { Section } from "@/components/Section";
-import { Recipe } from "@prisma/client";
 import React from "react";
-import { GeneralContainer } from "./General";
-import { StyleContainer } from "./Style";
 import { EquipmentSection } from "./Equipment/EquipmentSection";
 import { FermentablesSection } from "./Fermentables/FermentablesSection";
 import { ExtendedRecipe } from "@/types/Recipe";
 import { HopsSection } from "./Hops/HopsSection";
+import { StyleSection } from "./Style/StyleSection";
+import { GeneralSection } from "./General/GeneralSection";
 
 export type RecipeEditorProps = {
   recipe: ExtendedRecipe;
@@ -21,8 +20,8 @@ function RecipeEditor({ recipe, path }: RecipeEditorProps) {
         footer={<span>{path?.join(" - ")}</span>}
       >
         <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-2 m-2">
-          <GeneralContainer recipe={recipe} />
-          <StyleContainer recipe={recipe} />
+          <GeneralSection recipe={recipe} />
+          <StyleSection recipe={recipe} />
           <EquipmentSection recipe={recipe} />
           <FermentablesSection recipe={recipe} />
           <HopsSection recipe={recipe} />

@@ -1,4 +1,3 @@
-"use client";
 //import { RoutedModal } from "@/components/Modal/RoutedModal";
 import React, { FC, useCallback } from "react";
 import dynamic from "next/dynamic";
@@ -34,9 +33,7 @@ export const StyleModal: FC<StyleProfileModalProps> = ({
       //close={closeModal}
       hidden={modalType !== "style"}
     >
-      <div>
-        <StyleForm action={updateRecipeStyle} recipe={recipe} styles={styles} />
-      </div>
+      <StyleForm action={updateRecipeStyle} recipe={recipe} styles={styles} />
     </RoutedModal>
     //)
   );

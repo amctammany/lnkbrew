@@ -1,1 +1,2 @@
-export * from "./GeneralContainer";
+export * from "./GeneralSection";
+export * from "./GeneralForm";

@@ -14,7 +14,7 @@ interface StyleSectionProps {
 export const StyleSection: FC<StyleSectionProps> = ({ recipe }) => {
   return (
     <Section
-      className="col-span-2"
+      className="col-span-2 lg:col-span-1"
       variant="secondary"
       header="Style"
       actions={
