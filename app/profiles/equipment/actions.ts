@@ -85,13 +85,7 @@ export const updateEquipmentProfile = async (
   prevState: any,
   formData: FormData
 ) => {
-  const v = validateSchema(formData, equipmentSchema, prevState);
-  console.log({
-    prefs,
-    prevState,
-    data: Object.fromEntries(formData.entries()),
-  });
-  console.log(v);
+  const v = validateSchema(formData, equipmentSchema);
   if (!v.success) return v;
   const {
     data: { id, ...data },

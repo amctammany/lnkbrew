@@ -9,7 +9,6 @@ export function useActionForm<T extends FieldValues>(action: any, data: T) {
     errors: undefined,
     data: data,
   });
-  console.log(JSON.stringify({ state, data }));
   const { reset, setError, register } = useForm<T>({
     values: state.data,
   });
@@ -26,14 +25,14 @@ export function useActionForm<T extends FieldValues>(action: any, data: T) {
     }
   }, [state, reset, setError]);
 
-  return {
-    state,
-    formAction,
-    reset,
-    register,
-  };
-  //return useMemo(
-  //() => ({ register, reset, state, formAction }),
-  //[state, formAction, register, reset]
-  //);
+  //return {
+  //state,
+  //formAction,
+  //reset,
+  //register,
+  //};
+  return useMemo(
+    () => ({ register, reset, state, formAction }),
+    [state, formAction, register, reset]
+  );
 }

@@ -56,10 +56,12 @@ export function mapUnits<T extends Record<string | number, unknown>>(
   return (Object.keys(mapping) as (keyof T)[]).reduce(
     (acc, k) => {
       const map = mapping[k] as AmountType;
-      if (typeof acc[k] === "number")
-        acc[k as any] = classConverters[map][prefs[map] as UnitTypes][method](
-          fixed > 0 ? toFixed(acc[k], fixed) : acc[k]
+      if (typeof acc[k] === "number") {
+        const def = classConverters[map][prefs[map] as UnitTypes][method](
+          acc[k]
         );
+        acc[k as any] = fixed > 0 ? toFixed(def, fixed) : def;
+      }
       //4 // [prefs[k]];
       //time: classConverters["time"][prefs.time as UnitTypes].to(time), //,(time),
       return acc;

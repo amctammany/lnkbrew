@@ -47,7 +47,6 @@ export const EquipmentProfileForm = ({
     action,
     profile!
   );
-  console.log(JSON.stringify({ profile, state }));
 
   //const { control, reset, setError, register, trigger } =
   //useForm<EquipmentProfileInput>({
