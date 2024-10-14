@@ -73,7 +73,6 @@ export const HopIngredientForm = ({
   //>({
   //defaultValues: src,
   //});
-  console.log(state);
   const options = hops.reduce((acc, profile) => {
     acc[profile.id] = `${profile.name}`;
     return acc;

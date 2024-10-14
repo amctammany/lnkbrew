@@ -29,7 +29,7 @@ export const hopIngredientMapping: Mapping<HopIngredient> = {
 export const fermentableIngredientMapping: Mapping<FermentableIngredient> = {
   //amount: "fermentableMass",
   color: "color",
-  potential: "potential",
+  //potential: "potential",
   //temperature: "temperature",
   //durationType:
 };
