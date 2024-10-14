@@ -10,6 +10,7 @@ import { PrefAmountField } from "@/components/Form/PrefAmountField";
 import { EditIcon } from "@/components/Icon/EditIcon";
 import { SaveIcon } from "@/components/Icon/SaveIcon";
 import { Section } from "@/components/Section";
+import { useActionForm } from "@/hooks/useActionForm";
 import { State } from "@/lib/validateSchema";
 import { ID } from "@/types/App";
 import { ExtendedRecipe } from "@/types/Recipe";
@@ -36,23 +37,22 @@ export const EquipmentForm = ({
   recipe,
   profiles,
 }: EquipmentFormProps) => {
-  const [state, formAction] = useActionState<State<ExtendedRecipe>>(action, {
-    success: true,
-    errors: undefined,
-    data: recipe!,
-  });
+  const { register, reset, state, formAction } = useActionForm<ExtendedRecipe>(
+    action,
+    recipe!
+  );
 
-  const { setError, register, reset } = useForm<ExtendedRecipe>({
-    values: state.data,
-  });
-  useEffect(() => {
-    //reset(state.data);
-    if (!state.success) {
-      Object.entries(state?.errors ?? []).map(([n, err]) => {
-        setError(err.path as any, err);
-      });
-    }
-  }, [state, setError]);
+  //const { setError, register, reset } = useForm<ExtendedRecipe>({
+  //values: state.data,
+  //});
+  //useEffect(() => {
+  //reset(state.data);
+  //if (!state.success) {
+  //Object.entries(state?.errors ?? []).map(([n, err]) => {
+  //setError(err.path as any, err);
+  //});
+  //}
+  //}, [state, setError]);
 
   const options = profiles.reduce((acc, profile) => {
     acc[profile.id] = `${profile.name}`;

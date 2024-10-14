@@ -28,13 +28,13 @@ const formStyles = cva(["flex-autao"], {
 export const Form = ({
   children,
   action,
-  onSubmit,
+  //onSubmit,
   variant,
   size,
   ...props
 }: FormProps) => {
   return (
-    <form action={action} onSubmit={onSubmit} {...props}>
+    <form action={action} {...props}>
       <div className={formStyles({ size, variant })}>{children}</div>
     </form>
   );

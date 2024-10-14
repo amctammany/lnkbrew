@@ -5,7 +5,10 @@ import { cache } from "react";
 export const getEquipmentProfile = cache(async (slug: string) => {
   const profile = await prisma.equipmentProfile.findFirst({
     where: { slug: { equals: slug } },
-    include: { owner: true, origin: true },
+    include: {
+      owner: { select: { id: true } },
+      origin: { select: { id: true } },
+    },
     //include: { users: true },
   });
   return profile as ExtendedEquipmentProfile;
@@ -18,12 +21,9 @@ export const getEquipmentProfiles = cache(async () => {
 
 export const getEquipmentProfileOptions = async () => {
   const profiles = await getEquipmentProfiles();
-  const options = profiles.reduce(
-    (acc, profile) => {
-      acc[profile.id] = `${profile.name}`;
-      return acc;
-    },
-    {} as Record<number, string>
-  );
+  const options = profiles.reduce((acc, profile) => {
+    acc[profile.id] = `${profile.name}`;
+    return acc;
+  }, {} as Record<number, string>);
   return options;
 };

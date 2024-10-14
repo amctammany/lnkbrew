@@ -33,6 +33,7 @@ import {
 import { useActionState, useEffect } from "react";
 import { PrefAmountField } from "@/components/Form/PrefAmountField";
 import { State } from "@/lib/validateSchema";
+import { useActionForm } from "@/hooks/useActionForm";
 
 export type EquipmentProfileFormProps = {
   profile: EquipmentProfileInput | null;
@@ -42,30 +43,27 @@ export const EquipmentProfileForm = ({
   profile,
   action,
 }: EquipmentProfileFormProps) => {
-  const [state, formAction] = useActionState<State<EquipmentProfileInput>>(
+  const { state, formAction, register } = useActionForm<EquipmentProfileInput>(
     action,
-    {
-      success: true,
-      errors: undefined,
-      data: profile!,
-    }
+    profile!
   );
+  console.log(JSON.stringify({ profile, state }));
 
-  const { control, reset, setError, register, trigger } =
-    useForm<EquipmentProfileInput>({
-      //defaultValues: profile!,
-      values: state.data,
-    });
+  //const { control, reset, setError, register, trigger } =
+  //useForm<EquipmentProfileInput>({
+  //defaultValues: profile!,
+  //values: state.data,
+  //});
   //const action = profile?.id ? updateEquipmentProfile : createEquipmentProfile;
 
-  useEffect(() => {
-    //reset(state.data);
-    if (!state.success) {
-      Object.entries(state?.errors ?? []).map(([n, err]) => {
-        setError(err.path as any, err);
-      });
-    }
-  }, [state, setError]);
+  //useEffect(() => {
+  //reset(state.data);
+  //if (!state.success) {
+  //Object.entries(state?.errors ?? []).map(([n, err]) => {
+  //setError(err.path as any, err);
+  //});
+  //}
+  //}, [state, setError]);
 
   //const onSubmit = async (data: FormData) => {
   //const valid = await trigger();
@@ -96,7 +94,11 @@ export const EquipmentProfileForm = ({
           <input type="hidden" {...register("userId")} />
           <input type="hidden" {...register("forkedFrom")} />
           <div className="col-span-3 md:col-span-6">
-            <TextField {...register("name")} label="Name" />
+            <TextField
+              {...register("name")}
+              label="Name"
+              error={state.errors?.name}
+            />
           </div>
           <div className="col-span-3 md:col-span-6">
             <TextField {...register("description")} label="Description" />
@@ -149,16 +151,16 @@ export const EquipmentProfileForm = ({
             <PrefAmountField
               type="percent"
               {...register("brewEfficiency", { valueAsNumber: true })}
-              suffix="%"
               step={0.01}
               label="Brew Efficiency"
+              error={state.errors?.brewEfficiency}
             />
             <PrefAmountField
               type="percent"
               {...register("mashEfficiency", { valueAsNumber: true })}
-              suffix="%"
               step={0.01}
               label="Mash Efficiency"
+              error={state.errors?.mashEfficiency}
             />
           </div>
         </div>
