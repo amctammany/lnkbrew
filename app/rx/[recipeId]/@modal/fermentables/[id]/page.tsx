@@ -7,6 +7,8 @@ import {
 } from "@/app/recipes/actions";
 import { FermentablesModal } from "@/app/rx/_components/RecipeEditor/Fermentables/FermentablesModal";
 import { getFermentables } from "@/app/ingredients/fermentables/queries";
+import { fermentableIngredientMapping, mapUnits } from "@/lib/mapUnits";
+import { ExtendedFermentableIngredient } from "@/types/Recipe";
 //import { updateRecipeVitals } from "../actions";
 type RecipeEditorFermentablesPageProps = {
   params: {
@@ -36,11 +38,18 @@ export default async function RecipeEditorFermentablesPage({
     //redirect(`/recipes/${recipe?.id}`);
   }
   if (!src) throw new Error("no source");
+  const fermentable = mapUnits(
+    src,
+    session.preferences,
+    fermentableIngredientMapping,
+    "from",
+    2
+  );
 
   return (
     <FermentablesModal
       action={updateFermentableIngredient.bind(null, session.preferences)}
-      src={src}
+      src={fermentable as ExtendedFermentableIngredient}
       //recipe={recipe}
       fermentables={fermentables}
     />

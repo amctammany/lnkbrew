@@ -4,6 +4,9 @@ import { getExtendedRecipe } from "@/app/recipes/queries";
 import { updateHopIngredient, updateRecipe } from "@/app/recipes/actions";
 import { HopsModal } from "@/app/rx/_components/RecipeEditor/Hops/HopsModal";
 import { getHops } from "@/app/ingredients/hops/queries";
+import { hopIngredientMapping, mapUnits } from "@/lib/mapUnits";
+import { HopIngredient } from "@prisma/client";
+import { ExtendedHopIngredient } from "@/types/Recipe";
 //import { updateRecipeVitals } from "../actions";
 type RecipeEditorHopsPageProps = {
   params: {
@@ -33,11 +36,18 @@ export default async function RecipeEditorHopsPage({
     //redirect(`/recipes/${recipe?.id}`);
   }
   if (!src) throw new Error("no source");
+  const hop = mapUnits(
+    src,
+    session.preferences,
+    hopIngredientMapping,
+    "from",
+    2
+  );
 
   return (
     <HopsModal
       action={updateHopIngredient.bind(null, session.preferences)}
-      src={src}
+      src={hop as ExtendedHopIngredient}
       hops={hops}
     />
   );

@@ -136,16 +136,24 @@ export const HopIngredientForm = ({
             />
           </div>
           <div className="lg:col-span-2">
-            <Select {...register("usage")} options={HopIngredientUsage} />
+            <Select
+              {...register("usage")}
+              options={HopIngredientUsage}
+              inputSize="full"
+            />
           </div>
           <div className="lg:col-span-2">
-            <Select {...register("type")} options={HopIngredientType} />
+            <Select
+              {...register("type")}
+              options={HopIngredientType}
+              inputSize="full"
+            />
           </div>
 
           <div className="lg:col-span-2">
             <PrefAmountField
               {...register("temperature", { valueAsNumber: true })}
-              step={0.1}
+              step={0.01}
               label="Temperature"
               type="temperature"
             />

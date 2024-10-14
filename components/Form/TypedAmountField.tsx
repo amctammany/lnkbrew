@@ -106,7 +106,7 @@ export const TypedAmountField = function <T extends FieldValues>(
     label,
     step,
     error,
-    inputSize,
+    inputSize = "full",
     name,
     variant,
     amountType,
@@ -155,7 +155,12 @@ export const TypedAmountField = function <T extends FieldValues>(
   //}, [unitType, amountType, value, setCurrentUnit]);
   //console.log({ baseValue, value, currentAmount, amountType, currentUnit });
   return (
-    <Label className={clsx("", className)} label={label || name} error={error}>
+    <Label
+      className={clsx("", className)}
+      label={label || name}
+      error={error}
+      inputSize={inputSize}
+    >
       <div className={clsx("flex w-full")}>
         <>
           <Input

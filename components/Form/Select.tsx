@@ -4,6 +4,7 @@ import { Label } from "./Label";
 import { VariantProps, cva } from "class-variance-authority";
 import { SchemaFieldError } from "@/lib/validateSchema";
 import { inputStyles } from "./Input";
+import clsx from "clsx";
 
 type ErrorType = {
   type: string;
@@ -81,9 +82,11 @@ SelectProps) {
       //variant="inline"
       label={label === undefined ? props.name : label!}
     >
-      <select {...props} className={selectStyles({ inputSize, variant })}>
-        {opts}
-      </select>
+      <div className={clsx("flex w-full")}>
+        <select {...props} className={inputStyles({ inputSize, variant })}>
+          {opts}
+        </select>
+      </div>
     </Label>
   );
 }
