@@ -134,7 +134,10 @@ const hopIngredientSchema = zfd.formData({
   duration: zfd.numeric(z.number().min(0).default(60)),
   durationType: z.nativeEnum(TimeUnit).default(TimeUnit.min),
 });
-export async function addHopIngredientToRecipe(formData: FormData) {
+export async function addHopIngredientToRecipe(
+  prevState: any,
+  formData: FormData
+) {
   //const data = hopIngredientSchema.parse(formData);
   const valid = validateSchema(formData, hopIngredientSchema);
 
@@ -149,7 +152,7 @@ export async function addHopIngredientToRecipe(formData: FormData) {
   //return updateRecipeVitals(res.recipeId);
   //redirect(`/recipes/${res.recipeId}/edit`);
 }
-export async function updateHopIngredient(formData: FormData) {
+export async function updateHopIngredient(prevState: any, formData: FormData) {
   const valid = validateSchema(formData, hopIngredientSchema);
   if (!valid.success) return Promise.resolve(valid);
   const { id, recipeId, ...data } = valid.data;

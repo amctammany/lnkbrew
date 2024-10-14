@@ -15,10 +15,8 @@ export type HopsModalProps = {
 };
 export const HopsModal = ({ hops, action, src }: HopsModalProps) => {
   return (
-    <HopIngredientFormContainer action={action}>
-      <RoutedModal returnUrl={getRecipeUrl(src.recipeId)} hidden={false}>
-        <HopIngredientForm src={src} hops={hops} />
-      </RoutedModal>
-    </HopIngredientFormContainer>
+    <RoutedModal returnUrl={getRecipeUrl(src.recipeId)} hidden={false}>
+      <HopIngredientForm src={src} hops={hops} action={action} />
+    </RoutedModal>
   );
 };
