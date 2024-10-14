@@ -26,7 +26,7 @@ export default async function RecipeEditorFermentablesPage({
   params: { recipeId, id },
 }: RecipeEditorFermentablesPageProps) {
   const session = await auth();
-  //if (!session?.user?.email) redirect("/api/auth/signin");
+  if (!session?.user?.email) redirect("/api/auth/signin");
   const recipe = await getExtendedRecipe({ id: recipeId });
   const fermentables = await getFermentables();
   const src = recipe.fermentables.find((f) => f.id === parseInt(id));
@@ -39,7 +39,7 @@ export default async function RecipeEditorFermentablesPage({
 
   return (
     <FermentablesModal
-      action={updateFermentableIngredient}
+      action={updateFermentableIngredient.bind(null, session.preferences)}
       src={src}
       //recipe={recipe}
       fermentables={fermentables}

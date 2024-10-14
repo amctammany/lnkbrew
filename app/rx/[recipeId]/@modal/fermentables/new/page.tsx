@@ -42,7 +42,7 @@ export default async function RecipeEditorNewFermentablePage({
 
   return (
     <FermentablesModal
-      action={addFermentableIngredientToRecipe}
+      action={addFermentableIngredientToRecipe.bind(null, session.preferences)}
       src={
         {
           id,

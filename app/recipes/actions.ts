@@ -23,9 +23,18 @@ import {
   FermentableIngredientUsage,
   HopIngredientType,
   Recipe,
+  HopIngredient,
+  UnitPreferences,
+  FermentableIngredient,
 } from "@prisma/client";
 import { getRecipeUrl } from "@/lib/utils";
 import { ID } from "@/types/App";
+import { UnitPrefs } from "@/types/User";
+import {
+  fermentableIngredientMapping,
+  hopIngredientMapping,
+  mapUnits,
+} from "@/lib/mapUnits";
 
 const recipeSchema = zfd.formData({
   //id: zfd.numeric(z.number()),
@@ -135,6 +144,7 @@ const hopIngredientSchema = zfd.formData({
   durationType: z.nativeEnum(TimeUnit).default(TimeUnit.min),
 });
 export async function addHopIngredientToRecipe(
+  prefs: Partial<Omit<UnitPreferences, "id">>,
   prevState: any,
   formData: FormData
 ) {
@@ -142,8 +152,19 @@ export async function addHopIngredientToRecipe(
   const valid = validateSchema(formData, hopIngredientSchema);
 
   if (!valid.success) return Promise.resolve(valid);
+  const {
+    data: { id, ...data },
+  } = valid; // equipmentSchema.parse(formData);
+
+  const {
+    id: _id,
+    //forkedFrom,
+    //userId,
+    ...r
+  } = mapUnits(data as HopIngredient, prefs, hopIngredientMapping, "to");
+
   const res = await prisma.hopIngredient.create({
-    data: valid.data,
+    data: r,
     include: {
       recipe: true,
     },
@@ -152,14 +173,29 @@ export async function addHopIngredientToRecipe(
   //return updateRecipeVitals(res.recipeId);
   //redirect(`/recipes/${res.recipeId}/edit`);
 }
-export async function updateHopIngredient(prevState: any, formData: FormData) {
+export async function updateHopIngredient(
+  prefs: Partial<Omit<UnitPreferences, "id">>,
+  prevState: any,
+  formData: FormData
+) {
   const valid = validateSchema(formData, hopIngredientSchema);
   if (!valid.success) return Promise.resolve(valid);
-  const { id, recipeId, ...data } = valid.data;
+
+  const {
+    data: { id, recipeId, ...data },
+  } = valid; // equipmentSchema.parse(formData);
+
+  const {
+    id: _id,
+    //forkedFrom,
+    //userId,
+    ...r
+  } = mapUnits(data as HopIngredient, prefs, hopIngredientMapping, "to");
+
   //const data = hopIngredientSchema.parse(formData);
   const res = await prisma.hopIngredient.update({
     where: { recipeId_id: { id, recipeId } },
-    data,
+    data: r,
     include: { recipe: true },
   });
   redirect(getRecipeUrl(res.recipeId));
@@ -201,14 +237,31 @@ const fermentableIngredientSchema = zfd.formData({
   potential: zfd.numeric(z.number().gt(0).default(1)),
 });
 export async function addFermentableIngredientToRecipe(
+  prefs: Partial<Omit<UnitPreferences, "id">>,
   prevState: any,
   formData: FormData
 ) {
   const valid = validateSchema(formData, fermentableIngredientSchema);
 
   if (!valid.success) return Promise.resolve(valid);
+  const {
+    data: { id, ...data },
+  } = valid; // equipmentSchema.parse(formData);
+
+  const {
+    id: _id,
+    //forkedFrom,
+    //userId,
+    ...r
+  } = mapUnits(
+    data as FermentableIngredient,
+    prefs,
+    fermentableIngredientMapping,
+    "to"
+  );
+
   const res = await prisma.fermentableIngredient.create({
-    data: valid.data,
+    data: r,
     include: { recipe: true },
   });
   redirect(getRecipeUrl(res.recipeId));
@@ -216,16 +269,34 @@ export async function addFermentableIngredientToRecipe(
   //redirect(`/recipes/${res.recipeId}/edit`);
 }
 export async function updateFermentableIngredient(
+  prefs: Partial<Omit<UnitPreferences, "id">>,
   prevState: any,
   formData: FormData
 ) {
   const valid = validateSchema(formData, fermentableIngredientSchema);
   if (!valid.success) return Promise.resolve(valid);
-  const { recipeId, id, ...data } = valid.data;
+  const {
+    data: { id, ...data },
+  } = valid; // equipmentSchema.parse(formData);
+
+  const {
+    id: _id,
+    //forkedFrom,
+    //userId,
+    recipeId,
+    ...r
+  } = mapUnits(
+    data as FermentableIngredient,
+    prefs,
+    fermentableIngredientMapping,
+    "to"
+  );
+
+  //const { recipeId, id, ...r } = valid.data;
   const res = await prisma.fermentableIngredient.update({
     where: { recipeId_id: { id, recipeId } },
     //include: { recipe: true },
-    data,
+    data: r,
   });
   redirect(getRecipeUrl(res.recipeId));
   //return updateRecipeVitals(res.recipeId);

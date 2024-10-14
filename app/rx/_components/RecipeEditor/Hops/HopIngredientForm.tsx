@@ -63,7 +63,7 @@ export const HopIngredientForm = ({
   src,
   hops,
 }: HopIngredientFormProps) => {
-  const { register, formAction, reset } = useActionForm(action, src!);
+  const { state, register, formAction, reset } = useActionForm(action, src!);
   //const { control, register, reset } = useForm<
   //HopIngredient & {
   //year?: number;
@@ -73,6 +73,7 @@ export const HopIngredientForm = ({
   //>({
   //defaultValues: src,
   //});
+  console.log(state);
   const options = hops.reduce((acc, profile) => {
     acc[profile.id] = `${profile.name}`;
     return acc;

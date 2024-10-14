@@ -23,7 +23,7 @@ export default async function RecipeEditorHopsPage({
   params: { recipeId, id },
 }: RecipeEditorHopsPageProps) {
   const session = await auth();
-  //if (!session?.user?.email) redirect("/api/auth/signin");
+  if (!session?.user?.email) redirect("/api/auth/signin");
   const recipe = await getExtendedRecipe({ id: recipeId });
   const hops = await getHops();
   const src = recipe.hops.find((h) => h.id === parseInt(id));
@@ -34,5 +34,11 @@ export default async function RecipeEditorHopsPage({
   }
   if (!src) throw new Error("no source");
 
-  return <HopsModal action={updateHopIngredient} src={src} hops={hops} />;
+  return (
+    <HopsModal
+      action={updateHopIngredient.bind(null, session.preferences)}
+      src={src}
+      hops={hops}
+    />
+  );
 }

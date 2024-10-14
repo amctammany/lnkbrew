@@ -1,4 +1,10 @@
-import { UnitPreferences, EquipmentProfile, MashProfile } from "@prisma/client";
+import {
+  UnitPreferences,
+  EquipmentProfile,
+  MashProfile,
+  HopIngredient,
+  FermentableIngredient,
+} from "@prisma/client";
 import { AmountType, classConverters, UnitTypes } from "./amountConversions";
 import { ExtendedMashProfile } from "@/types/Profile";
 import { ExtendedRecipe } from "@/types/Recipe";
@@ -13,6 +19,20 @@ export const mashProfileStepMapping: Mapping<
   temperature: "temperature",
 };
 
+export const hopIngredientMapping: Mapping<HopIngredient> = {
+  //amount: "hopMass",
+  //duration: ["time", "min"],
+  temperature: "temperature",
+  //durationType:
+};
+
+export const fermentableIngredientMapping: Mapping<FermentableIngredient> = {
+  //amount: "fermentableMass",
+  color: "color",
+  potential: "potential",
+  //temperature: "temperature",
+  //durationType:
+};
 export const recipeMapping: Mapping<ExtendedRecipe> = {
   boilTime: ["time", "min"],
   batchVolume: "volume",
