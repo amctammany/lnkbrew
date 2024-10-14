@@ -37,7 +37,6 @@ export default async function RecipeEditorStylePage({
     redirect(`/recipes/${recipe?.id}`);
   }
   const styles = await getStyleOptions();
-  console.log(recipe);
 
   //return <StyleModal recipe={recipe} styles={styles} />;
   //const r = await updateRecipeVitals(recipe.id);

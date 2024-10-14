@@ -29,7 +29,6 @@ export async function updateRecipeEquipment(
   formData: FormData
 ) {
   const v = validateSchema(formData, recipeEquipmentSchema);
-  console.log(v);
   if (!v.success) return v;
   const {
     data: {
@@ -64,7 +63,6 @@ export async function updateRecipeEquipment(
     "to",
     2
   );
-  console.log(r);
   //recipeSchema.parse(formData);
   //console.log({ id, styleIdentifer, data });
   const res = await prisma.recipe.update({

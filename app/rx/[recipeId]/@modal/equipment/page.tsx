@@ -45,7 +45,6 @@ export default async function RecipeEditorEquipmentPage({
     "from",
     2
   );
-  console.log(equip);
 
   return (
     <EquipmentModal

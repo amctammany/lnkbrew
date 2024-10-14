@@ -113,7 +113,6 @@ export const MashProfileForm = ({ action, profile }: MashProfileFormProps) => {
     return false;
   };
 
-  console.log(state);
   return (
     <Form action={formAction}>
       <Section

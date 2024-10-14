@@ -78,7 +78,6 @@ export const SideNavCollapse = ({
   }, [isSmall]);
   const ref = useClickAway<HTMLDivElement>(handler);
   const handleToggle: React.MouseEventHandler<HTMLElement> = (e) => {
-    console.log(e.nativeEvent.target);
     if (!isSmall) return;
     setOpen((o) => !o);
   };

@@ -19,7 +19,6 @@ export async function updateRecipeStyle(prevState: any, formData: FormData) {
   const {
     data: { id, styleId, ...data },
   } = v;
-  console.log(v);
   //recipeSchema.parse(formData);
   //console.log({ id, styleIdentifer, data });
   const res = await prisma.recipe.update({
