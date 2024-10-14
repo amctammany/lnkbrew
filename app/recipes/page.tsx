@@ -22,8 +22,8 @@
 //return <div>Recipes Page</div>;
 //}
 import { Metadata } from "next";
-import { RecipeList } from "./_components/RecipeList/RecipeList";
-import { getRecipes } from "./queries";
+import { RecipeList } from "@/app/recipes/_components/RecipeList/RecipeList";
+import { getRecipes } from "@/app/recipes/queries";
 export const metadata: Metadata = {
   title: "LNK Recipes",
 };

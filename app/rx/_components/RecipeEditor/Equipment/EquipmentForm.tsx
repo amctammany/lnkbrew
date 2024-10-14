@@ -11,10 +11,12 @@ import { EditIcon } from "@/components/Icon/EditIcon";
 import { SaveIcon } from "@/components/Icon/SaveIcon";
 import { Section } from "@/components/Section";
 import { useActionForm } from "@/hooks/useActionForm";
+import { equipmentProfileMapping, mapUnits } from "@/lib/mapUnits";
 import { State } from "@/lib/validateSchema";
 import { ID } from "@/types/App";
 import { ExtendedRecipe } from "@/types/Recipe";
 import { EquipmentProfile } from "@prisma/client";
+import { useSession } from "next-auth/react";
 import { useActionState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 
@@ -54,13 +56,25 @@ export const EquipmentForm = ({
   //}
   //}, [state, setError]);
 
+  const session = useSession();
   const options = profiles.reduce((acc, profile) => {
     acc[profile.id] = `${profile.name}`;
     return acc;
   }, {} as Record<string, string>);
   const handleChange = (id?: ID) => {
-    const profile = profiles.find((p) => p.id === id) ?? {};
-    reset({ ...profile, id: recipe?.id });
+    const {
+      id: profileId,
+      forkedFrom,
+      ...profile
+    } = profiles.find((p) => p.id === id) ?? ({} as EquipmentProfile);
+    const r = mapUnits(
+      profile,
+      session.data?.preferences ?? {},
+      equipmentProfileMapping,
+      "from",
+      2
+    );
+    reset({ ...r, equipmentProfileId: profileId });
   };
 
   return (
@@ -82,7 +96,7 @@ export const EquipmentForm = ({
               isNumeric
               options={options}
               handleChange={handleChange}
-              value={recipe?.equipmentProfileId ?? ""}
+              value={state.data?.equipmentProfileId ?? ""}
             />
           </div>
           <div className="lg:col-span-2">
@@ -99,6 +113,7 @@ export const EquipmentForm = ({
               {...register("boilTime", { valueAsNumber: true })}
               step={0.1}
               label="Boil Time"
+              unit="min"
               type="time"
               error={state.errors?.boilTime}
             />
@@ -106,7 +121,7 @@ export const EquipmentForm = ({
           <div className="lg:col-span-2">
             <PrefAmountField
               {...register("boilVolume", { valueAsNumber: true })}
-              step={0.1}
+              step={0.01}
               label="Boil Volume"
               type="volume"
               error={state.errors?.boilVolume}
@@ -115,7 +130,7 @@ export const EquipmentForm = ({
           <div className="lg:col-span-2">
             <PrefAmountField
               {...register("preboilVolume", { valueAsNumber: true })}
-              step={0.1}
+              step={0.01}
               label="Pre-Boil Volume"
               type="volume"
               error={state.errors?.preboilVolume}

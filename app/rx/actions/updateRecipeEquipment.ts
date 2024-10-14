@@ -60,8 +60,7 @@ export async function updateRecipeEquipment(
     } as any,
     prefs,
     equipmentProfileMapping,
-    "to",
-    2
+    "to"
   );
   //recipeSchema.parse(formData);
   //console.log({ id, styleIdentifer, data });

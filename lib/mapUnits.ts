@@ -14,7 +14,7 @@ export const mashProfileStepMapping: Mapping<
 };
 
 export const recipeMapping: Mapping<ExtendedRecipe> = {
-  boilTime: "time",
+  boilTime: ["time", "min"],
   batchVolume: "volume",
   preboilVolume: "volume",
   boilOffRate: "flow",
@@ -26,7 +26,7 @@ export const recipeMapping: Mapping<ExtendedRecipe> = {
 };
 
 export const equipmentProfileMapping: Mapping<EquipmentProfile> = {
-  boilTime: "time",
+  boilTime: ["time", "min"],
   batchVolume: "volume",
   preboilVolume: "volume",
   boilOffRate: "flow",
