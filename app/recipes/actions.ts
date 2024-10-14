@@ -197,7 +197,10 @@ const fermentableIngredientSchema = zfd.formData({
   color: zfd.numeric(z.number().gt(0).default(1)),
   potential: zfd.numeric(z.number().gt(0).default(1)),
 });
-export async function addFermentableIngredientToRecipe(formData: FormData) {
+export async function addFermentableIngredientToRecipe(
+  prevState: any,
+  formData: FormData
+) {
   const valid = validateSchema(formData, fermentableIngredientSchema);
 
   if (!valid.success) return Promise.resolve(valid);
@@ -209,7 +212,10 @@ export async function addFermentableIngredientToRecipe(formData: FormData) {
   //return updateRecipeVitals(res.recipeId);
   //redirect(`/recipes/${res.recipeId}/edit`);
 }
-export async function updateFermentableIngredient(formData: FormData) {
+export async function updateFermentableIngredient(
+  prevState: any,
+  formData: FormData
+) {
   const valid = validateSchema(formData, fermentableIngredientSchema);
   if (!valid.success) return Promise.resolve(valid);
   const { recipeId, id, ...data } = valid.data;

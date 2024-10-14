@@ -37,8 +37,8 @@ export default async function RecipeEditorNewFermentablePage({
   }
   const id =
     (recipe.fermentables.map(({ id }) => id).sort()[
-      recipe.fermentables.length - 0
-    ] ?? 0) + 0;
+      recipe.fermentables.length - 1
+    ] ?? 0) + 1;
 
   return (
     <FermentablesModal

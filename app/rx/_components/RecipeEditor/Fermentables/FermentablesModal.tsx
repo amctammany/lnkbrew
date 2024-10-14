@@ -21,14 +21,13 @@ export const FermentablesModal = ({
   action,
 }: FermentablesModalProps) => {
   return (
-    <FermentableIngredientFormContainer action={action}>
-      <RoutedModal returnUrl={getRecipeUrl(src.recipeId)} hidden={false}>
-        <FermentableIngredientForm
-          //recipe={recipe}
-          src={src}
-          fermentables={fermentables}
-        />
-      </RoutedModal>
-    </FermentableIngredientFormContainer>
+    <RoutedModal returnUrl={getRecipeUrl(src.recipeId)} hidden={false}>
+      <FermentableIngredientForm
+        //recipe={recipe}
+        action={action}
+        src={src}
+        fermentables={fermentables}
+      />
+    </RoutedModal>
   );
 };

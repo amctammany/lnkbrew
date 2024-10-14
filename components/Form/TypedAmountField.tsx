@@ -160,6 +160,8 @@ export const TypedAmountField = function <T extends FieldValues>(
         <>
           <Input
             //disabled={disabled || false}
+            type="number"
+            step={step}
             className={clsx(
               inputStyles({
                 variant: error ? "error" : variant,
